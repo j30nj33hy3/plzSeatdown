@@ -1,0 +1,150 @@
+/* 글꼴 적용 */
+@font-face { 
+    font-family: 'Handon3gyeopsal600g'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') 
+    format('woff'); 
+    font-weight: normal; 
+    font-style: normal; }
+
+body{
+    font-family: 'Handon3gyeopsal600g'; 
+}
+
+/* 사이드바(패널) */
+.sidebar{
+    position:fixed;
+    top:50%;
+    right:-100%;
+    transform:translateY(-50%);
+    width:600px;
+    height:100vh;
+    min-height:100%;
+    padding:40px;
+    background:#fff;
+    box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    box-sizing:border-box;
+    transition:0.5s;
+    z-index: 9999;
+    overflow-x: hidden; /* 가로 스크롤 X */
+    overflow-y: auto; /* 세로 스크롤 자동 */
+}
+.sidebar.active{
+    right:0;
+}
+.overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 9998;
+}
+/* end */
+
+/* 사이드 바 내의 공연 소개 이미지 */
+.introImg img{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* 메인화면 scroll 불가능 */
+.scrollHidden{
+    /* position: fixed; */
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden !important;
+    touch-action: none;
+}
+
+/* 사이드바 내용 관련 */
+.showInfo{
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+.poster{
+    width: 40%;
+    float: left;
+}
+.poster img{
+    width: 100%;
+}
+
+/* 사이드바 공연 정보 내용 관련 */
+.showContent{
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+.showContent > div{
+    width: 100%;
+}
+
+/* 사이드바 오른쪽 */
+#cont{
+    height: 50%;
+}
+#showTitle{
+    height: 40%;
+    font-size: 18px;
+    font-weight: bolder;
+    line-height: 60px;
+}
+#showDate{
+    height: 30%;
+}
+#showTheater{
+    height: 30%;
+}
+
+/* 사이드바 내부 페이지 이동 버튼 */
+.move{
+    height: 50%;
+    float: left;
+}
+.move button{
+    display: inline-block;
+    background-color: #917EC6; 
+    color: white;
+    width: 70%;
+}
+
+/* 상영 구분 a 태그 */
+a{
+    color: black;
+}
+a:hover{
+    text-decoration: none;
+}
+
+/* 공연 카드 관련 */
+.show{
+    text-align: center;
+}
+.show h4{
+    padding-bottom: 15px;
+}
+
+/* 페이징 바 */
+.pagination .page-link:focus{
+    box-shadow: none;
+}
+.pagination>.page-item>.page-link, .pagination>.page-item>span {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px !important;
+    margin: 0 3px !important;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: 0 0;
+    text-align: center;
+}
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus, .pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span, .pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover {
+    background-color: rgba(145, 126, 198, 0.2);
+    border-color:rgb(145, 126, 198);
+}
