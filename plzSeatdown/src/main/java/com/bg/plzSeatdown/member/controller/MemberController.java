@@ -79,7 +79,17 @@ public class MemberController {
 			}else {
 				rdAttr.addFlashAttribute("msg", "로그인 정보가 유효하지 않습니다.");
 			}
-			return "redirect:/";
+			
+			String path = null;
+			
+			// Member 등급에 따라 이동 페이지 구분(2020.03.09) 강정임
+			if(loginMember.getMemberGrade().equals("U")) {
+				path = "redirect:/";
+			}else {
+				path = "admin/dashBoard";
+			}
+			return path;
+			
 		}catch (Exception e) {
 			return ExceptionForward.errorPage("로그인", model, e);
 		}
