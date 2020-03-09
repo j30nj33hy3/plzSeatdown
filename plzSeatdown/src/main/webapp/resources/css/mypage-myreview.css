@@ -1,0 +1,254 @@
+@font-face { 
+    font-family: 'Handon3gyeopsal300g'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') 
+    format('woff'); 
+    font-weight: normal;
+    font-style: normal; 
+}
+
+
+body{
+    font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
+}  
+
+
+#nav ul>li{
+    margin-right: 150px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#nav ul>li:last-child{
+    margin-right: 0px;
+}
+
+.wrapper{
+    height: 630px;
+}
+
+/* 사이드 바*/
+
+#sidebar h4{
+    font-weight: bold;
+    margin-bottom:25px;
+    text-align: right;
+    font-size: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(198, 180, 205);
+}
+
+
+
+#sidebar h4 a{
+    color:rgb(163, 99, 189);
+    display: block;
+    top : 100px;
+    left : 140px;
+}
+
+#sidebar h4 a:hover{
+    color:rgb(163, 99, 189);
+    text-decoration: none;
+    display: block;
+}
+   
+
+#sidebar ul{
+    padding : 0px;
+    text-align: right;
+    border-bottom: 1px solid rgb(198, 180, 205);
+
+}
+
+
+#sidebar ul li{
+    list-style: none;
+    margin-bottom: 13px;
+    display: block;
+    height: 30px;
+}
+
+#sidebar ul li>a{
+    color:black;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+#sidebar ul li>a:hover{
+    color:rgb(198, 180, 205);
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    transition: none;
+}
+
+
+
+
+
+/* 에디트 */
+
+.edit{
+    width: 25px;
+    height: 25px;
+}
+
+#editbtn{
+    padding : 135px 0px 0px 30px;
+}
+
+
+.updatebtn{
+    font-size: 15px;
+    background-color: white;
+    padding : 3px;
+    display: block;
+}
+
+.updatebtn:hover{
+    background-color: white;
+    color : white;
+    border : 0px;
+}
+
+
+
+
+/* 테이블 */
+
+.table{
+    text-align: center;
+    margin-bottom: 30px;
+    border-color: rgb(163, 99, 189);
+}
+
+.table a{
+    color: black;
+}
+
+.table a:hover{
+    text-decoration: none;
+}
+
+.table thead th{
+    border-bottom: 0px;
+
+}
+
+.table th{ 
+   padding : 0.5em;
+   font-weight: bold;
+   color:rgb(163, 99, 189);
+   border-color: rgb(198, 180, 205);
+
+}
+
+
+.table tr:last-child{
+    border-bottom: 1px solid rgb(198, 180, 205);
+}
+
+.table th:nth-child(1){ 
+    width: 80px;
+}
+
+.table th:nth-child(2){ 
+    width: 250px;
+}
+
+.table th:nth-child(3){ 
+    width: 100px;
+}
+
+.table th:nth-child(4){ 
+    width: 150px;
+}
+
+
+.table th:last-child{ 
+    width: 50px;
+}
+
+.table td{ 
+    height: 50px;
+    padding: 10px 0px 10px 0px;
+    border-color: rgb(198, 180, 205);
+    line-height: 40px;
+}
+
+
+
+.table td:last-child{ 
+    width: 100px;
+    padding-left: 30px;
+    line-height: 0px;
+}
+
+
+
+
+
+/*페이징바*/
+
+
+.form-group{
+    margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.pagination{
+    width : 300px;
+    margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.pagination>li>a{
+    border-radius: 100%;
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    background-color: white;
+}
+
+.page-link{
+    line-height: 1.2;
+    padding: .4rem .75rem  .5rem  .75rem ;
+    color : rgb(163, 99, 189);
+    border : 1px solid white;
+}
+
+
+
+.page-link:hover{
+    color : purple;
+    border : 1px solid white;
+    background-color: thistle;
+}
+
+.page-item.disabled .page-link{
+    color : rgb(163, 99, 189);
+    border: 1px solid white;
+    background-color: white;
+
+}
+
+.page-item.active .page-link {
+    color: rgb(163, 99, 189);
+    background-color:white;
+    border-color:rgb(163, 99, 189);
+}
