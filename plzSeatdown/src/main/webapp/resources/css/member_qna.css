@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Handon3gyeopsal300g';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Handon3gyeopsal300g';
+}
+
+#logoutBtn {
+    color: white;
+    background-color: #7460ee;
+}
+
+.container {
+    position: relative;
+    text-align: justify;
+}
+
+.search_list {
+    color: black;
+    text-decoration: none;
+}
+
+.report {
+    color: #917EC6;
+}
+
+#searchTitle {
+    width: 100px;
+    display: inline-block;
+}
+
+#searchInput {
+    width: 25%;
+    display: inline-block;
+}
+
+#searchBtn {
+    width: 100px;
+    background-color: #917EC6;
+    border: #917EC6;
+    display: inline-block;
+}
+
+.table-responsive {
+    text-align: center;
+}
