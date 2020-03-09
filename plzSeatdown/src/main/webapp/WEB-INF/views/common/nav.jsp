@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
@@ -14,14 +15,12 @@
 			<%-- 로그인이 되어있지 않을 경우 로그인 버튼 노출 --%>
 			<c:if test="${ empty sessionScope.loginMember }">
 				<div class="col-4 d-flex justify-content-end align-items-center">
-					<li><a id="modal-120930"
-						href="#modal-container-120930" data-toggle="modal">Login</a></li>
 					<div class="modal fade" id="modal-container-120930" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="myModalLabel">로그인 모달창</h5>
+									<h5 class="modal-title" id="myModalLabel">로그인</h5>
 									<button type="button" class="close" data-dismiss="modal">
 										<span aria-hidden="true">×</span>
 									</button>
@@ -47,7 +46,11 @@
 										</div>
 										<br>
 										<button class="btn btn-lg btn-success btn-block" type="submit">로그인</button>
-										<br>
+										
+										<a class="btn btn-lg btn-secondary btn-block"
+											href="${contextPath}/member/signUpForm">회원가입</a>
+									</form>
+									<br>
 										<a id="kakao-login-btn" style="width: 600px"></a>
 									    <a href="http://developers.kakao.com/logout"></a>
 									    <script type='text/javascript'>
@@ -72,9 +75,6 @@
 										<div id="naver_id_login" style="text-align:center width: 600px"><a href="${url}">
 										<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
 										<br>
-										<a class="btn btn-lg btn-secondary btn-block"
-											href="${contextPath}/member/signUpForm">회원가입</a>
-									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
@@ -84,6 +84,7 @@
 						</div>
 					</div>
 				</div>
+				<li><a id="modal-120930" href="#modal-container-120930" data-toggle="modal">Login</a></li>
 				<%-- 로그인 되어있지 않은 경우 END --%>
 			</c:if>
 			<%-- 로그인 된 경우 --%>

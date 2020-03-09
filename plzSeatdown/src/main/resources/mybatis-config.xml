@@ -9,12 +9,12 @@
 	
 	<!-- 2. 별칭 작성 부분 -->
 	<typeAliases>
-	
+		<typeAlias type="com.bg.plzSeatdown.member.model.vo.Member" alias="Member"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
 	<mappers>
-	
+		<mapper resource="/mappers/member-mapper.xml"/>
 	</mappers>
 
 </configuration>
