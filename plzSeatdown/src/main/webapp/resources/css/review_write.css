@@ -1,0 +1,80 @@
+/* 글꼴 적용 */
+@font-face { font-family: 'Handon3gyeopsal600g'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') 
+    format('woff'); 
+    font-weight: normal; 
+    font-style: normal; }
+
+body{
+    font-family: 'Handon3gyeopsal600g'; 
+}
+
+label{
+    font-size: 16px;
+    width: 150px;
+    padding-right: 20px;
+    justify-content: left !important;
+}
+
+/* 별 */
+.star-rating i {
+    color: #917EC6;
+    font-size: 24px;
+}
+
+/* date 관람일 */
+input[type="date"]::-webkit-outer-spin-button,
+input[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+form input[type="date"]{
+    -webkit-appearance: none;
+    margin: 0;
+    border: 0;
+    background: #fafafa;
+    width: 50%;
+    border-radius: 0.5em;
+    border: solid 1px #E5E5E5;
+    padding: 1em;
+    -moz-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    -webkit-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    -ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+}
+
+/* select 공연, 공연장, 층, 열, 번호 */
+form select {
+    display: inline-block !important;
+    border: 0 !important;
+    background: #fafafa !important;
+    width: 50% !important;
+    border-radius: 0.5em !important;
+    border: solid 1px #E5E5E5 !important;
+    padding: 1em !important;
+    -moz-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out !important;
+    -webkit-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out !important;
+    -ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out !important;
+    transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out !important;
+}
+
+/* 좌석 후기 */
+textarea{
+    resize: none;
+    width: 50% !important;
+}
+
+/* 첨부파일 */
+.Img img{
+    width: 200px;
+    height: 200px;
+}
+.Img:hover{
+    cursor: pointer;
+}
+
+/* 버튼 */
+.form-group button{
+    background-color: #917EC6;
+    border: none;
+}

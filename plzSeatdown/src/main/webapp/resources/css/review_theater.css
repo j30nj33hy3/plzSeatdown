@@ -1,0 +1,57 @@
+/* 글꼴 적용 */
+@font-face { 
+    font-family: 'Handon3gyeopsal600g'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') 
+    format('woff'); 
+    font-weight: normal; 
+    font-style: normal; }
+
+body{
+    font-family: 'Handon3gyeopsal600g'; 
+}
+
+/* 검색 버튼 */
+#searchBtn{
+    background-color: #917EC6;
+    color: white;
+}
+
+/* 공연장 이미지, 이름 관련 */
+.theater{
+    text-align: center;
+}
+.theater h4{
+    padding-bottom: 15px;
+}
+.theater img{
+    width: 80%;
+}
+.theater a{
+    text-decoration: none;
+    color: black;
+}
+
+/* 페이징 바 */
+.pagination .page-link:focus{
+    box-shadow: none;
+}
+.pagination>.page-item>.page-link, .pagination>.page-item>span {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px !important;
+    margin: 0 3px !important;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: 0 0;
+    text-align: center;
+}
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus, .pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span, .pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover {
+    background-color: rgba(145, 126, 198, 0.2);
+    border-color:rgb(145, 126, 198);
+}
