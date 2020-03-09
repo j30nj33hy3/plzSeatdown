@@ -88,10 +88,16 @@
 				<%-- 로그인 되어있지 않은 경우 END --%>
 			</c:if>
 			<%-- 로그인 된 경우 --%>
-			<c:if test="${! empty sessionScope.loginMember }">
-				<li><a href="${contextPath}/member/mypage">MyPage</a></li>
-				<li><a href="${contextPath}/member/logout">Logout</a></li>
-			</c:if>
+			<c:choose>
+				<c:when test="${! empty sessionScope.loginMember && loginMember.memberGrade == 'U' }">
+					<li><a href="${contextPath}/member/mypage">MyPage</a></li>
+					<li><a href="${contextPath}/member/logout">Logout</a></li>
+				</c:when>
+				<c:when test="${!empty sessionScope.loginMember && loginMember.memberGrade == 'A'}">
+					<li><a href="${contextPath}/admin/dashBoard">Admin</a></li>
+					<li><a href="${contextPath}/member/logout">Logout</a></li>
+				</c:when>
+			</c:choose>
 			<li><a href="${contextPath}/notice/list">Notice</a></li>
 			<li><a href="${contextPath}/review/theater">Review</a>
 				<ul>
