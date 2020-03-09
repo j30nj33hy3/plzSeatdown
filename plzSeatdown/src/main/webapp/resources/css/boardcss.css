@@ -1,0 +1,237 @@
+@charset "UTF-8";
+/*----------- 커뮤니티 게시판 --------------*/
+/* -- 커뮤 목록 -- */
+th{
+    text-align: center;
+}
+tbody > tr:last-child{
+    border-bottom:solid 0.5px #dee2e6;
+}
+td{
+    color: #555;
+    font-size: 15px;
+}
+.commu-body tr:hover{
+    background-color: rgba(198, 180, 205, 0.3);
+    cursor: pointer;
+}
+.pagination .page-link:focus{
+    box-shadow: none;
+}
+.pagination>.page-item>.page-link, .pagination>.page-item>span {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px !important;
+    margin: 0 3px !important;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: 0 0;
+    text-align: center;
+}
+
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus, .pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span, .pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover {
+    background-color: rgba(145, 126, 198, 0.2);
+    border-color:rgb(145, 126, 198);
+}
+
+.fa-search{
+    color:white;
+}
+#insertBtn{
+    background-color:#FFD938;
+    border-color:#FFD938;
+    color:#555;
+}
+/* -- 커뮤 상세 -- */
+.replyWrite > table{
+    width: 90%;
+    text-align: center;
+}
+
+#replyContentArea > textarea{
+    resize: none;
+    width: 100%;
+}
+
+.rWriter{ margin-right: 30px;}
+.rDate{
+    font-size: 0.7em;
+    color : gray;
+}
+
+#replyContentArea{ 
+    width: 100%;
+}
+#replyListArea{
+    list-style-type: none;
+    width: 100%;
+} 
+
+.replyWrite{
+    margin: 14px 0 0;
+    padding: 0;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+    line-height: 1.5em;
+}
+.comm_write_wrap {
+    clear: both;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(139, 139, 139, 0.3);
+    background-color: #fff;
+    font-size: 12px;
+}
+.tcol{
+    border: 0 !important;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    -webkit-appearance: none;
+    /* -webkit-border-radius: 0; */
+    resize: none;
+    color: #666;
+}
+
+#replyBtnArea{
+    position: relative;
+    width: 89px;
+    text-align: right;
+    vertical-align: bottom;
+    font-size: 12px;
+}
+.u_cbox_btn_upload{
+    border-color: #ccc;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    width: 84px;
+    height: 62px;
+    border: 1px solid #ccc;
+    background: #fff !important;
+}
+#addReply{
+    color: #666;
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: bold;
+    height:100%;
+    text-align: center;
+}
+
+.replyList .post-footer {
+border-top: 1px solid #ddd;
+padding: 15px;
+}
+.input-group-addon a {
+color: #454545;
+}
+.comments-list {
+padding: 0;
+margin-top: 20px;
+list-style-type: none;
+}
+.comments-list .comment {
+display: block;
+width: 100%;
+margin: 20px 0;
+}
+.comments-list .comment .avatar {
+width: 35px;
+height: 35px;
+}
+.comments-list .comment .comment-heading {
+display: block;
+width: 100%;
+}
+.comments-list .comment .comment-heading .user {
+font-size: 14px;
+font-weight: bold;
+display: inline;
+/* margin-top: 0; */
+margin-right: 10px;
+}
+.comments-list .comment .comment-heading .time {
+font-size: 12px;
+color: #aaa;
+/* margin-top: 0; */
+display: inline;
+}
+.comments-list .comment .comment-body {
+margin-left: 50px;
+}
+.comments-list .comment > .comments-list {
+margin-left: 50px;
+}
+
+
+
+
+
+/*  -------------- frequent --------------- */
+#frequent ul, #frequent li, #frequent a{
+    display: inline;
+    list-style: none;
+    color: #636363;
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+    cursor: default;
+    text-align: center;
+}
+#frequent li{
+    padding: 1em 6em;
+}
+
+.cheader:hover{
+    cursor: pointer;
+}
+
+.account{
+    background-color:rgba(155, 89, 182, 0.1) !important;
+    border-color: rgba(155, 89, 182, 0.1);
+}
+.inform{
+    background-color:rgba(155, 89, 182, 0.2) !important;
+    border-color: rgba(155, 89, 182, 0.2);
+}
+.review{
+    background-color:rgba(155, 89, 182, 0.3) !important;
+    border-color: rgba(155, 89, 182, 0.3);
+}
+.commu{
+    background-color:rgba(155, 89, 182, 0.4) !important;
+    border-color: rgba(155, 89, 182, 0.4);
+}
+.collapse{
+    background-color:#fff;
+}
+
+.cheader a{
+    font-weight: bold;
+}
+
+#frequentul a:hover{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* 등록 버튼 */
+#insertBtn{
+    background-color:#FFD938;
+    border-color:#FFD938;
+    color:#555;
+}
