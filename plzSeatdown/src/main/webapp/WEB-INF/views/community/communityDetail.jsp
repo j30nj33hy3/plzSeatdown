@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
+<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
         
 
 <title>게시글 상세</title>
@@ -17,7 +17,7 @@
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
         <!-- Main -->
 		
-        <div class="container">
+        <div class="container py-5">
             <div>
             	<!-- 가장 최신글은 이전글이 안뜸 -->
             	<c:if test="">
