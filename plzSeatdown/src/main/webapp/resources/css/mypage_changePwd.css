@@ -22,9 +22,11 @@ body{
     margin-right: 0px;
 }
 
-
 .wrapper{
     height: 630px;
+    background: #fff;
+    margin: 0 0 2em 0;
+    padding: 6em 0 6em 0;
 }
 
 /* 사이드 바*/
@@ -87,22 +89,18 @@ body{
 
 
 
-
 /* form */
 
-.userId{
-    color: rgb(163, 99, 189);
-}
-
 .idbox{
-    padding-top : 10px;
-    margin-bottom: 60px;
+    margin-bottom:55px;
 }
 
 .idcheck{
+    border: solid 1.5px rgb(163, 99, 189);
+    border-radius: 30px;
     text-align: center;
-    padding-top : 10px;
-    margin-bottom: 40px;
+    padding-top: 15px;
+    width: 500px;
 }
 
 
@@ -112,7 +110,11 @@ body{
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 280px;
+    height: 70px;
+}
+
+.npwdc{
+    height: 75px;
 }
 
 
@@ -126,11 +128,11 @@ body{
 }
 
 .form-group2 span{
-    margin-right: 30px;
+    margin-right: 50px;
 }
 
-.form-group2 span:nth-child(4){
-    margin-right: 20px;
+.form-group2 span:last-child{
+    margin-right: 0px;
 }
 
 
@@ -142,24 +144,12 @@ body{
     float:left;
 }
 
-
 form input[type="password"]{
-    width: 150px;
-    display: inline-block;
+    width: 300px;
+    float:left;
 }
 
-
-#exampleTextarea{
-    color : lightgray;
-}
-
-.form-control:disabled, .form-control[readonly] {
-    background-color: black;
-    opacity: 1;
-}
-
-
-.updatebtn{
+#updatebtn{
     margin: auto;
     top:0px;
     bottom: 0px;
@@ -173,18 +163,8 @@ form input[type="password"]{
     border: 1px solid rgb(163, 99, 189);
 }
 
-.updatebtn:hover{
+#updatebtn:hover{
     background-color:rgb(163, 99, 189);
     color : white;
     border : 0px;
-}
-
-.custom-control{
-    margin-top: 15px;
-}
-
-.custom-control-input:checked~.custom-control-label::before {
-    color: #fff;
-    border-color: rgb(163, 99, 189);
-    background-color:  rgb(163, 99, 189);
 }

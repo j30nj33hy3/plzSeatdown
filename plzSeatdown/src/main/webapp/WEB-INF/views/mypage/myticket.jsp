@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage-프로필</title>
-<link href="mypage-myticket.css" rel="stylesheet">
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage_myticket.css"/>
+
 </head>
 <body class="homepage is-preload">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -17,7 +18,17 @@
 				<div class="container">
 					<div class="row gtr-200">
 					
-						<jsp:include page="/WEB-INF/views/mypage/sideMenu.jsp"/>
+						<div class="col-2 col-12-mobile" id="sidebar" style="width: 200px;">
+						<h4><a href="mypage">내 티켓</a></h4>
+							<ul>
+								<li><a href="mypage">프로필</a></li>
+								<li><a href="changePwd">비밀번호 변경</a></li>
+								<li><a href="secession">회원 탈퇴</a></li>
+								<li><a href="myreview">내 리뷰</a></li>
+								<li><a href="myticket">내 티켓</a></li>
+								<li><a href="ask">문의 내역</a></li>
+							</ul>
+						</div>
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<div class="container">

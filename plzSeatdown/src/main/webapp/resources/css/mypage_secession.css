@@ -22,8 +22,12 @@ body{
     margin-right: 0px;
 }
 
+
 .wrapper{
-    height: 630px;
+   height: 630px;
+    background: #fff;
+    margin: 0 0 2em 0;
+    padding: 6em 0 6em 0;
 }
 
 /* 사이드 바*/
@@ -86,52 +90,22 @@ body{
 
 
 
-/* 내용 */
 
+/* form */
 
-.titleQ{
-    font-weight: bold;
-    padding : 5px;
-    margin:0px;
-    margin-bottom: 50px;
-    color:rgb(145, 126, 198);
-    border-bottom : 1px solid rgb(163, 99, 189);
-    border-right: 1px solid rgb(163, 99, 189);
+.userId{
+    color: rgb(163, 99, 189);
 }
 
-
-.titleQ img{
-    width: 20px;
-    height: 20px;
-    margin-left: 4px;
-    margin-bottom: 5px;
+.idbox{
+    padding-top : 10px;
+    margin-bottom: 60px;
 }
 
-
-.titleA{
-    font-weight: bold;
-    padding : 5px;
-    margin:0px;
-    margin-bottom: 50px;
-    color:rgb(145, 126, 198);
-    border-bottom : 1px solid rgb(163, 99, 189);
-    border-right: 1px solid rgb(163, 99, 189);
-}
-
-.titleA img{
-    width: 20px;
-    height: 20px;
-    margin-left: 4px;
-    margin-bottom: 5px;
-}
-
-
-hr{
-    overflow: hidden;
-    top : 0px;
-    margin-top : 0px;
+.idcheck{
+    text-align: center;
+    padding-top : 10px;
     margin-bottom: 40px;
-    border-top : 1px solid rgb(163, 99, 189);
 }
 
 
@@ -141,41 +115,79 @@ hr{
     bottom: 0px;
     left: 0px;
     right: 0px;
+    height: 280px;
 }
 
-.form-group p{
+
+.form-group2{
     margin: auto;
     top:0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    width : 500px;
+    height: 60px;
+}
+
+.form-group2 span{
+    margin-right: 30px;
+}
+
+.form-group2 span:nth-child(4){
+    margin-right: 20px;
+}
+
+
+.user{
+    margin-top: 7px;
+    margin-bottom: 0px;
     text-align: center;
+    width: 220px;
+    float:left;
 }
 
-.toptext{
-    margin-bottom: 60px;
+
+form input[type="password"]{
+    width: 150px;
+    display: inline-block;
 }
 
-.updatebtn{
-   
+
+#exampleTextarea{
+    color : lightgray;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: black;
+    opacity: 1;
+}
+
+
+#updatebtn{
+    margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
     display: block;
     height: 40px;
     font-size: 15px;
-    width: 100px;
+    width: 80px;
     color:rgb(163, 99, 189);
     border: 1px solid rgb(163, 99, 189);
-    float:left;
-    margin-right:10px;
-    
 }
 
-.updatebtn:hover{
+#updatebtn:hover{
     background-color:rgb(163, 99, 189);
     color : white;
     border : 0px;
 }
 
-.btndiv{
-    float: right;
+.custom-control{
+    margin-top: 15px;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: rgb(163, 99, 189);
+    background-color:  rgb(163, 99, 189);
 }
