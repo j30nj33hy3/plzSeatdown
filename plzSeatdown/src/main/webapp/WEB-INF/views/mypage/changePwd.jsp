@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage-프로필</title>
-<link href="mypage-changePwd.css" rel="stylesheet">
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage_changePwd.css"/>
+
 </head>
 <body class="homepage is-preload">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -17,30 +18,41 @@
 				<div class="container">
 					<div class="row gtr-200">
 					
-						<jsp:include page="/WEB-INF/views/mypage/sideMenu.jsp"/>
+					<div class="col-2 col-12-mobile" id="sidebar" style="width: 200px;">
+						<h4><a href="mypage">비밀번호 변경</a></h4>
+							<ul>
+								<li><a href="mypage">프로필</a></li>
+								<li><a href="changePwd">비밀번호 변경</a></li>
+								<li><a href="secession">회원 탈퇴</a></li>
+								<li><a href="myreview">내 리뷰</a></li>
+								<li><a href="myticket">내 티켓</a></li>
+								<li><a href="ask">문의 내역</a></li>
+							</ul>
+					</div>		
+
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<form id="profile" action="updatePwd" method="POST">
 								<div class="idbox">
-									<div class="form-group2 col-8 idcheck">
+									<div class="form-group2 col-8 idcheck" style="width:500px">
 										<span><b>아이디</b></span>
 										<span><b>|</b></span>
 										<span><b>${loginMember.memberId}</b></span>
 									</div>
 								</div>
-								<div class="form-group col-8">
+								<div class="form-group col-8 mb-0">
 									<label for="currentPwd" class="user">현재 비밀번호</label>
-									<input type="password" class="form-control" id="currentPwd">
+									<input type="password" class="form-control" id="currentPwd"  style="border-radius: 1em;">
 								</div>
-								<div class="form-group col-8">
+								<div class="form-group col-8 mb-0">
 									<label for="newPwd1" class="user">새 비밀번호</label>
-									<input type="password" class="form-control" id="newPwd1">
+									<input type="password" class="form-control" id="newPwd1"  style="border-radius: 1em;">
 								</div>
-								<div class="form-group col-8 npwdc">
+								<div class="form-group col-8 npwdc mb-0">
 									<label for="newPwd2" class="user">새 비밀번호 확인</label>
-									<input type="password" class="form-control" id="newPwd2">
+									<input type="password" class="form-control" id="newPwd2"  style="border-radius: 1em;">
 								</div>
-								<button type="button" class="btn btn-outline-secondary updatebtn">변경</button>
+								<button id="updatebtn" type="button" class="btn btn-outline-secondary">변경</button>
 							</form>
 						</div>
 

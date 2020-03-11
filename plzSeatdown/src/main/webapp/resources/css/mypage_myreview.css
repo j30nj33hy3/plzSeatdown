@@ -11,6 +11,7 @@ body{
     font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
 }  
 
+
 #nav ul>li{
     margin-right: 150px;
     font-size: 15px;
@@ -23,10 +24,12 @@ body{
 
 .wrapper{
     height: 630px;
+    background: #fff;
+    margin: 0 0 2em 0;
+    padding: 6em 0 6em 0;
 }
 
 /* 사이드 바*/
-
 
 #sidebar h4{
     font-weight: bold;
@@ -87,6 +90,33 @@ body{
 
 
 
+/* 에디트 */
+
+.edit{
+    width: 25px;
+    height: 25px;
+}
+
+#editbtn{
+    padding : 135px 0px 0px 30px;
+}
+
+
+.updatebtn{
+    font-size: 15px;
+    background-color: white;
+    padding : 3px;
+    display: block;
+}
+
+.updatebtn:hover{
+    background-color: white;
+    color : white;
+    border : 0px;
+}
+
+
+
 
 /* 테이블 */
 
@@ -123,30 +153,42 @@ body{
 }
 
 .table th:nth-child(1){ 
-    width: 240px;
+    width: 80px;
 }
 
 .table th:nth-child(2){ 
+    width: 250px;
+}
+
+.table th:nth-child(3){ 
     width: 100px;
 }
 
+.table th:nth-child(4){ 
+    width: 150px;
+}
 
 
 .table th:last-child{ 
-    width: 120px;
-    padding-right: 30px;
+    width: 50px;
 }
 
 .table td{ 
-    height: 60px;
-    padding-top: 20px;
+    height: 50px;
+    padding: 10px 0px 10px 0px;
     border-color: rgb(198, 180, 205);
+    line-height: 40px;
 }
+
+
 
 .table td:last-child{ 
     width: 100px;
-    padding-right: 30px;
+    padding-left: 30px;
+    line-height: 0px;
 }
+
+
 
 
 

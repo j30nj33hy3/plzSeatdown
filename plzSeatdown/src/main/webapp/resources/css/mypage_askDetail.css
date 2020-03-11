@@ -24,6 +24,9 @@ body{
 
 .wrapper{
     height: 630px;
+    background: #fff;
+    margin: 0 0 2em 0;
+    padding: 6em 0 6em 0;
 }
 
 /* 사이드 바*/
@@ -86,18 +89,52 @@ body{
 
 
 
-/* form */
+/* 내용 */
 
-.idbox{
-    margin-bottom:55px;
+
+.titleQ{
+    font-weight: bold;
+    padding : 5px;
+    margin:0px;
+    margin-bottom: 50px;
+    color:rgb(145, 126, 198);
+    border-bottom : 1px solid rgb(163, 99, 189);
+    border-right: 1px solid rgb(163, 99, 189);
 }
 
-.idcheck{
-    border: solid 1.5px rgb(163, 99, 189);
-    border-radius: 30px;
-    text-align: center;
-    padding-top: 15px;
-    width: 500px;
+
+.titleQ img{
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+}
+
+
+.titleA{
+    font-weight: bold;
+    padding : 5px;
+    margin:0px;
+    margin-bottom: 50px;
+    color:rgb(145, 126, 198);
+    border-bottom : 1px solid rgb(163, 99, 189);
+    border-right: 1px solid rgb(163, 99, 189);
+}
+
+.titleA img{
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+}
+
+
+hr{
+    overflow: hidden;
+    top : 0px;
+    margin-top : 0px;
+    margin-bottom: 40px;
+    border-top : 1px solid rgb(163, 99, 189);
 }
 
 
@@ -107,61 +144,40 @@ body{
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 70px;
 }
 
-.npwdc{
-    height: 75px;
-}
-
-
-.form-group2{
+.form-group p{
     margin: auto;
     top:0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 60px;
-}
-
-.form-group2 span{
-    margin-right: 50px;
-}
-
-.form-group2 span:last-child{
-    margin-right: 0px;
-}
-
-
-.user{
-    margin-top: 7px;
-    margin-bottom: 0px;
+    width : 500px;
     text-align: center;
-    width: 220px;
-    float:left;
 }
 
-form input[type="password"]{
-    width: 300px;
-    float:left;
+.toptext{
+    margin-bottom: 60px;
+    height:150px;
 }
 
-.updatebtn{
-    margin: auto;
-    top:0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    display: block;
+#updatebtn{
+    margin-left: 20px;
     height: 40px;
     font-size: 15px;
-    width: 80px;
+    width: 100px;
     color:rgb(163, 99, 189);
     border: 1px solid rgb(163, 99, 189);
+    float:left;
+    line-height: 25px;
 }
 
-.updatebtn:hover{
+#updatebtn:hover{
     background-color:rgb(163, 99, 189);
     color : white;
     border : 0px;
+}
+
+.btndiv{
+    float: right;
 }
