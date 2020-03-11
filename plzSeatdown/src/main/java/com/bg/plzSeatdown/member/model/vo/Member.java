@@ -6,12 +6,12 @@ public class Member {
 	private int memberNo;
 	private String memberId;
 	private String memberPwd;
-	private String memberNM;
-	private String memberNickNM;
+	private String memberName;
+	private String memberNickname;
 	private String memberEmail;
 	private String memberEmailCheck;
 	private String memberPhone;
-	private Date memberEnrollDT;
+	private Date memberEnrollDate;
 	private int memberReportCount;
 	private String memberStatus;
 	private String memberGrade;
@@ -25,28 +25,28 @@ public class Member {
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
 	}
-	
-	public Member(int memberNo, String memberId, String memberNM, String memberNickNM, String memberEmail,
-			String memberEmailCheck, String memberPhone, Date memberEnrollDT, int memberReportCount,
+
+	public Member(int memberNo, String memberId, String memberName, String memberNickname, String memberEmail,
+			String memberEmailCheck, String memberPhone, Date memberEnrollDate, int memberReportCount,
 			String memberStatus, String memberGrade) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
-		this.memberNM = memberNM;
-		this.memberNickNM = memberNickNM;
+		this.memberName = memberName;
+		this.memberNickname = memberNickname;
 		this.memberEmail = memberEmail;
 		this.memberEmailCheck = memberEmailCheck;
 		this.memberPhone = memberPhone;
-		this.memberEnrollDT = memberEnrollDT;
+		this.memberEnrollDate = memberEnrollDate;
 		this.memberReportCount = memberReportCount;
 		this.memberStatus = memberStatus;
 		this.memberGrade = memberGrade;
 	}
 
-	public Member(int memberNo, String memberId, String memberPwd, String memberNM, String memberNickNM,
-			String memberEmail, String memberEmailCheck, String memberPhone, Date memberEnrollDT, int memberReportCount,
-			String memberStatus, String memberGrade) {
-		this(memberNo, memberId, memberNM, memberNickNM, memberEmail, memberEmailCheck, memberPhone, memberEnrollDT, memberReportCount, memberStatus, memberGrade);
+	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
+			String memberEmail, String memberEmailCheck, String memberPhone, Date memberEnrollDate,
+			int memberReportCount, String memberStatus, String memberGrade) {
+		this(memberNo, memberId, memberName, memberNickname, memberEmail, memberEmailCheck, memberPhone, memberEnrollDate, memberReportCount, memberStatus, memberGrade);
 		this.memberPwd = memberPwd;
 	}
 
@@ -74,20 +74,20 @@ public class Member {
 		this.memberPwd = memberPwd;
 	}
 
-	public String getMemberNM() {
-		return memberNM;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMemberNM(String memberNM) {
-		this.memberNM = memberNM;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
-	public String getMemberNickNM() {
-		return memberNickNM;
+	public String getMemberNickname() {
+		return memberNickname;
 	}
 
-	public void setMemberNickNM(String memberNickNM) {
-		this.memberNickNM = memberNickNM;
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
 	}
 
 	public String getMemberEmail() {
@@ -114,12 +114,12 @@ public class Member {
 		this.memberPhone = memberPhone;
 	}
 
-	public Date getMemberEnrollDT() {
-		return memberEnrollDT;
+	public Date getMemberEnrollDate() {
+		return memberEnrollDate;
 	}
 
-	public void setMemberEnrollDT(Date memberEnrollDT) {
-		this.memberEnrollDT = memberEnrollDT;
+	public void setMemberEnrollDate(Date memberEnrollDate) {
+		this.memberEnrollDate = memberEnrollDate;
 	}
 
 	public int getMemberReportCount() {
@@ -148,11 +148,14 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNM="
-				+ memberNM + ", memberNickNM=" + memberNickNM + ", memberEmail=" + memberEmail + ", memberEmailCheck="
-				+ memberEmailCheck + ", memberPhone=" + memberPhone + ", memberEnrollDT=" + memberEnrollDT
-				+ ", memberReportCount=" + memberReportCount + ", memberStatus=" + memberStatus + ", memberGrade="
-				+ memberGrade + "]";
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
+				+ memberName + ", memberNickname=" + memberNickname + ", memberEmail=" + memberEmail
+				+ ", memberEmailCheck=" + memberEmailCheck + ", memberPhone=" + memberPhone + ", memberEnrollDate="
+				+ memberEnrollDate + ", memberReportCount=" + memberReportCount + ", memberStatus=" + memberStatus
+				+ ", memberGrade=" + memberGrade + "]";
 	}
+
+	
+	
 	
 }

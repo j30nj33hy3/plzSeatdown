@@ -13,12 +13,12 @@
 	 	<!-- DB의 일반 컬럼들 -->
 	 	<result property="memberId" column="MEMBER_ID"/>
 	 	<result property="memberPwd" column="MEMBER_PWD"/>
-	 	<result property="memberNM" column="MEMBER_NM"/>
-	 	<result property="memberNickNM" column="MEMBER_NICKNM"/>
+	 	<result property="memberName" column="MEMBER_NM"/>
+	 	<result property="memberNickname" column="MEMBER_NICKNM"/>
 	 	<result property="memberEmail" column="MEMBER_EMAIL"/>
 	 	<result property="memberEmailCheck" column="MEMBER_EMAIL_CHECK"/>
 	 	<result property="memberPhone" column="MEMBER_PHONE"/>
-	 	<result property="memberEnrollDT" column="MEMBER_ENROLL_DT"/>
+	 	<result property="memberEnrollDate" column="MEMBER_ENROLL_DT"/>
 	 	<result property="memberReportCount" column="MEMBER_REPORT_CNT"/>
 	 	<result property="memberStatus" column="MEMBER_STATUS"/>
 	 	<result property="memberGrade" column="MEMBER_GRADE"/>

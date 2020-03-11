@@ -8,6 +8,28 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style>
+	#loginBtn {
+		background-color: #917EC6;
+		color:#fff;
+	}
+	#forgotForm{
+		color: #555;
+	}
+	#forgotForm:hover{
+		color: #917EC6;
+		text-decoration: none;
+	}
+	#saveIdLabel{
+		margin: 0.2em 0em;
+	}
+	#save{
+		font-size: 0.75em;
+	}
+	#kakao-login-btn{
+		margin-bottom: 0.5em;
+	}
+</style>
 </head>
 <body>
 	<nav id="nav">
@@ -33,24 +55,22 @@
 											name="memberId" placeholder="아이디"
 											value="${cookie.saveId.value }"> <br> <input
 											type="password" class="form-control" id="memberPwd"
-											name="memberPwd" placeholder="비밀번호"> <br>
-										<div class="checkbox mb-3">
-											<label> <!-- <input type="checkbox"> 아이디 저장 --> <!-- Cookie 배운 후 -->
+											name="memberPwd" placeholder="비밀번호">
+										<div class="checkbox">
+											<label id="saveIdLabel"> <!-- <input type="checkbox"> 아이디 저장 --> <!-- Cookie 배운 후 -->
 												<c:if test="${! empty cookie.saveId.value }">
 													<input type="checkbox" name="save" id="save" checked> 아이디 저장
 												</c:if> <c:if test="${ empty cookie.saveId.value }">
 													<input type="checkbox" name="save" id="save"> 아이디 저장
 												</c:if>
-
 											</label>
 										</div>
-										<br>
-										<button class="btn btn-lg btn-success btn-block" type="submit">로그인</button>
-										
+										<a id="forgotForm" href="${contextPath}/member/forgotForm">아이디 / 비밀번호 찾기</a>
+										<button id="loginBtn" class="btn btn-lg btn-block" type="submit">로그인</button>
 										<a class="btn btn-lg btn-secondary btn-block"
 											href="${contextPath}/member/signUpForm">회원가입</a>
 									</form>
-									<br>
+									<hr>
 										<a id="kakao-login-btn" style="width: 600px"></a>
 									    <a href="http://developers.kakao.com/logout"></a>
 									    <script type='text/javascript'>
@@ -89,8 +109,8 @@
 			</c:if>
 			<%-- 로그인 된 경우 --%>
 			<c:choose>
-				<c:when test="${! empty sessionScope.loginMember && loginMember.memberGrade == 'U'}">
-					<li><a href="${contextPath}/member/mypage">MyPage</a></li>
+				<c:when test="${! empty sessionScope.loginMember && loginMember.memberGrade == 'U' }">
+					<li><a href="${contextPath}/mypage/mypage">MyPage</a></li>
 					<li><a href="${contextPath}/member/logout">Logout</a></li>
 				</c:when>
 				<c:when test="${!empty sessionScope.loginMember && loginMember.memberGrade == 'A'}">

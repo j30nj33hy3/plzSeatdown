@@ -1,12 +1,16 @@
 package com.bg.plzSeatdown.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -69,12 +73,22 @@ public class MemberController {
 		// 매개변수로 HttpSession을 작성해두면
 		// - request.getSession() 한 값이 알아서 들어온다.
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String memberLogin(Member member, Model model, RedirectAttributes rdAttr) {
+	public String memberLogin(Member member, Model model, RedirectAttributes rdAttr,
+			@RequestParam(value = "save", required = false) String save,
+			HttpServletResponse response) {
 		// Model은 응답으로 전달하고자 하는 데이터를 맵 형식(K,V)으로 담아 전달하는 역할
 		// scope는 기본적으로 request임
 		try {
 			Member loginMember = memberService.loginMember(member);
 			if(loginMember != null) {
+				Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+				if(save != null) {
+					cookie.setMaxAge(60*60*24*7); // 7일로 설정
+				}else {
+					cookie.setMaxAge(0);
+				}
+				cookie.setPath("/");
+				response.addCookie(cookie);
 				model.addAttribute("loginMember", loginMember);
 			}else {
 				rdAttr.addFlashAttribute("msg", "로그인 정보가 유효하지 않습니다.");
@@ -97,5 +111,11 @@ public class MemberController {
 		// SessionStatus 객체를 사용해야 함.
 		status.setComplete();
 		return "redirect:/";
+	}
+	
+	// 회원 가입 페이지 이동
+	@RequestMapping("signUpForm")
+	public String signUpForm() {
+		return "member/signUpForm";
 	}
 }
