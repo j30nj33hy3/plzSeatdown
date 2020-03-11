@@ -89,7 +89,7 @@
 			</c:if>
 			<%-- 로그인 된 경우 --%>
 			<c:choose>
-				<c:when test="${! empty sessionScope.loginMember && loginMember.memberGrade == 'U' }">
+				<c:when test="${! empty sessionScope.loginMember && loginMember.memberGrade == 'U'}">
 					<li><a href="${contextPath}/member/mypage">MyPage</a></li>
 					<li><a href="${contextPath}/member/logout">Logout</a></li>
 				</c:when>

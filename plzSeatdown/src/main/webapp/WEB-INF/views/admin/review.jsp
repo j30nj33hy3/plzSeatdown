@@ -206,7 +206,7 @@
 						id="searchForm">
 						<select id=searchTitle name="searchKey" class="form-control">
 							<!-- <option value="title" selected>글제목</option> -->
-							<option value="id">아이디</option>
+							<option value="id">닉네임</option>
 							<option value="reviewNo">리뷰 번호</option>
 							<option value="title">제목</option>
 							<option value="content">내용</option>
