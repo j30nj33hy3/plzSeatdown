@@ -29,11 +29,31 @@
 	#kakao-login-btn{
 		margin-bottom: 0.5em;
 	}
+	.subMenu{
+		padding-left: 0px;
+	}
+	.subMenu>li{
+		position: relative;
+	}
+	.subMenu ul{
+		position: absolute;
+		top: 38px;
+		left: 0;
+		width: 150px;
+		padding: 10px; 
+		background-color: #C6B4CD;
+		border-radius: 3px;
+		list-style: none;
+		z-index: 9999;
+	}
+	.subMenu ul a{
+		color: white;
+	}
 </style>
 </head>
 <body>
 	<nav id="nav">
-		<ul>
+		<ul class="subMenu">
 			<%-- 로그인이 되어있지 않을 경우 로그인 버튼 노출 --%>
 			<c:if test="${ empty sessionScope.loginMember }">
 				<div class="col-4 d-flex justify-content-end align-items-center">
@@ -122,8 +142,8 @@
 			<li><a href="${contextPath}/review/theater">Review</a>
 				<ul>
 					<li><a href="${contextPath}/review/theater">공연장별</a></li>
-					<li><a href="${contextPath}/review/show">공연별</a></li>
-					<li><a href="${contextPath}/review/write">리뷰 작성</a></li>
+					<li class="pt-2"><a href="${contextPath}/review/show">공연별</a></li>
+					<li class="pt-2"><a href="${contextPath}/review/write">리뷰 작성</a></li>
 				</ul></li>
 			<li><a href="${contextPath}/community/list">Community</a></li>
 			<li><a href="${contextPath}/qna/list">Q&A</a></li>
@@ -148,6 +168,18 @@
 			
 			return true;
 		}
+		
+		//Review 메뉴 호버 이벤트
+	    $(function () {
+	      $(".subMenu>li").on({
+	        mouseenter: function () {
+	          $(this).find("ul").stop().slideDown(300);
+	        },
+	        mouseleave: function () {
+	          $(this).find("ul").stop().slideUp(300);
+	        }
+	      });
+	    });
 	</script>
 </body>
 </html>
