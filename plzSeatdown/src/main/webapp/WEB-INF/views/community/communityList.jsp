@@ -7,8 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
-
+<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
         
 <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" 
 integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>

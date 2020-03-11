@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
+<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <title>Insert title here</title>
     <style>
         .list-btn{
@@ -25,7 +25,7 @@
 <body>
 <jsp:include page="../common/header.jsp"/>
 <jsp:include page="../common/nav.jsp"/>
-<div class="container wrapper">
+<div class="container py-5">
     <section>
         <header class="mb-5">
             <h3 class="text-center">${notice.noticeTitle}</h3>

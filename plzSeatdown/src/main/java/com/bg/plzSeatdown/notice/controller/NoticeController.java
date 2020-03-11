@@ -52,7 +52,6 @@ public class NoticeController {
 				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);
 			}
-			
 			// 1. 전체 공지사항 게시글 수 조회(페이징 처리를 위해서)
 			int listCount = noticeService.getListCount(map);
 			

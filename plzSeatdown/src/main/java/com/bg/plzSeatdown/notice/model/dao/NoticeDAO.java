@@ -25,7 +25,7 @@ public class NoticeDAO {
 	 * @throws Exception
 	 */
 	public int getListCount(Map<String, String> map) throws Exception {
-		return sqlSession.selectOne("noticeMapper.getListCount", map);
+		return sqlSession.selectOne("yhbNoticeMapper.getListCount", map);
 	}
 
 	/** 공지사항 목록 조회용 DAO(검색 포함)
@@ -38,7 +38,7 @@ public class NoticeDAO {
 		
 		int offset = (pInf.getCurrentPage()-1)*pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
-		return sqlSession.selectList("noticeMapper.selectList", map, rowBounds);
+		return sqlSession.selectList("yhbNoticeMapper.selectList", map, rowBounds);
 	}
 
 	/** 공지사항 상세 조회용 DAO
@@ -47,11 +47,11 @@ public class NoticeDAO {
 	 * @throws Exception
 	 */
 	public Notice selectNotice(Integer no) throws Exception{
-		return sqlSession.selectOne("noticeMapper.selectNotice", no);
+		return sqlSession.selectOne("yhbNoticeMapper.selectNotice", no);
 	}
 	
 	public int increaseCount(Integer no) throws Exception{
-		return sqlSession.update("noticeMapper.increaseCount", no);
+		return sqlSession.update("yhbNoticeMapper.increaseCount", no);
 	}
 
 	

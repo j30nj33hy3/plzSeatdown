@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
+<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
-<title>Insert title here</title>
+<title>공지사항 목록</title>
 </head>
 <body>
     <!-- <div id="page-wrapper"> -->
@@ -28,8 +28,8 @@
                         <tr>
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
-                            <th scope="col">조회수</th>
-                            <th scope="col">작성일</th>
+                            <th scope="col" class="text-center">조회수</th>
+                            <th scope="col" class="text-center">작성일</th>
                         </tr>
                     </thead>
                     <tbody class="commu-body">
@@ -136,7 +136,7 @@
                     	</li>
                     	
                     	<!-- 맨 끝으로(>>) -->
-		                <li>
+		                <li class="page-item">
 		                    <a class="page-link" 
 		                    	href=" 
 		                    	<c:url value="list">
@@ -156,19 +156,6 @@
                 </ul>
             </div>
             
-            <div class="col-md-12 d-flex justify-content-center">
-                <ul class="pagination pagination-info">
-                    <li class="page-item"><a class="page-link" href="">&lt;&lt;</a></li>
-                    <li class="page-item"><a href="" class="page-link">PREV</a></li>
-                    <li class="active page-item"><a href="" class="page-link">1</a></li>
-                    <li class="page-item"><a href="" class="page-link">2</a></li>
-                    <li class="page-item"><a href="" class="page-link">3</a></li>
-                    <li class="page-item"><a href="" class="page-link">4</a></li>
-                    <li class="page-item"><a href="" class="page-link">5</a></li>
-                    <li class="page-item"><a href="" class="page-link">NEXT</a></li>
-                </ul>
-            </div>
-            
         </div>
 
         <form action="list" method="GET" class="text-center" id="searchForm" style="margin-bottom:100px;">
@@ -179,7 +166,7 @@
             </select>
             <input type="text" name="searchValue" class="form-control" style="width:25%; display: inline-block;">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" style="background-color: #917EC6;"><i class="fas fa-search"></i></button>
+                <button class="form-control btn btn-default" style="background-color: #917EC6; width:60px; display: inline-block;"><i class="fas fa-search"></i></button>
             </span>
         </form>	  
 
@@ -203,7 +190,7 @@
 		</script>
 
     </div>
-    <%-- <jsp:include page="../common/footer.jsp"/> --%>
+    <jsp:include page="../common/footer.jsp"/>
     
     <script>
 		// 공지사항 상세보기 기능 (jquery를 통해 작업)
