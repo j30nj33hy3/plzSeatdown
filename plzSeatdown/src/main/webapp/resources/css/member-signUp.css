@@ -1,0 +1,49 @@
+.signUpStyle{
+	margin: 2em 0em;
+}
+/* 회원가입 - title */
+#signUpTitle{
+	text-align: right;
+}
+@media screen and (max-width: 767px) {
+	#signUpTitle{
+		text-align: left;
+	}
+}
+
+
+/* 프로필 */
+.image{
+    height: 100px;
+    display: block;
+    margin-bottom: 90px;
+}
+
+.image img{
+    margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+    width: 150px;
+    height: 150px;
+}
+
+
+#signUpBtn{
+    margin-left: 20px;
+    height: 40px;
+    font-size: 15px;
+    width: 80px;
+    color:rgb(163, 99, 189);
+    border: 1px solid rgb(163, 99, 189);
+    float:left;
+}
+
+#signUpBtn:hover{
+    background-color:rgb(163, 99, 189);
+    color : white;
+    border : 0px;
+}
+
