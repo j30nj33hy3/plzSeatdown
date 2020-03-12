@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +12,29 @@
 	href="${contextPath}/resources/css/notice_insert.css" />
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/summernote-lite.css">
+
+<!-- include libraries(jQuery, bootstrap) -->
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+
+
 </head>
 
 <body>
+
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath }" scope="application" />
 
 	<div id="main-wrapper">
 
@@ -106,5 +128,13 @@
 		<script src="${contextPath}/resources/js/admin/summernote-ko-KR.js"></script>
 		<script src="${contextPath}/resources/js/admin/notice_insert.js"></script>
 
+		<script defer
+			src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
+			integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+			crossorigin="anonymous"></script>
+		<script defer
+			src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
+			integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+			crossorigin="anonymous"></script>
 </body>
 </html>

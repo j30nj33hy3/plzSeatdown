@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,9 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/notice.css" />
 </head>
 <body>
+
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath }" scope="application" />
 
 	<div id="main-wrapper">
 
@@ -46,76 +51,41 @@
 								<table class="table" id="list-table">
 									<thead class="thead-light">
 										<tr>
-											<th><label class="customcheckbox m-b-20"> <input
-													type="checkbox" id="mainCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
 											<th scope="col">글번호</th>
 											<th scope="col">제목</th>
 											<th scope="col">작성일</th>
 											<th scope="col">상태</th>
 											<th scope="col">삭제</th>
-
 										</tr>
 									</thead>
 									<tbody class="customtable">
+										<c:if test="${empty list }">
+											<tr>
+												<td colspan="5">공지사항이 존재하지 않습니다.</td>
+											</tr>
+										</c:if>
+
+										<c:if test="${!empty list }">
+											<c:forEach var="notice" items="${list}" varStatus="vs">
+												<tr>
+													<td>${notice.noticeNo}</td>
+													<td>${notice.noticeTitle}</td>
+													<td>${notice.noticeCreateDate}</td>
+													<td>${notice.noticeStatus}</td>
+													<td><i class="fas fa-trash-alt"></td>
+												</tr>
+											</c:forEach>
+										</c:if>
+									</tbody>
+									<!-- <tbody class="customtable">
 										<tr>
-											<th><label class="customcheckbox"> <input
-													type="checkbox" class="listCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
-											<td>5</td>
-											<td>공지사항 5번째 글입니다</td>
-											<td>2020/01/05</td>
-											<td>Y</td>
-											<td><i class="fas fa-trash-alt"></td>
-										</tr>
-										<tr>
-											<th><label class="customcheckbox"> <input
-													type="checkbox" class="listCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
-											<td>4</td>
-											<td>공지사항 4번째 글입니다</td>
-											<td>2020/01/04</td>
-											<td>Y</td>
-											<td><i class="fas fa-trash-alt"></td>
-										</tr>
-										<tr>
-											<th><label class="customcheckbox"> <input
-													type="checkbox" class="listCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
-											<td>3</td>
-											<td>공지사항 3번째 글입니다</td>
-											<td>2020/01/03</td>
-											<td>Y</td>
-											<td><i class="fas fa-trash-alt"></td>
-										</tr>
-										<tr>
-											<th><label class="customcheckbox"> <input
-													type="checkbox" class="listCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
-											<td>2</td>
-											<td>공지사항 2번째 글입니다</td>
-											<td>2020/01/02</td>
-											<td>Y</td>
-											<td><i class="fas fa-trash-alt"></td>
-										</tr>
-										<tr>
-											<th><label class="customcheckbox"> <input
-													type="checkbox" class="listCheckbox" /> <span
-													class="checkmark"></span>
-											</label></th>
 											<td>1</td>
 											<td>공지사항 1번째 글입니다</td>
 											<td>2020/01/01</td>
 											<td>Y</td>
 											<td><i class="fas fa-trash-alt"></td>
 										</tr>
-
-									</tbody>
+									</tbody> -->
 								</table>
 							</div>
 						</div>
@@ -123,10 +93,133 @@
 						<ul class="navbar-nav float-right">
 							<li class="nav-item dropdown pr-5">
 								<button class="btn btn" id="write-btn" href="">
-									<a href="notice_insert.jsp" id="write-href">글작성</a>
+									<a href="${contextPath }/admin/notice_insert" id="write-href">글작성</a>
 								</button>
 							</li>
 						</ul>
+
+						<br>
+<!-- 						<nav aria-label="Page navigation example">
+							<ul class="pagination" style="justify-content: center;">
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">Next</span>
+								</a></li>
+							</ul>
+						</nav> -->
+						
+						            <!-- 페이징바 -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <ul class="pagination pagination-info">
+                	<c:if test="${pInf.currentPage > 1}">
+	                	<li class="page-item">
+			                    <a class="page-link" 
+			                    	href=" 
+			                    	<c:url value="list">
+			                    		<c:if test="${!empty param.searchKey }">
+							        		<c:param name="searchKey" value="${param.searchKey}"/>
+							        	</c:if>
+							        	
+							        	<c:if test="${!empty param.searchValue }">
+							        		<c:param name="searchValue" value="${param.searchValue}"/>
+							        	</c:if>
+			                    		<c:param name="currentPage" value="1"/>
+			                    	</c:url>
+		                    	">
+				                    &lt;&lt;
+				                </a>
+			            </li>
+	                    <li class="page-item">
+	                    	<!-- 이전으로 -->
+	                    	<a class="page-link" href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+		                    	</c:url>
+	                    	">PREV</a>
+	                    </li>
+                    </c:if>
+                    
+                    <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+                    
+                    	<c:if test="${p == pInf.currentPage}">
+                    		<li class="active page-item">
+                    			<a class="page-link">${p}</a>
+                    		</li>
+                    	</c:if>
+                    	
+                    	<c:if test="${p != pInf.currentPage}">
+                    		<li class="page-item">
+                    			<a class="page-link"
+                    				href="
+                    				<c:url value="list">
+                    					<c:if test="${!empty param.searchKey}">
+                    						<c:param name="searchKey" value="${param.searchKey}"/>
+                    					</c:if>
+                    					<c:if test="${!empty param.searchValue}">
+                    						<c:param name="searchKey" value="${param.searchValue}"/>
+                    					</c:if>
+                    					<c:param name="currentPage" value="${p}"/>
+                    				</c:url>
+                    				">${p}
+                    			</a>
+                    		</li>
+                    	</c:if>
+	                    
+                    </c:forEach>
+                    
+                    <!-- 다음 -->
+                    <c:if test="${pInf.currentPage < pInf.maxPage}">
+                    	<li class="page-item">
+                    		<a class="page-link"
+                    			href="
+                    			<c:url value="list">
+                    				<c:if test="${!empty param.searchKey }">
+                    					<c:param name="searchKey" value="${param.searchKey}"/>
+                    				</c:if>
+                    				<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                    			</c:url>
+                    			">NEXT</a>
+                    	</li>
+                    	
+                    	<!-- 맨 끝으로(>>) -->
+		                <li class="page-item">
+		                    <a class="page-link" 
+		                    	href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+		                    	</c:url>
+	                    	">
+			                    &gt;&gt;
+			                </a>
+		                </li>
+                    </c:if>
+                </ul>
+            </div>
 					</div>
 				</div>
 				<!-- ============================================================== -->

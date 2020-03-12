@@ -52,6 +52,7 @@ body {
 }
 
 
+
 #upBtn,
 #editBtn {
     background-color: #917EC6;
@@ -78,4 +79,6 @@ body {
         display: inline;
         width: 32%;
     }
+    
+    
 }

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+   
     <link rel="icon" type="image/png" sizes="16x16" href="${contextPath}/resources/css/images/logo.png">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/multicheck.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/dataTables.bootstrap4.css">
@@ -23,7 +25,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="${contextPath}">
                         <span class="logo-text">
                              <img src="${contextPath}/resources/images/logo.png" alt="homepage" class="light-logo" style="width : 95%"/>                            
                         </span>
@@ -57,5 +59,6 @@
     <script src="${contextPath}/resources/js/admin/waves.js"></script>
     <script src="${contextPath}/resources/js/admin/sidebarmenu.js"></script>
     <script src="${contextPath}/resources/js/admin/custom.min.js"></script>
+    
 </body>
 </html>

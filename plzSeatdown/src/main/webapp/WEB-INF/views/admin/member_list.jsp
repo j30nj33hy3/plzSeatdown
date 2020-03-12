@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,9 @@
 </head>
 
 <body>
+
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath }" scope="application" />
 
 	<div id="main-wrapper">
 
@@ -44,12 +48,9 @@
 			<div class="container-fluid">
 				<div class="card">
 					<div class="table-responsive">
-						<table class="table">
+						<table class="table" id="list-table">
 							<thead class="thead-light">
 								<tr>
-									<th><label class="customcheckbox m-b-20"> <input
-											type="checkbox" id="mainCheckbox" /> <span class="checkmark"></span>
-									</label></th>
 									<th scope="col">회원번호</th>
 									<th scope="col">아이디</th>
 									<th scope="col">이름</th>
@@ -59,170 +60,32 @@
 									<th scope="col">신고 횟수</th>
 									<th scope="col">수정</th>
 									<th scope="col">삭제</th>
-
 								</tr>
 							</thead>
 							<tbody class="customtable">
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>1</td>
-									<td>user01</td>
-									<td>유저일</td>
-									<td>user01@plzsd.com</td>
-									<td>2020/01/01</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>2</td>
-									<td>user02</td>
-									<td>유저이</td>
-									<td>user02@plzsd.com</td>
-									<td>2020/01/02</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>3</td>
-									<td>user03</td>
-									<td>유저삼</td>
-									<td>user03@plzsd.com</td>
-									<td>2020/01/03</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>4</td>
-									<td>user04</td>
-									<td>유저사</td>
-									<td>user04@plzsd.com</td>
-									<td>2020/01/04</td>
-									<td>Y</td>
-									<td>1</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>5</td>
-									<td>user05</td>
-									<td>유저오</td>
-									<td>user05@plzsd.com</td>
-									<td>2020/01/05</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>6</td>
-									<td>user06</td>
-									<td>유저육</td>
-									<td>user06@plzsd.com</td>
-									<td>2020/01/06</td>
-									<td>Y</td>
-									<td>2</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>7</td>
-									<td>user07</td>
-									<td>유저칠</td>
-									<td>user07@plzsd.com</td>
-									<td>2020/01/07</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>8</td>
-									<td>user08</td>
-									<td>유저팔</td>
-									<td>user08@plzsd.com</td>
-									<td>2020/01/08</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>9</td>
-									<td>user09</td>
-									<td>유저구</td>
-									<td>user09@plzsd.com</td>
-									<td>2020/01/09</td>
-									<td>Y</td>
-									<td>0</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>10</td>
-									<td>user10</td>
-									<td>유저십</td>
-									<td>user10@plzsd.com</td>
-									<td>2020/01/10</td>
-									<td>Y</td>
-									<td>1</td>
-									<td><a class="edit" href="member_detail.html"><i
-											class="mdi mdi-settings"></i></a></td>
-									<td><i class="fas fa-trash-alt"></td>
-								</tr>
+								<c:if test="${empty list }">
+									<tr>
+										<td colspan="9">회원이 존재하지 않습니다.</td>
+									</tr>
+								</c:if>
+
+								<c:if test="${!empty list }">
+									<c:forEach var="member" items="${list}" varStatus="vs">
+										<tr>
+											<td>${member.memberNo}</td>
+											<td>${member.memberId}</td>
+											<td>${member.memberName}</td>
+											<td>${member.memberEmail}</td>
+											<td>${member.memberEnrollDate}</td>
+											<td>${member.memberStatus}</td>
+											<td>${member.memberReportCount}</td>
+											<td><a class="edit"
+												href="${contextPath}/admin/member_detail"><i
+													class="fas fa-cog"></i></a></td>
+											<td><i class="fas fa-trash-alt"></td>
+										</tr>
+									</c:forEach>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
