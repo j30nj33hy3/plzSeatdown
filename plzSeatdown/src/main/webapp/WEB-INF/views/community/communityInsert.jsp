@@ -38,7 +38,7 @@
     <!-- Main -->
     <div class="container py-5 my-5">
         
-        <form action="${contextPath}/community/insert" name="insertForm" id="insertForm" method="post" onsubmit="return validate();">
+        <form action="insert" enctype="multipart/form-data" name="insertForm" id="insertForm" method="post" onsubmit="return validate();">
             <div class="row">
                 <div class="col-lg-1">
                     <span>카테고리</span>
@@ -72,11 +72,11 @@
     </div>
 
     <script>
-        $('#summernote').summernote({
+        /* $('#summernote').summernote({
             tabsize: 2,
             minHeight: 500
         });
-        
+         */
      	// 유효성 검사
 		function validate(){
 			if($("#summernote").val().trim().length == 0){

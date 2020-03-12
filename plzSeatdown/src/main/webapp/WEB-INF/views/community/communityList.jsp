@@ -14,7 +14,7 @@ integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" 
 integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>   -->      
 
-<title>커뮤니티 게시판 글목록</title>
+<title>커뮤니티 게시판</title>
 </head>
 <body>
     <!-- <div id="page-wrapper"> -->
@@ -48,12 +48,12 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                     	<c:if test="${!empty list }">
                     		<c:forEach var="comm" items="${list}" varStatus="vs">
 	                    		<tr>
-		                            <td scope="row">${comm.commNo}</td>
-		                            <td>${comm.commCategory}</td>
-		                            <td>${comm.commTitle}</td>
-		                            <td>${comm.commWriter}</td>
-		                            <td class="text-center">${comm.commCount}</td>
-		                            <td>${comm.commModifyDate}</td>
+		                            <td scope="row">${comm.communityNo}</td>
+		                            <td>${comm.categoryName}</td>
+		                            <td>${comm.communityTitle}</td>
+		                            <td>${comm.memberNickname}</td>
+		                            <td class="text-center">${comm.communityCount}</td>
+		                            <td>${comm.communityModifyDate}</td>
 	                        	</tr>
                     		</c:forEach>
                     	</c:if>
@@ -152,7 +152,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                     	</li>
                     	
                     	<!-- 맨 끝으로(>>) -->
-		                <li>
+		                <li class="page-item">
 		                    <a class="page-link" 
 		                    	href=" 
 		                    	<c:url value="list">
@@ -174,14 +174,21 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
         </div>
 
         <form action="list" method="GET" class="text-center" id="searchForm" style="margin-bottom:100px;">
-            <select name="searchKey" class="form-control" style="width:100px; display: inline-block;">
+        	<select name="searchCategory" class="form-control" style="width:150px; display: inline-block;">
+                <option value="">카테고리 선택</option>
+                <option value="1">자유</option>
+                <option value="2">양도</option>
+                <option value="3">질문</option>
+                <option value="4">공연후기</option>
+            </select>
+            <select name="searchKey" class="form-control" style="width:120px; display: inline-block;">
                 <option value="title">글제목</option>
                 <option value="content">내용</option>
                 <option value="titcont">제목+내용</option>
             </select>
             <input type="text" name="searchValue" class="form-control" style="width:25%; display: inline-block;">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" style="background-color: #917EC6;"><i class="fas fa-search"></i></button>
+                <button class="form-control btn btn-default" style="background-color: #917EC6; width:60px; display: inline-block;"><i class="fas fa-search"></i></button>
             </span>
         </form>	  
 
@@ -200,8 +207,16 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 				
 				$("input[name=searchValue]").val(searchValue);
 			}
-				
 		});
+		
+		
+		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+			$.each($("select[name=searchCategory] > option"), function(index, item){
+				if($(item).val() == "${ct}"){
+					$(item).prop("selected","true");
+				}
+			});
+		</c:forEach>
 		</script>
 
     </div>
