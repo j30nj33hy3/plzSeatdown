@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,8 @@
 
 </head>
 <body>
+
+	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 
 	<div id="main-wrapper">
 
@@ -46,9 +50,6 @@
 						<table class="table" id="list-table">
 							<thead class="thead-light">
 								<tr>
-									<th><label class="customcheckbox m-b-20"> <input
-											type="checkbox" id="mainCheckbox" /> <span class="checkmark"></span>
-									</label></th>
 									<th scope="col">글번호</th>
 									<th scope="col">아이디</th>
 									<th scope="col">이름</th>
@@ -58,13 +59,30 @@
 									<th scope="col">처리</th>
 								</tr>
 							</thead>
-							<tbody class="customtable">
+								<tbody class="customtable">
+								<c:if test="${empty list }">
+									<tr>
+										<td colspan="7">문의내역이 존재하지 않습니다.</td>
+									</tr>
+								</c:if>
+
+								<c:if test="${!empty list }">
+									<c:forEach var="qna" items="${list}" varStatus="vs">
+										<tr>
+											<td>${qna.qnaNo}</td>
+											<td>${qna.qnaWriterId}</td>
+											<td>${qna.qnaWriterName}</td>
+											<td>${qna.qnaContent}</td>
+											<td>${qna.qnaCreateDate}</td>
+											<td><i class="fas fa-trash-alt"></td>
+											<td>${qna.qnaStatus}</td>
+										</tr>
+									</c:forEach>
+								</c:if>
+							</tbody>
+							<!-- <tbody class="customtable">
 								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>5</td>
+									<td>1</td>
 									<td>user05</td>
 									<td>유저오</td>
 									<td>문의문의문의문의문의문의문의문의문의..</td>
@@ -72,59 +90,7 @@
 									<td><i class="fas fa-trash-alt"></td>
 									<td>N</td>
 								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>4</td>
-									<td>user04</td>
-									<td>유저사</td>
-									<td>문의문의문의문의문의문의문의문의문의..</td>
-									<td>2020/01/14</td>
-									<td><i class="fas fa-trash-alt"></td>
-									<td>Y</td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>3</td>
-									<td>user03</td>
-									<td>유저삼</td>
-									<td>문의문의문의문의문의문의문의문의문의..</td>
-									<td>2020/01/13</td>
-									<td><i class="fas fa-trash-alt"></td>
-									<td>Y</td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>2</td>
-									<td>user02</td>
-									<td>유저이</td>
-									<td>문의문의문의문의문의문의문의문의문의..</td>
-									<td>2020/01/12</td>
-									<td><i class="fas fa-trash-alt"></td>
-									<td>Y</td>
-								</tr>
-								<tr>
-									<th><label class="customcheckbox"> <input
-											type="checkbox" class="listCheckbox" /> <span
-											class="checkmark"></span>
-									</label></th>
-									<td>1</td>
-									<td>user01</td>
-									<td>유저일</td>
-									<td>문의문의문의문의문의문의문의문의문의..</td>
-									<td>2020/01/11</td>
-									<td><i class="fas fa-trash-alt"></td>
-									<td>Y</td>
-								</tr>
-							</tbody>
+							</tbody> -->
 						</table>
 					</div>
 				</div>

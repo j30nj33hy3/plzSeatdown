@@ -1,13 +1,8 @@
 
-/****************************************
- *       Basic Table                   *
- ****************************************/
-$('#zero_config').DataTable();
-
 // 프로필사진 수정 버튼
 $(function () {
     $("#upload").css("display", "none");
-    $("#upBtn").css({
+    $("#upBtn").css({	
         "width": "50px",
         "text-align": "center"
     }).mouseenter(function () {
