@@ -9,7 +9,7 @@
 <%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
-<title>공지사항 목록</title>
+<title>공지사항</title>
 </head>
 <body>
     <!-- <div id="page-wrapper"> -->
@@ -44,7 +44,7 @@
 		                            <td scope="row">${notice.noticeNo}</td>
 		                            <td>${notice.noticeTitle}</td>
 		                            <td class="text-center">${notice.noticeCount}</td>
-		                            <td>${notice.noticeModifyDate}</td>
+		                            <td class="text-center">${notice.noticeModifyDate}</td>
 	                        	</tr>
                     		</c:forEach>
                     	</c:if>
@@ -159,7 +159,7 @@
         </div>
 
         <form action="list" method="GET" class="text-center" id="searchForm" style="margin-bottom:100px;">
-            <select name="searchKey" class="form-control" style="width:100px; display: inline-block;">
+            <select name="searchKey" class="form-control" style="width:120px; display: inline-block;">
                 <option value="title">글제목</option>
                 <option value="content">내용</option>
                 <option value="titcont">제목+내용</option>
