@@ -1,5 +1,7 @@
 package com.bg.plzSeatdown.member.controller;
 
+import java.io.File;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,12 +13,16 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bg.plzSeatdown.common.ExceptionForward;
+import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.member.model.service.MemberService;
+import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
 
 /* IoC(제어 반전, Inversion of Controller) 
@@ -73,8 +79,9 @@ public class MemberController {
 		// 매개변수로 HttpSession을 작성해두면
 		// - request.getSession() 한 값이 알아서 들어온다.
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String memberLogin(Member member, Model model, RedirectAttributes rdAttr,
+	public String memberLogin(Member member, Model model,
 			@RequestParam(value = "save", required = false) String save,
+			RedirectAttributes rdAttr,
 			HttpServletResponse response) {
 		// Model은 응답으로 전달하고자 하는 데이터를 맵 형식(K,V)으로 담아 전달하는 역할
 		// scope는 기본적으로 request임
@@ -117,5 +124,77 @@ public class MemberController {
 	@RequestMapping("signUpForm")
 	public String signUpForm() {
 		return "member/signUpForm";
+	}
+	
+	// 회원가입
+	@RequestMapping(value="signUp", method=RequestMethod.POST)
+	public String signUp(Member member, Model model,
+				HttpServletRequest request,
+				RedirectAttributes rdAttr,
+				String phone1, String phone2, String phone3,
+				@RequestParam(value="profile", required=false) MultipartFile profile) {
+		String memberPhone = phone1 + "-" + phone2 + "-" + phone3;
+		Member signUpMember = new Member(member.getMemberId(), member.getMemberPwd(), 
+				member.getMemberName(), member.getMemberNickname(),
+				member.getMemberEmail(), memberPhone);
+		
+		// 파일 저장 경로 : url 요청 주소로부터 컴퓨터(서버)에서 사용하는 진짜 경로값을 받아옴.
+		String root = request.getSession().getServletContext().getRealPath("resources"); 
+		String savePath = root + "/profileImages";
+		
+		// 저장 폴더 선택
+		File folder = new File(savePath);
+		// 만약 해당 폴더가 없는 경우 -> 폴더 만들기
+		if(!folder.exists()) folder.mkdir();
+		String changeFileName = null;
+		try {
+			
+			Attachment image = null;
+			if(!profile.getOriginalFilename().equals("")) {
+				changeFileName = FileRename.rename(profile.getOriginalFilename());
+			}
+			
+			image = new Attachment(changeFileName);
+			
+			// 회원가입 + 프로필사진 등록 Service 호출
+			int result = memberService.signUp(signUpMember, image);
+			String msg = null;
+			if(result > 0) {
+				if(!profile.getOriginalFilename().equals("")) {
+					profile.transferTo(new File(savePath+"/"+image.getProfilePath()));
+				}
+				msg = "입력한 이메일 주소로 인증메일을 발송하였습니다. 이메일 인증 후 사이트 이용 가능합니다.";
+			}
+			else {
+				msg = "회원 가입 실패(관리자 메일로 문의 바랍니다.)";
+			}
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:/";
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("회원가입", model, e);
+		}
+	}
+	
+	// 아이디 중복 검사
+	@ResponseBody
+	@RequestMapping("idDupCheck")
+	public String idDupCheck(String memberId, Model model) {
+		try {
+			return memberService.idDupCheck(memberId) == 0? true+"" : false+"";
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("아이디 중복체크", model, e);
+		}
+	}
+	
+	// 아이디 중복 검사
+	@ResponseBody
+	@RequestMapping("nicknameDupCheck")
+	public String nicknameDupCheck(String memberNickname, Model model) {
+		try {
+			return memberService.nicknameDupCheck(memberNickname) == 0? true+"" : false+"";
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("닉네임 중복체크", model, e);
+		}
 	}
 }

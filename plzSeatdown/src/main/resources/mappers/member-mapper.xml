@@ -23,7 +23,13 @@
 	 	<result property="memberStatus" column="MEMBER_STATUS"/>
 	 	<result property="memberGrade" column="MEMBER_GRADE"/>
 	 </resultMap>
-	 
+	 <resultMap type="Attachment" id="attachmentResultSet">
+	 	<id property="profileNo" column="PROFILE_NO"/>
+	 	<result property="profilePath" column="PROFILE_PATH"/>
+	 	<result property="uploadDate" column="UPLOAD_DT"/>
+	 	<result property="profileStatus" column="PROFILE_STATUS"/>
+	 	<result property="memberNo" column="MEMBER_NO"/>
+	 </resultMap>
 	 <!-- 로그인 -->
 	 <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	 	SELECT *
@@ -31,5 +37,39 @@
 	 	WHERE MEMBER_STATUS = 'Y'
 	 	AND MEMBER_EMAIL_CHECK = 'Y'
 	 	AND MEMBER_ID = #{memberId}
+	 </select>
+	 
+	 <!-- 다음 회원 번호 -->
+	 <select id="selectNextMemberNo" resultType="_int">
+	 	SELECT SEQ_MNO.NEXTVAL
+	 	FROM DUAL
+	 </select>
+	 
+	 <!-- 회원가입 -->
+	 <select id="signUp" parameterType="Member">
+	 	INSERT INTO MEMBER VALUES
+	 	(#{memberNo}, #{memberId}, #{memberPwd}, #{memberName},
+	 	#{memberNickname}, #{memberEmail}, DEFAULT, #{memberPhone}, 
+	 	DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	 </select>
+	 
+	 <!-- 프로필사진 삽입 -->
+	 <insert id="insertProfileImage" parameterType="Attachment">
+	 	INSERT INTO PROFILE VALUES
+	 	(SEQ_P_INO.NEXTVAL, #{profilePath}, DEFAULT, DEFAULT, #{memberNo})
+	 </insert>
+	 
+	 <!-- 아이디 중복 체크 -->
+	 <select id="idDupCheck" parameterType="string" resultType="_int">
+	 	SELECT COUNT(*)
+	 	FROM MEMBER
+	 	WHERE MEMBER_ID = #{memberId}
+	 </select>
+	 
+	 <!-- 닉네임 중복 체크 -->
+	 <select id="nicknameDupCheck" parameterType="string" resultType="_int">
+	 	SELECT COUNT(*)
+	 	FROM MEMBER
+	 	WHERE MEMBER_NICKNM = #{memberNickname}
 	 </select>
 </mapper>
