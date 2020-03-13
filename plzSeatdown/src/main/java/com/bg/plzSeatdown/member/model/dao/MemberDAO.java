@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
 
 // Repository(저장소): 데이터가 있는 곳에 접근한다는 의미
@@ -23,6 +24,50 @@ public class MemberDAO {
 	 */
 	public Member loginMember(Member member) throws Exception{
 		return sqlSession.selectOne("memberMapper.loginMember", member);
+	}
+
+	/** 다음 회원번호 생성용 DAO
+	 * @return memberNo
+	 * @throws Exception
+	 */
+	public int selectNextMemberNo() throws Exception{
+		return sqlSession.selectOne("memberMapper.selectNextMemberNo");
+	}
+
+	/** 회원가입용 DAO
+	 * @param signUpMember
+	 * @return result
+	 * @throws Exception
+	 */
+	public int signUp(Member signUpMember) throws Exception{
+		return sqlSession.insert("memberMapper.signUp", signUpMember);
+	}
+
+	/** 프로필사진 삽입용 DAO
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertProfileImage(Attachment image) throws Exception{
+		return sqlSession.insert("memberMapper.insertProfileImage", image);
+	}
+
+	/** 아이디 중복 체크 DAO
+	 * @param memberId
+	 * @return count
+	 * @throws Exception
+	 */
+	public int idDupCheck(String memberId) throws Exception{
+		return sqlSession.selectOne("memberMapper.idDupCheck", memberId);
+	}
+
+	/** 닉네임 중복 체크 DAO
+	 * @param memberNickname
+	 * @return count
+	 * @throws Exception
+	 */
+	public int nicknameDupCheck(String memberNickname) throws Exception{
+		return sqlSession.selectOne("memberMapper.nicknameDupCheck", memberNickname);
 	}
 
 }

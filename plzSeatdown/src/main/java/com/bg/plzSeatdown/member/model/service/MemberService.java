@@ -1,5 +1,6 @@
 package com.bg.plzSeatdown.member.model.service;
 
+import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
 
 public interface MemberService {
@@ -26,4 +27,26 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public abstract Member loginMember(Member member) throws Exception;
+
+	/** 회원가입용 Service
+	 * @param signUpMember
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int signUp(Member signUpMember, Attachment image) throws Exception;
+
+	/** 아이디 중복체크용 Service
+	 * @param memberId
+	 * @return count
+	 * @throws Exception
+	 */
+	public abstract int idDupCheck(String memberId) throws Exception;
+
+	/** 닉네임 중복체크용 Service
+	 * @param memberNickname
+	 * @return count
+	 * @throws Exception
+	 */
+	public abstract int nicknameDupCheck(String memberNickname) throws Exception;
 }

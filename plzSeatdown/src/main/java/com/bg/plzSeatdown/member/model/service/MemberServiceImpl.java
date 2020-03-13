@@ -3,8 +3,10 @@ package com.bg.plzSeatdown.member.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bg.plzSeatdown.member.model.dao.MemberDAO;
+import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
 
 @Service // Service 레이어, 비즈니스 로직을 가진 클래스라는 걸 명시하는 것 + bean 등록
@@ -45,6 +47,59 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 		return loginMember;
+	}
+
+	/** 회원가입용 Service
+	 * @param signUpMember
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int signUp(Member signUpMember, Attachment image) throws Exception {
+		int result = 0;
+		// 1) 다음 SEQ_MNO 얻어오기
+		int memberNo = memberDAO.selectNextMemberNo();
+		
+		// 2) 회원 등록
+		if(memberNo > 0) {
+			signUpMember.setMemberNo(memberNo);
+			// 암호화된 비밀번호를 저장
+			String encPwd = bCryptPasswordEncoder.encode(signUpMember.getMemberPwd());
+			signUpMember.setMemberPwd(encPwd);
+			result = memberDAO.signUp(signUpMember);
+		}
+		
+		if(result > 0 && image.getProfilePath() != null) {
+			result = 0;
+			image.setMemberNo(memberNo);
+			result = memberDAO.insertProfileImage(image);
+			if(result == 0) {
+				throw new Exception();
+			}
+		}
+		return result;
+	}
+
+	/** 아이디 중복체크용 Service
+	 * @param memberId
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int idDupCheck(String memberId) throws Exception {
+		return memberDAO.idDupCheck(memberId);
+	}
+
+	/** 닉네임 중복체크용 Service
+	 * @param memberNickname
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int nicknameDupCheck(String memberNickname) throws Exception {
+		return memberDAO.nicknameDupCheck(memberNickname);
 	}
 
 }

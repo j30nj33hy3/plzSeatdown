@@ -10,6 +10,7 @@
 	<!-- 2. 별칭 작성 부분 -->
 	<typeAliases>
 		<typeAlias type="com.bg.plzSeatdown.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.bg.plzSeatdown.member.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.bg.plzSeatdown.community.model.vo.Community" alias="Community"/>
 		<typeAlias type="com.bg.plzSeatdown.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.bg.plzSeatdown.qna.model.vo.QnA" alias="QnA"/>
