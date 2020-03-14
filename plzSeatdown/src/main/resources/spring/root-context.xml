@@ -80,4 +80,25 @@
 			초과되는 데이터는 바로 파일로 저장됨.
 			기본값은 10240 바이트
 	 -->
+	 
+	 <!-- Gmail -->
+	 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	 	<property name="host" value="smtp.gmail.com"></property>
+	 	<!-- <property name="port" value="587"></property> -->
+	 	<property name="username" value="khblackgang@gmail.com"></property>
+	 	<property name="password" value="rjawh77!"></property>
+	 	<property name="javaMailProperties">
+	 		<props>
+	 			<prop key="mail.smtp.auth">true</prop>
+		        <prop key="mail.smtp.starttls.required">true</prop>
+		        <prop key="mail.smtp.starttls.enable">true</prop>
+		        <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		        <prop key="mail.smtp.socketFactory.fallback">false</prop>
+		        <prop key="mail.smtp.port">465</prop>
+		        <prop key="mail.smtp.socketFactory.port">465</prop>
+           		<!--<prop key="mail.transport.protocol">smtps</prop>-->
+	 		</props>
+	 	</property>
+	 </bean>
+	 
 </beans>

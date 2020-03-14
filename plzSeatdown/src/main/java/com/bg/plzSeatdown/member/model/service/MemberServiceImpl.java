@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService{
 				throw new Exception();
 			}
 		}
-		return result;
+		return memberNo;
 	}
 
 	/** 아이디 중복체크용 Service
@@ -100,6 +100,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int nicknameDupCheck(String memberNickname) throws Exception {
 		return memberDAO.nicknameDupCheck(memberNickname);
+	}
+
+	/** 메일 인증용 Service
+	 * @param signUpMember
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int mailAuth(Member member) throws Exception {
+		return memberDAO.mailAuth(member);
 	}
 
 }

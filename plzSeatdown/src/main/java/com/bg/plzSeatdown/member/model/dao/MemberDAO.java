@@ -70,4 +70,13 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.nicknameDupCheck", memberNickname);
 	}
 
+	/** 메일 인증용 DAO
+	 * @param signUpMember
+	 * @return result
+	 * @throws Exception
+	 */
+	public int mailAuth(Member member) throws Exception{
+		return sqlSession.update("memberMapper.mailAuth", member);
+	}
+
 }

@@ -49,4 +49,11 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public abstract int nicknameDupCheck(String memberNickname) throws Exception;
+
+	/** 메일 인증용 Service
+	 * @param signUpMember
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int mailAuth(Member member) throws Exception;
 }
