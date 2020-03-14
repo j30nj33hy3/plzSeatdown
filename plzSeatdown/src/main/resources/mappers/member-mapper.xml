@@ -72,4 +72,12 @@
 	 	FROM MEMBER
 	 	WHERE MEMBER_NICKNM = #{memberNickname}
 	 </select>
+	 
+	 <!-- 메일 인증 -->
+	 <update id="mailAuth" parameterType="Member">
+	 	UPDATE MEMBER
+	 	SET MEMBER_EMAIL_CHECK = 'Y',
+	 	MEMBER_STATUS = 'Y'
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </update>
 </mapper>

@@ -1,12 +1,19 @@
 package com.bg.plzSeatdown.member.controller;
 
 import java.io.File;
+import java.io.IOException;
 
+import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -17,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bg.plzSeatdown.common.ExceptionForward;
@@ -61,10 +69,18 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 //Model에 담긴 데이터중 Key 값이
 //@SessionAttributes의 매개변수에 작성된 값과 같은 경우
 //해당 데이터의 scope를 session으로 변경
-@SessionAttributes({"loginMember", "msg"})
+@SessionAttributes({"loginMember", "msg", "signUpMember", "code"})
 @Controller // @Component
 @RequestMapping("/member/*") // 내부 메소드 레벨에서 매핑되는 주소에 공통되는 부분 작성.
 public class MemberController {
+	
+	@Inject
+	JavaMailSender mailSender;
+	
+	// 로깅 변수
+	private static final Logger logger =
+			LoggerFactory.getLogger(MemberController.class);
+
 	// @Autowired 사용 시
 	// bean scanning을 통해
 	// 등록된 bean 중 알맞은 bean을 의존성 주입(DI) 해줌
@@ -163,6 +179,8 @@ public class MemberController {
 				if(!profile.getOriginalFilename().equals("")) {
 					profile.transferTo(new File(savePath+"/"+image.getProfilePath()));
 				}
+				signUpMember.setMemberNo(result);
+				model.addAttribute("signUpMember", signUpMember);
 				msg = "입력한 이메일 주소로 인증메일을 발송하였습니다. 이메일 인증 후 사이트 이용 가능합니다.";
 			}
 			else {
@@ -170,7 +188,7 @@ public class MemberController {
 			}
 			
 			rdAttr.addFlashAttribute("msg", msg);
-			return "redirect:/";
+			return "redirect:/member/mailAuthForm";
 		}catch (Exception e) {
 			return ExceptionForward.errorPage("회원가입", model, e);
 		}
@@ -197,4 +215,81 @@ public class MemberController {
 			return ExceptionForward.errorPage("닉네임 중복체크", model, e);
 		}
 	}
+	
+	@RequestMapping("mailAuthForm")
+	public ModelAndView mailAuthForm(Model model, ModelAndView mv) {
+		try {
+			mv.addObject("code", mailSending(model));
+			mv.setViewName("member/emailCheckForm");
+		}catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("errorMsg", "인증 메일 발송 중 에러 발생");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	public String mailSending(Model model) throws IOException{
+		
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<6 ; i++) {
+			sb.append((int)(Math.random()*10));
+		}
+		String random = sb.toString();
+		Member member = (Member)model.getAttribute("signUpMember");
+		String setfrom = "khblackgang@gmail.com"; // 보내는 이메일 계정
+		String tomail = member.getMemberEmail(); // 받는 이메일 계정
+		String title = "[PleaseSeatDown] 회원가입 인증 이메일 입니다."; // 메일 제목
+		String content =
+				System.getProperty("line.separator")+
+				"안녕하세요 "+ member.getMemberName()+" 회원님, 저희 홈페이지를 찾아주셔서 감사합니다."+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"가입 인증번호는 " + random + " 입니다. "+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"해당 인증번호를 홈페이지에 입력하시면 회원가입이 완료됩니다."; // 메일 내용
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+			
+			mailSender.send(message);
+			return random;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping(value="mailAuth", method=RequestMethod.POST)
+	public String mailAuthentication(Model model,
+			HttpServletRequest request,
+			@RequestParam(value="mailAuthNumber", required=false) String authNumber,
+			RedirectAttributes rdAttr) {
+		try {
+			String referer = request.getHeader("Referer");
+			String view = null;
+			if(authNumber.equals((String)model.getAttribute("code"))) {
+				Member member = (Member)model.getAttribute("signUpMember");
+				int result = memberService.mailAuth(member);
+				if(result > 0) {
+					rdAttr.addFlashAttribute("msg","이메일 인증이 완료되었습니다.");
+					view = "redirect:/";
+				}
+			}else {
+				rdAttr.addFlashAttribute("msg","인증번호가 일치하지 않습니다. 재발송된 인증번호로 인증을 다시 진행해주세요.");
+				view = "redirect:"+referer;
+			}
+			return view;
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("인증번호 체크", model, e);
+		}
+	}
+
 }
