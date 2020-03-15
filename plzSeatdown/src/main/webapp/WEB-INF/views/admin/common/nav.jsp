@@ -19,8 +19,8 @@
 	                </li>
 	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/theater" aria-expanded="false"><i class="fas fa-map-marked-alt"></i><span class="hide-menu pl-3">공연장 관리</span></a></li>
 	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/show" aria-expanded="false"><i class="fas fa-ticket-alt"></i><span class="hide-menu pl-3">공연 관리</span></a></li>
-	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/review" aria-expanded="false"><i class="fas fa-pencil-alt"></i><span class="hide-menu pl-3">리뷰 관리</span></a></li>
-	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/community" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu pl-3">커뮤니티 관리</span></a></li>
+	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/review/list" aria-expanded="false"><i class="fas fa-pencil-alt"></i><span class="hide-menu pl-3">리뷰 관리</span></a></li>
+	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/community/list" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu pl-3">커뮤니티 관리</span></a></li>
 	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/notice" aria-expanded="false"><i class="fas fa-bell"></i><span class="hide-menu pl-3">공지사항 관리</span></a></li>
 	                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 	                    <i class="fas fa-exclamation-triangle"></i><span class="hide-menu pl-3"> 신고 관리 </span></a>
