@@ -41,7 +41,7 @@ public interface MypageService {
     * @return result
     * @throws Exception
     */
-   public abstract int updateMypage(Member member, MultipartFile image, String savePath)throws Exception;
+   public abstract int updateMypage(Member member, MultipartFile image, String savePath, int deleteCheck)throws Exception;
 
 
 

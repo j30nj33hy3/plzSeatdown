@@ -46,17 +46,16 @@
 									  <c:forEach var="board" items="${list}" varStatus="vs">
 									  
 									  	<div class="col-md-3">
-										<div style="display:none;">${board.boardNo}</div>
+										<div style="display:none;">${review.reviewNo}</div>
 										
 											<figure class="effect-ravi">
 											
 											<c:set var="src" value="${contextPath}/resources/images/noImages.png"/>
-									  		<c:forEach var="img" items="${imgList}">
-									  			<c:if test="${img.boardId == board.boardNo}">
-									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${img.fileChnageName}"/>
+									  		<c:forEach var="reivewimg" items="${RList}">
+									  			<c:if test="${reviewimg.reivewNo == review.reviewNo}">
+									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${reviewimg.reivewImgPath}"/>
 									  			</c:if>
 									  		</c:forEach>
-									  		
 												<img src="${src}" alt="img1" style="width: 200px; height: 175px;"/>
 												<figcaption>
 													<p>

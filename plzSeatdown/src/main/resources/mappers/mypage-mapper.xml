@@ -104,6 +104,13 @@
 			UPLOAD_DT = SYSDATE
 		WHERE PROFILE_NO = #{profileNo}
 	</update>
+	
+	
+	<!-- 마이페이지 프로필 삭제용 -->
+	<delete id="deleteProfile" parameterType="_int">
+		DELETE FROM PROFILE
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 
    
    
