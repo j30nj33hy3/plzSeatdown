@@ -94,24 +94,66 @@ body{
 /* 프로필 */
 
 
-#image1{
+#ImgArea{
     height: 100px;
     display: block;
-    margin-bottom: 90px;
+    margin-bottom: 75px;
 }
 
 
-#image #img1{
+#ImgArea #img1{
     margin: auto;
     top:0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 60px;
     width: 150px;
     height: 150px;
    display : block;
 }
+
+#fileArea{
+	display: block;
+	height:50px;
+}
+
+
+#file1{
+	margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+   display : block;
+   width : 250px;
+}
+
+#fileArea2{
+	display: block;
+	margin-bottom:20px;
+}
+
+#filedelete{
+	 margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display : block;
+    height: 40px;
+    font-size: 15px;
+    width: 150px;
+    color:rgb(163, 99, 189);
+    border: 1px solid rgb(163, 99, 189);
+    line-height:30px;
+}
+
+#filedelete:hover{
+    background-color:rgb(163, 99, 189);
+    color : white;
+    border : 0px;
+}
+
 
 /* form */
 

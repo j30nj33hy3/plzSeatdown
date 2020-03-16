@@ -34,17 +34,17 @@
 							<div class= "toptext">
 								<p class="titleQ">문의내역<img src="${contextPath}/resources/images/answer.png"></p>
 								<div class="form-group col-10">
-									<p>${qna.qnaContent}</p>
+									<p>${qnaeh.qnaContent}</p>
 								</div>
 							</div>
 							<div class= "toptext">
 								<p class="titleA">답변<img src="${contextPath}/resources/images/question.png"></p>
 								<div class="form-group col-10">
-									<p>${qna.qnaAnswer}</p>
+									<p>${qnaeh.qnaAnswer}</p>
 								</div>
 							</div>
 							<div class="btndiv">
-								<a id="updatebtn" href="boardList?currentPage=${currentPage}" class="btn btn-outline-secondary m-3">목록으로</a>
+								<a id="updatebtn" href="ask?currentPage=${currentPage}" class="btn btn-outline-secondary m-3">목록으로</a>
 							</div>	
 						</div>
 

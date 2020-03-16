@@ -29,31 +29,34 @@
 								<li><a href="ask">문의 내역</a></li>
 							</ul>
 						</div>
-
+						
+						
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<div class="container">
 								<div class="grid">
 									<div class="row">
-									
-									<c:if test="${empty list}">
-										<div class="col-md-12">
-											<p>존재하는 사진이 없습니다.</p>
-										</div>
-									</c:if>
-									<c:if test="${!empty list}">
-										<c:forEach var="review" items="${list}" varStatus="vs">
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-											<%-- <%
+
+									  <c:if test="${empty list}">
+									  		<div id="nolistdiv" class="col-md-12">
+									  			<span id="nolist">존재하는 게시글이 없습니다</span>
+									  		</div>
+									  </c:if>
+									  
+									  <c:if test="${!empty list}">
+									  <c:forEach var="board" items="${list}" varStatus="vs">
+									  
+									  	<div class="col-md-3">
+										<div style="display:none;">${board.boardNo}</div>
 										
-                                        		String src = request.getContextPath()+"/resources/uploadImages/noImage.png";
-                                        		for(Attachment file : aList ){
-                                        			 //<c:if test="${ file.BoardNo == board.BoardNo && file.FileLevel ==0 && file.FileStatus.equals("N")}">
-                                        			if(file.BoardNo() == board.getBoardNo() && file.getFileLevel()==0 && file.getFileStatus().equals("N")){
-                                        				src = request.getContextPath()+"/resources/uploadImages/"+file.getFileChangeName();
-                                        			}
-                                        		}
-                                        	%> --%>
+											<figure class="effect-ravi">
+											
+											<c:set var="src" value="${contextPath}/resources/images/noImages.png"/>
+									  		<c:forEach var="img" items="${imgList}">
+									  			<c:if test="${img.boardId == board.boardNo}">
+									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${img.fileChnageName}"/>
+									  			</c:if>
+									  		</c:forEach>
+									  		
 												<img src="${src}" alt="img1" style="width: 200px; height: 175px;"/>
 												<figcaption>
 													<p>
@@ -62,115 +65,79 @@
 												</figcaption>
 											</figure>
 										</div>
-										</c:forEach>
-									</c:if>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket2.jpg" alt="img2" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket3.jpg" alt="img3" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket4.jpg" alt="img4" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
+									  	
+									  	</c:forEach>
+									  </c:if>
+										
+										
 
 									   </div>
 
-									   <div class="row rowbt">
+									    <!-- 페이징바 -->
+							 		 <div class="form-group col-9">
+	         				   			<ul class="pagination">
+	            						<c:if test="${pInf.currentPage > 1}">
+	                					<li>
+	                						<!-- 맨 처음으로(<<) -->
+	                    					<a class="page-link" href="
+	                    					<c:url value="list"> 
+	                    						<c:param name="currentPage" value="1"/>
+	                    					</c:url>
+	                    					">&lt;&lt;</a>
+	                					</li>
+	                
+	                					<li>
+	                						<!-- 이전으로(<) -->
+                   							<a class="page-link" href="
+                   							<c:url value="list">
+                   								<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+                   							</c:url>
+                   							">&lt;</a>
+	                					</li>
+	                					</c:if>
+	                
+	              			 		 <!-- 10개의 페이지 목록 -->
+	               			 			 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+	                						<c:if test="${p == pInf.currentPage}">
+		              			  				<li>
+		               			   	  				<a class="page-link">${p}</a>
+		               							</li>
+	                						</c:if>
+	                						<c:if test="${p != pInf.currentPage}">
+                								<li>
+	                    							<a class="page-link" href="
+	                    							<c:url value="list">
+	                    								<c:param name="currentPage" value="${p}"/>
+	                    							</c:url>
+	                    							">${p}</a>
+	                							</li>
+	                							</c:if>
+	            			  	 		</c:forEach>
+	                					<!-- 다음 페이지로(>) -->
+	                					<c:if test="${pInf.currentPage < pInf.maxPage }">
+	                					<li>
+	                			    		<a class="page-link" href="
+	                			    			<c:url value="list">
+	                			    				<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+	                			    			</c:url>
+	                			   		 ">&gt;</a>
+	                					</li>
+	                
+	               					 <!-- 맨 끝으로(>>) -->
+	              			 		 <li>
+	                   					 <a class="page-link" href="
+	                   			 			<c:url value="list">
+	                   			 				<c:param name="currentPage" value="${pInf.maxPage}"/>
+	                   			 			</c:url>
+	                   			 		">&gt;&gt;</a>
+	               					 </li>
+	               					 </c:if>
+	        			    		</ul>
+							 		 </div>
 
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket1.jpg" alt="img5" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
 										</div>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket2.jpg" alt="img6" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket3.jpg" alt="img7" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
-										<div class="col-md-3">
-											<figure class="effect-ravi">
-												<img src="images/ticket4.jpg" alt="img8" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
-
-									   </div>
-
-									   <div class="form-group col-9">
-										<ul class="pagination">
-										  <li class="page-item disabled">
-											<a class="page-link" href="#">◀</a>
-										  </li>
-										  <li class="page-item active">
-											<a class="page-link" href="#">1</a>
-										  </li>
-										  <li class="page-item">
-											<a class="page-link" href="#">2</a>
-										  </li>
-										  <li class="page-item">
-											<a class="page-link" href="#">3</a>
-										  </li>
-										  <li class="page-item">
-											<a class="page-link" href="#">4</a>
-										  </li>
-										  <li class="page-item">
-											<a class="page-link" href="#">5</a>
-										  </li>
-										  <li class="page-item">
-											<a class="page-link" href="#">▶</a>
-										  </li>
-										</ul>
-									  </div>
-
 									</div>
-								</div>
-							</div>
+									</div>
 
 					</div>
 				</div>

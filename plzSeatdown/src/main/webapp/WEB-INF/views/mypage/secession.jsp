@@ -30,14 +30,14 @@
 					</div>
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<form id="profile" action="deleteMember" method="POST">
+							<form id="profile" action="deleteMember"  onsubmit="return validate();" method="POST">
 								<div class="idbox">
 									<div class="form-group2 col-8 idcheck">
 										<span>아이디</span>
 										<span><b>${loginMember.memberId}</b></span>
 										<span><b>|</b></span>
 										<span>비밀번호</span>
-										<input type="password" class="form-control" id="userPwd">
+										<input type="password" class="form-control" id="userPwd" name="memberPwd">
 									</div>
 								</div>
 								<div class="form-group col-8">
@@ -69,18 +69,33 @@
 ④ 약관 내용 4
 										</textarea>
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="customCheck1" checked="" style="background-color:rgb(198, 180, 205)">
+											<input type="checkbox" class="custom-control-input" id="customCheck1" name="customCheck1"
+											style="background-color:rgb(198, 180, 205)">
 											<label class="custom-control-label" for="customCheck1">이 약관에 동의합니다</label>
 										</div>
 									</div>
     								</div>
-								<button id="updatebtn" type="button" class="btn btn-outline-secondary">변경</button>
+								<button id="updatebtn" type="submit" class="btn btn-outline-secondary">변경</button>
 							</form>
 						</div>
 						
 					</div>
 				</div>
 			</div>
+			
+			
+		<script>
+		// submit 동작
+		function validate() {
+			if(!$("#customCheck1").prop("checked")){
+				alert("약관에 동의해 주세요.");
+				return false;
+			}else{
+				return confirm("정말로 탈퇴하시겠습니까?");
+			}
+			
+		}
+	</script>
 	
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

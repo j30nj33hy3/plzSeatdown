@@ -32,7 +32,7 @@
 
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<form id="profile" action="updatePwd" method="POST">
+							<form id="profile" action="updatePwd" onsubmit="return validate();" method="POST">
 								<div class="idbox">
 									<div class="form-group2 col-8 idcheck" style="width:500px">
 										<span><b>아이디</b></span>
@@ -42,17 +42,17 @@
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="currentPwd" class="user">현재 비밀번호</label>
-									<input type="password" class="form-control" id="currentPwd"  style="border-radius: 1em;">
+									<input type="password" class="form-control" id="currentPwd" name="memberPwd"  style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="newPwd1" class="user">새 비밀번호</label>
-									<input type="password" class="form-control" id="newPwd1"  style="border-radius: 1em;">
+									<input type="password" class="form-control" id="newPwd1" name="newPwd1" style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 npwdc mb-0">
 									<label for="newPwd2" class="user">새 비밀번호 확인</label>
-									<input type="password" class="form-control" id="newPwd2"  style="border-radius: 1em;">
+									<input type="password" class="form-control" id="newPwd2" name="newPwd2" style="border-radius: 1em;">
 								</div>
-								<button id="updatebtn" type="button" class="btn btn-outline-secondary">변경</button>
+								<button id="updatebtn" type="submit" class="btn btn-outline-secondary">변경</button>
 							</form>
 						</div>
 
