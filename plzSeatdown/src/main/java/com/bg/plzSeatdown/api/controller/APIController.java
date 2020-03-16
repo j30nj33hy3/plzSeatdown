@@ -97,6 +97,9 @@ public class APIController {
 			String apiUrl = "http://www.kopis.or.kr/openApi/restful/prfplc/";
 			String serviceKey = "?service=54fbbe4f34054bcaaae74ef471fca7d1";
 			
+			// 현재 저장된 공연장 정보가 있는지 확인
+			int count = apiService.getTheaterCount();
+			
 			// 서울 공연장 정보 저장할 list
 			List<Theater> theaterList = new ArrayList<Theater>();
 			
@@ -132,13 +135,21 @@ public class APIController {
 				}
 			}
 			
-			int result = apiService.insertTheater(theaterList);
+			int result = 0;
+			
+			
+			if(count > 0) {
+				result = apiService.updateTheater(theaterList);
+			}
+			else {
+				result = apiService.insertTheater(theaterList);
+			}
 			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:../admin/theater";
+		return "redirect:../admin/theater/list";
 	}
 	
 	
@@ -150,6 +161,9 @@ public class APIController {
 		try {
 			
 			int result = 0;
+			
+			// 현재 저장된 공연장 정보가 있는지 확인
+			int count = apiService.getShowCount();
 			
 			// 공연(뮤지컬) 코드 목록 추출하기 위한 요청 URL
 			String url = "http://www.kopis.or.kr/openApi/restful/pblprfr?service=54fbbe4f34054bcaaae74ef471fca7d1&shcate=AAAB&stdate=20200101&eddate=20200930&cpage=1&rows=1000000";
@@ -210,14 +224,15 @@ public class APIController {
 				}
 				System.out.println(showDetailList);
 				if(!showDetailList.isEmpty()) {
-					result = apiService.insertShow(showDetailList);
+					if(count > 0) result = apiService.updateShow(showDetailList);
+					else result = apiService.insertShow(showDetailList);
 				}
 			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:../admin/show";
+		return "redirect:../admin/show/list";
 	}
 	
 }
