@@ -14,7 +14,7 @@
 	
 	<resultMap type="Show" id="showResultSet">
 		<result property="showCode" column="SHOW_CODE"/>
-		<result property="thCode" column="THEATER_FULL_CODE"/>
+		<result property="thFullCode" column="THEATER_FULL_CODE"/>
 		<result property="showTitle" column="SHOW_TITLE"/>
 		<result property="startDt" column="SHOW_START_DT"/>
 		<result property="endDt" column="SHOW_END_DT"/>
@@ -26,12 +26,31 @@
 		<result property="showImg4" column="SHOW_INTRO_IMG4"/>
 		<result property="theaterFullNm" column="THEATER_FULL_NM"/>
 	</resultMap>
+	
+	<!-- 공연장 수 -->
+	<select id="getTheaterCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM THEATER
+	</select>
 
 	<!-- 공연장 상세 정보 삽입 -->
 	<insert id="insertTheater" parameterType="Theater">
 		INSERT INTO THEATER
 		VALUES(#{thCode}, #{thNm}, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, DEFAULT)
 	</insert>
+	
+	<!-- 공연장 상세 정보 업데이트 -->
+	<update id="updateTheater" parameterType="Theater">
+		UPDATE THEATER
+		SET THEATER_NM = #{thNm},
+			THEATER_PHONE = #{thPhone},
+			THEATER_HOMEPAGE = #{thPage},
+			THEATER_ADDR = #{thAddr},
+			THEATER_LAT = #{thLat},
+			THEATER_LONG = #{thLong},
+			THEATER_CREATE_DT = SYSDATE
+		WHERE THEATER_CODE = #{thCode}
+	</update>
 	
 	<select id="selectprfList" resultType="string">
 		SELECT PRFPLCCD
@@ -40,14 +59,37 @@
                                          FROM THEATER) 
 	</select>
 	
-	<insert id="insertThShowCode" parameterType="Show">
+	<!-- <insert id="insertThShowCode" parameterType="Show">
 		INSERT INTO THEATER_SHOW
 		VALUES(#{thCode}, #{showCode}, DEFAULT)
-	</insert>
+	</insert> -->
 	
+	<!-- 공연수 -->
+	<select id="getShowCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SHOW
+	</select>
+	
+	<!-- 공연 상세 정보 삽입 -->
 	<insert id="insertShow" parameterType="Show">
 		INSERT INTO SHOW
-		VALUES(#{thCode}, #{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, 
+		VALUES(#{thFullCode}, #{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, 
 				#{showStatus}, #{showImg1}, #{showImg2}, #{showImg3}, #{showImg4}, #{theaterFullNm}, DEFAULT)
 	</insert>
+	
+	<!-- 공연 상세 정보 업데이트 -->
+	<update id="updateShow" parameterType="Show">
+		UPDATE SHOW
+		SET SHOW_TITLE = #{showTitle},
+			SHOW_START_DT = #{startDt},
+			SHOW_END_DT = #{endDt},
+			SHOW_POSTER = #{posterPath},
+			SHOW_STATUS = #{showStatus},
+			SHOW_INTRO_IMG1 = #{showImg1},
+			SHOW_INTRO_IMG2 = #{showImg2},
+			SHOW_INTRO_IMG3 = #{showImg3},
+			SHOW_INTRO_IMG4 = #{showImg4},
+			SHOW_CREATE_DT = SYSDATE
+		WHERE SHOW_CODE = #{showCode}
+	</update>
 </mapper>

@@ -15,6 +15,14 @@ public class APIDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	/** 현재 저장된 공연장 개수 조회
+	 * @return count
+	 * @throws Exception
+	 */
+	public int getTheaterCount() throws Exception{
+		return sqlSession.selectOne("apiMapper.getTheaterCount");
+	}
+	
 	/** URL 요청으로 반환된 공연시설 상세 정보 리스트 삽입용 DAO
 	 * @param theater
 	 * @return result
@@ -22,6 +30,15 @@ public class APIDAO {
 	 */
 	public int insertTheater(Theater theater) throws Exception{
 		return sqlSession.insert("apiMapper.insertTheater", theater);
+	}
+	
+	/** URL 요청으로 반환된 공연시설 상세 정보 리스트 업데이트용 DAO
+	 * @param theater
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateTheater(Theater theater) throws Exception{
+		return sqlSession.update("apiMapper.updateTheater", theater);
 	}
 
 	/** 공연 코드 목록을 추출하기 위한 prfplccd 조회용 DAO
@@ -32,10 +49,18 @@ public class APIDAO {
 		return sqlSession.selectList("apiMapper.selectprfList");
 	}
 
-	public int insertThShowCode(Show show) throws Exception{
-		return sqlSession.insert("apiMapper.insertThShowCode", show);
-	}
+//	public int insertThShowCode(Show show) throws Exception{
+//		return sqlSession.insert("apiMapper.insertThShowCode", show);
+//	}
 
+	/** 현재 저장된 공연 수 조회
+	 * @return count
+	 * @throws Exception
+	 */
+	public int getShowCount() throws Exception{
+		return sqlSession.selectOne("apiMapper.getShowCount");
+	}
+	
 	/** 공연 상세 정보 삽입용 DAO
 	 * @param show
 	 * @return result
@@ -44,4 +69,18 @@ public class APIDAO {
 	public int insertShow(Show show) throws Exception{
 		return sqlSession.insert("apiMapper.insertShow", show);
 	}
+
+	/** 공연 상세 정보 업데이트용 DAO
+	 * @param show
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateShow(Show show) throws Exception{
+		return sqlSession.update("apiMapper.updateShow", show);
+	}
+
+	
+
+	
+
 }

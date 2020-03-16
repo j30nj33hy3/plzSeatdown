@@ -16,6 +16,15 @@ public class APIServiceImpl implements APIService{
 	@Autowired
 	private APIDAO apiDAO;
 	
+	/** 현재 저장된 공연장 개수 조회
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int getTheaterCount() throws Exception {
+		return apiDAO.getTheaterCount();
+	}
+	
 	/** URL 요청으로 반환된 공연시설 상세 정보 리스트 삽입용 Service
 	 * @param theaterList
 	 * @return result
@@ -33,6 +42,28 @@ public class APIServiceImpl implements APIService{
 			
 			if(result == 0) throw new Exception();
 		}
+		
+		return result;
+	}
+	
+	/** URL 요청으로 반환된 공연시설 상세 정보 리스트 업데이트용 Service
+	 * @param theaterList
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateTheater(List<Theater> theaterList) throws Exception {
+		
+		int result = 0;
+		
+		for(Theater theater : theaterList) {
+			
+			result = apiDAO.updateTheater(theater);
+			
+			if(result == 0) throw new Exception();
+		}
+		
 		return result;
 	}
 
@@ -46,19 +77,28 @@ public class APIServiceImpl implements APIService{
 	}
 
 	
-	@Transactional(rollbackFor = Exception.class)
+//	@Transactional(rollbackFor = Exception.class)
+//	@Override
+//	public int insertThShowCode(List<Show> thShowCodeList) throws Exception {
+//		
+//		int result = 0;
+//		
+//		for(Show show : thShowCodeList) {
+//			
+//			result = apiDAO.insertThShowCode(show);
+//			
+//			if(result == 0) throw new Exception();
+//		}
+//		return result;
+//	}
+	
+	/** 현재 저장된 공연 수 조회
+	 * @return count
+	 * @throws Exception
+	 */
 	@Override
-	public int insertThShowCode(List<Show> thShowCodeList) throws Exception {
-		
-		int result = 0;
-		
-		for(Show show : thShowCodeList) {
-			
-			result = apiDAO.insertThShowCode(show);
-			
-			if(result == 0) throw new Exception();
-		}
-		return result;
+	public int getShowCount() throws Exception {
+		return apiDAO.getShowCount();
 	}
 
 	/** 공연 상세 정보 삽입용 Service
@@ -78,4 +118,28 @@ public class APIServiceImpl implements APIService{
 		}
 		return result;
 	}
+
+	/** 공연 상세 정보 업데이트용 Service
+	 * @param showDetailList
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateShow(List<Show> showDetailList) throws Exception {
+		int result = 0;
+		
+		for(Show show : showDetailList) {
+			
+			result = apiDAO.updateShow(show);
+			
+			if(result == 0) throw new Exception();
+		}
+		return result;
+	}
+
+	
+
+	
+
 }

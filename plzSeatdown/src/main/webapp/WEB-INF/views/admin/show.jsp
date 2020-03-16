@@ -17,8 +17,25 @@
         #searchBtn{
             background-color: #917EC6;
         }
+        #searchTitle {
+			width: 110px;
+			display: inline-block;
+		}
+		
+		#searchInput {
+			width: 25%;
+			display: inline-block;
+		}
+		
+		#searchBtn {
+			width: 100px;
+			background-color: #917EC6;
+			border: #917EC6;
+			display: inline-block;
+		}
         .card img{
         	width: 100%;
+        	max-height: 100%;
         }
     </style>
 </head>
@@ -71,8 +88,8 @@
                     <div class="col-md-12">
                     
                     	<c:if test="${empty list }">
-                    		<div class="row">
-                    			<h5>등록된 공연장이 없습니다.</h5>
+                    		<div class="row" style="justify-content: center;">
+                    			<h5>등록된 공연이 없습니다.</h5>
                     		</div>
                     	</c:if>
                     	
@@ -193,9 +210,9 @@
                 <!-- 검색창 -->
                 <div class="row" style="justify-content: center;">
                 	<form>
-	                	<div class="input-group" style="width: 30%;">
+	                	<div class="input-group">
 	                        <input type="text" class="form-control" id="searchInput" name="searchShow" placeholder="공연명을 입력하세요">
-	                        <button id="searchBtn" class="btn btn-default" type="button"><i class="fas fa-search"></i></button>
+	                        <button id="searchBtn" class="btn btn-default" type="button">검색</button>
 	                    </div>
                 	</form>
                 </div>

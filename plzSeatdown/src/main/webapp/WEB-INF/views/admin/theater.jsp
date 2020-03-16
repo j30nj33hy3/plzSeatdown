@@ -76,7 +76,7 @@
                     <div class="col-md-12">
                     
                     	<c:if test="${empty list }">
-                    		<div class="row">
+                    		<div class="row" style="justify-content: center;">
                     			<h5>등록된 공연장이 없습니다.</h5>
                     		</div>
                     	</c:if>
@@ -199,7 +199,7 @@
 				<!-- 검색 -->
 				<div class="row" style="justify-content: center;">
 					<form action="list" method="GET" id="searchForm">
-						<div class="input-group" style="width: 30%;">
+						<div class="input-group">
 	                        <input type="text" class="form-control" name="searchTheater" placeholder="공연장명을 입력하세요">
 	                        <button class="btn btn-default" id="searchBtn">검색</button>
 	                    </div>
