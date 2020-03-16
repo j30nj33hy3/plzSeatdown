@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="apiMapper">
+
+	<resultMap type="Theater" id="theaterResultSet">
+		<id property="thCode" column="THEATER_CODE"/>
+		<result property="thNm" column="THEATER_NM"/>
+		<result property="thPhone" column="THEATER_PHONE"/>
+		<result property="thPage" column="THEATER_HOMEPAGE"/>
+		<result property="thAddr" column="THEAER_ADDR"/>
+		<result property="thLat" column="THEATER_LAT"/>
+		<result property="thLong" column="THEATER_LONG"/>
+	</resultMap>
+	
+	<resultMap type="Show" id="showResultSet">
+		<result property="showCode" column="SHOW_CODE"/>
+		<result property="thCode" column="THEATER_FULL_CODE"/>
+		<result property="showTitle" column="SHOW_TITLE"/>
+		<result property="startDt" column="SHOW_START_DT"/>
+		<result property="endDt" column="SHOW_END_DT"/>
+		<result property="posterPath" column="SHOW_POSTER"/>
+		<result property="showStatus" column="SHOW_STATUS"/>
+		<result property="showImg1" column="SHOW_INTRO_IMG1"/>
+		<result property="showImg2" column="SHOW_INTRO_IMG2"/>
+		<result property="showImg3" column="SHOW_INTRO_IMG3"/>
+		<result property="showImg4" column="SHOW_INTRO_IMG4"/>
+		<result property="theaterFullNm" column="THEATER_FULL_NM"/>
+	</resultMap>
+
+	<!-- 공연장 상세 정보 삽입 -->
+	<insert id="insertTheater" parameterType="Theater">
+		INSERT INTO THEATER
+		VALUES(#{thCode}, #{thNm}, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, DEFAULT)
+	</insert>
+	
+	<select id="selectprfList" resultType="string">
+		SELECT PRFPLCCD
+		FROM API_COMMON
+		WHERE SUBSTR(PRFPLCCD, 1, 8) IN (SELECT THEATER_CODE
+                                         FROM THEATER) 
+	</select>
+	
+	<insert id="insertThShowCode" parameterType="Show">
+		INSERT INTO THEATER_SHOW
+		VALUES(#{thCode}, #{showCode}, DEFAULT)
+	</insert>
+	
+	<insert id="insertShow" parameterType="Show">
+		INSERT INTO SHOW
+		VALUES(#{thCode}, #{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, 
+				#{showStatus}, #{showImg1}, #{showImg2}, #{showImg3}, #{showImg4}, #{theaterFullNm}, DEFAULT)
+	</insert>
+</mapper>
