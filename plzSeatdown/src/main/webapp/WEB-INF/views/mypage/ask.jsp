@@ -31,7 +31,7 @@
 						</div>
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<table class="table">
+							<table  id="list-table" class="table">
 								<thead>
 								  <tr>
 								  	<th scope="col">글번호</th>
@@ -47,12 +47,12 @@
 										</tr>
 								</c:if>
 								<c:if test="${!empty list}">
-									<c:forEach var="qna" items="${list}" varStatus="vs">
+									<c:forEach var="qnaeh" items="${list}" varStatus="vs">
 										<tr>
-											<td>${qna.qnaNo}</td>
-											<td>${qna.qnaContent}</td>
-											<td>${qna.qnaCreateDate}</td>
-											<td>${qna.qnaStatus}</td>
+											<td>${qnaeh.qnaNo}</td>
+											<td id="contentwrap">${qnaeh.qnaContent}</td>
+											<td>${qnaeh.qnaCreateDate}</td>
+											<td>${qnaeh.qnaStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -127,6 +127,26 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+		<script>
+		// 게시글 상세보기 기능 (jquery를 통해 작업)
+		$(function(){
+			$("#list-table td").click(function(){
+				var qnaNo = $(this).parent().children().eq(0).text();
+				// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
+				<c:url var="detailUrl" value="detail"> // 주소창의 detail
+                 	<c:param name="currentPage" value="${pInf.currentPage}"/>
+               	</c:url>
+				location.href="${detailUrl}&no="+qnaNo;
+			}).mouseenter(function(){
+				$(this).parent().css("cursor", "pointer");
+			});
+		});
+		
+		
+	</script>
 	
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

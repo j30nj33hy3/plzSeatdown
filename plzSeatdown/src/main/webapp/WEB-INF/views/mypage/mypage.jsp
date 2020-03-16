@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+V<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -30,29 +30,37 @@
 						</div>
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<form id="profile" action="updateprofile" method="POST">
-								<div id="image">
-									<img id="img1" src="${contextPath}/resources/images/user.png" alt="profile"/>
+							<form id="profile" action="updateprofile" enctype="multipart/form-data" method="POST" onsubmit="return validate();" >
+								<div id="ImgArea">
+								  <c:set var="src" value="${contextPath}/resources/images/user.png"/>
+				                        <c:if test="${profile.memberNo == member.memberNo}">
+				                        	<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
+				                        </c:if>
+				                        <img id="img1" src="${src}" style="border-radius: 5em;">
+									<%-- <img id="img1" name="image" src="${contextPath}/resources/images/${profile.profilePath}" alt="profile" style="border-radius: 5em;"/> --%>
 								</div>
-								<div>
-									<input type="file" id="img2" name="imageUpload" style="width: 300px;">
+								<div id="fileArea">
+									<input type="file" id="file1" name="image">
+								</div>
+								<div id="fileArea2">
+									<a id="filedelete" type="button"  class="btn btn-outline-secondary">이미지 삭제</a>
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userId" class="user">아이디</label>
-									<input type="text" class="form-control" id="userId" value="${member.memberId}" readonly style="border-radius: 1em;">
+									<input type="text" class="form-control" id="userId" name="memberId" value="${member.memberId}" readonly style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userName" class="user">이름</label>
-									<input type="text" class="form-control" id="userName" value="${member.memberName}" readonly style="border-radius: 1em;">
-								</div>
-								<div class="form-group col-8 mb-0">
-									<label for="userNickname" class="user">닉네임</label>
-									<input type="text" class="form-control" id="userNickname" value="${member.memberNickname}" style="border-radius: 1em;">
-									<button id="updatebtn" type="button" class="btn btn-outline-secondary">수정</button>
+									<input type="text" class="form-control" id="userName" name="memberName" value="${member.memberName}" readonly style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userEmail" class="user">이메일</label>
-									<input type="email" class="form-control" id="userEmail" value="${member.memberEmail}" readonly style="border-radius: 1em;">
+									<input type="email" class="form-control" id="userEmail" name="memberEmail" value="${member.memberEmail}" readonly style="border-radius: 1em;">
+								</div>
+								<div class="form-group col-8 mb-0">
+									<label for="userNickname" class="user">닉네임</label>
+									<input type="text" class="form-control" id="userNickname" name="memberNickname" value="${member.memberNickname}" style="border-radius: 1em;">
+									<button id="updatebtn" type="submit" class="btn btn-outline-secondary">수정</button>
 								</div>
 							</form>
 						</div>
@@ -62,8 +70,8 @@
 			</div>
 	
 	
-	<!-- 이미지 업로드 jQuery -->
               <script type="text/javascript">
+              // 이미지 업로드 jQuery
                 function readURL(input) {
                   if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -74,11 +82,34 @@
                   }  
                 }
 
-                $("#img2").change(function () {
+                $("#file1").change(function () {
                   readURL(this);
                 });
+                
+                
+           	  // 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+                $(function () {
+                  // 파일 선택 버튼이 있는 영역을 보이지 않게함
+                   $("#fileArea").hide();
+                  
+                  // 이미지 영역 클릭 시 파일 첨부 창 띄우기
+                  $("#img1").click(function(){
+                     // 숨겨놓은 파일버튼 누르게함
+                     $("#file1").click();
+                  });
+                  
+                });
+           	  
+           	  
+           	  // 이미지 삭제 버튼 클릭시 이미지 삭제
+           	 $("#filedelete").click(function(){
+           		 $("#img1").attr("src","${contextPath}/resources/images/user.png");
+           		 $("#file1").val("");
+           	 });
+           	  
               </script>
-            </div>
+              
+              
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

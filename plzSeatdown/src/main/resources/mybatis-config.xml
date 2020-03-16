@@ -16,6 +16,8 @@
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminReview" alias="AdminReview"/>
 		<typeAlias type="com.bg.plzSeatdown.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.bg.plzSeatdown.qna.model.vo.QnA" alias="QnA"/>
+		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.Profile" alias="Profile"/>
+      	<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.QnAEH" alias="QnAEH"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -26,6 +28,7 @@
 		<mapper resource="/mappers/yhb-community-mapper.xml"/>
 		<mapper resource="/mappers/yhb-notice-mapper.xml"/>
 		<mapper resource="/mappers/yhb-qna-mapper.xml"/>
+		<mapper resource="/mappers/mypage-mapper.xml"/>
 	</mappers>
 
 </configuration>

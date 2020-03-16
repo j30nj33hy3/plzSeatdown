@@ -24,6 +24,9 @@ body{
 
 .wrapper{
     height: 630px;
+    background: #fff;
+    margin: 0 0 2em 0;
+    padding: 6em 0 6em 0;
 }
 
 /* 사이드 바*/
@@ -84,6 +87,19 @@ body{
 }
 
 
+#nolistdiv{
+	display:block;
+}
+
+#nolist{
+	margin: auto;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px; 
+    width: 300px;
+    display:block
+}
 
 
 
