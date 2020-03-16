@@ -59,7 +59,7 @@ public class MypageServiceImpl implements MypageService{
     */
    @Transactional(rollbackFor = Exception.class)
    @Override
-   public int updateMypage(Member member, MultipartFile image, String savePath) throws Exception {
+   public int updateMypage(Member member, MultipartFile image, String savePath, int deleteCheck) throws Exception {
       
       Profile file = mypageDAO.selectMypageProf(member.getMemberNo());
       
@@ -67,6 +67,8 @@ public class MypageServiceImpl implements MypageService{
       Profile insertFile = new Profile(); // 새롭게 삽입 (없던걸 생기게하는것)
       Profile updateFile = new Profile(); // 수정할것 삽입 (있던걸 고치는것)
       
+      System.out.println("image : " + image);
+      System.out.println("image.getOriginalFilename() : " + image.getOriginalFilename());
       
       if(!image.getOriginalFilename().equals("")) {
       
@@ -83,12 +85,15 @@ public class MypageServiceImpl implements MypageService{
       				insertFile.setMemberNo(member.getMemberNo());
       			}
       }
-      
+      	System.out.println("file : " + file);
+      	System.out.println("insertFile : " + insertFile);
+      	System.out.println("updateFile : " + updateFile);
 
       // DB수정
 		int result = 0;
 
 		result = mypageDAO.updateMypage(member);
+		
 		
 		// 게시글 수정 성공 & 새로운 파일 있을 경우
 		if(result>0 && insertFile.getProfilePath() != null) {
@@ -107,6 +112,18 @@ public class MypageServiceImpl implements MypageService{
 			if(result==0) throw new Exception("파일 수정 과정에서 오류 발생");
 		}
 		
+		// 삭제하기 버튼을 눌렀을 경우
+		if(result>0 && deleteCheck == 1){
+			System.out.println("deleteChec : " + deleteCheck);
+	    	  result = 0;
+	    	  result = mypageDAO.deleteProfile(member.getMemberNo());
+    	  	
+	    	  if(result==0) throw new Exception("파일 삭제 과정에서 오류 발생");
+	    }
+	
+		
+		System.out.println("result : " + result);
+		
 		// 서버 수정
 		if(result>0 && insertFile.getProfilePath() != null) {
 			image.transferTo(new File(savePath + "/" + insertFile.getProfilePath()));
@@ -118,11 +135,19 @@ public class MypageServiceImpl implements MypageService{
 		
 		
 		// 수정 전 이미지를 서버에서 삭제
+		if(file != null) {
+		if(file.getProfileNo() == insertFile.getProfileNo()) {
+			File deletefile = new File(
+						savePath + "/" + file.getProfilePath());
+			deletefile.delete();
+		} 
+		
 		if(file.getProfileNo() == updateFile.getProfileNo()) {
 			File deletefile = new File(
 						savePath + "/" + file.getProfilePath());
 			deletefile.delete();
 		}
+	}
 		
       return result;
    }

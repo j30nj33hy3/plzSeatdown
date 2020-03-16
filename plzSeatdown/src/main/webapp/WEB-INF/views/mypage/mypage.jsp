@@ -30,20 +30,20 @@ V<%@ page language="java" contentType="text/html; charset=UTF-8"
 						</div>
 
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<form id="profile" action="updateprofile" enctype="multipart/form-data" method="POST" onsubmit="return validate();" >
+							<form id="profile" action="updateprofile" enctype="multipart/form-data" method="POST" >
 								<div id="ImgArea">
 								  <c:set var="src" value="${contextPath}/resources/images/user.png"/>
 				                        <c:if test="${profile.memberNo == member.memberNo}">
 				                        	<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
 				                        </c:if>
 				                        <img id="img1" src="${src}" style="border-radius: 5em;">
-									<%-- <img id="img1" name="image" src="${contextPath}/resources/images/${profile.profilePath}" alt="profile" style="border-radius: 5em;"/> --%>
 								</div>
 								<div id="fileArea">
 									<input type="file" id="file1" name="image">
 								</div>
 								<div id="fileArea2">
 									<a id="filedelete" type="button"  class="btn btn-outline-secondary">이미지 삭제</a>
+									<input type="hidden" name="deleteCheck" id="deleteCheck" value="0">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userId" class="user">아이디</label>
@@ -86,7 +86,7 @@ V<%@ page language="java" contentType="text/html; charset=UTF-8"
                   readURL(this);
                 });
                 
-                
+                 
            	  // 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
                 $(function () {
                   // 파일 선택 버튼이 있는 영역을 보이지 않게함
@@ -98,13 +98,14 @@ V<%@ page language="java" contentType="text/html; charset=UTF-8"
                      $("#file1").click();
                   });
                   
-                });
+                }); 
            	  
            	  
            	  // 이미지 삭제 버튼 클릭시 이미지 삭제
            	 $("#filedelete").click(function(){
+           		 $("#deleteCheck").val("1");
+           	     $("#file1").val("");
            		 $("#img1").attr("src","${contextPath}/resources/images/user.png");
-           		 $("#file1").val("");
            	 });
            	  
               </script>

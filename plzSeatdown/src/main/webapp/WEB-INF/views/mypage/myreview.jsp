@@ -54,11 +54,11 @@
 											<tr>
 												<td>${review.reviewNo}</td>
 												<td>${review.theaterName}</td>
-												<td>${review.REVIEW_LEGROOM + REVIEW.COMFORT + REVICE_SIGHTH /3 => 값나온거에 JQUERY로 별점 구현}</td>
+												<td>${(review.reviewSight + review.reviewComfort + review.reviewLegroom)/3}</td>
 												<td>${review.showTitle}</td>
 												<td>${review.reviewCreateDate}</td>
 												<td>${review.seatImageStatus}</td>
-												<td><button type="button" class="updatebtn"><img src="images/pen.png" class="edit"></button></td>
+												<td><a href="updateReview?no=${review.reviewNo}" id="filedelete" type="button"  class="btn btn-outline-secondary updatebtn"><img src="images/pen.png" class="edit"></a></td>
 									 	 </tr>
 										</c:forEach>
 									</c:if>

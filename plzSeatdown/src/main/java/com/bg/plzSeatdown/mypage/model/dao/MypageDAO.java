@@ -138,6 +138,17 @@ public class MypageDAO {
    public int updateProfile(Profile updateFile)throws Exception {
 	   return sqlSession.update("mypageMapper.updateProfile", updateFile);
    }
+
+
+
+   	/** 마이페이지 프로필 삭제용
+   	 * @param memberNo
+   	 * @return
+   	 * @throws Exception
+   	 */
+   public int deleteProfile(int memberNo)throws Exception{
+	   return sqlSession.delete("mypageMapper.deleteProfile", memberNo);
+   }
    
    
    

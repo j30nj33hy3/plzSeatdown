@@ -65,9 +65,12 @@ public class MypageController {
 			 					RedirectAttributes rdAttr,
 								Member member,
 								MultipartFile image,
-								HttpServletRequest request
+								HttpServletRequest request,
+								Integer deleteCheck
 								) {
 
+		System.out.println("deleteCheck :" + deleteCheck);
+		
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
 		
@@ -89,7 +92,7 @@ public class MypageController {
 		try {
 			
 			int result
-			= mypageService.updateMypage(member,image,savePath);
+			= mypageService.updateMypage(member,image,savePath, deleteCheck);
 			
 			String msg = null;
 			
@@ -272,7 +275,22 @@ public class MypageController {
 			
 		}
 		
-	
+		
+		
+		// 마이티켓 페이지로 이동
+			@RequestMapping("myticket")
+			public String myticket() {
+				return "mypage/myticket";
+			}
+			
+			
+			
+		// 마이티켓 페이지로 이동
+			@RequestMapping("myreview")
+			public String myreview() {
+				return "mypage/myreview";
+			}
+			
 		
 		
 		
