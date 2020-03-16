@@ -64,130 +64,158 @@
                 <!-- ============================================================== -->
                 <div class="row mb-4">    
                     <div class="col-md-12 text-right">
+                        <button type="button" class="btn btn-default" id="tmp2" onclick="location.href='${contextPath}/API/theaterAPI'">
+                            	공연장 API(임시)
+                        </button>
                         <button type="button" class="btn btn-default" id="addBtn">
-                            공연장 추가
+                            	공연장 추가
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail First" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 A - 1관
-                                        </h5>
-                                        <p class="text-right">
+                    
+                    	<c:if test="${empty list }">
+                    		<div class="row">
+                    			<h5>등록된 공연장이 없습니다.</h5>
+                    		</div>
+                    	</c:if>
+                    	
+                    	<c:if test="${!empty list }">
+                    		<div class="row">
+                    			<c:forEach var="theater" items="${list}" varStatus="vs">
+                    				<div class="col-md-4">
+                    					<div class="card">
+                    						<img class="card-img-top" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
+                    						<div class="card-block mt-3 ml-3 mr-3">
+                    							<h5 class="card-title">
+                    								${theater.thFullNm}
+                    							</h5>
+                    							<p class="text-right">
                                             <a class="btn btn-primary" href="#">수정</a> 
                                             <a class="btn btn-secondary" href="#">삭제</a>
                                         </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail Second" src="https://www.layoutit.com/img/city-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 A - 2관
-                                        </h5>
-                                        <p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail Third" src="https://www.layoutit.com/img/sports-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 B - 1관
-                                        </h5>
-                                        <p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail First" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 C - 1관
-                                        </h5>
-                                        <p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail Second" src="https://www.layoutit.com/img/city-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 C - 2관
-                                        </h5>
-                                        <p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Bootstrap Thumbnail Third" src="https://www.layoutit.com/img/sports-q-c-600-200-1.jpg" />
-                                    <div class="card-block mt-3 ml-3 mr-3">
-                                        <h5 class="card-title">
-                                            공연장 이름 C - 3관
-                                        </h5>
-                                        <p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    						</div>
+                    					</div>
+                    				</div>
+                    			</c:forEach>
+                    		</div>
+                    	</c:if>
+                    	
                     </div>
                 </div>
-                <div class="row mb-3" style="justify-content: center;">
-                    <div class="input-group" style="width: 30%;">
-                        <input type="text" class="form-control" name="search-theater" placeholder="공연장명을 입력하세요">
-                        <button class="btn btn-default" id="searchBtn" type="button"><i class="fas fa-search"></i></button>
-                    </div>
+                
+                
+                <!---------------------------------- 페이징 바 ---------------------------------->
+				<div style="clear: both;">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination" style="justify-content: center;">
+							<c:if test="${pInf.currentPage > 1}">
+								<li>
+									<!-- 맨 처음으로(<<) --> <!-- 
+                                    c:url 태그에 var 속성이 존재하지 않으면
+                                   	 변수처럼 사용되는 것이 아닌, 작성된 자리에 바로 URL 형식으로 표기됨
+                                --> <a class="page-link"
+									href=" 
+                                    <c:url value="list">
+                                        <c:if test="${!empty param.searchTheater }">
+                                            <c:param name="searchTheater" value="${param.searchTheater}"/>
+                                        </c:if>
+                                        <c:param name="currentPage" value="1"/>
+                                    </c:url>
+                                ">
+										&lt;&lt; </a>
+								</li>
+
+								<li>
+									<!-- 이전으로(<) --> <a class="page-link"
+									href=" 
+                                    <c:url value="list">
+                                        <c:if test="${!empty param.searchTheater }">
+                                            <c:param name="searchTheater" value="${param.searchTheater}"/>
+                                        </c:if>
+                                        <c:param name="currentPage" value="${pInf.currentPage-1}"/>
+                                    </c:url>
+                                ">
+										&lt; </a>
+								</li>
+							</c:if>
+
+							<!-- 10개의 페이지 목록 -->
+							<c:forEach var="p" begin="${pInf.startPage}"
+								end="${pInf.endPage}">
+
+
+								<c:if test="${p == pInf.currentPage}">
+									<li><a class="page-link">${p}</a></li>
+								</c:if>
+
+								<c:if test="${p != pInf.currentPage}">
+									<li><a class="page-link"
+										href=" 
+                                        <c:url value="list">
+                                            <c:if test="${!empty param.searchTheater }">
+                                            	<c:param name="searchTheater" value="${param.searchTheater}"/>
+                                       		</c:if>
+                                            <c:param name="currentPage" value="${p}"/>
+                                        </c:url>
+                                    ">
+											${p} </a></li>
+								</c:if>
+
+							</c:forEach>
+
+							<!-- 다음 페이지로(>) -->
+							<c:if test="${pInf.currentPage < pInf.maxPage }">
+								<li><a class="page-link"
+									href=" 
+                                    <c:url value="list">
+                                        <c:if test="${!empty param.searchTheater }">
+                                            <c:param name="searchTheater" value="${param.searchTheater}"/>
+                                        </c:if>
+                                        <c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                                    </c:url>
+                                ">
+										&gt; </a></li>
+
+								<!-- 맨 끝으로(>>) -->
+								<li><a class="page-link"
+									href=" 
+                                    <c:url value="list">
+                                        <c:if test="${!empty param.searchTheater }">
+                                            <c:param name="searchTheater" value="${param.searchTheater}"/>
+                                        </c:if>
+                                        <c:param name="currentPage" value="${pInf.maxPage}"/>
+                                    </c:url>
+                                ">
+										&gt;&gt; </a></li>
+
+							</c:if>
+						</ul>
+					</nav>
+				</div>
+				
+				
+				<!-- 검색 -->
+				<div class="row" style="justify-content: center;">
+					<form action="list" method="GET" id="searchForm">
+						<div class="input-group" style="width: 30%;">
+	                        <input type="text" class="form-control" name="searchTheater" placeholder="공연장명을 입력하세요">
+	                        <button class="btn btn-default" id="searchBtn">검색</button>
+	                    </div>
+					</form>
                 </div>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination" style="justify-content: center;">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
+                <!-- 페이지 이동 후에도 검색 결과가 검색창 input 태그에 표시되도록 하는 script -->
+                <script>
+                	$(function(){
+                		var searchTheater = "${param.searchTheater}";
+                		
+                		if(searchTheater != "null"){
+                			$("input[name=searchTheater]").val(searchTheater);
+                		}
+                	});
+                </script>
                     
             </div>
             <!-- ============================================================== -->
@@ -202,7 +230,6 @@
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
-
 </body>
 
 </html>
