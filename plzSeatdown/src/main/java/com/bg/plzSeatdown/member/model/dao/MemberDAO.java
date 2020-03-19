@@ -79,4 +79,31 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.mailAuth", member);
 	}
 
+	/** 아이디 찾기용 DAO
+	 * @param member
+	 * @return memberId
+	 * @throws Exception
+	 */
+	public String findId(Member member) throws Exception{
+		return sqlSession.selectOne("memberMapper.findId", member);
+	}
+
+	/** 사용자 계정 확인용 DAO
+	 * @param member
+	 * @return count
+	 * @throws Exception
+	 */
+	public int checkMemberInfo(Member member) throws Exception{
+		return sqlSession.selectOne("memberMapper.checkMemberInfo", member);
+	}
+
+	/** 비밀번호 재설정용 DAO
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public int resetPwd(Member member) throws Exception{
+		return sqlSession.update("memberMapper.resetPwd", member);
+	}
+
 }

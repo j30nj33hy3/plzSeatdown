@@ -1,0 +1,23 @@
+.formContainer{
+	margin: 4em 0em;
+}
+#authBtnBox{
+	width: 100px;
+	margin: 0 auto;
+}
+#pwdAuthBtn{
+    height: 40px;
+    font-size: 15px;
+    width: 100%;
+    background-color: rgba(163, 99, 189, 0.8);
+    border: 0px;
+    float:left;
+}
+
+#pwdAuthBtn:hover{
+    background-color:rgb(163, 99, 189);
+    color : white;
+    border : 0px;
+    
+}
+

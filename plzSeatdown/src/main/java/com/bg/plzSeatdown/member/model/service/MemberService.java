@@ -56,4 +56,26 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public abstract int mailAuth(Member member) throws Exception;
+
+	/** 아이디 찾기용 Service
+	 * @param member
+	 * @return memberId
+	 * @throws Exception
+	 */
+	public abstract String findId(Member member) throws Exception;
+
+	
+	/** 사용자 계정 확인용 Service
+	 * @param member
+	 * @return count
+	 * @throws Exception
+	 */
+	public abstract int checkMemberInfo(Member member) throws Exception;
+
+	/** 비밀번호 재설정용 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int resetPwd(Member member) throws Exception;
 }

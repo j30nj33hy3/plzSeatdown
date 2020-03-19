@@ -80,4 +80,30 @@
 	 	MEMBER_STATUS = 'Y'
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </update>
+	 
+	 <!-- 아이디 찾기 -->
+	 <select id="findId" parameterType="Member" resultType="string">
+	 	SELECT MEMBER_ID
+	 	FROM MEMBER
+	 	WHERE MEMBER_NM = #{memberName}
+	 	AND MEMBER_EMAIL = #{memberEmail}
+	 	AND MEMBER_STATUS = 'Y'
+	 </select>
+	 
+	 <!-- 사용자 정보 확인 -->
+	 <select id="checkMemberInfo" parameterType="Member" resultType="_int">
+	 	SELECT COUNT(*)
+	 	FROM MEMBER
+	 	WHERE MEMBER_ID = #{memberId}
+	 	AND MEMBER_NM = #{memberName}
+	 	AND MEMBER_EMAIL = #{memberEmail}
+	 	AND MEMBER_STATUS = 'Y'
+	 </select>
+	 
+	 <!-- 비밀번호 재설정 -->
+	 <update id="resetPwd" parameterType="Member">
+	 	UPDATE MEMBER
+	 	SET MEMBER_PWD = #{memberPwd}
+	 	WHERE MEMBER_ID = #{memberId}
+	 </update>
 </mapper>
