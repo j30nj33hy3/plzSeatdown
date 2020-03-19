@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminTheaterMapper">
 
-	<resultMap type="Theater" id="theaterResultSet">
+	<resultMap type="TheaterAPI" id="theaterResultSet">
 		<id property="thCode" column="THEATER_CODE"/>
 		<result property="thNm" column="THEATER_NM"/>
 		<result property="thPhone" column="THEATER_PHONE"/>

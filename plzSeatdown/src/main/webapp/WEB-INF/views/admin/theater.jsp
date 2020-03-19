@@ -92,9 +92,9 @@
                     								${theater.thFullNm}
                     							</h5>
                     							<p class="text-right">
-                                            <a class="btn btn-primary" href="#">수정</a> 
-                                            <a class="btn btn-secondary" href="#">삭제</a>
-                                        </p>
+		                                            <a class="btn btn-primary" href="#">수정</a> 
+		                                            <a class="btn btn-secondary" href="#">삭제</a>
+		                                        </p>
                     						</div>
                     					</div>
                     				</div>

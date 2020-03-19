@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="apiMapper">
 
-	<resultMap type="Theater" id="theaterResultSet">
+	<resultMap type="TheaterAPI" id="theaterResultSet">
 		<id property="thCode" column="THEATER_CODE"/>
 		<result property="thNm" column="THEATER_NM"/>
 		<result property="thPhone" column="THEATER_PHONE"/>
@@ -12,7 +12,7 @@
 		<result property="thLong" column="THEATER_LONG"/>
 	</resultMap>
 	
-	<resultMap type="Show" id="showResultSet">
+	<resultMap type="ShowAPI" id="showResultSet">
 		<result property="showCode" column="SHOW_CODE"/>
 		<result property="thFullCode" column="THEATER_FULL_CODE"/>
 		<result property="showTitle" column="SHOW_TITLE"/>
@@ -34,13 +34,13 @@
 	</select>
 
 	<!-- 공연장 상세 정보 삽입 -->
-	<insert id="insertTheater" parameterType="Theater">
+	<insert id="insertTheater" parameterType="TheaterAPI">
 		INSERT INTO THEATER
 		VALUES(#{thCode}, #{thNm}, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, DEFAULT)
 	</insert>
 	
 	<!-- 공연장 상세 정보 업데이트 -->
-	<update id="updateTheater" parameterType="Theater">
+	<update id="updateTheater" parameterType="TheaterAPI">
 		UPDATE THEATER
 		SET THEATER_NM = #{thNm},
 			THEATER_PHONE = #{thPhone},
@@ -71,14 +71,14 @@
 	</select>
 	
 	<!-- 공연 상세 정보 삽입 -->
-	<insert id="insertShow" parameterType="Show">
+	<insert id="insertShow" parameterType="ShowAPI">
 		INSERT INTO SHOW
 		VALUES(#{thFullCode}, #{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, 
 				#{showStatus}, #{showImg1}, #{showImg2}, #{showImg3}, #{showImg4}, #{theaterFullNm}, DEFAULT)
 	</insert>
 	
 	<!-- 공연 상세 정보 업데이트 -->
-	<update id="updateShow" parameterType="Show">
+	<update id="updateShow" parameterType="ShowAPI">
 		UPDATE SHOW
 		SET SHOW_TITLE = #{showTitle},
 			SHOW_START_DT = #{startDt},

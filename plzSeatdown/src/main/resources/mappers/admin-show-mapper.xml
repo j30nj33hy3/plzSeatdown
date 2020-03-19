@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminShowMapper">
 
-	<resultMap type="Show" id="showResultSet">
+	<resultMap type="ShowAPI" id="showResultSet">
 		<id property="showCode" column="THEATER_FULL_CODE"/>
-		<result property="thCode" column="SHOW_CODE"/>
+		<result property="thFull" column="SHOW_CODE"/>
 		<result property="showTitle" column="SHOW_TITLE"/>
 		<result property="startDt" column="SHOW_START_DT"/>
 		<result property="endDt" column="SHOW_END_DT"/>
