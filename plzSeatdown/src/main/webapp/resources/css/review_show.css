@@ -43,8 +43,9 @@ body{
 /* 사이드 바 내의 공연 소개 이미지 */
 .introImg img{
     width: 100%;
-    margin-bottom: 5px;
+   /* margin-bottom: 5px; */
 }
+
 
 /* 메인화면 scroll 불가능 */
 .scrollHidden{
@@ -116,9 +117,25 @@ a:hover{
     text-decoration: none;
 }
 
+.status a{
+	color: black;
+}
+.status a:hover{
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: #917EC6;
+}
+.activeShow{
+	/* background-color: #917EC6; */
+	font-weight: bolder;
+}
+
 /* 공연 카드 관련 */
 .show{
     text-align: center;
+}
+.show img{
+	cursor: pointer;
 }
 .show h4{
     padding-bottom: 15px;
