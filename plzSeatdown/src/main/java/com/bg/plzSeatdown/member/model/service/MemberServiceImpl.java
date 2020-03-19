@@ -113,4 +113,37 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.mailAuth(member);
 	}
 
+	/** 아이디 찾기용 Service
+	 * @param member
+	 * @return memberId
+	 * @throws Exception
+	 */
+	@Override
+	public String findId(Member member) throws Exception {
+		return memberDAO.findId(member);
+	}
+
+	/** 사용자 계정 확인용 Service
+	 * @param member
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int checkMemberInfo(Member member) throws Exception {
+		return memberDAO.checkMemberInfo(member);
+	}
+
+	/** 비밀번호 재설정용 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int resetPwd(Member member) throws Exception {
+		String encPwd = bCryptPasswordEncoder.encode(member.getMemberPwd());
+		member.setMemberPwd(encPwd);
+		return memberDAO.resetPwd(member);
+	}
+
 }

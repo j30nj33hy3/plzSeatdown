@@ -2,6 +2,12 @@ package com.bg.plzSeatdown.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
@@ -14,6 +20,7 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -23,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,6 +41,10 @@ import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.member.model.service.MemberService;
 import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 /* IoC(제어 반전, Inversion of Controller) 
  * 	프로그램을 구동하는 데 필요한 객체에 대한 생성, 변경 등의 관리를
@@ -74,9 +87,9 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 @RequestMapping("/member/*") // 내부 메소드 레벨에서 매핑되는 주소에 공통되는 부분 작성.
 public class MemberController {
 	
+	private static String serverIp = "192.168.110.122";
 	@Inject
 	JavaMailSender mailSender;
-	
 	// 로깅 변수
 	private static final Logger logger =
 			LoggerFactory.getLogger(MemberController.class);
@@ -112,9 +125,32 @@ public class MemberController {
 				}
 				cookie.setPath("/");
 				response.addCookie(cookie);
+				
+				/*
+				String key = loginMember.getMemberId();
+				Map<String, Object> headers = new HashMap<String, Object>();
+				headers.put("typ", "JWT"); // typ: 토큰타입
+				headers.put("alg", "HS256"); // alg: 알고리즘(SHA256)
+				
+				// 만료시간 설정
+				Map<String, Object> payloads = new HashMap<String, Object>();
+				// payloads(내용): 원하는 데이터, 토큰 발급대상, 토큰 만료기간, 토큰 수령자 등 정보 작성
+				Long expiredTime = 1000 * 60l *5l; // 만료기간 5분
+				Date now = new Date();
+				now.setTime(now.getTime() + expiredTime);
+				payloads.put("exp", now);
+				payloads.put("data", "member Token test");
+				
+				String jwt = Jwts.builder().setHeader(headers)
+						.setClaims(payloads)
+						.signWith(SignatureAlgorithm.HS256, key.getBytes())
+						.compact();
+				*/
 				model.addAttribute("loginMember", loginMember);
+				
+				
 			}else {
-				rdAttr.addFlashAttribute("msg", "로그인 정보가 유효하지 않습니다.");
+				model.addAttribute("msg", "로그인 정보가 유효하지 않습니다.");
 			}
 			return "redirect:/";
 			
@@ -205,7 +241,7 @@ public class MemberController {
 		}
 	}
 	
-	// 아이디 중복 검사
+	// 닉네임 중복 검사
 	@ResponseBody
 	@RequestMapping("nicknameDupCheck")
 	public String nicknameDupCheck(String memberNickname, Model model) {
@@ -216,6 +252,7 @@ public class MemberController {
 		}
 	}
 	
+	// 이메일 인증 메일 전송 및 인증번호 입력 페이지 이동
 	@RequestMapping("mailAuthForm")
 	public ModelAndView mailAuthForm(Model model, ModelAndView mv) {
 		try {
@@ -229,6 +266,7 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 이메일 인증 메일 전송 메소드
 	public String mailSending(Model model) throws IOException{
 		
 		StringBuffer sb = new StringBuffer();
@@ -267,19 +305,20 @@ public class MemberController {
 		}
 	}
 	
+	// 이메일 인증번호 체크
 	@RequestMapping(value="mailAuth", method=RequestMethod.POST)
 	public String mailAuthentication(Model model,
 			HttpServletRequest request,
 			@RequestParam(value="mailAuthNumber", required=false) String authNumber,
 			RedirectAttributes rdAttr) {
 		try {
-			String referer = request.getHeader("Referer");
+			String referer = request.getHeader("Referer"); // 이전 페이지로 가기 위해 Header의 referer 값 저장
 			String view = null;
 			if(authNumber.equals((String)model.getAttribute("code"))) {
 				Member member = (Member)model.getAttribute("signUpMember");
 				int result = memberService.mailAuth(member);
 				if(result > 0) {
-					rdAttr.addFlashAttribute("msg","이메일 인증이 완료되었습니다.");
+					model.addAttribute("msg","이메일 인증이 완료되었습니다.");
 					view = "redirect:/";
 				}
 			}else {
@@ -292,4 +331,222 @@ public class MemberController {
 		}
 	}
 
+	// 아이디 / 비밀번호 찾기 화면 전환
+	@RequestMapping("forgotForm")
+	public String forgotForm() {
+		return "member/findIdPwd";
+	}
+	
+	// 아이디 찾기
+	@RequestMapping(value="findId", method=RequestMethod.POST)
+	public String findId(String memberName, 
+			@RequestParam(value = "email1", required = false)String email1,
+			@RequestParam(value = "email2", required = false)String email2,
+			Model model, HttpServletRequest request,
+			RedirectAttributes rdAttr) {
+		String memberEmail = email1+"@"+email2;
+		Member member = new Member("", memberName, memberEmail);
+		try {
+			String referer = request.getHeader("Referer");
+			String view = null;
+			String memberId = memberService.findId(member);
+			
+			if(memberId != null) {
+				String maskId = memberId.substring(0, memberId.length()-3)+"***";
+				model.addAttribute("memberEmail", memberEmail);
+				model.addAttribute("memberId", memberId);
+				model.addAttribute("maskId", maskId);
+				view = "member/findIdResult";
+			}else {
+				model.addAttribute("msg", "입력한 정보가 유효하지 않습니다. 다시 입력해 주세요.");
+				view = "redirect:"+referer;
+			}
+			return view;
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("아이디 찾기", model, e);
+		}
+	}
+	
+	// 아이디 이메일 전송
+	@RequestMapping(value="sendId", method=RequestMethod.POST)
+	public String sendId(Model model, 
+			String memberId, String memberEmail,
+			RedirectAttributes rdAttr) throws IOException{
+		
+		String setfrom = "khblackgang@gmail.com"; // 보내는 이메일 계정
+		String tomail = memberEmail; // 받는 이메일 계정
+		String title = "[PleaseSeatDown] 아이디 찾기 메일입니다."; // 메일 제목
+		String content =
+				System.getProperty("line.separator")+
+				"안녕하세요 회원님, 저희 홈페이지를 찾아주셔서 감사합니다."+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"회원님이 가입하신 아이디는 [" + memberId + "] 입니다. "+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"해당 아이디로 서비스 이용이 가능합니다."; // 메일 내용
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+			
+			mailSender.send(message);
+			
+			rdAttr.addFlashAttribute("msg", "아이디 찾기 메일이 전송되었습니다.");
+			return "redirect:forgotForm";
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("아이디 메일 전송", model, e);
+		}
+	}
+	
+	// 회원 비밀번호 찾기
+	@RequestMapping("findPwd")
+	public ModelAndView findPwdForm(Model model, ModelAndView mv,
+			@RequestParam(value = "email3", required = false)String email1,
+			@RequestParam(value = "email4", required = false)String email2,
+			String memberName, String memberId,
+			RedirectAttributes rdAttr) {
+		try {
+			HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+					.currentRequestAttributes()).getRequest();
+			String referer = request.getHeader("Referer");
+			String memberEmail = email1+"@"+email2;
+			Member member = new Member(memberId, memberName, memberEmail);
+			int count = memberService.checkMemberInfo(member);
+			
+			if(count > 0) {
+				String ip = request.getRemoteAddr();
+				// 입력한 정보와 일치하는 회원이 존재하는 경우
+				String key = ip;
+				Map<String, Object> headers = new HashMap<String, Object>();
+				headers.put("typ", "JWT"); // typ: 토큰타입
+				headers.put("alg", "HS256"); // alg: 알고리즘(SHA256)
+				
+				// 만료시간 설정
+				Map<String, Object> payloads = new HashMap<String, Object>();
+				// payloads(내용): 원하는 데이터, 토큰 발급대상, 토큰 만료기간, 토큰 수령자 등 정보 작성
+				SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+				Calendar cal = Calendar.getInstance();
+				Date now = new Date();
+				cal.setTime(now);
+				cal.add(Calendar.MINUTE, 5);
+				
+				payloads.put("exp", cal.getTime());
+				payloads.put("data", memberId);
+				
+				String jwt = Jwts.builder().setHeader(headers)
+						.setClaims(payloads)
+						.signWith(SignatureAlgorithm.HS256, key.getBytes())
+						.compact();
+				if(pwdmailSend(memberEmail, jwt)) {
+					rdAttr.addFlashAttribute("msg", "비밀번호 재설정 링크가 발송되었습니다.");
+				}
+				mv.setViewName("redirect:forgotForm");
+			}else {
+				rdAttr.addFlashAttribute("msg", "입력한 정보가 유효하지 않습니다. 다시 입력해 주세요.");
+				mv.setViewName("redirect:"+referer);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("errorMsg", "회원 비밀번호 찾기 과정 중 오류 발생");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	// 이메일 인증 메일 전송 메소드
+	public boolean pwdmailSend(String memberEmail, String jwt) throws IOException{
+
+		String setfrom = "khblackgang@gmail.com"; // 보내는 이메일 계정
+		String tomail = memberEmail; // 받는 이메일 계정
+		String title = "[PleaseSeatDown] 비밀번호 재설정 메일입니다."; // 메일 제목
+		String content =
+				System.getProperty("line.separator")+
+				"안녕하세요 회원님, 저희 홈페이지를 찾아주셔서 감사합니다."+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"회원님의 비밀번호 재설정 링크는 다음과 같습니다. "+
+				System.getProperty("line.separator")+
+				"http://"+serverIp+":8080/plzSeatdown/member/resetPwdCheck?ut="+jwt+
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"링크를 통해 비밀번호 변경 후 서비스를 이용해주시기 바랍니다."; // 메일 내용
+			
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+				
+			mailSender.send(message);
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	// 비밀번호 재설정 링크
+	@RequestMapping("resetPwdCheck")
+	public String resetPwd(Model model,
+			String ut, // userToken
+			RedirectAttributes rdAttr) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder
+				.currentRequestAttributes()).getRequest();
+		String ip = request.getRemoteAddr();
+		try {
+			String view = null;
+			Claims claims = Jwts.parser()
+					.setSigningKey(ip.getBytes())
+					.parseClaimsJws(ut)
+					.getBody();
+			
+			Date now = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			Calendar cal1 = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			cal1.setTime(now);
+			cal2.setTimeInMillis((long)claims.get("exp"));
+			
+			if(cal1.getTimeInMillis() < cal2.getTimeInMillis()) {
+				model.addAttribute("memberId", claims.get("data").toString());
+				view = "member/resetPwdForm";
+			}else {
+				rdAttr.addFlashAttribute("msg", "유효시간이 만료되었습니다.");
+				view = "redirect:forgotForm";
+			}
+			return view;
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("비밀번호 재설정 페이지 변환", model, e);
+		}
+	}
+	
+	@RequestMapping(value="resetPwd", method = RequestMethod.POST)
+	public String resetPwd(Member member,
+			Model model, HttpServletRequest request,
+			RedirectAttributes rdAttr) {
+		String referer = request.getHeader("Referer");
+		try {
+			String view = null;
+			int result = memberService.resetPwd(member);
+			if(result > 0) {
+				model.addAttribute("msg","비밀번호가 변경되었습니다.");
+				view = "redirect:/";
+			}else {
+				rdAttr.addFlashAttribute("msg","비밀번호 변경 실패. 다시 시도해 주세요.");
+				view = "redirect:"+referer;
+			}
+			return view;
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("비밀번호 변경", model, e);
+		}
+	}
 }
