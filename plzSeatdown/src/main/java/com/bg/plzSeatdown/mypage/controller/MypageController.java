@@ -2,6 +2,7 @@
 package com.bg.plzSeatdown.mypage.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.service.MypageService;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
+import com.bg.plzSeatdown.qna.model.vo.QnA;
 
 @SessionAttributes({"loginMember","msg","detailUrl"})
 @Controller
@@ -69,7 +73,6 @@ public class MypageController {
 								Integer deleteCheck
 								) {
 
-		System.out.println("deleteCheck :" + deleteCheck);
 		
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
@@ -214,8 +217,12 @@ public class MypageController {
 			
 			try {
 				
+				int memberNo 
+				= ((Member)model.getAttribute("loginMember")).getMemberNo();
+				
+				
 				// 전체 게시글 수 조회
-				int listCount = mypageService.getAskCount();
+				int listCount = mypageService.getAskCount(memberNo);
 				
 				// 현재 페이지 확인
 				if(currentPage == null) currentPage = 1;
@@ -224,7 +231,7 @@ public class MypageController {
 				PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
 				
 				// 게시글 목록 조회
-				List<QnAEH> qlist = mypageService.selectQlist(pInf);
+				List<QnAEH> qlist = mypageService.selectQlist(pInf,memberNo);
 				
 				model.addAttribute("list",qlist);
 				model.addAttribute("pInf",pInf);
@@ -277,18 +284,91 @@ public class MypageController {
 		
 		
 		
-		// 마이티켓 페이지로 이동
+		// 마이티켓 페이지 조회
 			@RequestMapping("myticket")
-			public String myticket() {
-				return "mypage/myticket";
+			public String myticket(Model model,
+					@RequestParam(value="currentPage",required=false)Integer currentPage) {
+				
+				try {
+					
+					int memberNo 
+					= ((Member)model.getAttribute("loginMember")).getMemberNo();
+					
+					int listCount = mypageService.getTicketCount(memberNo);
+					
+					// 현재 페이지 확인
+					if(currentPage == null) currentPage = 1;
+					
+					// 페이지 정보를 저장
+					PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
+					
+					// 티켓게시글 목록 조회
+					List<ReviewImageEH> rimgList = mypageService.selectRimgList(pInf, memberNo);
+					
+					model.addAttribute("rimgList",rimgList);
+					model.addAttribute("pInf",pInf);
+					
+					return "mypage/myticket";
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+					return "common/errorPage";
+				}
+				
 			}
 			
 			
 			
-		// 마이티켓 페이지로 이동
+			
+		// 마이리뷰 조회
 			@RequestMapping("myreview")
-			public String myreview() {
-				return "mypage/myreview";
+			public String myreview(Model model,
+					@RequestParam(value="currentPage",required=false)Integer currentPage
+					) { 
+				
+				try {
+					
+					int memberNo 
+					= ((Member)model.getAttribute("loginMember")).getMemberNo();
+					
+					// 전체 게시글 수 조회
+					int listCount = mypageService.getReviewCount(memberNo);
+					
+					// 현재 페이지 확인
+					if(currentPage == null) currentPage = 1;
+					
+					// 페이지 정보를 저장
+					PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
+					
+					// 게시글 목록 조회
+					List<ReviewEH> rlist = mypageService.selectRlist(pInf, memberNo);
+					
+					ArrayList<ReviewEH> reviews = new ArrayList<ReviewEH>(rlist);
+					int reviewNo = 0;
+					
+					for(ReviewEH re : reviews) {
+						reviewNo = re.getReviewNo();
+					}
+					
+					
+					Profile image = mypageService.selectMypageProf(memberNo);
+					ReviewImageEH rimage = mypageService.selectReviewImage(reviewNo);
+					
+					
+					model.addAttribute("list",rlist);
+					model.addAttribute("rimage",rimage);
+					model.addAttribute("profile",image);
+					model.addAttribute("pInf",pInf);
+					
+					return "mypage/myreview";
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+					return "common/errorPage";
+				}
+				
 			}
 			
 		

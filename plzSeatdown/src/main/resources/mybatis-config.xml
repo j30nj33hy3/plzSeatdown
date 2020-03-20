@@ -29,6 +29,9 @@
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminQna" alias="AdminQna"/>
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminQnaAnswer" alias="AdminQnaAnswer"/>
 		
+		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewEH" alias="ReviewEH"/>
+        <typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH" alias="ReviewImageEH"/>
+		
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->

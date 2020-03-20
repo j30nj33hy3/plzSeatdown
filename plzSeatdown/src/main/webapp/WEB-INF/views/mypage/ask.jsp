@@ -29,15 +29,18 @@
 								<li><a href="ask">문의 내역</a></li>
 							</ul>
 						</div>
-
+						
+						
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
-							<table  id="list-table" class="table">
-								<thead>
+							<table  id="list-table" class="table" style="margin-left:20px;">
+								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;
+								
+								">
 								  <tr>
-								  	<th scope="col">글번호</th>
-									<th scope="col">내용</th>
-									<th scope="col">날짜</th>
-									<th scope="col">답장 여부</th>
+								  	<th scope="col" style="border-bottom:0px;">글번호</th>
+									<th scope="col" style="border-bottom:0px;">내용</th>
+									<th scope="col" style="border-bottom:0px;">날짜</th>
+									<th scope="col" style="border-bottom:0px;">답장 여부</th>
 								  </tr>
 								</thead>
 								<tbody>
@@ -49,10 +52,10 @@
 								<c:if test="${!empty list}">
 									<c:forEach var="qnaeh" items="${list}" varStatus="vs">
 										<tr>
-											<td>${qnaeh.qnaNo}</td>
-											<td id="contentwrap">${qnaeh.qnaContent}</td>
-											<td>${qnaeh.qnaCreateDate}</td>
-											<td>${qnaeh.qnaStatus}</td>
+											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaNo}</td>
+											<td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;" >${qnaeh.qnaContent}</td>
+											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaCreateDate}</td>
+											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>

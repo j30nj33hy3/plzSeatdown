@@ -88,9 +88,6 @@ body{
 
 
 
-
-
-
 /* 테이블 */
 
 .table{
@@ -122,15 +119,15 @@ body{
 
 
 .table tr:last-child{
-    border-bottom: 1px solid rgb(198, 180, 205);
+    border-bottom: 1px solid lightgray;
 }
 
 .table th:nth-child(1){ 
-    width: 240px;
+    width: 100px;
 }
 
 .table th:nth-child(2){ 
-    width: 100px;
+    width: 400px;
 }
 
 
@@ -152,12 +149,15 @@ body{
 }
 
 
-#contentwrap{
+.contentwrap{
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 200px;
+  width: 400px;
+  height:40px;
+  margin-left:30px;
+
 }
 
 
