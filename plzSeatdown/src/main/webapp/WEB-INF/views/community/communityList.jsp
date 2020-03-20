@@ -35,7 +35,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                             <th scope="col">카테고리</th>
                             <th scope="col">제목</th>
                             <th scope="col">작성자</th>
-                            <th scope="col">조회수</th>
+                            <th scope="col" class="text-center">조회수</th>
                             <th scope="col">작성일</th>
                         </tr>
                     </thead>
@@ -62,11 +62,10 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
             </div>
             
             <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
-            	<button type="button" class="btn btn-sm float-right" id="insertBtn1"
+            	<button type="button" class="btn btn-sm float-right" id="insertBtn"
             		onclick="location.href = 'insertForm';">글쓰기</button>
             </c:if>
-            <button type="button" class="btn btn-sm float-right" id="insertBtn"
-            		onclick="location.href = 'insertForm';">글쓰기</button>
+            
             
             <!-- 페이징바 -->
             <div class="col-md-12 d-flex justify-content-center">
@@ -228,7 +227,8 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 			$("#list-table td").click(function(){
 				<c:if test="${empty loginMember}">
 					// 로그인 페이지로 이동
-					location.href="${contextPath}/member/login"
+					alert("로그인을 해주세요.")
+					location.href="${contextPath}/community/list"
 				</c:if>
 				
 				<c:if test="${!empty loginMember}">

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
-<title>Insert title here</title>
+<title>공지사항</title>
     <style>
         .list-btn{
             border:solid 1px;
@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body>W
+<body>
 <jsp:include page="../common/header.jsp"/>
 <jsp:include page="../common/nav.jsp"/>
 <div class="container py-5">

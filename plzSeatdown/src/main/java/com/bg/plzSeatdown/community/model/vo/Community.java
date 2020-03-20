@@ -15,6 +15,10 @@ public class Community {
 	private String memberNickname;
 	private int categoryCode;
 	private String categoryName;
+	private String profilePath;
+	private int memberReporter;
+	private String replyReportContent;
+	private int reportCategory;
 	
 	public Community() {}
 
@@ -35,7 +39,7 @@ public class Community {
 
 	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
 			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
-			String memberNickname, int categoryCode, String categoryName) {
+			String memberNickname, int categoryCode, String categoryName, String profilePath) {
 		super();
 		this.communityNo = communityNo;
 		this.communityTitle = communityTitle;
@@ -48,6 +52,30 @@ public class Community {
 		this.memberNickname = memberNickname;
 		this.categoryCode = categoryCode;
 		this.categoryName = categoryName;
+		this.profilePath = profilePath;
+	}
+	
+
+	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
+			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
+			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
+			String replyReportContent, int reportCategory) {
+		super();
+		this.communityNo = communityNo;
+		this.communityTitle = communityTitle;
+		this.communityContent = communityContent;
+		this.communityCreateDate = communityCreateDate;
+		this.communityModifyDate = communityModifyDate;
+		this.communityCount = communityCount;
+		this.communityStatus = communityStatus;
+		this.communityWriter = communityWriter;
+		this.memberNickname = memberNickname;
+		this.categoryCode = categoryCode;
+		this.categoryName = categoryName;
+		this.profilePath = profilePath;
+		this.memberReporter = memberReporter;
+		this.replyReportContent = replyReportContent;
+		this.reportCategory = reportCategory;
 	}
 
 	public int getCommunityNo() {
@@ -138,15 +166,47 @@ public class Community {
 		this.categoryName = categoryName;
 	}
 
+	public String getProfilePath() {
+		return profilePath;
+	}
+
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
+	}
+	
+	public int getMemberReporter() {
+		return memberReporter;
+	}
+
+	public void setMemberReporter(int memberReporter) {
+		this.memberReporter = memberReporter;
+	}
+
+	public String getReplyReportContent() {
+		return replyReportContent;
+	}
+
+	public void setReplyReportContent(String replyReportContent) {
+		this.replyReportContent = replyReportContent;
+	}
+
+	public int getReportCategory() {
+		return reportCategory;
+	}
+
+	public void setReportCategory(int reportCategory) {
+		this.reportCategory = reportCategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Community [communityNo=" + communityNo + ", communityTitle=" + communityTitle + ", communityContent="
 				+ communityContent + ", communityCreateDate=" + communityCreateDate + ", communityModifyDate="
 				+ communityModifyDate + ", communityCount=" + communityCount + ", communityStatus=" + communityStatus
 				+ ", communityWriter=" + communityWriter + ", memberNickname=" + memberNickname + ", categoryCode="
-				+ categoryCode + ", categoryName=" + categoryName + "]";
+				+ categoryCode + ", categoryName=" + categoryName + ", profilePath=" + profilePath + ", memberReporter="
+				+ memberReporter + ", replyReportContent=" + replyReportContent + ", reportCategory=" + reportCategory
+				+ "]";
 	}
-	
-	
-	
+
 }

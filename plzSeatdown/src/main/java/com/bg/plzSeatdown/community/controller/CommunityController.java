@@ -1,34 +1,34 @@
 package com.bg.plzSeatdown.community.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bg.plzSeatdown.common.ExceptionForward;
-import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.service.CommunityService;
 import com.bg.plzSeatdown.community.model.vo.Community;
-import com.sun.xml.internal.ws.api.message.Attachment;
+import com.bg.plzSeatdown.community.model.vo.Reply;
+import com.bg.plzSeatdown.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/community/*")
-@SessionAttributes({"loginMember","msg"})
+@SessionAttributes({"loginMember","msg","detailUrl"})
 public class CommunityController {
 
 	@Autowired
@@ -78,6 +78,33 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 상세 조회
+	@RequestMapping(value="detail", method = RequestMethod.GET)
+	public String communityDetail(Integer no,
+								Model model,
+								RedirectAttributes rdAttr,
+								HttpServletRequest request) {
+		String beforeUrl = request.getHeader("referer");
+		
+		try {
+			Community community = communityService.selectCommunity(no);
+			
+			if(community != null) {
+				// 조회수 증가
+				int result = communityService.increaseCount(no);
+				community.setCommunityCount(community.getCommunityCount()+1);
+				
+				model.addAttribute("community", community);
+				return "community/communityDetail";
+			}else {
+				rdAttr.addFlashAttribute("msg", "글 상세 조회 실패");
+				return "redirect:"+beforeUrl;
+			}
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("글 상세 조회", model, e);
+		}
+	}
+	
+	
 	
 	
 	// 글 등록 페이지로 이동
@@ -89,10 +116,11 @@ public class CommunityController {
 	/*
 	// 이미지 등록
 	@RequestMapping("insertImage")
-	public String insertImage(@RequestParam(value="file", required=false) List<MultipartFile> images,
-							Model model,
-							HttpServletRequest request,
-							HttpServletResponse response) {
+	@ResponseBody
+	public ResponseEntity<?> insertImage(@RequestParam(value="uploadFile", required=false) MultipartFile multipartFile,
+							HttpServletRequest request) {
+		
+		JsonObject jsonObject = new JsonObject();
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/communityImages";
@@ -101,31 +129,185 @@ public class CommunityController {
 		
 		if(!folder.exists()) folder.mkdir();
 		
+		String originFileName = multipartFile.getOriginalFilename();
+		String changeFileName = FileRename.rename(originFileName);
+		
+		File file = new File(savePath+"/"+changeFileName);
+		
 		try {
-			//List<Attachment> files = new ArrayList<Attachment>();
-			//Attachment at = null;
-
-			String changeFileName = null;
+			multipartFile.transferTo(file);
 			
-			for(MultipartFile mf : images) {
-				if(!mf.getOriginalFilename().equals("")) {
-					changeFileName = FileRename.rename(mf.getOriginalFilename());
-				}
-			}
-			
-			String uploadFile = savePath + "/" + changeFileName;
-			response.getWriter().print(uploadFile);
+			//jsonObject.addProperty("url", request.getContextPath()+"/resuorces/communityImages/"+changeFileName);
+			//jsonObject.addProperty("responseCode", "success");
+			return ResponseEntity.ok().body(savePath+"/"+changeFileName);
 		}catch(Exception e) {
-			return ExceptionForward.errorPage("이미지 등록", model, e);
+			//FileUtils.deleteDirectory(file); //저장된 파일 삭제
+			//jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
 		}
-	}*/
+	}
+	*/
 	
 	
 	// 글 등록
+	@RequestMapping("insert")
+	public String insertCommunity(Community community,
+								Model model, RedirectAttributes rdAttr) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int communityWriter= loginMember.getMemberNo();
+		
+		community.setCommunityWriter(communityWriter);
+		
+		try {
+			int result = communityService.insertCommunity(community);
+			
+			String msg = null;
+			String url = null;
+			if(result>0) {
+				url = "detail?no="+result+"&currentPage=1";
+			}else {
+				msg = "글 등록 실패";
+				url = "list";
+			}
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:"+url;
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("글 등록 과정", model, e);
+		}
+	}
 	
+	// 글 수정 화면으로 이동
+	@RequestMapping("updateForm")
+	public String updateForm(Integer no, Model model, HttpServletRequest request) {
+		String detailUrl = request.getHeader("referer");
+		
+		model.addAttribute("detailUrl", detailUrl);
+		
+		try {
+			Community community = communityService.selectCommunity(no);
+			
+			//community.setCommunityContent(community.getCommunityContent().replace("<br>", "<\r\n>"));
+			
+			model.addAttribute("community", community);
+			return "community/communityUpdate";
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("글 수정 화면 이동", model, e);
+		}
+	}
 	
 	// 글 수정
-	
+	@RequestMapping("update")
+	public String updateCommunity(Integer no, Community community, Model model,
+								RedirectAttributes rdAttr) {
+		String detailUrl = (String)model.getAttribute("detailUrl");
+		community.setCommunityNo(no);
+		try {
+			int result = communityService.updateCommunity(community);
+			
+			String msg = null;
+			if(result>0) msg = "글을 수정했습니다.";
+			else		msg = "수정을 실패했습니다.";
+			rdAttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:"+detailUrl;
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("게시글 수정", model, e);
+		}
+	}
 	
 	// 글 삭제
+	@RequestMapping("delete")
+	public String deleteCoummunity(Integer no, Model model, HttpServletRequest request, 
+									RedirectAttributes rdAttr) {
+		try {
+			int result = communityService.deleteCommunity(no);
+			String msg = null;
+			String url = null;
+			if(result>0) {
+				msg = "삭제되었습니다.";
+				url = "redirect:list";
+			}else {
+				msg = "삭제 실패";
+				// 이전페이지 (상세조회 페이지) 주소 저장
+				String prevUrl = request.getHeader("referer");
+				url = "redirect:"+prevUrl;
+			}
+			return url;
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("게시글 삭제", model, e);
+		}
+	}
+	
+	// 부모 댓글 등록 
+	@ResponseBody
+	@RequestMapping(value="insertReply", produces="application/json; charset=utf-8", method=RequestMethod.POST)
+	public int insertReply(Reply reply) {
+		int result = 0;
+		try {
+			result = communityService.insertReply(reply);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+	
+	// 댓글 조회
+	@ResponseBody
+	@RequestMapping(value="selectReplyList", produces="application/json; charset=utf-8")
+	public String selectReplyList(int communityNo) {
+		List<Reply> rList = communityService.selectReplyList(communityNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+		return gson.toJson(rList);
+	}
+	
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping("updateReply")
+	public int updateReply(Reply reply) {
+		int result = 0;
+		try {
+			result = communityService.updateReply(reply);
+		}catch(Exception e){
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+	
+	// 자식 댓글 등록
+	@ResponseBody
+	@RequestMapping("insertReReply")
+	public int insertReReply(Reply reply) {
+		int result = 0;
+		try {
+			result = communityService.insertReReply(reply);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+	
+	// 댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteReply")
+	public int deleteReply(Reply reply) {
+		int result = 0;
+		try {
+			result = communityService.deleteReply(reply);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+	
+	// 커뮤니티 신고
+	
+	
+	// 댓글 신고
 }

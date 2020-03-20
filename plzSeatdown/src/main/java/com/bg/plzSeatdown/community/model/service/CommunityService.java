@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
+import com.bg.plzSeatdown.community.model.vo.Reply;
 
 public interface CommunityService {
 
@@ -22,5 +23,69 @@ public interface CommunityService {
 	 * @throws Exception
 	 */
 	public abstract List<Community> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+
+	/** 게시글 삭제용 Service
+	 * @param no
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int deleteCommunity(Integer no) throws Exception;
+
+	/** 게시글 등록용 Service
+	 * @param community
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int insertCommunity(Community community) throws Exception;
+
+	/** 게시글 수정용 Service
+	 * @param community
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int updateCommunity(Community community) throws Exception;
+
+	/** 게시글 조회용 Service
+	 * @param no
+	 * @return community
+	 * @throws Exception
+	 */
+	public abstract Community selectCommunity(Integer no) throws Exception;
+
+	/** 조회수 증가용 Service
+	 * @param no
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int increaseCount(Integer no) throws Exception;
+
+	/** 부모 댓글 등록용 Service
+	 * @param objParams
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int insertReply(Reply reply) throws Exception;
+
+	/** 댓글 조회용 Service
+	 * @param communityNo
+	 * @return rList
+	 */
+	public abstract List<Reply> selectReplyList(int communityNo);
+
+	/** 댓글 등록용 Service
+	 * @param reply
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int updateReply(Reply reply) throws Exception;
+
+	/** 자식 댓글 등록용 Service
+	 * @param reply
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int insertReReply(Reply reply) throws Exception;
+
+	public abstract int deleteReply(Reply reply) throws Exception;
 
 }
