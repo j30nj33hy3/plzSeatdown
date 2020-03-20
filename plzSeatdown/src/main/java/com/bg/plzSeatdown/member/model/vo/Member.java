@@ -1,6 +1,6 @@
 package com.bg.plzSeatdown.member.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Member {
 	private int memberNo;

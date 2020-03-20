@@ -3,8 +3,8 @@ package com.bg.plzSeatdown.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bg.plzSeatdown.admin.model.vo.AdminNotice;
 import com.bg.plzSeatdown.common.vo.PageInfo;
-import com.bg.plzSeatdown.notice.model.vo.Notice;
 
 public interface AdminNoticeService {
 
@@ -22,13 +22,24 @@ public interface AdminNoticeService {
 	 * @return list
 	 * @throws Exception
 	 */
-	public abstract List<Notice> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+	public abstract List<AdminNotice> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
 
 	/** 공지사항 상세 조회용 Service
 	 * @param noticeNo
 	 * @return notice
 	 * @throws Exception
 	 */
-	public abstract Notice selectNotice(Integer no) throws Exception;
+	public abstract AdminNotice selectNotice(Integer no) throws Exception;
+
+	/** 공지사항 수정용 Service
+	 * @param noticeNo
+	 * @return  result
+	 * @throws Exception
+	 */
+	public abstract int updateNotice(int noticeNo) throws Exception;
+
+	public abstract int deleteNotice(Integer no) throws Exception;
+
+	public abstract int insertNotice(AdminNotice adminNotice) throws Exception;
 
 }

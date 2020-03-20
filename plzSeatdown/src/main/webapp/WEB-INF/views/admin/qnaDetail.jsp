@@ -9,7 +9,7 @@
 <title>관리자게시판 - 회원 문의 보기</title>
 
 <link rel="stylesheet"
-	href="${contextPath}/resources/css/member_qna_detail.css" />
+	href="${contextPath}/resources/css/qnaDetail.css" />
 
 </head>
 <body>
@@ -45,19 +45,26 @@
 			<div class="container-fluid">
 				<div class="card ml-3 mr-3"
 					style="border: none; background-color: #eeeeee;">
-					<div class="col-12">
+					<div class="col-8">
 						<h5 style="color: dimgray;">문의내역</h5>
 						<hr>
-						<form name="question" action="#" method="get">
-							<textarea id="question-detail" rows="7">
-문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의
-문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의문의
+						<form name="question" action="update?no=${qna.qnaNo}" method="post">
+							<textarea id="question-detail" rows="7"	>
+${qna.qnaContent}
                             </textarea>
 							<br> <br> <br>
 							<h5 style="color: dimgray;">답변</h5>
 							<hr>
-							<textarea id="answer-detail" rows="7">
-                        </textarea>
+<c:if test="${empty qna }">
+<textarea id="answer-detail" name="answer" rows="7" placeholder="답변을 등록해주세요." style="color:silver;"></textarea>
+</c:if>
+
+<c:if test="${!empty qna }">
+<textarea id="answer-detail" name="answer" rows="7">
+${qna.qnaAnswer }
+</textarea>
+</c:if>									
+
 							<br> <br> <br>
 							<div style="text-align: center;">
 								<button class="form-control btn btn-primary" id="submit-btn"
@@ -79,12 +86,8 @@
 	<!-- End Wrapper -->
 	<!-- ============================================================== -->
 
-	<!-- 	<script>
-		/****************************************
-		 *       Basic Table                   *
-		 ****************************************/
-		$('#zero_config').DataTable();
-	</script> -->
+	<script>
+	</script>
 
 
 </body>
