@@ -37,35 +37,41 @@
     <!-- Main -->
     <div class="container py-5 my-5">
         
-        <form action="update?no=${comm.commNo}" name="insertForm" method="post" onsubmit="return validate();">
+        <form action="update?no=${community.communityNo}" name="insertForm" method="post" enctype="multipart/form-data" onsubmit="return validate();">
             <div class="row">
                 <div class="col-lg-1">
                     <span>카테고리</span>
                 </div>
-                <select name="category" class="form-control ml-3" style="width:150px; display: inline-block;"
-                		value="${comm.commCategory}">
+                <select name="categoryCode" id="category" class="form-control ml-3" style="width:150px; display: inline-block;">
                     <option value="1">자유</option>
                     <option value="2">양도</option>
                     <option value="3">공연 후기</option>
                     <option value="4">질문</option>
                 </select>
             </div>
+            <script>
+            	$.each($("#category>option"), function(index, item){
+            		if($(item).val() == "${community.categoryCode}"){
+            			$(item).prop("selected", "true");
+            		}
+            	})
+            </script>
             <div class="row py-3">
                 <div class="col-lg-1">
                     <span>제목</span>
                 </div>
                 <div class="col-lg-8">
-                    <input type="text" id="title" name="title" class="form-control" size="35" maxlength="30" value="${comm.commTitle}" required>
+                    <input type="text" id="title" name="communityTitle" class="form-control" size="35" maxlength="30" value="${community.communityTitle}" required>
                 </div>
             </div>
-            <input type="hidden" name="writer" value="${comm.commWriter}">
-            <textarea id="summernote" name="content" required>${comm.commContent}</textarea>
+            <input type="hidden" name="communityWriter" value="${community.communityWriter}">
+            <textarea id="summernote" name="communityContent" required>${community.communityContent}</textarea>
             <!-- 등록된 이미지 목록 -->
             <input type="hidden" name="imgList" value="">
             
             <div class="py-5 text-center">
                 <button id="insertBtn" type="submit" class="btn px-5 mr-3">수정</button>
-                <a href="detail?no=${comm.commNo}" type="button" class="btn px-5 btn-outline-secondary">취소</a>
+                <a href="${header.referer}" type="button" class="btn px-5 btn-outline-secondary">취소</a>
             </div>
         </form>
         
@@ -93,6 +99,6 @@
 		}
     </script>
     
-    <%-- <jsp:include page="../common/footer.jsp"/> --%>
+    <jsp:include page="../common/footer.jsp"/> 
 </body>
 </html>
