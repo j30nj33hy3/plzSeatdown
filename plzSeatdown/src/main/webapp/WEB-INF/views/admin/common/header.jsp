@@ -83,7 +83,7 @@
 		crossorigin="anonymous"></script>
 
 	<script src="${contextPath}/resources/js/admin/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/admin/popper.min.js"></script>
+<%-- 	<script src="${contextPath}/resources/js/admin/popper.min.js"></script> --%>
 	<script src="${contextPath}/resources/js/admin/bootstrap.min.js"></script>
 	<script
 		src="${contextPath}/resources/js/admin/perfect-scrollbar.jquery.min.js"></script>

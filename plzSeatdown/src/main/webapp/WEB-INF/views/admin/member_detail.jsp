@@ -54,7 +54,8 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="ml-3 mr-3" style="text-align: left;">
-						<form class="form-group" method="POST" action="updateMember?no=${member.memberNo}"
+						<form class="form-group" method="POST"
+							action="updateMember?no=${member.memberNo}"
 							onsubmit="return validate();">
 							<div class="col-md-8" style="float: left;">
 								<h6>회원번호</h6>
@@ -70,8 +71,10 @@
 									id="name" name="name" value="${member.memberName }" required>
 
 								<h6>닉네임</h6>
+								<div id="ninknameCheck"></div>
 								<input type="text" class="form-control input-comment mb-3"
-									id="nickname" name="nickname" value="${member.memberNickname }" required>
+									id="nickname" name="nickname" value="${member.memberNickname }"
+									required>
 
 								<h6>이메일</h6>
 								<input type="email" class="form-control input-comment mb-3"
@@ -107,9 +110,8 @@
 									<c:choose>
 										<c:when test="${empty attachment }">
 											<img class="member-profile" id="profile-img"
-												src="${contextPath }/resources/images/user.png"
-												alt="프로필아이콘" style="width: 240px">
-
+												src="${contextPath }/resources/images/user.png" alt="프로필아이콘"
+												style="width: 240px">
 										</c:when>
 										<c:otherwise>
 											<img class="member-profile" id="profile-img"
@@ -118,103 +120,67 @@
 												style="width: 240px; height: 240px; border-radius: 50%;">
 										</c:otherwise>
 									</c:choose>
-											<br>
-											<button type="button" id="upBtn"
-												class="btn btn-sm form-control profile-edit-btn"
-												style="width: 50px; float: right;">변경</button>
-
-
+									<br>
+									<button type="button" id="upBtn"
+										class="btn btn-sm form-control profile-edit-btn"
+										style="width: 50px; float: right;">변경</button>
 									<br>
 								</div>
-
 							</div>
-
-
 							<div class="col-md-12" style="clear: both; text-align: center;">
 
 								<button class="btn mt-5 form-control edit-btn" id="editBtn"
 									type="submit" style="width: 20%">수정</button>
-									
+
 								<button class="btn mt-5 form-control edit-btn" id="cancleBtn"
 									type="button" style="width: 20%">취소</button>
-									
+
 							</div>
 						</form>
 
 						<script>
-/*
-						var memberNo = ${member.memberNo};
-							$(function() {
-								$("#upBtn").click(function() {
-									var check = confirm("기본 이미지로 변경하시겠습니까?");
-									if (check) {
- 										$("#profile-img").attr('src', '${contextPath}/resources/images/user.png');
- 										
-										$.ajax({
-											url : "updateImg",
-											type : "POST",
-											data : "memberNo" : memberNo
-											success :
-	 										$("#profile-img").attr('src', '${contextPath}/resources/images/user.png');
-												
-										})
-									}
-									
-									
-								});
-							});
-							*/
-							/* 
-							
-							var memberNo = $(this).parent().parent().children().eq(0).text();
-							//console.log(memberNo); 
-							if(confirm("정말 삭제 하시겠습니까?"))
-								location.href = "<c:url value="delete"><c:param name="memberNo" value="${member.memberNo}"/></c:url>";
+						$(function() {
+							$("#upBtn").click(function(){
+							var memberNo = ${member.memberNo};
+							console.log(memberNo); 
+							if(confirm("기본 이미지로 변경하시겠습니까?"))
+								location.href = "deleteImg?no="+memberNo;
 							}).mouseenter(function(){
 								$(this).parent().css("cursor", "pointer");
 							});	
-							});
+						});
 
-							
-							var result = confirm('팔로우를 취소하시겠습니까?');
-							console.log($(this).parent().val());
-							if (result) {
-							  var memberNo = $(this).parent();
-							  
-							  $.ajax({
-									url : "unFollow",
-									data : {memberNo: memberNo.val()},
-									type : "GET",
-									success : function(result){
-										if( result == "1"){
-											$("#following-title").text($("#following-title").text()-1);
-											$("#mypage-following").text($("#mypage-following").text()-1)
-											memberNo.detach();
-												
-										}else{
-											alert("언팔로우 실패");	
-										}
-									},
-									error : function(e){
-										console.log("언팔로우 ajax 실패");	
-										console.log(e);
-									},
+						
+						/* $(function() {
+								$("#upBtn").click(function() {
+								var memberNo = ${member.memberNo};
+									console.log(memberNo);
+									var check = confirm("기본 이미지로 변경하시겠습니까?");
+									if (check) {
+										$.ajax({
+											url : "deleteImg",
+											type : "POST",
+											data : {"memberNo" : memberNo},
+											success : function(result){
+													if(result == 1) {
+				 										console.log(memberNo);
+				 										$("#profile-img").attr('src', '${contextPath}/resources/images/user.png');
+				 										alert("프로필 사진이 삭제되었습니다.");
+													}
+											},
+											error : function(e) {
+												console.log("프로필 삭제 ajax 실패");	
+												console.log(e);
+											}
+									});
+								}
 							});
-							}
-							}
-							});
-							 */
+						}); */
 						</script>
 					</div>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-
-
-
-
 </body>
 </html>
