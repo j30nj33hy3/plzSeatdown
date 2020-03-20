@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,16 +11,17 @@
 
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/member_detail.css" />
-	
+
 <script
-   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="${contextPath}/resources/js/admin/member_detail.js"></script>
-   
+
 </head>
 <body>
 
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath }" scope="application" />
+
 
 	<div id="main-wrapper">
 
@@ -51,27 +53,29 @@
 			<!-- ============================================================== -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="jumbotron ml-3 mr-3" style="text-align: left;">
-						<form class="form-group" method="POST" action="#"
+					<div class="ml-3 mr-3" style="text-align: left;">
+						<form class="form-group" method="POST" action="updateMember?no=${member.memberNo}"
 							onsubmit="return validate();">
-
 							<div class="col-md-8" style="float: left;">
 								<h6>회원번호</h6>
-								<input type="text" class="form-control input-comment" id="no"
-									name="no" value="회원번호" disabled required> <br>
+								<input type="text" class="form-control input-comment mb-3"
+									id="no" name="no" value="${member.memberNo }" disabled required>
 
 								<h6>아이디</h6>
-								<input type="text" class="form-control input-comment" id="id"
-									name="id" value="아이디" disabled required> <br>
+								<input type="text" class="form-control input-comment mb-3"
+									id="id" name="id" value="${member.memberId }" disabled required>
 
 								<h6>이름</h6>
-								<input type="text" class="form-control input-comment" id="name"
-									name="name" value="이름" required> <br>
+								<input type="text" class="form-control input-comment mb-3"
+									id="name" name="name" value="${member.memberName }" required>
+
+								<h6>닉네임</h6>
+								<input type="text" class="form-control input-comment mb-3"
+									id="nickname" name="nickname" value="${member.memberNickname }" required>
 
 								<h6>이메일</h6>
-								<input type="email" class="form-control input-comment"
-									id="email" name="email" value="user00@plzsd.com" required>
-								<br>
+								<input type="email" class="form-control input-comment mb-3"
+									id="email" name="email" value="${member.memberEmail }" required>
 
 								<h6>전화번호</h6>
 								<!-- <select class="custom-select form-control input-comment" id="phone1" name="phone1"
@@ -82,27 +86,45 @@
                                     <option>017</option>
                                     <option>019</option>
                                 </select> -->
-								<input type="number" class="form-control input-comment phone"
-									id="phone1" name="phone1" maxlength="3" value="010" disabled
-									required>- <input type="number"
-									class="form-control input-comment phone" id="phone2"
-									name="phone2" maxlength="4" value="0000" disabled required>-
-								<input type="number" class="form-control input-comment phone"
-									id="phone3" name="phone3" maxlength="4" value="0000" disabled
-									required>
+
+								<c:set var="phone" value="${fn:split(member.memberPhone, '-')}" />
+
+								<input type="number"
+									class="form-control input-comment phone mb-3" id="phone1"
+									name="phone1" maxlength="3" value="${phone[0] }" disabled>-
+								<input type="number"
+									class="form-control input-comment phone mb-3" id="phone2"
+									name="phone2" maxlength="4" value="${phone[1] }" disabled>-
+								<input type="number"
+									class="form-control input-comment phone mb-3" id="phone3"
+									name="phone3" maxlength="4" value="${phone[2] }" disabled>
 							</div>
 
-							<div class="col-md-3" style="display: inline-block;">
+							<div class="col-md-4" style="display: inline-block;">
 
-								<div class="ml-3" id="profile-wrap">
-									<h6>프로필 사진</h6>
-									<img class="member-profile" id="profile-img"
-										src="${contextPath }/resources/images/navi-icon-default.png"
-										alt="프로필아이콘" style="width: 80%"> <br> <label
-										for="upload" id="upBtn"
-										class="btn btn-sm form-control profile-edit-btn"
-										style="float: right;">변경</label> <input type="file"
-										id="upload" accept="image/*">
+								<h6>프로필 사진</h6>
+								<div id="profile-wrap" style="text-align: center;">
+									<c:choose>
+										<c:when test="${empty attachment }">
+											<img class="member-profile" id="profile-img"
+												src="${contextPath }/resources/images/user.png"
+												alt="프로필아이콘" style="width: 240px">
+
+										</c:when>
+										<c:otherwise>
+											<img class="member-profile" id="profile-img"
+												src="${contextPath}/resources/profileImages/${attachment.profilePath}"
+												alt="프로필아이콘"
+												style="width: 240px; height: 240px; border-radius: 50%;">
+										</c:otherwise>
+									</c:choose>
+											<br>
+											<button type="button" id="upBtn"
+												class="btn btn-sm form-control profile-edit-btn"
+												style="width: 50px; float: right;">변경</button>
+
+
+									<br>
 								</div>
 
 							</div>
@@ -110,10 +132,79 @@
 
 							<div class="col-md-12" style="clear: both; text-align: center;">
 
-								<button class="btn mt-5 form-control edit-btn" id="editBtn" type="submit"
-									style="width: 20%">수정</button>
+								<button class="btn mt-5 form-control edit-btn" id="editBtn"
+									type="submit" style="width: 20%">수정</button>
+									
+								<button class="btn mt-5 form-control edit-btn" id="cancleBtn"
+									type="button" style="width: 20%">취소</button>
+									
 							</div>
 						</form>
+
+						<script>
+/*
+						var memberNo = ${member.memberNo};
+							$(function() {
+								$("#upBtn").click(function() {
+									var check = confirm("기본 이미지로 변경하시겠습니까?");
+									if (check) {
+ 										$("#profile-img").attr('src', '${contextPath}/resources/images/user.png');
+ 										
+										$.ajax({
+											url : "updateImg",
+											type : "POST",
+											data : "memberNo" : memberNo
+											success :
+	 										$("#profile-img").attr('src', '${contextPath}/resources/images/user.png');
+												
+										})
+									}
+									
+									
+								});
+							});
+							*/
+							/* 
+							
+							var memberNo = $(this).parent().parent().children().eq(0).text();
+							//console.log(memberNo); 
+							if(confirm("정말 삭제 하시겠습니까?"))
+								location.href = "<c:url value="delete"><c:param name="memberNo" value="${member.memberNo}"/></c:url>";
+							}).mouseenter(function(){
+								$(this).parent().css("cursor", "pointer");
+							});	
+							});
+
+							
+							var result = confirm('팔로우를 취소하시겠습니까?');
+							console.log($(this).parent().val());
+							if (result) {
+							  var memberNo = $(this).parent();
+							  
+							  $.ajax({
+									url : "unFollow",
+									data : {memberNo: memberNo.val()},
+									type : "GET",
+									success : function(result){
+										if( result == "1"){
+											$("#following-title").text($("#following-title").text()-1);
+											$("#mypage-following").text($("#mypage-following").text()-1)
+											memberNo.detach();
+												
+										}else{
+											alert("언팔로우 실패");	
+										}
+									},
+									error : function(e){
+										console.log("언팔로우 ajax 실패");	
+										console.log(e);
+									},
+							});
+							}
+							}
+							});
+							 */
+						</script>
 					</div>
 				</div>
 
