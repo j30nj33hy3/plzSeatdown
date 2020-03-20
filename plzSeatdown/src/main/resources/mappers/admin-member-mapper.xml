@@ -27,7 +27,6 @@
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
 
-
 	<!-- 회원 수 조회 -->
 	<select id="getListCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
@@ -103,4 +102,10 @@
 		WHERE MEMBER_NO = #{no}
 	</update>
 
+	<!-- 프로필 사진 삭제용 -->
+	<update id="deleteImg" parameterType="_int">
+		UPDATE PROFILE
+		SET PROFILE_STATUS='N'
+		WHERE MEMBER_NO = #{no}
+	</update>
 </mapper>

@@ -131,6 +131,31 @@ public class AdminMemberController {
 //		return "admin/member_detail";
 	}
 
+	// 프로필 사진 삭제
+	@RequestMapping("deleteImg")
+	public String deleteImg(Integer no, Model model, RedirectAttributes rdAttr) {
+		try {
+			System.out.println(no);
+			int result = 0;	
+			result = adminMemberService.deleteImg(no);
+			
+			String msg = null;
+			if(result > 0) msg ="기본 이미지로 변경되었습니다.";
+			else		msg ="기본 이미지로 변경이 실패하였습니다.";
+
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:detail?no="+no;
+						
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "기본 이미지로 변경하는 과정에서 오류 발생");
+			return "common/errorPage"; 
+			
+		}
+		
+		
+	}
+	
 	// 회원 삭제
 	@RequestMapping("delete")
 	public String deleteMember(Integer no, Model model, RedirectAttributes rdAttr) {
