@@ -98,15 +98,15 @@
                     			<c:forEach var="show" items="${list}" varStatus="vs">
                     				<div class="col-md-3">
 	                    				<div class="card">
-		                                    <img class="card-img-top" src="${show.posterPath }" />
+		                                    <img class="card-img-top" src="${show.posterPath }" style=" height:320px;" />
 		                                    <div class="card-block mt-3 ml-3 mr-3">
 		                                        <h5 class="card-title">
 		                                           	${show.showTitle }
 		                                        </h5>
-		                                        <p class="text-right">
+		                                        <!-- <p class="text-right">
 		                                            <a class="btn btn-primary" href="#">수정</a> 
 		                                            <a class="btn btn-secondary" href="#">삭제</a>
-		                                        </p>
+		                                        </p> -->
 		                                    </div>
 	                                	</div>
 	                    			</div>

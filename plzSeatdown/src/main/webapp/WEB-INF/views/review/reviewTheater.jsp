@@ -43,14 +43,14 @@
                     	<c:if test="${!empty list }">
                     		<div class="row">
                     			<c:forEach var="theater" items="${list}" varStatus="vs">
-                    				<div class="col-md-4">
+                    				<div class="col-md-4 mb-3">
 	                   					<div class="card">
     	                					<a href="#">
 	                    						<img class="card-img-top" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
 	                    						<div class="card-block mt-3 ml-3 mr-3">
-	                    							<h5 class="card-title">
-	                    								${theater.thFullNm}
-	                    							</h5>
+	                    							<span class="card-title">
+	                    								${theater.thNm}
+	                    							</span>
 	                    						</div>
 	                    					</a>
                     					</div>
