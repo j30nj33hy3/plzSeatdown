@@ -67,9 +67,9 @@
                         <button type="button" class="btn btn-default" id="tmp2" onclick="location.href='${contextPath}/API/theaterAPI'">
                             	공연장 API(임시)
                         </button>
-                        <button type="button" class="btn btn-default" id="addBtn">
+                        <!-- <button type="button" class="btn btn-default" id="addBtn">
                             	공연장 추가
-                        </button>
+                        </button> -->
                     </div>
                 </div>
                 <div class="row">
@@ -89,11 +89,11 @@
                     						<img class="card-img-top" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
                     						<div class="card-block mt-3 ml-3 mr-3">
                     							<h5 class="card-title">
-                    								${theater.thFullNm}
+                    								${theater.thNm}
                     							</h5>
                     							<p class="text-right">
-		                                            <a class="btn btn-primary" href="#">수정</a> 
-		                                            <a class="btn btn-secondary" href="#">삭제</a>
+		                                            <a class="btn btn-primary" href="#">로고 수정</a> 
+		                                            <a class="btn btn-primary" href="#">좌석 관리</a> 
 		                                        </p>
                     						</div>
                     					</div>

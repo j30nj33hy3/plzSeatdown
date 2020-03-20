@@ -28,12 +28,6 @@ import com.google.gson.GsonBuilder;
 public class ReviewController {
 
 	@Autowired
-	//private ReviewService reviewService;
-	private AdminShowService adminShowService;
-	@Autowired
-	private AdminTheaterService adminTheaterService;
-	
-	@Autowired
 	private ReviewService reviewService;
 	
 	@RequestMapping("theater")
@@ -51,7 +45,7 @@ public class ReviewController {
 			}
 			
 			// 전체 공연시설장 수 조회
-			int theaterCount = adminTheaterService.getTheaterCount(searchValue);
+			int theaterCount = reviewService.getTheaterCount(searchValue);
 			
 			// 현재 페이지 확인
 			if(currentPage == null) currentPage = 1;
@@ -60,7 +54,7 @@ public class ReviewController {
 			PageInfo pInf = Pagination.getPageInfo(9, 5, currentPage, theaterCount);
 			
 			// 공연시설장 목록 조회
-			List<Theater> list = adminTheaterService.selectList(searchValue, pInf);
+			List<Theater> list = reviewService.selectTheaterList(searchValue, pInf);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);
@@ -101,7 +95,7 @@ public class ReviewController {
 			
 			// 공연 목록 조회
 			//List<Show> list = reviewService.selectList(searchValue, pInf);
-			List<Show> list = reviewService.selectList(map, pInf);
+			List<Show> list = reviewService.selectShowList(map, pInf);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);
