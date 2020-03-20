@@ -31,7 +31,7 @@
 		
 		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewEH" alias="ReviewEH"/>
         <typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH" alias="ReviewImageEH"/>
-		
+		<typeAlias type="com.bg.plzSeatdown.community.model.vo.Reply" alias="Reply"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->

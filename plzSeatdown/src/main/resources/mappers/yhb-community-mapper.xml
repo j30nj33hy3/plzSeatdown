@@ -9,8 +9,26 @@
 		<result property="communityModifyDate" column="COMM_MODIFY_DT"/>
 		<result property="communityCount" column="COMM_COUNT"/>
 		<result property="communityWriter" column="COMM_WRITER"/>
+		<result property="categoryCode" column="CATEGORY_CD"/>
 		<result property="memberNickname" column="MEMBER_NICKNM"/>
 		<result property="categoryName" column="CATEGORY_NM"/>
+		<result property="profilePath"	column="PROFILE_PATH"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id property="replyNo" column="REPLY_NO"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+		<result property="replyModifyDate" column="REPLY_MODIFY_DT"/>
+		<result property="replySecret" column="REPLY_SECRET"/>
+		<result property="depth" column="REPLY_DEPTH"/>
+		<result property="parentNo" column="REPLY_PARENT_NO"/>
+		<result property="communityNo" column="COMM_NO"/>
+		<result property="replyWriter" column="REPLY_WRITER"/>
+		<result property="replyGroup" column="REPLY_GROUP"/>
+		<result property="communityWriter" column="COMM_WRITER"/>
+		<result property="memberNickname" column="MEMBER_NICKNM"/>
+		<result property="profilePath" column="PROFILE_PATH"/>
 	</resultMap>
 
 	<!-- 전체 게시글 수 조회 -->
@@ -36,6 +54,7 @@
 					AND CATEGORY_CD = #{searchCategory}
 				</if>
 			</if>
+			AND COMM_STATUS = 'Y'
 		</where>
 		ORDER BY COMM_NO DESC
 	</select>
@@ -65,7 +84,116 @@
 					AND CATEGORY_CD = #{searchCategory}
 				</if>
 			</if>
+		AND COMM_STATUS = 'Y'
 		</where>
 		ORDER BY COMM_NO DESC
+	</select>
+	
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteCommunity" parameterType="_int">
+		UPDATE COMMUNITY
+		SET COMMUNITY_STATUS='N'
+		WHERE COMMUNITY_NO={communityNo}		
+	</update>
+	
+	<!-- 다음 게시글 번호 조회 -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_CNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 게시글 삽입 -->
+	<insert id="insertCommunity" parameterType="Community">
+		INSERT INTO COMMUNITY VALUES
+		(#{communityNo}, #{communityTitle}, #{communityContent}, DEFAULT, DEFAULT,
+			DEFAULT, DEFAULT, #{communityWriter}, #{categoryCode})
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateCommunity" parameterType="Community">
+		UPDATE COMMUNITY SET
+		COMM_TITLE = #{communityTitle},
+		COMM_CONTENT = #{communityContent},
+		COMM_MODIFY_DT = SYSDATE,
+		CATEGORY_CD = #{categoryCode}
+		WHERE COMM_NO = #{communityNo}
+	</update>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectCommunity" parameterType="_int" resultMap="communityResultSet">
+		SELECT * FROM V_COMMUNITY
+		WHERE COMM_NO = #{no}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseCount" parameterType="_int">
+		UPDATE COMMUNITY SET
+		COMM_COUNT = COMM_COUNT + 1
+		WHERE COMM_NO = #{no}
+	</update>
+	
+	<!-- 부모 댓글 등록 -->
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES(
+		SEQ_RPNO.NEXTVAL, #{replyContent}, DEFAULT, DEFAULT, DEFAULT, #{replySecret},
+		#{depth}, #{parentNo}, #{communityNo}, #{replyWriter}, SEQ_RP_GNO.NEXTVAL)	
+	</insert>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		SELECT * FROM V_REPLY
+		WHERE COMM_NO = #{communityNo}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="Reply">
+		UPDATE REPLY SET 
+		REPLY_CONTENT = #{replyContent},
+		REPLY_MODIFY_DT = DEFAULT,
+		REPLY_SECRET = #{replySecret}
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<select id="selectReplyGroup" parameterType="Reply" resultType="_int">
+		SELECT REPLY_GROUP FROM V_REPLY
+		WHERE COMM_NO = #{communityNo}
+		AND REPLY_NO = #{replyNo}
+	</select>
+	
+	<insert id="insertReReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES
+		(SEQ_RPNO.NEXTVAL, #{replyContent}, DEFAULT, DEFAULT, DEFAULT, #{replySecret},
+			#{depth}, #{parentNo}, #{communityNo}, #{replyWriter}, #{replyGroup})
+	</insert>
+	
+	<select id="selectCountGroup" parameterType="Reply" resultType="_int">
+		SELECT COUNT(*) FROM V_REPLY
+		WHERE REPLY_GROUP = #{replyGroup}
+		AND REPLY_STATUS ='Y'
+	</select>
+	
+	<update id="deleteReplyM" parameterType="Reply">
+		UPDATE REPLY SET 
+		REPLY_STATUS = 'W'
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<update id="deleteReply" parameterType="Reply">
+		UPDATE REPLY SET 
+		REPLY_STATUS = 'N'
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<select id="selectCountParent" parameterType="Reply" resultType="_int">
+		SELECT COUNT(*) FROM V_REPLY
+		WHERE REPLY_GROUP = #{replyGroup}
+		AND REPLY_DEPTH = 0
+		AND REPLY_STATUS='Y'
+	</select>
+	
+	<select id="selectParentNo" parameterType="Reply" resultType="_int">
+		SELECT REPLY_PARENT_NO 
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
 	</select>
 </mapper>

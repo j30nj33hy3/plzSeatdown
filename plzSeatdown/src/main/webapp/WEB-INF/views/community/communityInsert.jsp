@@ -38,12 +38,12 @@
     <!-- Main -->
     <div class="container py-5 my-5">
         
-        <form action="insert" enctype="multipart/form-data" name="insertForm" id="insertForm" method="post" onsubmit="return validate();">
+        <form action="insert" enctype="multipart/form-data" role="form" name="insertForm" id="insertForm" method="post" onsubmit="return validate();">
             <div class="row">
                 <div class="col-lg-1">
                     <span>카테고리</span>
                 </div>
-                <select name="category" class="form-control ml-3" style="width:150px; display: inline-block;">
+                <select name="categoryCode" class="form-control ml-3" style="width:150px; display: inline-block;">
                     <option value="1">자유</option>
                     <option value="2">양도</option>
                     <option value="3">공연 후기</option>
@@ -55,13 +55,12 @@
                     <span>제목</span>
                 </div>
                 <div class="col-lg-8">
-                    <input type="text" id="title" name="title" class="form-control" size="35" maxlength="30" placeholder="제목을 입력하세요." required>
+                    <input type="text" id="title" name="communityTitle" class="form-control" size="35" maxlength="30" placeholder="제목을 입력하세요." required>
                 </div>
             </div>
-            <input type="hidden" name="writer" value="${loginMember.memberNo}">
-            <textarea id="summernote" name="content" required></textarea>
+            <textarea id="summernote" name="communityContent" class="form-control" required></textarea>
             <!-- 등록된 이미지 목록 -->
-            <input type="hidden" name="imgList" value="">
+            <input type="hidden" name="imgList" value="" class="form-control">
             
             <div class="py-5 text-center">
                 <button id="insertBtn" type="submit" class="btn px-5 mr-3">등록</button>
@@ -72,11 +71,12 @@
     </div>
 
     <script>
-        /* $('#summernote').summernote({
+        $('#summernote').summernote({
             tabsize: 2,
             minHeight: 500
         });
-         */
+        
+         
      	// 유효성 검사
 		function validate(){
 			if($("#summernote").val().trim().length == 0){
