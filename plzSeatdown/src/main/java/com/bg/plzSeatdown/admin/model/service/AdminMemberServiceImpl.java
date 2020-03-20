@@ -48,6 +48,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public int deleteMember(Integer no) throws Exception {
 		return adminMemberDAO.deleteMember(no);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteImg(Integer no) throws Exception {
+		return adminMemberDAO.deleteImg(no);
 	}	
 	
 

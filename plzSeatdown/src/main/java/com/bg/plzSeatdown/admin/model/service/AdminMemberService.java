@@ -21,4 +21,6 @@ public interface AdminMemberService {
 
 	public abstract int deleteMember(Integer no) throws Exception;
 
+	public abstract int deleteImg(Integer no) throws Exception;
+
 }

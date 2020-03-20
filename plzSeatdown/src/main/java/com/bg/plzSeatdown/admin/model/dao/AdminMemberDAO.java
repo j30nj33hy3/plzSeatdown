@@ -73,4 +73,8 @@ public class AdminMemberDAO {
 	public int deleteMember(Integer no) throws Exception {
 		return sqlSession.update("adminMemberMapper.deleteMember", no);
 	}
+
+	public int deleteImg(Integer no) throws Exception{
+		return sqlSession.update("adminMemberMapper.deleteImg", no);
+	}
 }
