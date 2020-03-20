@@ -51,7 +51,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 			</div>
 			<div class="col-md-4">
 				<!-- Logo -->
-				<img src="${contextPath}/resources/images/logo.png">
+				<a href="${contextPath}"><img src="${contextPath}/resources/images/logo.png"></a>
 			</div>
 			<div class="col-md-4">
 			

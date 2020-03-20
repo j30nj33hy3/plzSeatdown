@@ -17,6 +17,9 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.dao.MypageDAO;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
+import com.bg.plzSeatdown.qna.model.vo.QnA;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -233,8 +236,8 @@ public class MypageServiceImpl implements MypageService{
     * @throws Exception
     */
     @Override 
-    public int getAskCount() throws Exception {
-    return mypageDAO.getAskCount(); 
+    public int getAskCount(int qnaWriter) throws Exception {
+    return mypageDAO.getAskCount(qnaWriter); 
     }
     
    
@@ -246,10 +249,9 @@ public class MypageServiceImpl implements MypageService{
     * @throws Exception
     */
    @Override
-   public List<QnAEH> selectQlist(PageInfo pInf) throws Exception {
-      return mypageDAO.selectQlist(pInf);
+   public List<QnAEH> selectQlist(PageInfo pInf,int memberNo) throws Exception {
+      return mypageDAO.selectQlist(pInf,memberNo);
    }
-   
    
    
 
@@ -264,5 +266,65 @@ public class MypageServiceImpl implements MypageService{
    }
    
    
+   
+   /** 마이리뷰 전체 게시글수 조회
+	* @return
+	* @throws Exception
+	*/
+   @Override
+	public int getReviewCount(int memberNo) throws Exception {
+		return mypageDAO.getReviewCount(memberNo);
+	}
+   
+   
+   
+   /** 마이리뷰 게시글 목록 조회
+	 * @param pInf
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public List<ReviewEH> selectRlist(PageInfo pInf, int memberNo) throws Exception {
+		return mypageDAO.selectRlist(pInf, memberNo);
+	}
+   
+   
+   
+   /** 마이리뷰 이미지  조회
+	 * @param reviewNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public ReviewImageEH selectReviewImage(int reviewNo) throws Exception {
+		return mypageDAO.selectReviewImage(reviewNo);
+	}
+   
+   
+   
+   
+   /** 마이티켓 게시글 수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public int getTicketCount(int memberNo) throws Exception {
+		return mypageDAO.getTicketCount(memberNo);
+	}
+   
+   
+
+	
+	/** 마이 티켓 이미지목록 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo) throws Exception {
+		return mypageDAO.selectRimgList(pInf,memberNo);
+	}
 
 }

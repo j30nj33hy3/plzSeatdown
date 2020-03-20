@@ -9,10 +9,12 @@ public class QnAEH{
 	private String qnaStatus;
 	private int qnaWriter;
 	private String qnaAnswer;
+	private String memberNo;
 	
 	public QnAEH() {}
 
-	public QnAEH(int qnaNo, String qnaContent, Date qnaCreateDate, String qnaStatus, int qnaWriter, String qnaAnswer) {
+	public QnAEH(int qnaNo, String qnaContent, Date qnaCreateDate, String qnaStatus, int qnaWriter, String qnaAnswer,
+			String memberNo) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaContent = qnaContent;
@@ -20,6 +22,7 @@ public class QnAEH{
 		this.qnaStatus = qnaStatus;
 		this.qnaWriter = qnaWriter;
 		this.qnaAnswer = qnaAnswer;
+		this.memberNo = memberNo;
 	}
 
 	public int getQnaNo() {
@@ -70,11 +73,24 @@ public class QnAEH{
 		this.qnaAnswer = qnaAnswer;
 	}
 
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
 		return "QnAEH [qnaNo=" + qnaNo + ", qnaContent=" + qnaContent + ", qnaCreateDate=" + qnaCreateDate
-				+ ", qnaStatus=" + qnaStatus + ", qnaWriter=" + qnaWriter + ", qnaAnswer=" + qnaAnswer + "]";
+				+ ", qnaStatus=" + qnaStatus + ", qnaWriter=" + qnaWriter + ", qnaAnswer=" + qnaAnswer + ", memberNo="
+				+ memberNo + "]";
 	}
+
+	
+
+
 	
 
 }

@@ -10,6 +10,9 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
+import com.bg.plzSeatdown.qna.model.vo.QnA;
 
 public interface MypageService {
 
@@ -70,16 +73,17 @@ public interface MypageService {
     * @return
     * @throws Exception
     */
-   public abstract int getAskCount()throws Exception;
+   public abstract int getAskCount(int qnaWriter)throws Exception;
 
 
 
    /** 문의내역 게시글 조회
     * @param pInf
+ * @param qnaWriter 
     * @return
     * @throws Exception
     */
-   public abstract List<QnAEH> selectQlist(PageInfo pInf)throws Exception;
+   public abstract List<QnAEH> selectQlist(PageInfo pInf, int memberNo)throws Exception;
 
 
 
@@ -89,6 +93,54 @@ public interface MypageService {
     * @throws Exception
     */
    public abstract QnAEH selectAsk(Integer no)throws Exception;
+
+
+
+   /** 마이리뷰 전체 게시글수 조회
+ * @param memberNo 
+ 	* @return
+ 	* @throws Exception
+ 	*/
+   public abstract int getReviewCount(int memberNo)throws Exception;
+
+
+
+	/** 마이리뷰 게시글 목록 조회
+	 * @param pInf
+	 * @param memberNo 
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<ReviewEH> selectRlist(PageInfo pInf, int memberNo)throws Exception;
+
+
+
+	/** 마이리뷰 이미지  조회
+	 * @param reviewNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract ReviewImageEH selectReviewImage(int reviewNo)throws Exception;
+
+
+
+	/** 마이티켓 게시글 수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract int getTicketCount(int memberNo)throws Exception;
+
+
+	
+	
+	/** 마이 티켓 이미지목록 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo)throws Exception;
 
 
 
