@@ -19,6 +19,18 @@ body {
     text-align: justify;
 }
 
+.ellip{
+   margin: 0;
+   margin: auto;
+   width: 100px;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
+}
+
+
 .search_list {
     color: black;
     text-decoration: none;

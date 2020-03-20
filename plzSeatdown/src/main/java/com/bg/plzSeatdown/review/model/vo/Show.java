@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Show {
 
-	private String thFullCode; 
 	private String showCode;
 	private String showTitle;
 	private Date startDt;
@@ -16,14 +15,13 @@ public class Show {
 	private String showImg3;
 	private String showImg4;
 	private String theaterFullNm;
+	private String thCode; 
 	
 	public Show() { }
 
-	public Show(String thFullCode, String showCode, String showTitle, Date startDt, Date endDt, String posterPath,
-			String showStatus, String showImg1, String showImg2, String showImg3, String showImg4,
-			String theaterFullNm) {
+	public Show(String showCode, String showTitle, Date startDt, Date endDt, String posterPath, String showStatus,
+			String showImg1, String showImg2, String showImg3, String showImg4, String theaterFullNm, String thCode) {
 		super();
-		this.thFullCode = thFullCode;
 		this.showCode = showCode;
 		this.showTitle = showTitle;
 		this.startDt = startDt;
@@ -35,14 +33,7 @@ public class Show {
 		this.showImg3 = showImg3;
 		this.showImg4 = showImg4;
 		this.theaterFullNm = theaterFullNm;
-	}
-
-	public String getThFullCode() {
-		return thFullCode;
-	}
-
-	public void setThFullCode(String thFullCode) {
-		this.thFullCode = thFullCode;
+		this.thCode = thCode;
 	}
 
 	public String getShowCode() {
@@ -132,6 +123,21 @@ public class Show {
 	public void setTheaterFullNm(String theaterFullNm) {
 		this.theaterFullNm = theaterFullNm;
 	}
-	
-	
+
+	public String getThCode() {
+		return thCode;
+	}
+
+	public void setThCode(String thCode) {
+		this.thCode = thCode;
+	}
+
+	@Override
+	public String toString() {
+		return "Show [showCode=" + showCode + ", showTitle=" + showTitle + ", startDt=" + startDt + ", endDt=" + endDt
+				+ ", posterPath=" + posterPath + ", showStatus=" + showStatus + ", showImg1=" + showImg1 + ", showImg2="
+				+ showImg2 + ", showImg3=" + showImg3 + ", showImg4=" + showImg4 + ", theaterFullNm=" + theaterFullNm
+				+ ", thCode=" + thCode + "]";
+	}
+
 }

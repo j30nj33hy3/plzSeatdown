@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="apiMapper">
 
-	<resultMap type="TheaterAPI" id="theaterResultSet">
+	<resultMap type="Theater" id="theaterResultSet">
 		<id property="thCode" column="THEATER_CODE"/>
 		<result property="thNm" column="THEATER_NM"/>
 		<result property="thPhone" column="THEATER_PHONE"/>
@@ -14,82 +14,67 @@
 	
 	<resultMap type="ShowAPI" id="showResultSet">
 		<result property="showCode" column="SHOW_CODE"/>
-		<result property="thFullCode" column="THEATER_FULL_CODE"/>
 		<result property="showTitle" column="SHOW_TITLE"/>
 		<result property="startDt" column="SHOW_START_DT"/>
 		<result property="endDt" column="SHOW_END_DT"/>
-		<result property="posterPath" column="SHOW_POSTER"/>
+		<result property="posterPath" column="SHOW_POSTER_PATH"/>
 		<result property="showStatus" column="SHOW_STATUS"/>
 		<result property="showImg1" column="SHOW_INTRO_IMG1"/>
 		<result property="showImg2" column="SHOW_INTRO_IMG2"/>
 		<result property="showImg3" column="SHOW_INTRO_IMG3"/>
 		<result property="showImg4" column="SHOW_INTRO_IMG4"/>
 		<result property="theaterFullNm" column="THEATER_FULL_NM"/>
+		<result property="thCode" column="THEATER_CODE"/>
 	</resultMap>
 	
-	<!-- 공연장 수 -->
-	<select id="getTheaterCount" resultType="_int">
+	<select id="getTheaterCount" parameterType="Theater" resultType="_int">
 		SELECT COUNT(*)
 		FROM THEATER
+		WHERE SUBSTR(THEATER_CODE, 1, 8) = #{thCode}
 	</select>
-
+	
 	<!-- 공연장 상세 정보 삽입 -->
-	<insert id="insertTheater" parameterType="TheaterAPI">
+	<insert id="insertTheater" parameterType="Theater">
 		INSERT INTO THEATER
-		VALUES(#{thCode}, #{thNm}, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, DEFAULT)
+		(SELECT PRFPLCCD, TH_NM || TH_FULL_NM AS THEATER_NM, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, SYSDATE 
+		FROM API_COMMON
+		WHERE SUBSTR(PRFPLCCD, 1, 8) = #{thCode})
 	</insert>
 	
 	<!-- 공연장 상세 정보 업데이트 -->
-	<update id="updateTheater" parameterType="TheaterAPI">
+	<update id="updateTheater" parameterType="Theater">
 		UPDATE THEATER
-		SET THEATER_NM = #{thNm},
-			THEATER_PHONE = #{thPhone},
+		SET THEATER_PHONE = #{thPhone},
 			THEATER_HOMEPAGE = #{thPage},
 			THEATER_ADDR = #{thAddr},
 			THEATER_LAT = #{thLat},
 			THEATER_LONG = #{thLong},
 			THEATER_CREATE_DT = SYSDATE
-		WHERE THEATER_CODE = #{thCode}
+		WHERE SUBSTR(THEATER_CODE, 1, 8) = #{thCode}
 	</update>
 	
-	<select id="selectprfList" resultType="string">
-		SELECT PRFPLCCD
-		FROM API_COMMON
-		WHERE SUBSTR(PRFPLCCD, 1, 8) IN (SELECT THEATER_CODE
-                                         FROM THEATER) 
+	<!-- 공연장 코드 조회 -->
+	<select id="getTheaterCodeList" resultType="string">
+		SELECT THEATER_CODE
+		FROM THEATER
 	</select>
 	
-	<!-- <insert id="insertThShowCode" parameterType="Show">
-		INSERT INTO THEATER_SHOW
-		VALUES(#{thCode}, #{showCode}, DEFAULT)
-	</insert> -->
-	
-	<!-- 공연수 -->
-	<select id="getShowCount" resultType="_int">
+	<select id="selectShowCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM SHOW
 	</select>
 	
+	<!-- 기존 공연 정보 삭제 -->
+	<delete id="deleteShow">
+		DELETE 
+		FROM SHOW
+	</delete>
+	
 	<!-- 공연 상세 정보 삽입 -->
 	<insert id="insertShow" parameterType="ShowAPI">
 		INSERT INTO SHOW
-		VALUES(#{thFullCode}, #{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, 
-				#{showStatus}, #{showImg1}, #{showImg2}, #{showImg3}, #{showImg4}, #{theaterFullNm}, DEFAULT)
+		VALUES(#{showCode}, #{showTitle}, #{startDt}, #{endDt}, #{posterPath}, #{showStatus},
+				 #{showImg1}, #{showImg2}, #{showImg3}, #{showImg4}, #{theaterFullNm}, DEFAULT, #{thCode})
 	</insert>
 	
-	<!-- 공연 상세 정보 업데이트 -->
-	<update id="updateShow" parameterType="ShowAPI">
-		UPDATE SHOW
-		SET SHOW_TITLE = #{showTitle},
-			SHOW_START_DT = #{startDt},
-			SHOW_END_DT = #{endDt},
-			SHOW_POSTER = #{posterPath},
-			SHOW_STATUS = #{showStatus},
-			SHOW_INTRO_IMG1 = #{showImg1},
-			SHOW_INTRO_IMG2 = #{showImg2},
-			SHOW_INTRO_IMG3 = #{showImg3},
-			SHOW_INTRO_IMG4 = #{showImg4},
-			SHOW_CREATE_DT = SYSDATE
-		WHERE SHOW_CODE = #{showCode}
-	</update>
 </mapper>

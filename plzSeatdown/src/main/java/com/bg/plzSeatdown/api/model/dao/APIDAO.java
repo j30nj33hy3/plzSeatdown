@@ -15,13 +15,14 @@ public class APIDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	/** 현재 저장된 공연장 개수 조회
+	/** 현재 저장된 공연시설장 개수 조회용 DAO
+	 * @param theater
 	 * @return count
-	 * @throws Exception
 	 */
-	public int getTheaterCount() throws Exception{
-		return sqlSession.selectOne("apiMapper.getTheaterCount");
+	public int getTheaterCount(Theater theater) {
+		return sqlSession.selectOne("apiMapper.getTheaterCount", theater);
 	}
+
 	
 	/** URL 요청으로 반환된 공연시설 상세 정보 리스트 삽입용 DAO
 	 * @param theater
@@ -41,24 +42,28 @@ public class APIDAO {
 		return sqlSession.update("apiMapper.updateTheater", theater);
 	}
 
-	/** 공연 코드 목록을 추출하기 위한 prfplccd 조회용 DAO
-	 * @return prfList
+	/** 공연 코드 목록을 추출하기 위한 공연장 코드 조회용 DAO
+	 * @return theaterCodeList
 	 * @throws Exception
 	 */
-	public List<String> selectprfList() throws Exception{
-		return sqlSession.selectList("apiMapper.selectprfList");
+	public List<String> getTheaterCodeList() throws Exception{
+		return sqlSession.selectList("apiMapper.getTheaterCodeList");
 	}
-
-//	public int insertThShowCode(Show show) throws Exception{
-//		return sqlSession.insert("apiMapper.insertThShowCode", show);
-//	}
-
-	/** 현재 저장된 공연 수 조회
+	
+	/** 기존 공연 정보 개수 조회용 DAO
 	 * @return count
 	 * @throws Exception
 	 */
-	public int getShowCount() throws Exception{
-		return sqlSession.selectOne("apiMapper.getShowCount");
+	public int selectShowCount() throws Exception{
+		return sqlSession.selectOne("apiMapper.selectShowCount");
+	}
+	
+	/** 기존 공연 정보 삭제용 DAO
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteShow() throws Exception{
+		return sqlSession.delete("apiMapper.deleteShow");
 	}
 	
 	/** 공연 상세 정보 삽입용 DAO
@@ -70,14 +75,11 @@ public class APIDAO {
 		return sqlSession.insert("apiMapper.insertShow", show);
 	}
 
-	/** 공연 상세 정보 업데이트용 DAO
-	 * @param show
-	 * @return result
-	 * @throws Exception
-	 */
-	public int updateShow(Show show) throws Exception{
-		return sqlSession.update("apiMapper.updateShow", show);
-	}
+
+	
+
+	
+	
 
 	
 

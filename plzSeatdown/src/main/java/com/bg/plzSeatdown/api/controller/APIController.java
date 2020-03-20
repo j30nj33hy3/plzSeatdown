@@ -92,13 +92,9 @@ public class APIController {
 			thCodeList.add("FC001087"); // 동양예술극장
 			thCodeList.add("FC001528"); // 대학로 드림아트센터
 			
-			
 			// thCodeList를 이용하여 공연장 상세 정보 추출
 			String apiUrl = "http://www.kopis.or.kr/openApi/restful/prfplc/";
 			String serviceKey = "?service=54fbbe4f34054bcaaae74ef471fca7d1";
-			
-			// 현재 저장된 공연장 정보가 있는지 확인
-			int count = apiService.getTheaterCount();
 			
 			// 서울 공연장 정보 저장할 list
 			List<Theater> theaterList = new ArrayList<Theater>();
@@ -137,13 +133,9 @@ public class APIController {
 			
 			int result = 0;
 			
+			result = apiService.insertTheater(theaterList);
 			
-			if(count > 0) {
-				result = apiService.updateTheater(theaterList);
-			}
-			else {
-				result = apiService.insertTheater(theaterList);
-			}
+			System.out.println(theaterList);
 			
 			
 		}catch (Exception e) {
@@ -162,26 +154,23 @@ public class APIController {
 			
 			int result = 0;
 			
-			// 현재 저장된 공연장 정보가 있는지 확인
-			int count = apiService.getShowCount();
-			
 			// 공연(뮤지컬) 코드 목록 추출하기 위한 요청 URL
 			String url = "http://www.kopis.or.kr/openApi/restful/pblprfr?service=54fbbe4f34054bcaaae74ef471fca7d1&shcate=AAAB&stdate=20200101&eddate=20200930&cpage=1&rows=1000000";
 			
-			// 서울에 존재하는 공연시설장 코드(prfplccd) 리스트 추출(요청 URL에 사용할 것)
-			List<String> prfList = apiService.selectprfList();
+			// 서울에 존재하는 공연시설장 코드(prfplccd == theater테이블의 theater_code) 리스트 추출(요청 URL에 사용할 것)
+			List<String> theaterCodeList = apiService.getTheaterCodeList();
+			
+			// 공연 상세 정보 저장할 list
+			List<Show> showDetailList = new ArrayList<Show>();
 
-			for(String prfplccd : prfList) {
+			for(String theaterCode : theaterCodeList) {
 				
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(url+"&prfplccd="+prfplccd);
+				Document doc = dBuilder.parse(url+"&prfplccd="+theaterCode);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("db");
 				
-				
-				// 공연 상세 정보 저장할 list
-				List<Show> showDetailList = new ArrayList<Show>();
 				
 				String showDetailUrl = "http://www.kopis.or.kr/openApi/restful/pblprfr/";
 				String serviceKey = "?service=54fbbe4f34054bcaaae74ef471fca7d1";
@@ -203,8 +192,7 @@ public class APIController {
 						if(nNode2.getNodeType() == Node.ELEMENT_NODE) {
 							Element showElement = (Element)nNode2;
 							
-							Show show = new Show(prfplccd,
-												showCode,
+							Show show = new Show(showCode,
 												getTagValue("prfnm", showElement), 
 												getTagValue("prfpdfrom", showElement), 
 												getTagValue("prfpdto", showElement), 
@@ -214,6 +202,7 @@ public class APIController {
 												getTagValues("styurl", showElement).get("styurl2"), 
 												getTagValues("styurl", showElement).get("styurl3"), 
 												getTagValues("styurl", showElement).get("styurl4"), 
+												theaterCode,
 												getTagValue("fcltynm", showElement));
 							
 							System.out.println(show);
@@ -223,9 +212,9 @@ public class APIController {
 					}
 				}
 				System.out.println(showDetailList);
+				
 				if(!showDetailList.isEmpty()) {
-					if(count > 0) result = apiService.updateShow(showDetailList);
-					else result = apiService.insertShow(showDetailList);
+					result = apiService.insertShow(showDetailList);
 				}
 			}
 			

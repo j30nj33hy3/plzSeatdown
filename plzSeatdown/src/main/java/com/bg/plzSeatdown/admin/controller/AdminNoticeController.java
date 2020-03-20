@@ -6,24 +6,25 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bg.plzSeatdown.admin.model.service.AdminNoticeService;
+import com.bg.plzSeatdown.admin.model.vo.AdminNotice;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
-import com.bg.plzSeatdown.notice.model.service.NoticeService;
-import com.bg.plzSeatdown.notice.model.vo.Notice;
+import com.bg.plzSeatdown.member.model.vo.Member;
 
 @Controller
-//@RequestMapping("/notice/*")
-@RequestMapping("/admin/*")
-@SessionAttributes({ "loginMember", "msg" })
+@RequestMapping("/admin/notice/*")
+@SessionAttributes({"loginMember", "msg"})
 public class AdminNoticeController {
 
 	@Autowired
-	private NoticeService noticeService;
+	private AdminNoticeService adminNoticeService;
 
 	/*
 	 * ModelAndView 객체 - Model : 응답 페이지에 값(data)를 전달할 때 Map 형식으로 저장하여 전달하는 객체 - View
@@ -32,22 +33,13 @@ public class AdminNoticeController {
 	 * - ModelAndView : 컨트롤러 응답 처리 후 응답할 View와 View에 전달할 값을 저장하는 객체
 	 */
 
-	@RequestMapping("notice")
-	public String notice() {
-		return "admin/notice";
-	}
-
 	// 공지사항 목록 출력
-	@RequestMapping("/")
-	public ModelAndView noticeList(ModelAndView mv,
+	@RequestMapping("list")
+	public String noticeList(Model model,
 			@RequestParam(value = "searchKey", required = false) String searchKey,
 			@RequestParam(value = "searchValue", required = false) String searchValue,
 			@RequestParam(value = "currentPage", required = false) Integer currentPage) {
-		// currentPage
-		// searchKey
-		// searchValue
-		// 다 넘어올수도 아닐수도 있음
-		// int i = currentPage; // Integer -> 바로 int로 사용 가능 Auto unboxing
+
 		try {
 			// 검색 조건이 있는지 확인하여 map에 세팅
 			Map<String, String> map = null;
@@ -57,7 +49,7 @@ public class AdminNoticeController {
 				map.put("searchValue", searchValue);
 			}
 			// 1. 전체 공지사항 게시글 수 조회(페이징 처리를 위해서)
-			int listCount = noticeService.getListCount(map);
+			int listCount = adminNoticeService.getListCount(map);
 
 			// 현재 페이지 계산
 			if (currentPage == null)
@@ -67,49 +59,131 @@ public class AdminNoticeController {
 			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 
 			// 2. 공지사항 목록 조회
-			List<Notice> list = noticeService.selectList(map, pInf);
+			List<AdminNotice> aNoticeList = adminNoticeService.selectList(map, pInf);
 
-				for(Notice n:list) {
-					System.out.println(n);
-				}
-
-			mv.addObject("list", list);
-			mv.addObject("pInf", pInf);
-			mv.setViewName("admin/notice");
+			model.addAttribute("aNoticeList", aNoticeList);
+			model.addAttribute("pInf", pInf);
+			return "admin/noticeList";
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("errorMsg", "공지사항 목록 조회중 오류 발생");
-			mv.setViewName("common/errorPage"); // url 경로
+			model.addAttribute("errorMsg", "공지사항 목록 조회 중 오류 발생");
+			return "common/errorPage"; // url 경로
 		}
-		return mv;
 	}
+	
 	// Model은 데이터만 주고받음
 
 	// 공지사항 상세 조회
 	@RequestMapping("detail")
-	public ModelAndView noticeDetail(ModelAndView mv, @RequestParam(value = "no", required = false) Integer no) {
+	public String noticeDetail(Model model, @RequestParam(value = "no", required = false) Integer no) {
 		try {
-			Notice notice = noticeService.selectNotice(no);
-			if (notice != null) {
-				mv.addObject("notice", notice);
-				mv.addObject("no", no);
+			AdminNotice adminNotice = adminNoticeService.selectNotice(no);
+			if (adminNotice != null) {
+				model.addAttribute("adminNotice", adminNotice);
+				model.addAttribute("no", no);
 //					mv.addObject("currentPage", currentPage);
-				mv.setViewName("admin/noticeDetail");
 			}
+			
+			return "admin/noticeDetail";
+		
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("errorMsg", "공지사항 상세 조회중 오류 발생");
-			mv.setViewName("common/errorPage"); // url 경로
+			model.addAttribute("errorMsg", "공지사항 상세 조회중 오류 발생");
+			return "common/errorPage"; // url 경로
 		}
-		return mv;
 	}
 
+	// 공지사항 작성 화면 이동
+	@RequestMapping("insertForm")
+	public String insertForm() {
+		return "admin/noticeInsertForm";
+	}
 	
+	// 공지사항 작성
+	@RequestMapping("insertNotice")
+	public String insertNotice(AdminNotice adminNotice, Model model, RedirectAttributes rdAttr) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		System.out.println(loginMember);
+		
+		adminNotice.setNoticeWriter(loginMember.getMemberNo());
+		
+		try {
+			int result = adminNoticeService.insertNotice(adminNotice);
 
-	@RequestMapping("notice_insert")
-	public String noticeInsert() {
-		return "admin/notice_insert";
+			String msg = null;
+			String url = null;
+			
+			if(result > 0 ) {
+				msg="공지사항 작성 성공";
+				url="detail?no="+result;
+				
+			}else {
+				msg = "공지사항 작성 실패";
+				url = "list";
+			}
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + url;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "공지사항 작성 중 오류 발생");
+			return "common/errorPage";
+		}
+		
 	}
+	
+	// 공지사항 수정 화면 이동
+	@RequestMapping("updateForm")
+	public String updateForm() {
+		return "admin/noticeUpdateForm";
+	}
+	
+	// 공지사항 수정
+	@RequestMapping("update")
+	public String updateNotice(Model model, int noticeNo) {
+		
+		try {
+			int result = adminNoticeService.updateNotice(noticeNo);
+			
+			if(result > 0) { 
+				
+				
+				
+			} else {
 
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return "redirect:/";
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping("delete")
+	public String deleteNotice(Integer no, Model model, RedirectAttributes rdAttr) {
+		try {
+			int result = adminNoticeService.deleteNotice(no);
+			
+			String msg = null;
+			if(result > 0) msg="공지사항 삭제 성공";
+			else 		msg="공지사항 삭제 실패"; 
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:list";
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "회원 삭제 과정 중 오류 발생");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
+	
 }

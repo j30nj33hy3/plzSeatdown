@@ -1,15 +1,3 @@
-
-// 프로필사진 수정 버튼
-$(function () {
-    $("#upload").css("display", "none");
-    $("#upBtn").css({	
-        "width": "50px",
-        "text-align": "center"
-    }).mouseenter(function () {
-        $(this).css("cursor", "pointer");
-    });
-});
-
 // 이메일
 // $('#email-domain').change(function () {
 //     $("#email-domain option:selected").each(function () {
@@ -23,52 +11,45 @@ $(function () {
 //     });
 // });
 
-
-var signUpCheck = {
-
+/*var updateCheck = {
     "name": false,
+    "nickname" : false,
     "email": false
-};
+};*/
 
 $(document).ready(function () {
-    // Add the following code if you want the name of the file appear on select
-    // $(".custom-file-input").on("change", function () {
-    //     var fileName = $(this).val()
-    //         .split("\\").pop();
+	var $name = $("#name");
+    var $nickname = $("#nickname");
+    var $email = $("#email");
 
-    //     $(this).siblings(".custom-file-label")
-    //         .addClass("selected").html(fileName);
-    // });
-
-    // jQuery 변수 : 변수에 직접적으로 jQuery메소드를 사용할 수 있음.
-
-    var $name = $("#name");
-    var $email = $("#email")
-
-
-    // 이름 유효성 검사
+    // 이름 유효성 검사 
     // 한글 두 글자 이상
     $name.on("input", function () {
-        var regExp = /^[가-힣]{2,}$/;
+        var regExp = /^[가-힣]{1,}$/;
         if (!regExp.test($name.val())) {
-            signUpCheck.name = false;
-
+            updateCheck.name = false;
         } else {
-            signUpCheck.name = true;
+            updateCheck.name = true;
         }
     });
 
+    $nickname.on("input", function() {
+    	var regExp = /^[가-힣A-Za-z0-9]{1,15}$/;
+    	if(!regExp.test($nickname.val())) {
+    		updateCheck.nickname = false;
+    	} else {
+    		updateCheck.nickname = true;
+    	}
+    });
+    
     $email.on("input", function () {
         var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
         if (!regExp.test($email.val())) {
-            signUpCheck.email = false;
+            updateCheck.email = false;
         } else {
-            signUpCheck.email = true;
+            updateCheck.email = true;
         }
     });
-
-
-
 
     // 프로필 이미지 클릭 시 파일 선택 클릭
     // $("#profileImg").click(function () {
@@ -108,22 +89,16 @@ $(document).ready(function () {
 
 // submit 동작
 function validate() {
-
-    //console.log(signUpCheck.idDup);
-    for (var key in signUpCheck) {
-        if (!signUpCheck[key]) {
+    console.log(updateCheck.idDup);
+    for (var key in updateCheck) {
+        if (!updateCheck[key]) {
             console.log("유효값 false -> " + key + " : "
-                + signUpCheck[key])
+                + updateCheck[key])
             alert("일부 입력값이 잘못되었습니다.");
             var id = "#" + key;
             $(id).focus();
             return false;
         }
     }
-
-    // if (flag) {
-    //     alert("프로필에 사용할 수 없는 확장자입니다.\n다음과 같은 확장자 파일을 사용해 주세요.\n.jpg .png .gif .jpeg .bmp .tiff .raw");
-    //     return false;
-    // }
     return true;
 }

@@ -44,7 +44,7 @@
 		<!-- ============================================================== -->
 		<!-- Page wrapper  -->
 		<!-- ============================================================== -->
-		<div class="page-wrapper">
+		<div class="page-wrapper" style="background-color:white;">
 			<!-- ============================================================== -->
 			<!-- Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
@@ -72,11 +72,10 @@
 							<div class="card-body">
 								<h4 class="card-title"></h4>
 								<!-- Create the editor container -->
-								<form name="notice_incert" action="#" method="get">
+								<form name="notice_insert" action="insertNotice	" method="post">
 									<!-- <label class="input-group-addon mr-3">제목</label> -->
-									<input type="text" class="form-control" id="noticeTitle"
-										name="noticeTitle" size="70"> <br>
-									<textarea id="summernote" name="editordata"></textarea>
+									<input type="text" class="form-control" id="noticeTitle" name="noticeTitle" size="70"> <br>
+									<textarea id="summernote" name="noticeContent"></textarea>
 									<br> <br>
 									<div style="text-align: center;">
 										<button class="form-control btn btn-primary" id="submit-btn"
@@ -109,7 +108,19 @@
 		<!-- End Wrapper -->
 		<!-- ============================================================== -->
 		<!-- This Page JS -->
-
+		<script>
+		$(document).ready(function() {
+		    $('#summernote').summernote({
+		        height : 300, // 에디터 높이
+		        minHeight : null, // 최소 높이
+		        maxHeight : null, // 최대 높이
+		        focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+		        lang : "ko-KR", // 한글 설정
+		        
+		    });
+		});
+		
+		</script>
 		<script
 			src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/mask.init.js"></script>
@@ -126,7 +137,6 @@
 
 		<script src="${contextPath}/resources/js/admin/summernote-lite.js"></script>
 		<script src="${contextPath}/resources/js/admin/summernote-ko-KR.js"></script>
-		<script src="${contextPath}/resources/js/admin/notice_insert.js"></script>
 
 		<script defer
 			src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"

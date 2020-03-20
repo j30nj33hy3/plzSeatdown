@@ -2,7 +2,6 @@ package com.bg.plzSeatdown.api.model.vo;
 
 public class Show {
 
-	private String thFullCode; 
 	private String showCode;
 	private String showTitle;
 	private String startDt;
@@ -13,21 +12,14 @@ public class Show {
 	private String showImg2;
 	private String showImg3;
 	private String showImg4;
+	private String thCode; 
 	private String theaterFullNm;
 	
 	public Show() { }
 	
-	public Show(String thFullCode, String showCode) {
+	public Show(String showCode, String showTitle, String startDt, String endDt, String posterPath, String showStatus,
+			String showImg1, String showImg2, String showImg3, String showImg4, String thCode, String theaterFullNm) {
 		super();
-		this.thFullCode = thFullCode;
-		this.showCode = showCode;
-	}
-
-	public Show(String thFullCode, String showCode, String showTitle, String startDt, String endDt, String posterPath,
-			String showStatus, String showImg1, String showImg2, String showImg3, String showImg4,
-			String theaterFullNm) {
-		super();
-		this.thFullCode = thFullCode;
 		this.showCode = showCode;
 		this.showTitle = showTitle;
 		this.startDt = startDt;
@@ -38,15 +30,8 @@ public class Show {
 		this.showImg2 = showImg2;
 		this.showImg3 = showImg3;
 		this.showImg4 = showImg4;
+		this.thCode = thCode;
 		this.theaterFullNm = theaterFullNm;
-	}
-	
-	public String getThFullCode() {
-		return thFullCode;
-	}
-
-	public void setThFullCode(String thFullCode) {
-		this.thFullCode = thFullCode;
 	}
 
 	public String getShowCode() {
@@ -129,6 +114,14 @@ public class Show {
 		this.showImg4 = showImg4;
 	}
 
+	public String getThCode() {
+		return thCode;
+	}
+
+	public void setThCode(String thCode) {
+		this.thCode = thCode;
+	}
+
 	public String getTheaterFullNm() {
 		return theaterFullNm;
 	}
@@ -139,10 +132,10 @@ public class Show {
 
 	@Override
 	public String toString() {
-		return "Show [thFullCode=" + thFullCode + ", showCode=" + showCode + ", showTitle=" + showTitle + ", startDt="
-				+ startDt + ", endDt=" + endDt + ", posterPath=" + posterPath + ", showStatus=" + showStatus
-				+ ", showImg1=" + showImg1 + ", showImg2=" + showImg2 + ", showImg3=" + showImg3 + ", showImg4="
-				+ showImg4 + ", theaterFullNm=" + theaterFullNm + "]";
+		return "Show [showCode=" + showCode + ", showTitle=" + showTitle + ", startDt=" + startDt + ", endDt=" + endDt
+				+ ", posterPath=" + posterPath + ", showStatus=" + showStatus + ", showImg1=" + showImg1 + ", showImg2="
+				+ showImg2 + ", showImg3=" + showImg3 + ", showImg4=" + showImg4 + ", thCode=" + thCode
+				+ ", theaterFullNm=" + theaterFullNm + "]";
 	}
-
+	
 }

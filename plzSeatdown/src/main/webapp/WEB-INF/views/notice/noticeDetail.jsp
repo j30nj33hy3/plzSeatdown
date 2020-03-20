@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body>
+<body>W
 <jsp:include page="../common/header.jsp"/>
 <jsp:include page="../common/nav.jsp"/>
 <div class="container py-5">

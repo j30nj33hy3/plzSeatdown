@@ -36,26 +36,23 @@
 								<div class="grid">
 									<div class="row">
 
-									  <c:if test="${empty list}">
+									  <c:if test="${empty rimgList}">
 									  		<div id="nolistdiv" class="col-md-12">
 									  			<span id="nolist">존재하는 게시글이 없습니다</span>
 									  		</div>
 									  </c:if>
 									  
-									  <c:if test="${!empty list}">
-									  <c:forEach var="board" items="${list}" varStatus="vs">
+									  <c:if test="${!empty rimgList}">
+									  <c:forEach var="reviewimg" items="${rimgList}" varStatus="vs">
 									  
 									  	<div class="col-md-3">
-										<div style="display:none;">${review.reviewNo}</div>
+										<div style="display:none;">${reviewimg.reviewNo}</div>
 										
 											<figure class="effect-ravi">
 											
-											<c:set var="src" value="${contextPath}/resources/images/noImages.png"/>
-									  		<c:forEach var="reivewimg" items="${RList}">
-									  			<c:if test="${reviewimg.reivewNo == review.reviewNo}">
-									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${reviewimg.reivewImgPath}"/>
+									  			<c:if test="${reviewimg.reviewWriter == loginMember.memberNo}">
+									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${reviewimg.reviewImagePath}"/>
 									  			</c:if>
-									  		</c:forEach>
 												<img src="${src}" alt="img1" style="width: 200px; height: 175px;"/>
 												<figcaption>
 													<p>

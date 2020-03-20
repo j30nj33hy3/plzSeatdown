@@ -18,9 +18,20 @@
 		<typeAlias type="com.bg.plzSeatdown.qna.model.vo.QnA" alias="QnA"/>
 		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.Profile" alias="Profile"/>
       	<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.QnAEH" alias="QnAEH"/>
-      	<typeAlias type="com.bg.plzSeatdown.api.model.vo.Theater" alias="TheaterAPI"/>
+      	<typeAlias type="com.bg.plzSeatdown.api.model.vo.Theater" alias="Theater"/>
+      	<!-- 공연일이 String -->
 		<typeAlias type="com.bg.plzSeatdown.api.model.vo.Show" alias="ShowAPI"/>
+		<!-- 공연일이 Date -->
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.Show" alias="Show"/>
+		
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminNotice" alias="AdminNotice"/>
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminMember" alias="AdminMember"/>
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminQna" alias="AdminQna"/>
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminQnaAnswer" alias="AdminQnaAnswer"/>
+		
+		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewEH" alias="ReviewEH"/>
+        <typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH" alias="ReviewImageEH"/>
+		
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -36,6 +47,9 @@
 		<mapper resource="/mappers/admin-theater-mapper.xml"/>
 		<mapper resource="/mappers/admin-show-mapper.xml"/>
 		<mapper resource="/mappers/review-mapper.xml"/>
+		<mapper resource="/mappers/admin-notice-mapper.xml"/>
+		<mapper resource="/mappers/admin-member-mapper.xml"/>
+		<mapper resource="/mappers/admin-qna-mapper.xml"/>
 	</mappers>
 
 </configuration>

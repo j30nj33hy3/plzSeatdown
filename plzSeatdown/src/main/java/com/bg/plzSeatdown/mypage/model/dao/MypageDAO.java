@@ -13,6 +13,9 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
+import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
+import com.bg.plzSeatdown.qna.model.vo.QnA;
 
 @Repository
 public class MypageDAO {
@@ -81,21 +84,22 @@ public class MypageDAO {
     * @return
     * @throws Exception
     */
-   public int getAskCount() throws Exception{
-   return sqlSession.selectOne("mypageMapper.getAskCount");
+   public int getAskCount(int qnaWriter) throws Exception{
+   return sqlSession.selectOne("mypageMapper.getAskCount", qnaWriter);
    }
 
 
    /** 문의내역 게시글 조회
     * @param map
     * @param pInf
+ * @param qnaWriter 
     * @return
     * @throws Exception
     */
-   public List<QnAEH> selectQlist(PageInfo pInf) throws Exception{
+   public List<QnAEH> selectQlist(PageInfo pInf, int memberNo) throws Exception{
       int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
       RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
-      return sqlSession.selectList("mypageMapper.selectQlist", rowBounds );
+      return sqlSession.selectList("mypageMapper.selectQlist",  memberNo, rowBounds);
    }
 
 
@@ -149,6 +153,67 @@ public class MypageDAO {
    public int deleteProfile(int memberNo)throws Exception{
 	   return sqlSession.delete("mypageMapper.deleteProfile", memberNo);
    }
+
+
+
+	/** 마이리뷰 전체 게시글 수 조회
+	 * @return
+	 * @throws Exception
+	 */
+	public int getReviewCount(int memberNo) throws Exception{
+		return sqlSession.selectOne("mypageMapper.getReviewCount", memberNo);
+	}
+
+
+
+	/** 마이리뷰 목록 조회
+	 * @param pInf
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ReviewEH> selectRlist(PageInfo pInf, int memberNo) throws Exception{
+		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("mypageMapper.selectRlist", memberNo, rowBounds);
+	}
+
+
+	
+
+	/** 마이리뷰 이미지 조회
+	 * @param reviewNo
+	 * @return
+	 * @throws Exception
+	 */
+	public ReviewImageEH selectReviewImage(int reviewNo) throws Exception{
+		return sqlSession.selectOne("mypageMapper.selectReviewImage", reviewNo);
+	}
+
+
+	
+	
+	/** 마이티켓 게시글수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int getTicketCount(int memberNo) throws Exception{
+		return sqlSession.selectOne("mypageMapper.getTicketCount", memberNo);
+	}
+
+	
+	
+
+	/** 마이티켓 이미지 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 */
+	public List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo) {
+		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("mypageMapper.selectRimgList",memberNo, rowBounds);
+	}
    
    
    

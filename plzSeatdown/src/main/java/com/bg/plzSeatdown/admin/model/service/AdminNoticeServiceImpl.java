@@ -5,10 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bg.plzSeatdown.admin.model.dao.AdminNoticeDAO;
+import com.bg.plzSeatdown.admin.model.vo.AdminNotice;
 import com.bg.plzSeatdown.common.vo.PageInfo;
-import com.bg.plzSeatdown.notice.model.vo.Notice;
 
 @Service("adminNoticeService")
 public class AdminNoticeServiceImpl implements AdminNoticeService{
@@ -34,7 +35,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 	 * @throws Exception
 	 */
 	@Override
-	public List<Notice> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
+	public List<AdminNotice> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
 		return adminNoticeDAO.selectList(map,pInf);
 	}
 	
@@ -46,19 +47,38 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 	 * @throws Exception
 	 */
 	@Override
-	public Notice selectNotice(Integer no) throws Exception {
-		Notice notice = adminNoticeDAO.selectNotice(no);
-		if(notice != null) {
-			int result = adminNoticeDAO.increaseCount(no);
-			
-			if(result>0) {
-				notice.setNoticeCount(notice.getNoticeCount()+1);
-			}else {
-				notice=null;
-			}
-		}
-		return notice;
-		
+	public AdminNotice selectNotice(Integer no) throws Exception {
+		return adminNoticeDAO.selectNotice(no);
 	}
 	
+	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateNotice(int noticeNo) throws Exception {
+		return adminNoticeDAO.updateNotice(noticeNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteNotice(Integer no) throws Exception {
+		return adminNoticeDAO.deleteNotice(no);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertNotice(AdminNotice adminNotice) throws Exception {
+		int result = 0;
+		int noticeNo = adminNoticeDAO.selectNextNo();
+		if(noticeNo > 0) {
+			adminNotice.setNoticeContent(adminNotice.getNoticeContent().replace("\r\n", "<br>"));
+			adminNotice.setNoticeNo(noticeNo);
+			
+			result = adminNoticeDAO.insertNotice(adminNotice);
+			
+			if(result > 0) result = noticeNo;
+			else		throw new Exception();
+		}
+		return result;
+	}
+
 }
