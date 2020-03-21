@@ -18,7 +18,7 @@ public class Reply {
 	private String memberNickname;
 	private String profilePath;
 	private int memberReporter;
-	private String communityReportContent;
+	private String replyReportContent;
 	private int reportCategory;
 	
 	public Reply() {}
@@ -44,7 +44,7 @@ public class Reply {
 
 	public Reply(int replyNo, String replyContent, String replyStatus, Timestamp replyModifyDate, String replySecret,
 			int depth, int parentNo, int communityNo, int replyWriter, int replyGroup, int communityWriter,
-			String memberNickname, String profilePath, int memberReporter, String communityReportContent,
+			String memberNickname, String profilePath, int memberReporter, String replyReportContent,
 			int reportCategory) {
 		super();
 		this.replyNo = replyNo;
@@ -61,7 +61,7 @@ public class Reply {
 		this.memberNickname = memberNickname;
 		this.profilePath = profilePath;
 		this.memberReporter = memberReporter;
-		this.communityReportContent = communityReportContent;
+		this.replyReportContent = replyReportContent;
 		this.reportCategory = reportCategory;
 	}
 
@@ -178,12 +178,12 @@ public class Reply {
 		this.memberReporter = memberReporter;
 	}
 
-	public String getCommunityReportContent() {
-		return communityReportContent;
+	public String getReplyReportContent() {
+		return replyReportContent;
 	}
 
-	public void setCommunityReportContent(String communityReportContent) {
-		this.communityReportContent = communityReportContent;
+	public void setReplyReportContent(String replyReportContent) {
+		this.replyReportContent = replyReportContent;
 	}
 
 	public int getReportCategory() {
@@ -201,7 +201,7 @@ public class Reply {
 				+ ", parentNo=" + parentNo + ", communityNo=" + communityNo + ", replyWriter=" + replyWriter
 				+ ", replyGroup=" + replyGroup + ", communityWriter=" + communityWriter + ", memberNickname="
 				+ memberNickname + ", profilePath=" + profilePath + ", memberReporter=" + memberReporter
-				+ ", communityReportContent=" + communityReportContent + ", reportCategory=" + reportCategory + "]";
+				+ ", replyReportContent=" + replyReportContent + ", reportCategory=" + reportCategory + "]";
 	}
 	
 }

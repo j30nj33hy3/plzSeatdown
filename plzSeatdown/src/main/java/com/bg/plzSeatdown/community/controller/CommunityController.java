@@ -64,8 +64,8 @@ public class CommunityController {
 			// 게시글 목록 조회
 			List<Community> list = communityService.selectList(map, pInf);
 			
-			// 이미지 목록 조회
-			//List<Attachment> iList = communityService.selectImageList(list);
+			// 이미지 여부 조회
+			//List<Community> iList = communityService.selectImageList(list);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);
@@ -307,7 +307,45 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 신고
-	
+	@RequestMapping("communityReport")
+	public String communityReport(Community community,
+								Model model,
+								RedirectAttributes rdAttr,
+								HttpServletRequest request) {
+		System.out.println(community.getCommunityReportContent());
+		String referer= request.getHeader("Referer");
+		int result = 0;
+		try {
+			result = communityService.insertCommunityReport(community);
+			String msg = null;
+			if(result>0) msg = "해당 글을 신고했습니다.";
+			else if(result == -1) msg = "이미 신고한 게시글입니다."; 
+			else msg = "신고 실패";
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:"+referer;
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("글 상세 조회", model, e);
+		}
+	}
 	
 	// 댓글 신고
+	@RequestMapping("replyReport")
+	public String communityReport(Reply reply,
+								Model model,
+								RedirectAttributes rdAttr,
+								HttpServletRequest request) {
+		String referer= request.getHeader("Referer");
+		int result = 0;
+		try {
+			result = communityService.insertReplyReport(reply);
+			String msg = null;
+			if(result>0) msg = "해당 댓글을 신고했습니다.";
+			else if(result == -1) msg = "이미 신고한 댓글입니다."; 
+			else msg = "신고 실패";
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:"+referer;
+		}catch(Exception e) {
+			return ExceptionForward.errorPage("글 상세 조회", model, e);
+		}
+	}
 }
