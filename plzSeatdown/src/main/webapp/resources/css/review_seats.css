@@ -124,20 +124,3 @@ a:hover{
     width: 100%;
     height: 250px;
 }
-
-/* tabs 관련 */
-#thInfo li{
-    padding: 0 0 0 0 !important;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
-#thInfo a{
-    margin-right: 0;
-    font-weight: bolder;
-}
-#thInfo a:enabled{
-    background-color: #917EC6;
-}
-.tab-content{
-    margin-top: 30px;
-}

@@ -4,15 +4,16 @@ public class Theater {
 
 	private String thCode;
 	private String thNm;
-	private String thFullNm;
 	private String thPhone;
 	private String thPage;
 	private String thAddr;
 	private double thLat;
 	private double thLong;
+	private String thLogoPath;
 	
 	public Theater() {}
 
+	// APIController theaterAPI()에서 사용 	
 	public Theater(String thNm, String thCode, String thPhone, String thPage, String thAddr, double thLat,
 			double thLong) {
 		super();
@@ -24,20 +25,19 @@ public class Theater {
 		this.thLat = thLat;
 		this.thLong = thLong;
 	}
-	
-	public Theater(String thCode, String thNm, String thFullNm, String thPhone, String thPage, String thAddr,
-			double thLat, double thLong) {
+
+	public Theater(String thCode, String thNm, String thPhone, String thPage, String thAddr, double thLat,
+			double thLong, String thLogoPath) {
 		super();
 		this.thCode = thCode;
 		this.thNm = thNm;
-		this.thFullNm = thFullNm;
 		this.thPhone = thPhone;
 		this.thPage = thPage;
 		this.thAddr = thAddr;
 		this.thLat = thLat;
 		this.thLong = thLong;
+		this.thLogoPath = thLogoPath;
 	}
-
 
 	public String getThCode() {
 		return thCode;
@@ -46,21 +46,13 @@ public class Theater {
 	public void setThCode(String thCode) {
 		this.thCode = thCode;
 	}
-	
+
 	public String getThNm() {
 		return thNm;
 	}
 
 	public void setThNm(String thNm) {
 		this.thNm = thNm;
-	}
-	
-	public String getThFullNm() {
-		return thFullNm;
-	}
-
-	public void setThFullNm(String thFullNm) {
-		this.thFullNm = thFullNm;
 	}
 
 	public String getThPhone() {
@@ -103,10 +95,18 @@ public class Theater {
 		this.thLong = thLong;
 	}
 
-	@Override
-	public String toString() {
-		return "Theater [thCode=" + thCode + ", thNm=" + thNm + ", thFullNm=" + thFullNm + ", thPhone=" + thPhone
-				+ ", thPage=" + thPage + ", thAddr=" + thAddr + ", thLat=" + thLat + ", thLong=" + thLong + "]";
+	public String getThLogoPath() {
+		return thLogoPath;
 	}
 
+	public void setThLogoPath(String thLogoPath) {
+		this.thLogoPath = thLogoPath;
+	}
+
+	@Override
+	public String toString() {
+		return "Theater [thCode=" + thCode + ", thNm=" + thNm + ", thPhone=" + thPhone + ", thPage=" + thPage
+				+ ", thAddr=" + thAddr + ", thLat=" + thLat + ", thLong=" + thLong + ", thLogoPath=" + thLogoPath + "]";
+	}
+	
 }

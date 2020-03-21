@@ -196,4 +196,28 @@
 		FROM REPLY
 		WHERE REPLY_NO = #{replyNo}
 	</select>
+	
+	<!-- 커뮤니티 신고 확인 -->
+	<select id="selectCommunityReport" parameterType="Community" resultType="_int">
+		SELECT COUNT(*) FROM COMMUNITY_REPORT
+		WHERE COMM_NO = #{communityNo} AND MEMBER_REPORTER = #{memberReporter}
+	</select>
+	
+	<!-- 커뮤니티 기타 신고 -->
+	<insert id="insertCommunityReport" parameterType="Community">
+		INSERT INTO COMMUNITY_REPORT VALUES(
+		SEQ_C_RNO.NEXTVAL, #{reportCategory}, #{communityReportContent}, #{communityNo},
+		#{communityWriter}, #{memberReporter})
+	</insert>
+	
+	<select id="selectReplyReport" parameterType="Reply" resultType="_int">
+		SELECT COUNT(*) FROM REPLY_REPORT
+		WHERE REPLY_NO = #{replyNo} AND MEMBER_REPORTER = #{memberReporter}
+	</select>
+	
+	<insert id="insertReplyReport" parameterType="Reply">
+		INSERT INTO REPLY_REPORT VALUES(
+		SEQ_RP_RNO.NEXTVAL, #{reportCategory}, #{replyReportContent}, #{replyNo},
+		#{replyWriter}, #{memberReporter})
+	</insert>
 </mapper>

@@ -19,6 +19,7 @@
 		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.Profile" alias="Profile"/>
       	<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.QnAEH" alias="QnAEH"/>
       	<typeAlias type="com.bg.plzSeatdown.api.model.vo.Theater" alias="Theater"/>
+      	<typeAlias type="com.bg.plzSeatdown.admin.model.vo.TheaterLogo" alias="TheaterLogo"/>
       	<!-- 공연일이 String -->
 		<typeAlias type="com.bg.plzSeatdown.api.model.vo.Show" alias="ShowAPI"/>
 		<!-- 공연일이 Date -->

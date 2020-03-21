@@ -39,6 +39,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.selectList(map, pInf);
 	}
 
+	/*
+	 * @Override public List<Community> selectImageList(List<Community> list) throws
+	 * Exception { return communityDAO.selectImageList(list); }
+	 */
+
 	/** 게시글 삭제용 Service
 	 * @param no
 	 * @return result
@@ -210,7 +215,33 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertCommunityReport(Community community) throws Exception {
+		int result = 0;
+		// 신고한 게시글인지 확인
+		int reportCount = communityDAO.selectCommunityReport(community);
+		if(reportCount>0) {
+			result = -1;
+		}else {
+			result = communityDAO.insertCommunityReport(community);
+		}
+		return result;
+	}
 	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertReplyReport(Reply reply) throws Exception {
+		int result = 0;
+		// 신고한 게시글인지 확인
+		int reportCount = communityDAO.selectReplyReport(reply);
+		if(reportCount>0) {
+			result = -1; 
+		}else { 
+			result = communityDAO.insertReplyReport(reply);
+		}
+		return result;
+	}
 	
 
 }
