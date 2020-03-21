@@ -17,7 +17,7 @@ public class Community {
 	private String categoryName;
 	private String profilePath;
 	private int memberReporter;
-	private String replyReportContent;
+	private String communityReportContent;
 	private int reportCategory;
 	
 	public Community() {}
@@ -59,7 +59,7 @@ public class Community {
 	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
 			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
 			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
-			String replyReportContent, int reportCategory) {
+			String communityReportContent, int reportCategory) {
 		super();
 		this.communityNo = communityNo;
 		this.communityTitle = communityTitle;
@@ -74,7 +74,7 @@ public class Community {
 		this.categoryName = categoryName;
 		this.profilePath = profilePath;
 		this.memberReporter = memberReporter;
-		this.replyReportContent = replyReportContent;
+		this.communityReportContent = communityReportContent;
 		this.reportCategory = reportCategory;
 	}
 
@@ -182,12 +182,12 @@ public class Community {
 		this.memberReporter = memberReporter;
 	}
 
-	public String getReplyReportContent() {
-		return replyReportContent;
+	public String getCommunityReportContent() {
+		return communityReportContent;
 	}
 
-	public void setReplyReportContent(String replyReportContent) {
-		this.replyReportContent = replyReportContent;
+	public void setCommunityReportContent(String communityReportContent) {
+		this.communityReportContent = communityReportContent;
 	}
 
 	public int getReportCategory() {
@@ -205,7 +205,7 @@ public class Community {
 				+ communityModifyDate + ", communityCount=" + communityCount + ", communityStatus=" + communityStatus
 				+ ", communityWriter=" + communityWriter + ", memberNickname=" + memberNickname + ", categoryCode="
 				+ categoryCode + ", categoryName=" + categoryName + ", profilePath=" + profilePath + ", memberReporter="
-				+ memberReporter + ", replyReportContent=" + replyReportContent + ", reportCategory=" + reportCategory
+				+ memberReporter + ", communityReportContent=" + communityReportContent + ", reportCategory=" + reportCategory
 				+ "]";
 	}
 

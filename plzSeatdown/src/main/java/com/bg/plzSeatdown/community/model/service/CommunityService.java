@@ -24,6 +24,11 @@ public interface CommunityService {
 	 */
 	public abstract List<Community> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
 
+	/*
+	 * public abstract List<Community> selectImageList(List<Community> list) throws
+	 * Exception;
+	 */
+	
 	/** 게시글 삭제용 Service
 	 * @param no
 	 * @return result
@@ -87,5 +92,15 @@ public interface CommunityService {
 	public abstract int insertReReply(Reply reply) throws Exception;
 
 	public abstract int deleteReply(Reply reply) throws Exception;
+
+	/** 커뮤니티 게시글 신고용 Service
+	 * @param community
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int insertCommunityReport(Community community) throws Exception;
+
+	public abstract int insertReplyReport(Reply reply) throws Exception;
+
 
 }

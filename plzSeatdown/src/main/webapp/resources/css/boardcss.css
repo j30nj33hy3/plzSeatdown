@@ -268,10 +268,3 @@ margin-left: 60px;
     cursor: pointer;
     text-decoration: none;
 }
-
-/* 등록 버튼 */
-#insertBtn{
-    background-color:#FFD938;
-    border-color:#FFD938;
-    color:#555;
-}

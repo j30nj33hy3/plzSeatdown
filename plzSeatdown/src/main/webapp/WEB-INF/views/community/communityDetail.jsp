@@ -77,7 +77,7 @@ tbody > tr:last-child{
             <div>
                 <div>
                     <span>댓글</span>&nbsp;&nbsp;
-                    <span>댓글 수 합</span>
+                    <span id="replyCount"></span>
                     <c:if test="${loginMember.memberNo != community.communityWriter}">
                    		<button data-toggle="modal" data-target="#communityModal" class="btn float-right text-muted report" id="communityReportBtn">신고</button>
                     </c:if>
@@ -93,7 +93,7 @@ tbody > tr:last-child{
                                  <span aria-hidden="true">&times;</span>
                                </button>
                              </div>
-                              <form method="post" action="">
+                              <form method="post" action="communityReport">
                                 <div class="modal-body">
                                      <div class="form-group">
                                        <p>신고사유</p>
@@ -118,7 +118,11 @@ tbody > tr:last-child{
 										  <label class="form-check-label" for="exampleRadios5">기타</label>
 									   </div>
                                        <label for="message-text" class="col-form-label">내용</label>
-                                       <textarea disabled class="form-control" id="communityReportContent" name="reportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
+                                       <textarea disabled class="form-control replyContent" id="communityReportContent" name="communityReportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
+                                       <input type="hidden" name="communityNo" value="${community.communityNo}">
+                                       <input type="hidden" name="communityWriter" value="${community.communityWriter}">
+                                       <input type="hidden" name="memberReporter" value="${loginMember.memberNo}">
+                                       <input type="hidden" name="reportCategory" value="">
                                      </div>
                                 </div>
                                 <div class="modal-footer">
@@ -235,6 +239,7 @@ tbody > tr:last-child{
 		// 댓글 목록 조회 함수
 		function selectRlist(){
 			var communityNo = "${community.communityNo}";
+			var rCount = 0;
 			$.ajax({
 				url : "selectReplyList",
 				type : "POST",
@@ -242,16 +247,24 @@ tbody > tr:last-child{
 				dataType : "json",
 				success : function(rList){
 					console.log(rList);
+					
 					var $rArea = $("#replyListArea");
 
 					if(rList == ""){
 						$rArea.html("<li><p>등록된 댓글이 없습니다.</p></li>");
+						$("#replyCount").html(0);
 					}else{
 						$rArea.html("");
 						var rGroup = 0;
 						var rPrint = 0;
 						var v_rereply = 0;
+						
 						$.each(rList, function(i){
+							if(rList[i].replyStatus=='Y'){
+								rCount ++
+							}
+							console.log(rCount);
+							$("#replyCount").html(rCount);
 							/* 공통  */
 							var $li = $("<li>").prop("class","comment");
 							var $rLi = $("<li>").prop("class","comment");
@@ -333,7 +346,7 @@ tbody > tr:last-child{
 								rPrint = 4;
 							}
 							
-							console.log("raplyStatus : " + rList[i].replyStatus);
+							console.log("replyStatus : " + rList[i].replyStatus);
 							console.log("rPrint : " + rPrint);
 							if(rPrint == 0){
 								$li.append($div);
@@ -626,7 +639,7 @@ tbody > tr:last-child{
 		$(document).on("click","button[name='replyReport']",function(){
 			$("input[name='exampleRadios']").removeAttr('checked');
 			$("#example1").prop("checked",true);
-			$("textarea[name=reportContent]").attr("disabled",true);
+			$("textarea[name=replyReportContent]").attr("disabled",true);
 			var $reportReplyNo = $(this).parent().parent().parent().children("input[name=rNo]").val();
 			var $suspector = $(this).parent().parent().parent().children("input[name=writerNo]").val();
 			$("#reportReplyNo").val($reportReplyNo);
@@ -644,7 +657,7 @@ tbody > tr:last-child{
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                     <form action="" method="post">
+                     <form action="replyReport" method="post">
                        <div class="modal-body">
                             <div class="form-group">
                               <p>신고사유</p>
@@ -669,10 +682,12 @@ tbody > tr:last-child{
 								  <label class="form-check-label" for="example5">기타</label>
 							   </div>
                               <label for="message-text" class="col-form-label">내용</label>
-                              <textarea disabled class="form-control" id="replyReportContent" name="reportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
+                              <textarea disabled class="form-control replyContent" id="replyReportContent" name="replyReportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
                             </div>
                              <input type="hidden" name="replyNo" id="reportReplyNo" value="">
-                             <input type="hidden" name="memberSuspector" id="replySuspector" value="">
+                             <input type="hidden" name="replyWriter" id="replySuspector" value="">
+                             <input type="hidden" name="memberReporter" value="${loginMember.memberNo}">
+                             <input type="hidden" name="reportCategory" value="">
                        </div>
                        <div class="modal-footer">
                          <button type="submit" class="btn" onclick="return report2();" style="background-color:#FFD938;">신고</button>
@@ -688,14 +703,16 @@ tbody > tr:last-child{
      	$("#communityReportBtn").click(function(){
 			$("input[name='exampleRadios']").removeAttr('checked');
 			$("#exampleRadios1").prop("checked",true);
-			$("textarea[name=reportContent]").attr("disabled",true);
+			$("textarea[name=communityReportContent]").attr("disabled",true);
 		});
      
      	$(document).on("click","input:radio[name=exampleRadios]",function(){
 			if($("input[name=exampleRadios]:checked").val() == "5"){
-				$("textarea[name=reportContent]").attr("disabled",false);
+				$("textarea[name=replyReportContent]").attr("disabled",false);
+				$("textarea[name=communityReportContent]").attr("disabled",false);
 			}else{
-				$("textarea[name=reportContent]").attr("disabled",true);
+				$("textarea[name=replyReportContent]").attr("disabled",true);
+				$("textarea[name=communityReportContent]").attr("disabled",true);
 			}
 		});
      
@@ -705,16 +722,18 @@ tbody > tr:last-child{
    				$('.reportContent').focus();
    				return false;
    			}
-     		var communityNo = ${community.communityNo} // 글번호
-     		var memberSuspector = ${community.communityWriter} // 글 작성자
-     		var reportCategory = $("#communityModal").children("input[name=exampleRadios]:checked").val();
+     		var $reportCategory = $("#communityModal").find("input[name=exampleRadios]:checked").val();
+     		$("#communityModal").find("input[name=reportCategory]").val($reportCategory);
      	}
+     	
      	function report2(){
      		if($("input[name=exampleRadios]:checked").val() == "5" && $('#replyReportContent').val().length == 0){
    				alert("내용을 입력하세요.");
    				$('.reportContent').focus();
    				return false;
    			}
+     		var $reportCategory = $("#replyModal").find("input[name=exampleRadios]:checked").val();
+     		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
      </script>
      

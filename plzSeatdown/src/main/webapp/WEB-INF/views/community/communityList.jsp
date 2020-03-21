@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 	<jsp:include page="../common/nav.jsp"/>
 	
     <div class="container my-5">
-        <div class="py-2">
+        <div class="pb-4">
             <h5>커뮤니티 게시판</h5>
         </div>
         <div class="row">
@@ -36,7 +37,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                             <th scope="col">제목</th>
                             <th scope="col">작성자</th>
                             <th scope="col" class="text-center">조회수</th>
-                            <th scope="col">작성일</th>
+                            <th scope="col" class="text-center">작성일</th>
                         </tr>
                     </thead>
                     <tbody class="commu-body">
@@ -50,7 +51,11 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 	                    		<tr>
 		                            <td scope="row">${comm.communityNo}</td>
 		                            <td>${comm.categoryName}</td>
-		                            <td>${comm.communityTitle}</td>
+		                            <td>${comm.communityTitle}&nbsp;&nbsp;
+		                            	<c:if test="${fn:contains(comm.communityContent, '<img src=')}">
+		                            		<img src="${contextPath}/resources/images/gallery.png" style="width:20px; height:20px;">
+		                            	</c:if>
+		                            </td>
 		                            <td>${comm.memberNickname}</td>
 		                            <td class="text-center">${comm.communityCount}</td>
 		                            <td>${comm.communityModifyDate}</td>
@@ -61,11 +66,12 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                 </table>
             </div>
             
+            <div class="col-md-12">
             <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
             	<button type="button" class="btn btn-sm float-right" id="insertBtn"
             		onclick="location.href = 'insertForm';">글쓰기</button>
             </c:if>
-            
+            </div>
             
             <!-- 페이징바 -->
             <div class="col-md-12 d-flex justify-content-center">
@@ -219,7 +225,7 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 		</script>
 
     </div>
-    <%-- <jsp:include page="../common/footer.jsp"/> --%>
+    <jsp:include page="../common/footer.jsp"/>
     
     <script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)

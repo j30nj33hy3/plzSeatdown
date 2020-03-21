@@ -18,7 +18,7 @@
 	<jsp:include page="../common/nav.jsp"/>
 
     <div class="container my-5">
-        <div class="py-2">
+        <div class="pb-4">
             <h5>공지사항</h5>
         </div>
         <div class="row">
