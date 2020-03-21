@@ -110,8 +110,6 @@ public class APIController {
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("db");
 				
-				System.out.println(url);
-				
 				// 요청 url당 반환되는 node는 1개이므로 0번째 인덱스 호출
 				Node nNode = nList.item(0);
 				
@@ -134,9 +132,6 @@ public class APIController {
 			int result = 0;
 			
 			result = apiService.insertTheater(theaterList);
-			
-			System.out.println(theaterList);
-			
 			
 		}catch (Exception e) {
 			e.printStackTrace();

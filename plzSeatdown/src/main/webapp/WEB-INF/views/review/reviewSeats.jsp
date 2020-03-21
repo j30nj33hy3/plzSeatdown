@@ -10,12 +10,6 @@
 		<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 		<link rel="stylesheet" href="${contextPath}/resources/css/review_seats.css" />
 		
-		<!------ Include the above in your HEAD tag ---------->
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<!------ Include the above in your HEAD tag ---------->
-		
 		<!-- 카카오맵 API -->
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46bd51526fce597f882f7578409e88bc"></script>
 		
@@ -44,122 +38,43 @@
 									<div class="profile" style="display:inline-block; width:100%; height: 50px;">
 										<img class="img-circle profile-photo" src="images/profile.jpg" width="50" height="50"/>
 										<div style="display:inline-block; width:100px;">user012345678</div>
-										<button class="like mt-3" style="float: right; width: 65px;">
-											<img src="images/like.png" alt="like" style="width: 18px; height: 15px; margin-right: 3px;">
+										<!-- <button class="like mt-3" style="float: right; width: 65px;">
+											<i class="far fa-heart"></i>
+											<i class="fas fa-heart"></i>
 											<p>2000</p>
-										</button>
+										</button> -->
 									</div>
-									<div class="mb-4 mt-4">
-										<div style="display: inline-block; width: 100px; font-weight: bold;">
+									<div class="row mb-4 mt-4" >
+										<div class="col text-center" style="font-weight: bold;">
 											<span>시야</span>
 											<span style="display: block;">★★★☆☆</span>
 										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
+										<div class="col text-center" style="font-weight: bold;">
 											<span>간격</span>
 											<span style="display: block;">★★★★★</span>
 										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
+										<div class="col text-center" style="font-weight: bold;">
 											<span>편안함</span>
 											<span style="display: block;">★★★☆☆</span>
 										</div>
 									</div>
 									<a href="#">
 										<img class="img-responsive" src="https://cdn-images-1.medium.com/freeze/max/640/0*f91Yj-y7rGzkXMp2." />
-										<div class="sub-heading mt-4 mb-4">
+										<div class="mt-4 mb-4">
 											맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 ! 
 											그들의 몸이 얼마나 튼튼하며 그들의 피부가 얼마나 생생하며 
 											그들의 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 
 											우리의 귀는 생의 찬미를 듣는다...
 										</div>
 									</a>
-										<button class="flag"  style="float: right; width: 20px;">
-											<img src="images/flag.png" alt="flag" style="width: 15px; height:18px;">
-										</button>
+										<!-- <button class="flag"  style="float: right; width: 20px;">
+											<i class="fas fa-flag"></i>
+										</button> -->
 								</div>
 							</div>
 							<!-- 카드 1 끝 -->
 
-							<!-- 카드 2 시작 -->
-							<div class="card">
-								<div class="card-content">
-									<div class="profile" style="display:inline-block; width:100%; height: 50px;">
-										<img class="img-circle profile-photo" src="images/profile.jpg" width="50" height="50"/>
-										<div style="display:inline-block; width:100px;">user012345678</div>
-										<button class="like mt-3" style="float: right; width: 65px;">
-											<img src="images/like.png" alt="like" style="width: 18px; height: 15px; margin-right: 3px;">
-											<p>2000</p>
-										</button>
-									</div>
-									<div class="mb-4 mt-4">
-										<div style="display: inline-block; width: 100px; font-weight: bold;">
-											<span>시야</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
-											<span>간격</span>
-											<span style="display: block;">★★★★★</span>
-										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
-											<span>편안함</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-									</div>
-									<a href="#">
-										<img class="img-responsive" src="https://cdn-images-1.medium.com/freeze/max/640/0*f91Yj-y7rGzkXMp2." />
-										<div class="sub-heading mt-4 mb-4">
-											맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 ! 
-											그들의 몸이 얼마나 튼튼하며 그들의 피부가 얼마나 생생하며 
-											그들의 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 
-											우리의 귀는 생의 찬미를 듣는다...
-										</div>
-									</a>
-										<button class="flag"  style="float: right; width: 20px;">
-											<img src="images/flag.png" alt="flag" style="width: 15px; height:18px;">
-										</button>
-								</div>
-							</div>
-							<!-- 카드 2 끝 -->
 
-							<!-- 카드 3 시작 -->
-							<div class="card">
-								<div class="card-content">
-									<div class="profile" style="display:inline-block; width:100%; height: 50px;">
-										<img class="img-circle profile-photo" src="images/profile.jpg" width="50" height="50"/>
-										<div style="display:inline-block; width:100px;">user012345678</div>
-										<button class="like mt-3" style="float: right; width: 65px;">
-											<img src="images/like.png" alt="like" style="width: 18px; height: 15px; margin-right: 3px;">
-											<p>2000</p>
-										</button>
-									</div>
-									<div class="mb-4 mt-4">
-										<div style="display: inline-block; width: 100px; font-weight: bold;">
-											<span>시야</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
-											<span>간격</span>
-											<span style="display: block;">★★★★★</span>
-										</div>
-										<div style="display: inline-block;  width: 100px; font-weight: bold;">
-											<span>편안함</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-									</div>
-									<a href="#">
-										<img class="img-responsive" src="https://cdn-images-1.medium.com/freeze/max/640/0*f91Yj-y7rGzkXMp2." />
-										<div class="sub-heading mt-4 mb-4">
-											맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 ! 
-											그들의 몸이 얼마나 튼튼하며 그들의 피부가 얼마나 생생하며 
-											그들의 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 
-											우리의 귀는 생의 찬미를 듣는다...
-										</div>
-									</a>
-										<button class="flag"  style="float: right; width: 20px;">
-											<img src="images/flag.png" alt="flag" style="width: 15px; height:18px;">
-										</button>
-								</div>
-							</div>
-							<!-- 카드 3 끝 -->
 						</div>
 					</div>
 				</div>
@@ -237,50 +152,6 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="nav nav-tabs nav-fill" id="thInfo"> 
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#trans">교통정보</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#parking">주차정보</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#add">부대시설</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#toilet">화장실</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#cafe">주변식당</a>
-							</li>
-						</ul>
-						  <!-- Tab panes -->
-						<div class="tab-content">
-							<div id="trans" class="container tab-pane active"><br>
-								<h3>교통정보</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-							</div>
-							<div id="parking" class="container tab-pane"><br>
-								<h3>주차정보</h3>
-								<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							</div>
-							<div id="add" class="container tab-pane"><br>
-								<h3>부대시설</h3>
-								<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-							</div>
-							<div id="toilet" class="container tab-pane"><br>
-								<h3>화장실</h3>
-								<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-							</div>
-							<div id="cafe" class="container tab-pane"><br>
-								<h3>주변식당</h3>
-								<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-							</div>
-						</div>
-					</div>
-				</div>
 
 				
 
