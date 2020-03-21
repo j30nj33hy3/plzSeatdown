@@ -22,6 +22,9 @@
         #addBtn{
             background-color: #917EC6;
         }
+        .logoArea:hover{
+        	cursor: pointer;
+        }
     </style>
 </head>
 
@@ -86,13 +89,27 @@
                     			<c:forEach var="theater" items="${list}" varStatus="vs">
                     				<div class="col-md-4">
                     					<div class="card">
-                    						<img class="card-img-top" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
+                    							<%-- <img class="card-img-top" src="${contextPath}/resources/images/bluesquare.gif" style="width: 80%; "/> --%>
+                   							<!-- <form action="updateLogo" enctype="multipart/form-data" method="POST" > -->
+                   							<form id="${theater.thCode}Form">
+												<div class="logoArea text-center" id="${theater.thCode}" style="height: 100px;" >
+											  		<c:set var="src" value="${contextPath}/resources/images/user.png"/>
+							                        <c:if test="${!empty theater.thLogoPath}">
+							                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
+							                        	<%-- <c:set var ="src" value="${theater.thLogoPath}"/> --%>
+							                        </c:if>
+							                        <img id="${theater.thCode}Img" src="${src}" style="width: 80%; height: 100%;">
+												</div>
+												<div id="fileArea" class="fileArea">
+													<input type="file" id="${theater.thCode}File" name="image">
+												</div>
+											</form>
                     						<div class="card-block mt-3 ml-3 mr-3">
                     							<h5 class="card-title">
                     								${theater.thNm}
                     							</h5>
                     							<p class="text-right">
-		                                            <a class="btn btn-primary" href="#">로고 수정</a> 
+		                                            <button id="delete${theater.thCode}" class="btn btn-primary deleteBtn">로고 삭제</button> 
 		                                            <a class="btn btn-primary" href="#">좌석 관리</a> 
 		                                        </p>
                     						</div>
@@ -216,6 +233,90 @@
                 		}
                 	});
                 </script>
+                
+                <!-- 공연장 로고 업로드 관련 -->
+                <script>
+                 
+           	  		// 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+	                $(function () {
+						// 파일 선택 버튼이 있는 영역을 보이지 않게함
+						$(".fileArea").hide();
+						
+						// 이미지 영역 클릭 시 파일 첨부 창 띄우기
+						$(".logoArea").click(function(){
+							
+							fileId = $(this).prop("id");
+							
+							// 숨겨놓은 파일버튼 누르게함
+							$("#"+fileId+"File").click();
+							
+							// 파일이 변경되면 ajax 실행
+							$("#"+fileId+"File").change(function () {
+								
+								console.log($(this).prop("id"));
+								
+								var form = $("#"+fileId+"Form")[0];
+								
+								formdata = new FormData(form);
+								// FormData : form 태그 내부 값 전송을 위한  k:v 쌍을 쉽게 생성할 수 있는 객체
+								
+								formdata.append("uploadFile", $("#"+fileId+"File")[0].files[0]);
+								formdata.append("theaterCode", fileId);
+								// FormData 객체에 새로운 K, V 를 추가
+								
+								//console.log(formdata.get("uploadFile"));
+								
+								$.ajax({
+									url : "insertLogo",
+									type : "post",
+									data : formdata,
+									dataType: "text",
+									enctype: "multipart/form-data",
+									cache : false,
+							        contentType : false,
+							        // contentType : 서버로 전송되는 데이터의 형식 설정
+							        // 기본값  : application/x-www-form-urlencoded; charset=UTF-8
+							        // 파일 전송 시 multipart/form-data 형식으로 데이터를 전송해야 하므로
+							        // 데이터의 형식이 변경되지 않도록 false로 지정.
+							        
+							        processData : false,
+							        // processData : 서버로 전달되는 값을 쿼리스트링으로 보낼경우 true(기본값), 아니면 false
+							        //				파일 전송 시 false로 지정 해야 함.
+							        
+									success : function(logo){
+										
+										var obj = JSON.parse(logo);
+										
+										$("#"+obj.theaterCode+"Img").prop("src", "${contextPath}/resources/theaterLogo/"+obj.logoPath);
+									}
+									
+								});
+				            });
+							
+						});
+	                }); 
+           	  
+           	  		$(".deleteBtn").click(function(){
+           	  			
+           	  			theaterCode = $(this).prop("id").substring(6); // 공연장 코드 추출해서 저장
+           	  			
+						$.ajax({
+							url : "deleteLogo",
+							type : "GET",
+							data : {"theaterCode" : theaterCode},
+							success : function(result){
+								
+								if(result > 0){
+									$("#"+theaterCode+"Img").prop("src", "${contextPath}/resources/images/user.png");
+								}else{
+									console.log("로고 삭제 실패");
+								}
+							}
+						});
+           	  			
+           	  		});
+           	  
+				</script>
                     
             </div>
             <!-- ============================================================== -->

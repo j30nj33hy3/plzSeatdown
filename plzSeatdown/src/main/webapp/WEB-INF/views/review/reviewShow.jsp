@@ -277,6 +277,7 @@
 								type : "GET",
 								data : {"selectShowCode" : showCode},
 								success : function(show){
+									console.log(show);
 									var msg;
 									$("#showPoster").prop("src", show.posterPath);
 									$("#showTitle").html(show.showTitle);

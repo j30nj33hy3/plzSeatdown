@@ -120,4 +120,10 @@ public class ReviewController {
 		//return new Gson().toJson(show);
 		return gson.toJson(show);
 	}
+	
+	@RequestMapping("seats")
+	public String seats(String thCode) {
+		
+		return "review/reviewSeats";
+	}
 }

@@ -1,18 +1,26 @@
 package com.bg.plzSeatdown.admin.controller;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.plzSeatdown.admin.model.service.AdminTheaterService;
+import com.bg.plzSeatdown.admin.model.vo.TheaterLogo;
 import com.bg.plzSeatdown.api.model.vo.Theater;
+import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.google.gson.Gson;
 
 @SessionAttributes({"loginMember","msg"})
 @Controller
@@ -60,5 +68,62 @@ public class AdminTheaterController {
 				return "common/errorPage";
 			}
 		}
+		
+		@ResponseBody
+		@RequestMapping(value="insertLogo", produces="application/json")
+		public String insertLogo( HttpServletRequest request, // 파일 경로
+									MultipartFile uploadFile, 
+									String theaterCode){
+			TheaterLogo logo = null;
+			
+			try {
+				
+				String root = request.getSession().getServletContext().getRealPath("resources");
+				String savePath = root + "/theaterLogo";
+				//savePath = savePath.replaceAll("\\\\", "/");
+				
+				System.out.println(savePath);
+				
+				//String savePath = "C:/Users/A/git/plzSeatdown/plzSeatdown/src/main/webapp/resources/theaterLogo";
+				
+				// 저장 폴더 선택
+				File folder = new File(savePath);
+				
+				// 만약 해당 폴더가 없는 경우 -> 폴더 만들기
+				if(!folder.exists()) folder.mkdir();
+				
+				String changeName = FileRename.rename(uploadFile.getOriginalFilename());
+				
+//				logo = new TheaterLogo(savePath + "/" + changeName, theaterCode);
+				logo = new TheaterLogo(changeName, theaterCode);
+				
+				int result = adminTheaterService.insertLogo(logo, savePath);
+				
+				if(result > 0) {
+					if(!uploadFile.getOriginalFilename().equals("") ) {
+						uploadFile.transferTo(new File(savePath + "/" + changeName));
+					}
+				}
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return new Gson().toJson(logo);
+		}
+		
+		@ResponseBody
+		@RequestMapping("deleteLogo")
+		public int deleteLogo(HttpServletRequest request, // 파일 경로
+								String theaterCode) {
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "/theaterLogo";
+			
+			int result = adminTheaterService.deleteLogo(theaterCode, savePath);
+			
+			return result;
+		}
+		
 		
 }
