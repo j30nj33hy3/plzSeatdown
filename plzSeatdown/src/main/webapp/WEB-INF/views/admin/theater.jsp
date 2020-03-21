@@ -89,16 +89,13 @@
                     			<c:forEach var="theater" items="${list}" varStatus="vs">
                     				<div class="col-md-4">
                     					<div class="card">
-                    							<%-- <img class="card-img-top" src="${contextPath}/resources/images/bluesquare.gif" style="width: 80%; "/> --%>
-                   							<!-- <form action="updateLogo" enctype="multipart/form-data" method="POST" > -->
                    							<form id="${theater.thCode}Form">
 												<div class="logoArea text-center" id="${theater.thCode}" style="height: 100px;" >
-											  		<c:set var="src" value="${contextPath}/resources/images/user.png"/>
+											  		<c:set var="src" value="${contextPath}/resources/images/theater_logo.png"/>
 							                        <c:if test="${!empty theater.thLogoPath}">
 							                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
-							                        	<%-- <c:set var ="src" value="${theater.thLogoPath}"/> --%>
 							                        </c:if>
-							                        <img id="${theater.thCode}Img" src="${src}" style="width: 80%; height: 100%;">
+							                        <img id="${theater.thCode}Img" src="${src}" style="width: 100%; height: 100%;">
 												</div>
 												<div id="fileArea" class="fileArea">
 													<input type="file" id="${theater.thCode}File" name="image">
@@ -307,7 +304,7 @@
 							success : function(result){
 								
 								if(result > 0){
-									$("#"+theaterCode+"Img").prop("src", "${contextPath}/resources/images/user.png");
+									$("#"+theaterCode+"Img").prop("src", "${contextPath}/resources/images/theater_logo.png");
 								}else{
 									console.log("로고 삭제 실패");
 								}

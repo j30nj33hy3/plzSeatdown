@@ -10,6 +10,7 @@
 		<result property="thAddr" column="THEAER_ADDR"/>
 		<result property="thLat" column="THEATER_LAT"/>
 		<result property="thLong" column="THEATER_LONG"/>
+		<result property="thLogoPath" column="THEATER_LOGO_PATH"/>
 	</resultMap>
 
 	<resultMap type="Show" id="showResultSet">
@@ -40,8 +41,9 @@
 	
 	<!-- 공연시설장 목록 조회 -->
 	<select id="selectTheaterList" parameterType="string" resultMap="theaterResultSet">
-		SELECT THEATER_CODE, THEATER_NM
+		SELECT THEATER_CODE, THEATER_NM, THEATER_LOGO_PATH
 		FROM THEATER
+		LEFT JOIN THEATER_LOGO USING(THEATER_CODE)
 		<if test="searchValue != null">
 			<bind name="sv" value="'%' + searchValue + '%'"/>
 			WHERE THEATER_NM LIKE #{sv}
