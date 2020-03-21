@@ -46,7 +46,13 @@
                     				<div class="col-md-4 mb-3">
 	                   					<div class="card">
     	                					<a href="seats?thCode=${theater.thCode }">
-	                    						<img class="card-img-top" src="https://www.layoutit.com/img/people-q-c-600-200-1.jpg" />
+    	                						<div style="height: 115px;">
+		                    						<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
+							                        <c:if test="${!empty theater.thLogoPath}">
+							                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
+							                        </c:if>
+							                        <img id="${theater.thCode}Img" class="card-img-top" src="${src}" style="width: 100%; height: 100%;">
+	                    						</div>
 	                    						<div class="card-block mt-3 ml-3 mr-3">
 	                    							<span class="card-title">
 	                    								${theater.thNm}
