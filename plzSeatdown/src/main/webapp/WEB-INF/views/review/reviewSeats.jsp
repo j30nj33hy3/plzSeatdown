@@ -13,10 +13,68 @@
 		<!-- 카카오맵 API -->
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46bd51526fce597f882f7578409e88bc"></script>
 		
+		<style>
+        a {
+        	text-decoration: none;
+        }
+
+        .popover_title {
+	        font-size: 24px;
+	        line-height: 36px;
+	        text-decoration: none;
+	        color: rgb(228, 68, 68);
+	        text-align: center;
+	        padding: 15px 0;
+        }
+        .popover_wrapper {
+	        position: relative;
+	        margin-top: 1.5rem;
+	        display: inline-block;
+        }
+        .popover_content {
+	        opacity: 0;
+	        visibility: hidden;
+	        position: absolute;
+	        left: -150px;
+	        transform: translate(0, 10px);
+	        background-color: #bfbfbf;
+	        padding: 1.5rem;
+	        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	        width: auto;
+        }
+        .popover_content:before {
+	        position: absolute;
+	        z-index: -1;
+	        content: "";
+	        right: calc(50% - 10px);
+	        top: -8px;
+	        border-style: solid;
+	        border-width: 0 10px 10px 10px;
+	        border-color: transparent transparent #bfbfbf transparent;
+	        transition-duration: 0.3s;
+	        transition-property: transform;
+        }
+        .popover_title:hover{
+	        cursor: pointer;
+        }
+        .popover_wrapper:hover .popover_content {
+	        z-index: 10;
+	        opacity: 1;
+	        visibility: visible;
+	        transform: translate(0, -20px);
+	        transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+        }
+        .popover_message {
+        	text-align: center;
+        }
+    </style>
+		
 	</head>
 	<body class="homepage is-preload">
 		
 		<div id="page-wrapper">
+		
+			<div class="overlay"></div>
 
 			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
@@ -78,7 +136,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="overlay"></div>
+				
 			</div>
 			
 
@@ -90,7 +148,7 @@
 
 				<div class="row mb-5">
 					<div class="col-md-12">
-						공연장 이름 - 홀이름
+						${theater.thNm}
                     </div>
 				</div>
 
@@ -98,7 +156,7 @@
 					<div class="col-md-9 text-center content" id="seat-status">
 						나쁨 ooooo 좋음
 						<div id="seats">
-							<a href="#" data-placement="top"
+							<%-- <a href="#" data-placement="top"
 								data-hover-content="<div class='hover-content'>
 								<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/344846/eyfel-kulesi-paris.jpg'>
 								<p><b>A구역 1열 1번</b></p>
@@ -109,41 +167,70 @@
 								<p>리뷰 총 개수</p>
 								</div>">
 								좌석 어떻게 해요.............................
-							</a>
+							</a> --%>
+							
+							<div class="seat" data-toggle="popover" data-trigger="hover">
+								<div class="popover_wrapper">
+							        <h2 class="popover_title">Hover:me</h2>
+							        <div class="popover_content">
+							          <p class="popover_message">Joseph Francis "Joey" Tribbiani, Jr.</p>
+							          <img alt="Joseph Francis Joey Tribbiani, Jr." src="https://media.giphy.com/media/11SIBu3s72Co8w/giphy.gif">
+							        </div>
+							    </div>
+							    <div class="popover_wrapper">
+							        <h2 class="popover_title">Hover:me</h2>
+							        <div class="popover_content">
+							          <p class="popover_message">Joseph Francis "Joey" Tribbiani, Jr.</p>
+							          <img alt="Joseph Francis Joey Tribbiani, Jr." src="https://media.giphy.com/media/11SIBu3s72Co8w/giphy.gif">
+							        </div>
+							    </div>
+							</div>
+							
 							
 						</div>
 					</div>
 					<div class="col-md-3 showInfo ">
 						<div class="showHeader">상영 중인 공연</div>
-						<div class="text-center mt-3">
-							<img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF153249_190820_101253.gif">
-						</div>
-						<div class="mt-4">
-							<div id="showTitle" class="text-center mt-3">아이다</div>
-							<div id="showDate" class="text-center">2020/01/01 ~ 2020/02/22</div>
-						</div>
-						<div class="move text-center mt-4">
-							<button class="btn btn-default" type="button">
-								예매 페이지로 이동
-							</button>
-						</div>
+						<c:if test="${empty show}">
+							<div class="text-center mt-3">
+								<img src="${contextPath}/resources/images/no_show.png" style="width: 100%;">
+							</div>
+						</c:if>
+						<c:if test="${!empty show}">
+							<div class="text-center mt-3">
+								<img src="${show.posterPath}" style="width: 100%;">
+							</div>
+							<div class="mt-4">
+								<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
+								<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
+							</div>
+							<div class="move text-center mt-4">
+								<button class="btn btn-default" type="button">
+									예매 페이지로 이동
+								</button>
+							</div>
+                        </c:if>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-md-7 theater">
 						<div class="theaterImg text-center">
-							<img src="images/bluesquare.gif">
+							<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
+	                        <c:if test="${!empty theater.thLogoPath}">
+	                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
+	                        </c:if>
+	                        <img src="${src}" style="width:100%;">
 						</div>
 						<div class="theaterInfo">
 							<p id="tName">
-								블루스퀘어
+								${theater.thNm}
 							</p>
 							<p id="tPhone">
-								1544-1591
+								${theater.thPhone}
 							</p>
 							<p id="tHome">
-								<a href=http://www.bluesquare.kr>http://www.bluesquare.kr/</a>
+								<a href=http://www.bluesquare.kr>${theater.thPage}</a>
 							</p>
 						</div>
 					</div>
@@ -161,8 +248,8 @@
 			<script>
 				var con = document.getElementById('map'); // 지도 담을 객체
 				var options = {
-					center: new kakao.maps.LatLng(33.450701, 126.570667),
-					level: 3 // 지도의 레벨
+					center: new kakao.maps.LatLng(${theater.thLat}, ${theater.thLong}),
+					level: 4 // 지도의 레벨
 				};
 		
 				var map = new kakao.maps.Map(con, options); // 지도 생성
@@ -182,11 +269,15 @@
 				});
 					
 			</script>
+			
+			<script>
+				
+			</script>
 
 			<script>
 				// sidebar
 				$(function(){
-					$("#seats").on({
+					$(".seat").on({
 						click : function(){
 							$(".sidebar").addClass("active");
 							$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
@@ -203,70 +294,6 @@
 						}
 					});
 				});
-
-				// popover 관련 
-				const links = document.getElementById("seats").getElementsByTagName("a");
-				//const links = document.getElementById("seat-a");
-				console.log(links);
-
-				[...links].forEach(link => {
-					link.addEventListener("mouseover", handleMouseOver);
-					link.addEventListener("mousemove", handleMouseMove);
-					link.addEventListener("mouseleave", handleMouseLeave);
-				});
-				function handlePosition(e) {
-					const ID = e.target.getAttribute("data-hover-id");
-                    console.log(ID);
-					const wrapper = document.getElementById(ID);
-					let top = "";
-					if (
-						!(e.target.getBoundingClientRect().top + wrapper.offsetHeight > innerHeight)
-					) {
-						top = `${e.clientY + e.target.offsetHeight}px`;
-					} else {
-						top = `${e.clientY - (wrapper.offsetHeight + e.target.offsetHeight)}px`;
-					}
-
-					return `position: fixed; left: ${e.clientX - wrapper.offsetWidth / 2}px; top:${top}`;
-				}
-
-				function handleMouseOver(e) {
-					const hoverContent = e.target.getAttribute("data-hover-content");
-					const ID = Math.random().toString(36).substr(2, 9);
-					const wrapper = document.createElement("DIV");
-					e.target.setAttribute("data-hover-id", ID);
-					wrapper.setAttribute("data-hover-wrapper", "");
-					wrapper.setAttribute("id", ID);
-					wrapper.setAttribute("style", "opacity: 0; transform: scale(.8)");
-					wrapper.innerHTML = hoverContent;
-					document.body.append(wrapper);
-					wrapper.setAttribute("style", handlePosition(e));
-				
-					// You can remove this line when you are using. I had added for the demo.
-					if (document.querySelector('.info')) document.querySelector('.info').remove();
-					
-					}
-
-				function handleMouseLeave(e) {
-					const ID = e.target.getAttribute("data-hover-id");
-					document.getElementById(ID).style.opacity = 0;
-					document.getElementById(ID).style.transform = "scale(.8)";
-					setTimeout(() => {
-						document.getElementById(ID).remove();
-					}, 150);
-				}
-
-				function handleMouseMove(e) {
-					const ID = e.target.getAttribute("data-hover-id");
-					const wrapper = document.getElementById(ID);
-					wrapper.setAttribute("style", handlePosition(e));
-				}
-
-				window.addEventListener('scroll', () => {
-					const wrapper = document.querySelector('[data-hover-wrapper]');
-					if (wrapper) wrapper.remove();
-				});
-				// popover 종료
 
 			</script>
 

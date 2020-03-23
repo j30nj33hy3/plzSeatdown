@@ -112,6 +112,7 @@ public class ReviewController {
 		}
 	}
 	
+	// 공연 상세 정보 사이드 패널 Ajax
 	@ResponseBody
 	@RequestMapping(value="selectShowDetail", produces="application/json")
 	public String selectShowDetail(String selectShowCode) {
@@ -124,10 +125,27 @@ public class ReviewController {
 		return gson.toJson(show);
 	}
 	
+	// 좌석 리뷰 페이지
 	@RequestMapping("seats")
-	public String seats(String thCode) {
+	public String seats(Model model, 
+						@RequestParam(value="thCode", required=false) String thCode) {
 		
-		return "review/reviewSeats";
+		try {
+			
+			Theater theater = reviewService.selectTheaterDetail(thCode);
+			Show nowShow = reviewService.selectNowShow(thCode);
+			
+			model.addAttribute("theater", theater);
+			model.addAttribute("show", nowShow);
+			
+			return "review/reviewSeats";
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "좌석 리뷰 조회중 오류 발생");
+			return "common/errorPage";
+		}
+		
 	}
 	
 	@RequestMapping(value="write")

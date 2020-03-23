@@ -68,6 +68,26 @@ public class ReviewServiceImpl implements ReviewService{
 	public Show selectShowDetail(String selectShowCode) {
 		return reviewDAO.selectShowDetail(selectShowCode);
 	}
+	
+	/** 좌석 후기에서 공연장 상세 정보 조회용 Service
+	 * @param thCode
+	 * @return theater
+	 * @throws Exception
+	 */	
+	@Override
+	public Theater selectTheaterDetail(String thCode) throws Exception {
+		return reviewDAO.selectTheaterDetail(thCode);
+	}
+
+	/** 해당 공연장에서 현재 상영중인 공연 정보 조회용 Service
+	 * @param thCode
+	 * @return nowShow
+	 * @throws Exception
+	 */
+	@Override
+	public Show selectNowShow(String thCode) throws Exception {
+		return reviewDAO.selectNowShow(thCode);
+	}
 
 	/** 공연장 목록 조회용 Service
 	 * @return tList

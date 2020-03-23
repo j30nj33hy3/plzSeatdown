@@ -46,6 +46,20 @@ public interface ReviewService {
 	 * @return show
 	 */
 	Show selectShowDetail(String selectShowCode);
+	
+	/** 좌석 후기에서 공연장 상세 정보 조회용 Service
+	 * @param thCode
+	 * @return theater
+	 * @throws Exception
+	 */
+	Theater selectTheaterDetail(String thCode) throws Exception;
+
+	/** 해당 공연장에서 현재 상영중인 공연 정보 조회용 Service
+	 * @param thCode
+	 * @return nowShow
+	 * @throws Exception
+	 */
+	Show selectNowShow(String thCode) throws Exception;
 
 	/** 공연장 목록 조회용 Service
 	 * @return tList
