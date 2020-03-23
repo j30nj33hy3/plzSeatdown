@@ -20,6 +20,7 @@
       	<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.QnAEH" alias="QnAEH"/>
       	<typeAlias type="com.bg.plzSeatdown.api.model.vo.Theater" alias="Theater"/>
       	<typeAlias type="com.bg.plzSeatdown.admin.model.vo.TheaterLogo" alias="TheaterLogo"/>
+      	
       	<!-- 공연일이 String -->
 		<typeAlias type="com.bg.plzSeatdown.api.model.vo.Show" alias="ShowAPI"/>
 		<!-- 공연일이 Date -->
@@ -33,6 +34,9 @@
 		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewEH" alias="ReviewEH"/>
         <typeAlias type="com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH" alias="ReviewImageEH"/>
 		<typeAlias type="com.bg.plzSeatdown.community.model.vo.Reply" alias="Reply"/>
+		
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminCommunityReport" alias="AdminCommunityReport"/>
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminReplyReport" alias="AdminReplyReport"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -51,6 +55,8 @@
 		<mapper resource="/mappers/admin-notice-mapper.xml"/>
 		<mapper resource="/mappers/admin-member-mapper.xml"/>
 		<mapper resource="/mappers/admin-qna-mapper.xml"/>
+		<mapper resource="/mappers/admin-comm-report-mapper.xml"/>
+		<mapper resource="/mappers/admin-reply-report-mapper.xml"/>
 	</mappers>
 
 </configuration>

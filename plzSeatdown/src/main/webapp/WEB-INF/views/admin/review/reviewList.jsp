@@ -21,6 +21,15 @@
 	color: black;
 }
 
+.ellip{
+	margin: 0;
+	margin: auto;
+	width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 #searchTitle {
 	width: 110px;
 	display: inline-block;
@@ -82,11 +91,12 @@
 									<c:forEach var="review" items="${list}" varStatus="vs">
 										<tr>
 											<td>${review.reviewNo}</td>
-											<td><a class="rcomment" href="">${review.reviewComment}</a></td>
+											<td><p class="ellip"><a class="rcomment" href="">${review.reviewComment}</a></p></td>
 											<td>${review.memberNickname}</td>
 											<td>${review.reviewCreateDate}</td>
 											<td>${review.reviewStatus}</td>
-											<td><a class=trash href=""><i class="fas fa-trash-alt"></i></a></td>
+											<td><a class=trash onclick="location.href='${contextPath}/admin/review/delete?no=${review.reviewNo}'">
+											<i class="fas fa-trash-alt"></i></a></td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -206,7 +216,7 @@
 						id="searchForm">
 						<select id=searchTitle name="searchKey" class="form-control">
 							<!-- <option value="title" selected>글제목</option> -->
-							<option value="id">닉네임</option>
+							<option value="nickName">닉네임</option>
 							<option value="reviewNo">리뷰 번호</option>
 							<option value="content">내용</option>
 						</select> <input type="text" id=searchInput name="searchValue"
@@ -251,8 +261,8 @@
             var result = confirm('해당 리뷰를 삭제하시겠습니까?');
     
             if(result){
-            location.replace('index.php');
-            // 확인 버튼을 누르면 'index.php'페이지로 이동(이건 변경해야함)
+            location.replace('list');
+            // 확인 버튼을 누르면 'admin/review/list'페이지로 이동
             }else{
             // 취소
             }

@@ -21,6 +21,15 @@
 	color: black;
 }
 
+.ellip{
+	margin: 0;
+	margin: auto;
+	width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 #searchTitle {
 	width: 110px;
 	display: inline-block;
@@ -82,11 +91,11 @@
 								</c:if>
 								<c:if test="${!empty list}">
 									<c:forEach var="comm" items="${list}" varStatus="vs">
-										<tr>
+										<tr>											
 				                            <td scope="row">${comm.communityNo}</td>
 				                            <td>${comm.categoryName}</td>
-				                            <td>${comm.communityTitle}</td>
-				                            <td class="text-center">${comm.communityContent}</td>
+				                            <td><p class="ellip">${comm.communityTitle}</p></td>
+				                            <td><p class="ellip">${comm.communityContent}</p></td>
 				                            <td>${comm.memberNickname}</td>
 				                            <td>${comm.communityModifyDate}</td>
 				                            <td>${comm.communityStatus}</td>
