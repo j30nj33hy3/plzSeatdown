@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bg.plzSeatdown.admin.model.dao.AdminReviewDAO;
 import com.bg.plzSeatdown.admin.model.vo.AdminReview;
@@ -36,7 +37,17 @@ public class AdminReivewServiceImpl implements AdminReviewService{
 	public List<AdminReview> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
 		return adminReviewDAO.selectList(map, pInf);
 	}
-
+	
+	/** 리뷰 게시글 삭제 서비스
+	 * @param no
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReview(int no) throws Exception {
+		return adminReviewDAO.deleteReview(no);
+	}	
 	
 	
 }
