@@ -23,7 +23,7 @@ public class CommunityDAO {
 	 * @return listCount
 	 * @throws Exception
 	 */
-	public int getListCount(Map<String, String> map) throws Exception{
+	public int getListCount(Map<String, Object> map) throws Exception{
 		return sqlSession.selectOne("yhbCommunityMapper.getListCount", map);
 	}
 
@@ -33,7 +33,7 @@ public class CommunityDAO {
 	 * @return list
 	 * @throws Exception
 	 */
-	public List<Community> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
+	public List<Community> selectList(Map<String, Object> map, PageInfo pInf) throws Exception{
 		int offset = (pInf.getCurrentPage()-1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("yhbCommunityMapper.selectList", map, rowBounds);
@@ -83,10 +83,20 @@ public class CommunityDAO {
 	 * @return community
 	 * @throws Exception
 	 */
-	public Community selectCommunity(Integer no) throws Exception {
-		return sqlSession.selectOne("yhbCommunityMapper.selectCommunity", no);
+	public Community selectCommunity(Map<String, Object> map) throws Exception {
+		return sqlSession.selectOne("yhbCommunityMapper.selectCommunity", map);
+	}
+	
+	public Community selectCommunity(Integer no) throws Exception{
+		return sqlSession.selectOne("yhbCommunityMapper.selectCommunity2", no);
 	}
 
+	/*
+	 * public Community selectPreNextCommunityNo(Map<String, Object> map) throws
+	 * Exception { return
+	 * sqlSession.selectOne("yhbCommunityMapper.selectPreNextCommunityNo", map); }
+	 */
+	
 	/** 조회수 증가용 DAO
 	 * @param no
 	 * @return result
@@ -178,6 +188,6 @@ public class CommunityDAO {
 		return sqlSession.insert("yhbCommunityMapper.insertReplyReport", reply);
 	}
 
-
 	
+
 }

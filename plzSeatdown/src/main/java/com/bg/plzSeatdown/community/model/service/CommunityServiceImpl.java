@@ -24,7 +24,7 @@ public class CommunityServiceImpl implements CommunityService {
 	 * @throws Exception
 	 */
 	@Override
-	public int getListCount(Map<String, String> map) throws Exception {
+	public int getListCount(Map<String, Object> map) throws Exception {
 		return communityDAO.getListCount(map);
 	}
 
@@ -35,7 +35,7 @@ public class CommunityServiceImpl implements CommunityService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<Community> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
+	public List<Community> selectList(Map<String, Object> map, PageInfo pInf) throws Exception {
 		return communityDAO.selectList(map, pInf);
 	}
 
@@ -97,10 +97,24 @@ public class CommunityServiceImpl implements CommunityService {
 	 * @throws Exception
 	 */
 	@Override
-	public Community selectCommunity(Integer no) throws Exception {
-		return communityDAO.selectCommunity(no);
+	public Community selectCommunity(Map<String, Object> map) throws Exception {
+		return communityDAO.selectCommunity(map);
+		/*
+		 * if(community!=null) {
+		 * 
+		 * System.out.println(map); Community pn =
+		 * communityDAO.selectPreNextCommunityNo(map); System.out.println(pn);
+		 * community.setPreCommunityNo(pn.getPreCommunityNo());
+		 * community.setNextCommunityNo(pn.getNextCommunityNo()); }
+		 */
 	}
 
+	@Override
+	public Community selectCommunity(Integer no) throws Exception {
+		Community community = communityDAO.selectCommunity(no);
+		
+		return community;
+	}
 	/** 조회수 증가용 Service
 	 * @param no
 	 * @return result

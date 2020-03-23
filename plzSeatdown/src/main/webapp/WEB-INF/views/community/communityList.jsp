@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
         
 <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" 
 integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
@@ -18,7 +17,6 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 <title>커뮤니티 게시판</title>
 </head>
 <body>
-    <!-- <div id="page-wrapper"> -->
 
     <jsp:include page="../common/header.jsp"/>
 	<jsp:include page="../common/nav.jsp"/>
@@ -243,12 +241,15 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 					// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 					<c:url var="detailUrl" value="detail">
 	              		<c:if test="${!empty param.searchKey }">
-		        		<c:param name="searchKey" value="${param.searchKey}"/>
+		        			<c:param name="searchKey" value="${param.searchKey}"/>
 			        	</c:if>
 			        	<c:if test="${!empty param.searchValue }">
 			        		<c:param name="searchValue" value="${param.searchValue}"/>
 			        	</c:if>
 			        	
+			        	<c:if test="${!empty param.searchCategory}">
+		        			<c:param name = "searchCategory" value="${param.searchCategory}"/>
+		        		</c:if>
 	                 	<c:param name="currentPage" value="${pInf.currentPage}"/>
 	               	</c:url>
 					

@@ -46,8 +46,8 @@
                 <select name="categoryCode" class="form-control ml-3" style="width:150px; display: inline-block;">
                     <option value="1">자유</option>
                     <option value="2">양도</option>
-                    <option value="3">공연 후기</option>
-                    <option value="4">질문</option>
+                    <option value="3">질문</option>
+                    <option value="4">공연 후기</option>
                 </select>
             </div>
             <div class="row py-3">

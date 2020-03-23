@@ -14,7 +14,7 @@ public interface CommunityService {
 	 * @return listCount
 	 * @throws Exception
 	 */
-	public abstract int getListCount(Map<String, String> map) throws Exception;
+	public abstract int getListCount(Map<String, Object> map) throws Exception;
 
 	/** 게시글 목록 조회용 Service
 	 * @param map
@@ -22,7 +22,7 @@ public interface CommunityService {
 	 * @return list
 	 * @throws Exception
 	 */
-	public abstract List<Community> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+	public abstract List<Community> selectList(Map<String, Object> map, PageInfo pInf) throws Exception;
 
 	/*
 	 * public abstract List<Community> selectImageList(List<Community> list) throws
@@ -51,10 +51,13 @@ public interface CommunityService {
 	public abstract int updateCommunity(Community community) throws Exception;
 
 	/** 게시글 조회용 Service
+	 * @param map 
 	 * @param no
 	 * @return community
 	 * @throws Exception
 	 */
+	public abstract Community selectCommunity(Map<String, Object> map) throws Exception;
+	
 	public abstract Community selectCommunity(Integer no) throws Exception;
 
 	/** 조회수 증가용 Service
