@@ -28,6 +28,16 @@
 		<result property="thCode" column="THEATER_CODE"/>
 	</resultMap>
 	
+	<resultMap type="Seat" id="seatResultSet">
+		<id property="seatCode" column="SEAT_CODE"/>
+		<result property="seatValue" column="SEAT_VALUE"/>
+		<result property="seatFloor" column="SEAT_FLOOR"/>
+		<result property="seatArea" column="SEAT_AREA"/>
+		<result property="seatRow" column="SEAT_ROW"/>
+		<result property="seatCol" column="SEAT_COL"/>
+		<result property="theaterCode" column="THEATER_CODE"/>
+	</resultMap>
+	
 	
 	<!-- 공연시설장 수 -->
 	<select id="getTheaterCount" parameterType="string" resultType="_int">
@@ -80,5 +90,29 @@
 		WHERE SHOW_CODE = #{selectShowCode}
 	</select>
 	
+	<!-- 공연장 목록 조회 -->
+	<select id="selectTList" resultMap="theaterResultSet">
+		SELECT THEATER_CODE, THEATER_NM, THEATER_LAT, THEATER_LONG
+		FROM THEATER
+	</select>
 	
+	<!-- 공연장 코드 조회 -->
+	<select id="selectTheaterCode" parameterType="string" resultType="string">
+		SELECT THEATER_CODE
+		FROM THEATER
+		WHERE THEATER_NM = #{thName}
+	</select>
+	
+	<select id="selectSList" parameterType="Show" resultMap="showResultSet">
+		SELECT SHOW_CODE, SHOW_TITLE, SHOW_POSTER_PATH
+		FROM SHOW
+		WHERE THEATER_CODE = #{thCode}
+		AND #{endDt} BETWEEN SHOW_START_DT AND SHOW_END_DT
+	</select>
+	
+	<select id="selectFList" parameterType="string" resultMap="seatResultSet">
+		SELECT DISTINCT SEAT_FLOOR
+		FROM SEAT
+		WHERE THEATER_CODE = #{thCode}
+	</select>
 </mapper>

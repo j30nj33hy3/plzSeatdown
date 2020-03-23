@@ -193,7 +193,7 @@ public class MemberController {
 		// 파일 저장 경로 : url 요청 주소로부터 컴퓨터(서버)에서 사용하는 진짜 경로값을 받아옴.
 		String root = request.getSession().getServletContext().getRealPath("resources"); 
 		String savePath = root + "/profileImages";
-		
+
 		// 저장 폴더 선택
 		File folder = new File(savePath);
 		// 만약 해당 폴더가 없는 경우 -> 폴더 만들기

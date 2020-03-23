@@ -37,6 +37,9 @@
 		
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminCommunityReport" alias="AdminCommunityReport"/>
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminReplyReport" alias="AdminReplyReport"/>
+	
+		<!-- 좌석 -->
+		<typeAlias type="com.bg.plzSeatdown.seat.model.vo.Seat" alias="Seat"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -57,6 +60,7 @@
 		<mapper resource="/mappers/admin-qna-mapper.xml"/>
 		<mapper resource="/mappers/admin-comm-report-mapper.xml"/>
 		<mapper resource="/mappers/admin-reply-report-mapper.xml"/>
+		<mapper resource="/mappers/seat-mapper.xml"/>
 	</mappers>
 
 </configuration>

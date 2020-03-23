@@ -1,5 +1,6 @@
 package com.bg.plzSeatdown.review.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,36 @@ public interface ReviewService {
 	 * @return show
 	 */
 	Show selectShowDetail(String selectShowCode);
+
+	/** 공연장 목록 조회용 Service
+	 * @return tList
+	 * @throws Exception
+	 */
+	List<Theater> selectTList() throws Exception;
+
+	/** 공연장 코드 조회용 Service
+	 * @param thName
+	 * @return thCode
+	 * @throws Exception
+	 */
+	String selectTheaterCode(String thName) throws Exception;
+
+	/** 공연 목록 조회용 Service
+	 * @param show
+	 * @return sList
+	 * @throws Exception
+	 */
+	List<Show> selectSList(Show show) throws Exception;
+
+	/** 층 목록 조회용 Service
+	 * @param thCode
+	 * @return fList
+	 * @throws Exception
+	 */
+	List<String> selectFList(String thCode) throws Exception;
+
+
+
 
 	
 

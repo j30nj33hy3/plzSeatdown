@@ -47,12 +47,14 @@
 							src="${contextPath}/resources/images/logo.png" alt="homepage"
 							class="light-logo" style="width: 95%" />
 					</span>
-					</a> <a
+					</a> 
+					<a
 						class="topbartoggler d-block d-md-none waves-effect waves-light"
 						href="javascript:void(0)" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation"><i class="ti-more"></i></a>
+						aria-label="Toggle navigation"><i class="ti-more"></i>
+					</a>
 				</div>
 				<div class="navbar-collapse collapse" id="navbarSupportedContent"
 					data-navbarbg="skin5">
@@ -60,10 +62,10 @@
 					</ul>
 					<ul class="navbar-nav float-right">
 						<li class="nav-item dropdown">
-							<button class="btn btn" id="logoutBtn"
-								href="${contextPath}/member/logout">
+							<a class="btn btn" id="logoutBtn"
+								href="${contextPath}/admin/logout">
 								<i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
-							</button>
+							</a>
 						</li>
 					</ul>
 				</div>

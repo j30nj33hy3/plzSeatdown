@@ -1,5 +1,6 @@
 package com.bg.plzSeatdown.review.model.DAO;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,41 @@ public class ReviewDAO {
 	public Show selectShowDetail(String selectShowCode) {
 		return sqlSession.selectOne("reviewMapper.selectShowDetail", selectShowCode);
 	}
+
+	/** 공연장 목록 조회용 DAO
+	 * @return tList
+	 * @throws Exception
+	 */
+	public List<Theater> selectTList() throws Exception{
+		return sqlSession.selectList("reviewMapper.selectTList");
+	}
+
+	/** 공연장 코드 조회용 DAO
+	 * @param thName
+	 * @return thCode
+	 * @throws Exception
+	 */
+	public String selectTheaterCode(String thName) throws Exception{
+		return sqlSession.selectOne("reviewMapper.selectTheaterCode", thName);
+	}
+
+	/** 공연 목록 조회용 DAO
+	 * @param show
+	 * @return sList
+	 * @throws Exception
+	 */
+	public List<Show> selectSList(Show show) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectSList", show);
+	}
+
+	/** 층 목록 조회용 DAO
+	 * @param thCode
+	 * @return fList
+	 */
+	public List<String> selectFList(String thCode) {
+		return sqlSession.selectList("reviewMapper.selectFList", thCode);
+	}
+
 
 	
 
