@@ -8,6 +8,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${contextPath}/resources/css/review_theater.css" />
+	
+	<style>
+		.ellip{
+		   margin: 0;
+		   margin: auto;
+		   width: 100px;
+		   height: 1.5em;
+		   overflow: hidden;
+		   text-overflow: ellipsis;
+		   white-space: nowrap;
+		}
+	</style>
+	
 	</head>
 	<body class="homepage is-preload" data-spy="scroll" data-target="initScroll" data-offset="1">
 		<div id="page-wrapper">
@@ -54,7 +67,7 @@
 							                        <img id="${theater.thCode}Img" class="card-img-top" src="${src}" style="width: 100%; height: 100%;">
 	                    						</div>
 	                    						<div class="card-block mt-3 ml-3 mr-3">
-	                    							<span class="card-title">
+	                    							<span class="card-title ellip">
 	                    								${theater.thNm}
 	                    							</span>
 	                    						</div>

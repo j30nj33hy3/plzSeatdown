@@ -68,6 +68,24 @@ public class ReviewDAO {
 	public Show selectShowDetail(String selectShowCode) {
 		return sqlSession.selectOne("reviewMapper.selectShowDetail", selectShowCode);
 	}
+	
+	/** 좌석 후기에서 공연장 상세 정보 조회용 DAO
+	 * @param thCode
+	 * @return theater
+	 * @throws Exception
+	 */
+	public Theater selectTheaterDetail(String thCode) throws Exception{
+		return sqlSession.selectOne("reviewMapper.selectTheaterDetail", thCode);
+	}
+
+	/** 해당 공연장에서 현재 상영중인 공연 정보 조회용 DAO
+	 * @param thCode
+	 * @return nowShow
+	 * @throws Exception
+	 */
+	public Show selectNowShow(String thCode) throws Exception{
+		return sqlSession.selectOne("reviewMapper.selectNowShow", thCode);
+	}
 
 	/** 공연장 목록 조회용 DAO
 	 * @return tList
