@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bg.plzSeatdown.admin.model.service.AdminShowService;
 import com.bg.plzSeatdown.api.model.vo.Show;
+import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
@@ -56,9 +57,7 @@ public class AdminShowController {
 			return "admin/show";
 			
 		}catch(Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMsg", "공연 목록 조회중 오류 발생");
-			return "common/errorPage";
+			return ExceptionForward.errorPage("공연 리스트 출력", model, e);
 		}
 	}
 }
