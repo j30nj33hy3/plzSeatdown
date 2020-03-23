@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="seatMapper">
+	<resultMap type="Seat" id="seatResultSet">
+		<id property="seatCode" column="SEAT_CODE"/>
+		<result property="seatValue" column="SEAT_VALUE"/>
+		<result property="seatFloor" column="SEAT_FLOOR"/>
+		<result property="seatArea" column="SEAT_AREA"/>
+		<result property="seatRow" column="SEAT_ROW"/>
+		<result property="seatCol" column="SEAT_COL"/>
+		<result property="theaterCode" column="THEATER_CODE"/>
+	</resultMap>
+	
+	<!-- 좌석 데이터 추가 -->
+	<insert id="insertSeat" parameterType="Seat">
+		INSERT INTO SEAT
+		VALUES (SEQ_SNO.NEXTVAL, #{seatValue},
+		#{seatFloor}, #{seatArea}, #{seatRow}, #{seatCol}, #{theaterCode})
+	</insert>
+	
+	<!-- 좌석 데이터 추가 (구역없음) -->
+	<insert id="insertSeat2" parameterType="Seat">
+		INSERT INTO SEAT
+		VALUES (SEQ_SNO.NEXTVAL, #{seatValue},
+		#{seatFloor}, null, #{seatRow}, #{seatCol}, #{theaterCode})
+	</insert>
+</mapper>

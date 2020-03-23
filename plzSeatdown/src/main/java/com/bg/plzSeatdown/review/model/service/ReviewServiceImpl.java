@@ -1,5 +1,6 @@
 package com.bg.plzSeatdown.review.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -68,9 +69,44 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.selectShowDetail(selectShowCode);
 	}
 
-	
+	/** 공연장 목록 조회용 Service
+	 * @return tList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Theater> selectTList() throws Exception {
+		return reviewDAO.selectTList();
+	}
 
-	
+	/** 공연장 코드 조회용 Service
+	 * @param thName
+	 * @return thCode
+	 * @throws Exception
+	 */
+	@Override
+	public String selectTheaterCode(String thName) throws Exception {
+		return reviewDAO.selectTheaterCode(thName);
+	}
+
+	/** 공연 목록 조회용 Service
+	 * @param show
+	 * @return sList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Show> selectSList(Show show) throws Exception {
+		return reviewDAO.selectSList(show);
+	}
+
+	/** 층 목록 조회용 Service
+	 * @param thCode
+	 * @return fList
+	 * @throws Exception
+	 */
+	@Override
+	public List<String> selectFList(String thCode) throws Exception {
+		return reviewDAO.selectFList(thCode);
+	}
 
 	
 

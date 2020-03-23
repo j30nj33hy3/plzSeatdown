@@ -1,8 +1,11 @@
 package com.bg.plzSeatdown.review.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bg.plzSeatdown.admin.model.service.AdminShowService;
-import com.bg.plzSeatdown.admin.model.service.AdminTheaterService;
 import com.bg.plzSeatdown.api.model.vo.Theater;
+import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.service.ReviewService;
@@ -126,4 +129,58 @@ public class ReviewController {
 		
 		return "review/reviewSeats";
 	}
+	
+	@RequestMapping(value="write")
+	public String reviewWrite(Model model,
+			RedirectAttributes rdAttr,
+			HttpServletRequest request) {
+		try {
+			String referer = request.getHeader("Referer");
+			String view = null;
+			List<Theater> tList = reviewService.selectTList();
+			if(tList != null) {
+				model.addAttribute("tList", tList);
+				view = "review/reviewWrite";
+			}else {
+				rdAttr.addFlashAttribute("msg", "리뷰 작성 화면 전환 실패");
+				view = "redirect:"+referer;
+			}
+			return view;
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("리뷰 작성화면 전환", model, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectShowList", produces="application/json; charset=utf-8")
+	public String selectShowList(
+			@RequestParam(value="showDt", required = false)String date,
+			@RequestParam(value="theater", required = false)String thName){
+		try {
+			Date showDate = Date.valueOf(date);
+			String thCode = reviewService.selectTheaterCode(thName);
+			Show show = new Show(showDate, thCode);
+			List<Show> sList = reviewService.selectSList(show);
+			
+			return new Gson().toJson(sList);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectSeatFloor", produces="application/json; charset=utf-8")
+	public String selectFloorList(
+			@RequestParam(value = "theater", required = false)String thName) {
+		try {
+			String thCode = reviewService.selectTheaterCode(thName);
+			List<String> fList = reviewService.selectFList(thCode);
+			return new Gson().toJson(fList);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
 }

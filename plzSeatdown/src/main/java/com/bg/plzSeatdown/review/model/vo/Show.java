@@ -18,6 +18,12 @@ public class Show {
 	private String thCode; 
 	
 	public Show() { }
+	
+	public Show(Date endDt, String thCode) {
+		super();
+		this.endDt = endDt;
+		this.thCode = thCode;
+	}
 
 	public Show(String showCode, String showTitle, Date startDt, Date endDt, String posterPath, String showStatus,
 			String showImg1, String showImg2, String showImg3, String showImg4, String theaterFullNm, String thCode) {

@@ -106,8 +106,8 @@
                     								${theater.thNm}
                     							</h5>
                     							<p class="text-right">
-		                                            <button id="delete${theater.thCode}" class="btn btn-primary deleteBtn">로고 삭제</button> 
-		                                            <a class="btn btn-primary" href="#">좌석 관리</a> 
+		                                            <button id="delete?thCode=${theater.thCode}" class="btn btn-primary deleteBtn">로고 삭제</button> 
+		                                            <a class="btn btn-primary" href="thDetail?thCode=${theater.thCode}&thNm=${theater.thNm}">좌석 관리</a> 
 		                                        </p>
                     						</div>
                     					</div>
@@ -228,6 +228,14 @@
                 		if(searchTheater != "null"){
                 			$("input[name=searchTheater]").val(searchTheater);
                 		}
+                		
+                		$(".card-title").each(function(i,e){
+               	  			if($(this).text().length >= 12){
+               	  				var sub = $(this).text().substr(0, 
+               	  					$(this).text().length-6);
+               	  				$(this).text(sub);
+               	  			}
+               	  		});
                 	});
                 </script>
                 
@@ -312,7 +320,7 @@
 						});
            	  			
            	  		});
-           	  
+           	 
 				</script>
                     
             </div>

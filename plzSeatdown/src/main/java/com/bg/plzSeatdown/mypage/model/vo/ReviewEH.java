@@ -12,7 +12,7 @@ public class ReviewEH {
 	private Date reviewCreateDate;
 	private String seatArea;
 	private String seatRow;
-	private int seatNumber;
+	private int seatCol;
 	private String showTitle;
 	private String reviewWriter;
 	private String reviewImageStatus;
@@ -21,7 +21,7 @@ public class ReviewEH {
 	}
 
 	public ReviewEH(int reviewNo, int reviewSight, int reviewComfort, String reviewComment, int reviewLegroom,
-			Date reviewCreateDate, String seatArea, String seatRow, int seatNumber, String showTitle,
+			Date reviewCreateDate, String seatArea, String seatRow, int seatCol, String showTitle,
 			String reviewWriter, String reviewImageStatus) {
 		super();
 		this.reviewNo = reviewNo;
@@ -32,7 +32,7 @@ public class ReviewEH {
 		this.reviewCreateDate = reviewCreateDate;
 		this.seatArea = seatArea;
 		this.seatRow = seatRow;
-		this.seatNumber = seatNumber;
+		this.seatCol = seatCol;
 		this.showTitle = showTitle;
 		this.reviewWriter = reviewWriter;
 		this.reviewImageStatus = reviewImageStatus;
@@ -102,12 +102,12 @@ public class ReviewEH {
 		this.seatRow = seatRow;
 	}
 
-	public int getSeatNumber() {
-		return seatNumber;
+	public int getseatCol() {
+		return seatCol;
 	}
 
-	public void setSeatNumber(int seatNumber) {
-		this.seatNumber = seatNumber;
+	public void setseatCol(int seatCol) {
+		this.seatCol = seatCol;
 	}
 
 	public String getShowTitle() {
@@ -138,7 +138,7 @@ public class ReviewEH {
 	public String toString() {
 		return "ReviewEH [reviewNo=" + reviewNo + ", reviewSight=" + reviewSight + ", reviewComfort=" + reviewComfort
 				+ ", reviewComment=" + reviewComment + ", reviewLegroom=" + reviewLegroom + ", reviewCreateDate="
-				+ reviewCreateDate + ", seatArea=" + seatArea + ", seatRow=" + seatRow + ", seatNumber=" + seatNumber
+				+ reviewCreateDate + ", seatArea=" + seatArea + ", seatRow=" + seatRow + ", seatCol=" + seatCol
 				+ ", showTitle=" + showTitle + ", reviewWriter=" + reviewWriter + ", reviewImageStatus="
 				+ reviewImageStatus + "]";
 	}
