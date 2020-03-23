@@ -81,18 +81,18 @@
 									</tr>
 								</c:if>
 								<c:if test="${!empty list}">
-									<c:forEach var="review" items="${list}" varStatus="vs">
+									<c:forEach var="rereport" items="${list}" varStatus="vs">
 										<tr>
-											<td>${rpreport.replyReportNo}</td>
-											<td>${rpreport.replyReportCategory}</td>
-											<td>${rpreport.replyReportContent}</td>
-											<td><a class="rcomment" href="">${rpreport.replyNo}</a></td>
-											<td>${rpreport.replyReportSuspector}</td>
-											<td>${rpreport.replyReportReporter}</td>
+											<td>${rereport.replyReportNo}</td>
+											<td>${rereport.reportCategoryName}</td>
+											<td>${rereport.replyReportContent}</td>
+											<td><a class="rcomment" href="">${rereport.replyNo}</a></td>
+											<td>${rereport.memberId}</td>
+											<td>${rereport.memberId}</td>
 											<td><a class="report"
-													onclick="location.href='${contextPath}/admin/updateRpCnt?rpCnt=${rpreport.replyReportSuspector}'"><i
+													onclick="location.href='${contextPath}/admin/reply_report/updateRpCnt?no=${rereport.memberSuspector}&reportNo=${rereport.replyReportNo}'"><i
 													class="fas fa-exclamation-triangle"></i></a></td>
-											<td>상태</td>
+											<td>${rereport.reportStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -238,7 +238,20 @@
                         });
                     </script>
 					<br>
-					<br>
+					<script>
+				        $(document).ready(function(){
+				        $(".report").click(function(){
+				            var result = alert('신고처리가 완료되었습니다.');
+				    
+				            if(result){
+				            	location.replace('list');
+				            // 확인 버튼을 누르면 'admin/reply_report/list'페이지로 이동
+				            }else{
+				            // 취소
+				            }
+				        })
+				        });
+					</script>
 				</div>
 			</div>
 		</div>

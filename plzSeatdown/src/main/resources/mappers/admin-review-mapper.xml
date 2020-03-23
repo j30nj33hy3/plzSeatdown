@@ -22,7 +22,7 @@
 			<if test="searchKey != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
-					<when test="searchKey == 'id'">
+					<when test="searchKey == 'nickName'">
 						AND REVIEW_WRITER LIKE #{sv}
 					</when>
 					<when test="searchKey == 'reviewNo'">
@@ -45,15 +45,12 @@
 			<if test="searchKey != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
-					<when test="searchKey == 'id'">
+					<when test="searchKey == 'nickName'">
 						AND MEMBER_NICKNM LIKE #{sv}
 					</when>
 					<when test="searchKey == 'reviewNo'">
 						AND REVIEW_NO LIKE #{sv}
 					</when>					
-					<when test="searchKey == 'title'">
-						AND REVIEW_TITLE LIKE #{sv}
-					</when>
 					<when test="searchKey == 'content'">
 						AND REVIEW_COMMENT LIKE #{sv}
 					</when>
@@ -62,5 +59,11 @@
 		</where>
 		ORDER BY REVIEW_NO DESC
 	</select>
+	
+	<!-- 게시글 삭제  -->
+	<update id="deleteReview" parameterType="_int">
+		UPDATE REVIEW SET REVIEW_STATUS = 'N'
+		WHERE REVIEW_NO = #{no}
+	</update>
 </mapper>
 

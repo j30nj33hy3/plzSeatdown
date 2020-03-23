@@ -75,24 +75,24 @@
 								</tr>
 							</thead>
 							<tbody class="customtable">
-								<c:if test="${empty list}">
+								<c:if test="${empty crlist}">
 									<tr>
 										<td colspan="8">존재하는 신고글이 없습니다.</td>
 									</tr>
 								</c:if>
-								<c:if test="${!empty list}">
-									<c:forEach var="review" items="${list}" varStatus="vs">
+								<c:if test="${!empty crlist}">
+									<c:forEach var="commreport" items="${crlist}" varStatus="vs">
 										<tr>
 											<td>${commreport.commReportNo}</td>
-											<td>${commreport.commReportCategory}</td>
+											<td>${commreport.reportCategoryName}</td>
 											<td>${commreport.commReportContent}</td>
 											<td><a class="rcomment" href="">${commreport.commNo}</a></td>
-											<td>${commreport.commReportSuspector}</td>
-											<td>${commreport.commReportReporter}</td>
+											<td>${commreport.memberId}</td>
+											<td>${commreport.memberId}</td>
 											<td><a class="report" 
-												onclick="location.href='${contextPath}/admin/updateRpCnt?rpCnt=${commreport.commReportSuspector}'">
+												onclick="location.href='${contextPath}/admin/comm_report/updateRpCnt?no=${commreport.memberSuspector}&reportNo=${commreport.commReportNo}'">
 												<i class="fas fa-exclamation-triangle"></i></a></td>
-											<td>상태</td>
+											<td>${commreport.reportStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -238,7 +238,20 @@
                         });
                     </script>
 					<br>
-					<br>
+						<script>
+					        $(document).ready(function(){
+					        $(".report").click(function(){
+					            var result = alert('신고처리가 완료되었습니다.');
+					    
+					            if(result){
+					            	location.replace('list');
+					            // 확인 버튼을 누르면 'admin/comm_report/list'페이지로 이동
+					            }else{
+					            // 취소
+					            }
+					        })
+					        });
+					  </script>
 				</div>
 			</div>
 		</div>

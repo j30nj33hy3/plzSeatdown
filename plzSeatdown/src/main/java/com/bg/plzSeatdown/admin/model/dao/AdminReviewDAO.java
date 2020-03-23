@@ -37,4 +37,13 @@ public class AdminReviewDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("adminReviewMapper.selectList", map, rowBounds);	
 	}
+	
+	/** 리뷰 게시글 삭제 DAO
+	 * @param no
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteReview(int no) throws Exception{
+		return sqlSession.update("adminReviewMapper.deleteReview", no);
+	}
 }

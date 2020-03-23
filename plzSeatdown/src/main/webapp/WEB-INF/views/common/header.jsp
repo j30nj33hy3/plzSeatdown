@@ -34,6 +34,10 @@ integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" 
 integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>	
 	
+<!-- image click -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>	
+	
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/noscript.css" />
 </head>

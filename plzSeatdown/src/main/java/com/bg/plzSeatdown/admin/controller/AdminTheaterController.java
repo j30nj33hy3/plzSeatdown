@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bg.plzSeatdown.admin.model.service.AdminTheaterService;
 import com.bg.plzSeatdown.admin.model.vo.TheaterLogo;
 import com.bg.plzSeatdown.api.model.vo.Theater;
+import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
@@ -63,9 +64,7 @@ public class AdminTheaterController {
 				return "admin/theater";
 				
 			}catch(Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMsg", "공연장 목록 조회중 오류 발생");
-				return "common/errorPage";
+				return ExceptionForward.errorPage("공연장 리스트 출력", model, e);
 			}
 		}
 		
@@ -74,6 +73,7 @@ public class AdminTheaterController {
 		public String insertLogo( HttpServletRequest request, // 파일 경로
 									MultipartFile uploadFile, 
 									String theaterCode){
+			
 			TheaterLogo logo = null;
 			
 			try {
