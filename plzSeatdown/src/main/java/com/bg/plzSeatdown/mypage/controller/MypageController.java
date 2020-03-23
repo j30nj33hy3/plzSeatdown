@@ -295,7 +295,7 @@ public class MypageController {
 					= ((Member)model.getAttribute("loginMember")).getMemberNo();
 					
 					int listCount = mypageService.getTicketCount(memberNo);
-					
+
 					// 현재 페이지 확인
 					if(currentPage == null) currentPage = 1;
 					

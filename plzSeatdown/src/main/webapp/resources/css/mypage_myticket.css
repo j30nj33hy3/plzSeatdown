@@ -29,6 +29,16 @@ body{
     padding: 6em 0 6em 0;
 }
 
+
+
+.gallery
+{
+    display: inline-block;
+    margin-top: 20px;
+}
+
+
+
 /* 사이드 바*/
 
 #sidebar h4{

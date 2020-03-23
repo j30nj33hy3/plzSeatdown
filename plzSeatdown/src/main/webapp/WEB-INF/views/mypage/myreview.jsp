@@ -55,7 +55,7 @@
 				                        </c:if>
 										<img class="img-responsive" src="${src}" />
 										<div class="sub-heading mt-4 mb-4">
-											<p>${revieweh.reviewComment}</p>
+											<p>${revieweh.reviewComment}</p>z
 										</div>
 								</div>
 							</div>

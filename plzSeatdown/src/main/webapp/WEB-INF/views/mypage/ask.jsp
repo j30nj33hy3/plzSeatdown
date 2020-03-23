@@ -46,7 +46,7 @@
 								<tbody>
 								<c:if test="${empty list}">
 										<tr>
-											<td colspan="4">존재하는 리뷰가 없습니다.</td>
+											<td colspan="4">존재하는 문의내역이 없습니다.</td>
 										</tr>
 								</c:if>
 								<c:if test="${!empty list}">
