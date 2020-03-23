@@ -70,8 +70,6 @@ public class MypageServiceImpl implements MypageService{
       Profile insertFile = new Profile(); // 새롭게 삽입 (없던걸 생기게하는것)
       Profile updateFile = new Profile(); // 수정할것 삽입 (있던걸 고치는것)
       
-      System.out.println("image : " + image);
-      System.out.println("image.getOriginalFilename() : " + image.getOriginalFilename());
       
       if(!image.getOriginalFilename().equals("")) {
       
@@ -88,9 +86,6 @@ public class MypageServiceImpl implements MypageService{
       				insertFile.setMemberNo(member.getMemberNo());
       			}
       }
-      	System.out.println("file : " + file);
-      	System.out.println("insertFile : " + insertFile);
-      	System.out.println("updateFile : " + updateFile);
 
       // DB수정
 		int result = 0;
@@ -117,7 +112,6 @@ public class MypageServiceImpl implements MypageService{
 		
 		// 삭제하기 버튼을 눌렀을 경우
 		if(result>0 && deleteCheck == 1){
-			System.out.println("deleteChec : " + deleteCheck);
 	    	  result = 0;
 	    	  result = mypageDAO.deleteProfile(member.getMemberNo());
     	  	
@@ -125,7 +119,6 @@ public class MypageServiceImpl implements MypageService{
 	    }
 	
 		
-		System.out.println("result : " + result);
 		
 		// 서버 수정
 		if(result>0 && insertFile.getProfilePath() != null) {
@@ -169,9 +162,6 @@ public class MypageServiceImpl implements MypageService{
       
       // DB에 저장되어 있는 암호화된 비밀번호를 조회
       String savePwd = mypageDAO.selectPwd(member.getMemberNo());
-      
-      System.out.println("savePwd :" + savePwd);
-      System.out.println("member.getMemberPwd" + member.getMemberPwd());
       
       
       // 조회해온 비밀번호를 담을 int

@@ -34,38 +34,32 @@
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<div class="container">
 								<div class="grid">
-									<div class="row">
-
-									  <c:if test="${empty rimgList}">
-									  		<div id="nolistdiv" class="col-md-12">
-									  			<span id="nolist">존재하는 게시글이 없습니다</span>
-									  		</div>
-									  </c:if>
-									  
-									  <c:if test="${!empty rimgList}">
-									  <c:forEach var="reviewimg" items="${rimgList}" varStatus="vs">
-									  
-									  	<div class="col-md-3">
-										<div style="display:none;">${reviewimg.reviewNo}</div>
-										
-											<figure class="effect-ravi">
-											
-									  			<c:if test="${reviewimg.reviewWriter == loginMember.memberNo}">
-									  				<c:set var="src" value="${contextPath}/resources/uploadFiles/${reviewimg.reviewImagePath}"/>
-									  			</c:if>
-												<img src="${src}" alt="img1" style="width: 200px; height: 175px;"/>
-												<figcaption>
-													<p>
-														<a href="#"><i class="fa fa-search"></i></a>
-													</p>
-												</figcaption>
-											</figure>
-										</div>
+									<div class="row gallery">
+									
+									 <c:if test="${empty rimgList}">
+                                   		<div id="nolistdiv" class="col-md-12">
+                                      		<span id="nolist">존재하는 게시글이 없습니다</span>
+                                  		</div>
+                             		</c:if>
+									
+									<c:if test="${!empty rimgList}">
+                             			<c:forEach var="reviewimg" items="${rimgList}" varStatus="vs">
 									  	
-									  	</c:forEach>
-									  </c:if>
-										
-										
+          							  <div class='col-md-3'>
+          							  	<div style="display:none;">${reviewimg.reviewNo}</div>
+          							  	
+          							  		<c:if test="${reviewimg.reviewWriter == loginMember.memberNo}">
+                                         		<c:set var="src" value="${contextPath}/resources/profileImages/${reviewimg.reviewImagePath}"/>
+                                        	</c:if>
+                                      
+                							<a class="thumbnail fancybox" rel="ligthbox" href="${src}">
+                    							<img class="img-responsive" src="${src}" style="width: 200px; height: 175px;" />
+              								</a>
+           							  </div> 
+           							  
+           							  	</c:forEach>
+           							 </c:if>
+            
 
 									   </div>
 
@@ -138,6 +132,20 @@
 					</div>
 				</div>
 			</div>
+			
+			<script>
+			
+			$(document).ready(function(){
+			    //FANCYBOX
+			    //https://github.com/fancyapps/fancyBox
+			    $(".fancybox").fancybox({
+			        openEffect: "none",
+			        closeEffect: "none"
+			    });
+			});
+			   
+			</script>
+		
 	
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
