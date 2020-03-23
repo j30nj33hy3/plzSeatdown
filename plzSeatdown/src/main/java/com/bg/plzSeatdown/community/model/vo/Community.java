@@ -19,6 +19,10 @@ public class Community {
 	private int memberReporter;
 	private String communityReportContent;
 	private int reportCategory;
+	private int nextCommunityNo;
+	private String nextCoummunityTitle;
+	private int preCommunityNo;
+	private String preCoummunityTitle;
 	
 	public Community() {}
 
@@ -76,6 +80,33 @@ public class Community {
 		this.memberReporter = memberReporter;
 		this.communityReportContent = communityReportContent;
 		this.reportCategory = reportCategory;
+	}
+
+	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
+			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
+			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
+			String communityReportContent, int reportCategory, int nextCommunityNo, String nextCoummunityTitle,
+			int preCommunityNo, String preCoummunityTitle) {
+		super();
+		this.communityNo = communityNo;
+		this.communityTitle = communityTitle;
+		this.communityContent = communityContent;
+		this.communityCreateDate = communityCreateDate;
+		this.communityModifyDate = communityModifyDate;
+		this.communityCount = communityCount;
+		this.communityStatus = communityStatus;
+		this.communityWriter = communityWriter;
+		this.memberNickname = memberNickname;
+		this.categoryCode = categoryCode;
+		this.categoryName = categoryName;
+		this.profilePath = profilePath;
+		this.memberReporter = memberReporter;
+		this.communityReportContent = communityReportContent;
+		this.reportCategory = reportCategory;
+		this.nextCommunityNo = nextCommunityNo;
+		this.nextCoummunityTitle = nextCoummunityTitle;
+		this.preCommunityNo = preCommunityNo;
+		this.preCoummunityTitle = preCoummunityTitle;
 	}
 
 	public int getCommunityNo() {
@@ -197,6 +228,38 @@ public class Community {
 	public void setReportCategory(int reportCategory) {
 		this.reportCategory = reportCategory;
 	}
+	
+	public int getNextCommunityNo() {
+		return nextCommunityNo;
+	}
+
+	public void setNextCommunityNo(int nextCommunityNo) {
+		this.nextCommunityNo = nextCommunityNo;
+	}
+
+	public String getNextCoummunityTitle() {
+		return nextCoummunityTitle;
+	}
+
+	public void setNextCoummunityTitle(String nextCoummunityTitle) {
+		this.nextCoummunityTitle = nextCoummunityTitle;
+	}
+
+	public int getPreCommunityNo() {
+		return preCommunityNo;
+	}
+
+	public void setPreCommunityNo(int preCommunityNo) {
+		this.preCommunityNo = preCommunityNo;
+	}
+
+	public String getPreCoummunityTitle() {
+		return preCoummunityTitle;
+	}
+
+	public void setPreCoummunityTitle(String preCoummunityTitle) {
+		this.preCoummunityTitle = preCoummunityTitle;
+	}
 
 	@Override
 	public String toString() {
@@ -205,8 +268,11 @@ public class Community {
 				+ communityModifyDate + ", communityCount=" + communityCount + ", communityStatus=" + communityStatus
 				+ ", communityWriter=" + communityWriter + ", memberNickname=" + memberNickname + ", categoryCode="
 				+ categoryCode + ", categoryName=" + categoryName + ", profilePath=" + profilePath + ", memberReporter="
-				+ memberReporter + ", communityReportContent=" + communityReportContent + ", reportCategory=" + reportCategory
-				+ "]";
+				+ memberReporter + ", communityReportContent=" + communityReportContent + ", reportCategory="
+				+ reportCategory + ", nextCommunityNo=" + nextCommunityNo + ", nextCoummunityTitle="
+				+ nextCoummunityTitle + ", preCommunityNo=" + preCommunityNo + ", preCoummunityTitle="
+				+ preCoummunityTitle + "]";
 	}
+
 
 }

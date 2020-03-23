@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
         
 <style>
 tbody > tr:last-child{
@@ -23,12 +22,10 @@ tbody > tr:last-child{
 		
         <div class="container py-5">
             <div>
-            	<!-- 가장 최신글은 이전글이 안뜸 -->
-            	<c:if test="">
-            	</c:if>
-                <button id="prev" class="btn btn-sm btn-outline-secondary">이전글</button>
-                <!-- 가장 마지막글은 다음글이 안뜸 -->
+            	<button id="pre" class="btn btn-sm btn-outline-secondary">이전글</button>
+                
                 <button id="next" class="btn btn-sm btn-outline-secondary">다음글</button>
+                
                 <c:if test="${loginMember.memberNo == community.communityWriter}">
                 	<button id="deleteBtn" class="btn btn-sm btn-outline-secondary float-right">삭제</button>
                 </c:if>
@@ -47,6 +44,10 @@ tbody > tr:last-child{
 				        	<c:if test="${!empty param.searchValue }">
 				        		<c:param name="searchValue" value="${param.searchValue}"/>
 				        	</c:if>
+				        	
+				        	<c:if test="${!empty param.searchCategory}">
+	        					<c:param name = "searchCategory" value="${param.searchCategory}"/>
+	        				</c:if>
 	                   		<c:param name="currentPage" value="${param.currentPage}"/>
 	                   	</c:url>" >목록
 	             </a>
@@ -60,10 +61,10 @@ tbody > tr:last-child{
                 </div>
                 <div class="pt-3">
                 	<c:if test="${empty community.profilePath}">
-	                    <img class="rounded-circle" style="width:20px; height:20;"src="${contextPath}/resources/images/user.png">
+	                    <img class="rounded-circle" style="width:20px; height:20px;"src="${contextPath}/resources/images/user.png">
                 	</c:if>
                 	<c:if test="${!empty community.profilePath}">
-                		<img class="rounded-circle" style="width:20px; height:20;"src="${contextPath}/resources/profileImages/${community.profilePath}">
+                		<img class="rounded-circle" style="width:20px; height:20px;"src="${contextPath}/resources/profileImages/${community.profilePath}">
                 	</c:if>
                     <p style="display: inline-block;">${community.memberNickname}</p>
                     <p class="float-right text-muted" style="display: inline-block;">${community.communityModifyDate}</p>
@@ -184,6 +185,49 @@ tbody > tr:last-child{
         </div>
 
 	<script>
+		// 이전
+		$("#pre").on("click", function(){
+			var preCommNo = ${community.preCommunityNo};
+			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
+			<c:url var="detailUrl" value="detail">
+          		<c:if test="${!empty param.searchKey }">
+        			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+	        	
+	        	<c:if test="${!empty param.searchCategory}">
+	        		<c:param name = "searchCategory" value="${param.searchCategory}"/>
+	        	</c:if>
+             	<c:param name="currentPage" value="${pInf.currentPage}"/>
+           	</c:url>
+           	
+	        location.href="${detailUrl}&no="+preCommNo;
+		});
+		
+		// 다음
+		$("#next").on("click", function(){
+			var nextCommNo = ${community.nextCommunityNo};
+			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
+			<c:url var="detailUrl" value="detail">
+          		<c:if test="${!empty param.searchKey }">
+        			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+	        	
+	        	<c:if test="${!empty param.searchCategory}">
+	        		<c:param name = "searchCategory" value="${param.searchCategory}"/>
+	        	</c:if>
+             	<c:param name="currentPage" value="${pInf.currentPage}"/>
+           	</c:url>
+           	
+	        location.href="${detailUrl}&no="+nextCommNo;
+		});
+		
+		// 삭제
 		$("#deleteBtn").on("click",function(){
 			if(confirm("정말 삭제 하시겠습니까?")) location.href = "delete?no=${param.no}";
 		});
@@ -498,7 +542,7 @@ tbody > tr:last-child{
         	$(this).parent().children("button").not(".cancelBtn").remove();
 		});
 		
-		// 수정, 답댓글 취소
+		// 댓글수정, 답댓글 취소
 		$(document).on("click","button[name='cancelBtn']",function(){
 			selectRlist();
 		});

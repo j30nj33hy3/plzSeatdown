@@ -42,11 +42,14 @@ public class CommunityController {
 			@RequestParam(value="searchValue", required=false) String searchValue,
 			@RequestParam(value="searchCategory", required=false) String searchCategory) {
 		
+		if(searchCategory !=null && searchCategory.equals("")) {
+			searchCategory = null;
+		}
 		try {
 			// 검색 조건이 있는지 확인하여 map에 세팅
-			Map<String, String> map = null;
+			Map<String, Object> map = null;
 			if(searchKey != null && searchValue != null) {
-				map = new HashMap<String, String>();
+				map = new HashMap<String, Object>();
 				map.put("searchKey", searchValue);
 				map.put("searchValue", searchValue);
 				map.put("searchCategory", searchCategory);
@@ -82,18 +85,51 @@ public class CommunityController {
 	public String communityDetail(Integer no,
 								Model model,
 								RedirectAttributes rdAttr,
-								HttpServletRequest request) {
+								HttpServletRequest request,
+								@RequestParam(value="currentPage", required=false) Integer currentPage,
+								@RequestParam(value="searchKey", required=false) String searchKey,
+								@RequestParam(value="searchValue", required=false) String searchValue,
+								@RequestParam(value="searchCategory", required=false) String searchCategory) {
 		String beforeUrl = request.getHeader("referer");
 		
+		if(searchCategory !=null && searchCategory.equals("")) {
+			searchCategory = null;
+		}
 		try {
-			Community community = communityService.selectCommunity(no);
+			// 검색 조건이 있는지 확인하여 map에 세팅
+			Map<String, Object> map = null;
+			map = new HashMap<String, Object>();
+			map.put("no",no);
+			if(searchKey != null && searchValue != null) {
+				map.put("searchKey", searchValue);
+				map.put("searchValue", searchValue);
+				map.put("searchCategory", searchCategory);
+			}
 			
+			//System.out.println("no : " + no);
+			//System.out.println("searchCategory : " + searchCategory);
+			// 전체 게시글 수 조회
+			int listCount = communityService.getListCount(map);
+			
+			// 현재 페이지 확인
+			if(currentPage == null) currentPage = 1;
+			
+			// 페이지 정보 저장
+			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+			
+			// 게시글 목록 조회
+			List<Community> list = communityService.selectList(map, pInf);
+			
+			Community community = communityService.selectCommunity(map);
+			//System.out.println(community);
 			if(community != null) {
 				// 조회수 증가
 				int result = communityService.increaseCount(no);
 				community.setCommunityCount(community.getCommunityCount()+1);
 				
 				model.addAttribute("community", community);
+				model.addAttribute("list", list);
+				model.addAttribute("pInf", pInf);
 				return "community/communityDetail";
 			}else {
 				rdAttr.addFlashAttribute("msg", "글 상세 조회 실패");
@@ -103,9 +139,6 @@ public class CommunityController {
 			return ExceptionForward.errorPage("글 상세 조회", model, e);
 		}
 	}
-	
-	
-	
 	
 	// 글 등록 페이지로 이동
 	@RequestMapping("insertForm")
@@ -187,8 +220,6 @@ public class CommunityController {
 		
 		try {
 			Community community = communityService.selectCommunity(no);
-			
-			//community.setCommunityContent(community.getCommunityContent().replace("<br>", "<\r\n>"));
 			
 			model.addAttribute("community", community);
 			return "community/communityUpdate";
@@ -312,7 +343,7 @@ public class CommunityController {
 								Model model,
 								RedirectAttributes rdAttr,
 								HttpServletRequest request) {
-		System.out.println(community.getCommunityReportContent());
+		//System.out.println(community.getCommunityReportContent());
 		String referer= request.getHeader("Referer");
 		int result = 0;
 		try {
