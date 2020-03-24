@@ -77,4 +77,10 @@ public class AdminMemberDAO {
 	public int deleteImg(Integer no) throws Exception{
 		return sqlSession.update("adminMemberMapper.deleteImg", no);
 	}
+
+	public List<Member> selectSortList(Map<String, String> map, PageInfo pInf) {
+		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("adminMemberMapper.selectSortList", map, rowBounds);
+	}
 }

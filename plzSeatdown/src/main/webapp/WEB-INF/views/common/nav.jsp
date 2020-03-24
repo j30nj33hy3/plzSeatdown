@@ -134,7 +134,7 @@
 					<li><a href="${contextPath}/member/logout">Logout</a></li>
 				</c:when>
 				<c:when test="${!empty sessionScope.loginMember && loginMember.memberGrade == 'A'}">
-					<li><a href="${contextPath}/admin/dashBoard">Admin</a></li>
+					<li><a href="${contextPath}/admin/member/list">Admin</a></li>
 					<li><a href="${contextPath}/member/logout">Logout</a></li>
 				</c:when>
 			</c:choose>

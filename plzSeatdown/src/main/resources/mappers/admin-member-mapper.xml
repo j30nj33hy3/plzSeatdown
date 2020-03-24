@@ -37,12 +37,12 @@
 					<when test="searchKey == 'id'">
 						AND MEMBER_ID LIKE #{sv}
 					</when>
-					<when test="searchKey == 'name'">
-						AND MEMBER_NM LIKE #{sv}
+					<when test="searchKey == 'email'">
+						AND MEMBER_EMAIL LIKE #{sv}
 					</when>
 					<otherwise>
 						AND (MEMBER_ID LIKE #{sv}
-						OR MEMBER_NM LIKE #{sv})
+						OR MEMBER_EMAIL LIKE #{sv})
 					</otherwise>
 				</choose>
 			</if>
@@ -63,12 +63,12 @@
 					<when test="searchKey == 'id'">
 						AND MEMBER_ID LIKE #{sv}
 					</when>
-					<when test="searchKey == 'name'">
-						AND MEMBER_NM LIKE #{sv}
+					<when test="searchKey == 'email'">
+						AND MEMBER_EMAIL LIKE #{sv}
 					</when>
 					<otherwise>
 						AND (MEMBER_ID LIKE #{sv}
-						OR MEMBER_NM LIKE #{sv})
+						OR MEMBER_EMAIL LIKE #{sv})
 					</otherwise>
 				</choose>
 			</if>
@@ -108,4 +108,28 @@
 		SET PROFILE_STATUS='N'
 		WHERE MEMBER_NO = #{no}
 	</update>
+	
+	
+	<!-- 회원 목록 정렬 -->
+	<select id="selectSortList" parameterType="map" resultMap="memberResultSet">
+	SELECT RNUM.*
+		FROM  (SELECT * FROM MEMBER ORDER BY MEMBER_REPORT_CNT DESC, MEMBER_NO DESC) RNUM
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'id'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<when test="searchKey == 'email'">
+						AND MEMBER_EMAIL LIKE #{sv}
+					</when>
+					<otherwise>
+						AND (MEMBER_ID LIKE #{sv}
+						OR MEMBER_EMAIL LIKE #{sv})
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
 </mapper>

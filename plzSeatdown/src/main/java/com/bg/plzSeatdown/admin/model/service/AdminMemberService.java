@@ -23,4 +23,6 @@ public interface AdminMemberService {
 
 	public abstract int deleteImg(Integer no) throws Exception;
 
+	public abstract List<Member> selectSortList(Map<String, String> map, PageInfo pInf) throws Exception;
+
 }

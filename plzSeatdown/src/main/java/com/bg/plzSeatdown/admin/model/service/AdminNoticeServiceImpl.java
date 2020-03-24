@@ -54,8 +54,8 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateNotice(int noticeNo) throws Exception {
-		return adminNoticeDAO.updateNotice(noticeNo);
+	public int updateNotice(AdminNotice adminNotice) throws Exception {
+		return adminNoticeDAO.updateNotice(adminNotice);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

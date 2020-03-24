@@ -24,6 +24,7 @@
 	href="${contextPath}/resources/css/multicheck.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/noscript.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/admin.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/admin.css">
 </head>
 <body>
 	<c:set var="contextPath"
@@ -36,42 +37,37 @@
 		<c:remove var="msg" />
 	</c:if>
 
-	<div id="main-wrapper">
-		<header class="topbar" data-navbarbg="skin5">
-			<nav class="navbar top-navbar navbar-expand-md navbar-dark">
-				<div class="navbar-header" data-logobg="skin5">
-					<a class="nav-toggler waves-effect waves-light d-block d-md-none"
-						href="javascript:void(0)"><i class="ti-menu ti-close"></i></a> <a
-						class="navbar-brand" href="${contextPath}"> <span
-						class="logo-text"> <img
-							src="${contextPath}/resources/images/logo.png" alt="homepage"
-							class="light-logo" style="width: 95%" />
-					</span>
-					</a> 
-					<a
-						class="topbartoggler d-block d-md-none waves-effect waves-light"
-						href="javascript:void(0)" data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation"><i class="ti-more"></i>
-					</a>
-				</div>
-				<div class="navbar-collapse collapse" id="navbarSupportedContent"
-					data-navbarbg="skin5">
-					<ul class="navbar-nav float-left mr-auto">
-					</ul>
-					<ul class="navbar-nav float-right">
-						<li class="nav-item dropdown">
-							<a class="btn btn" id="logoutBtn"
-								href="${contextPath}/admin/logout">
-								<i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
-							</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-	</div>
+	<header class="topbar" data-navbarbg="skin5">
+		<nav class="navbar top-navbar navbar-expand-md navbar-dark">
+			<div class="navbar-header" data-logobg="skin5">
+				<a class="nav-toggler waves-effect waves-light d-block d-md-none"
+					href="javascript:void(0)"><i class="ti-menu ti-close"></i></a> <a
+					class="navbar-brand" href="${contextPath}"> <span
+					class="logo-text"> <img
+						src="${contextPath}/resources/images/logo.png" alt="homepage"
+						class="light-logo" style="width: 95%" />
+				</span>
+				</a> <a class="topbartoggler d-block d-md-none waves-effect waves-light"
+					href="javascript:void(0)" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation"><i class="ti-more"></i></a>
+			</div>
+			<div class="navbar-collapse collapse" id="navbarSupportedContent"
+				data-navbarbg="skin5">
+				<ul class="navbar-nav float-left mr-auto">
+				</ul>
+				<ul class="navbar-nav float-right">
+					<li class="nav-item dropdown">
+						<button class="btn btn" id="logoutBtn"
+							href="${contextPath}/member/logout">
+							<i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+						</button>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
@@ -85,7 +81,7 @@
 		crossorigin="anonymous"></script>
 
 	<script src="${contextPath}/resources/js/admin/jquery.min.js"></script>
-<%-- 	<script src="${contextPath}/resources/js/admin/popper.min.js"></script> --%>
+	<%-- 	<script src="${contextPath}/resources/js/admin/popper.min.js"></script> --%>
 	<script src="${contextPath}/resources/js/admin/bootstrap.min.js"></script>
 	<script
 		src="${contextPath}/resources/js/admin/perfect-scrollbar.jquery.min.js"></script>
@@ -93,6 +89,7 @@
 	<script src="${contextPath}/resources/js/admin/waves.js"></script>
 	<script src="${contextPath}/resources/js/admin/sidebarmenu.js"></script>
 	<script src="${contextPath}/resources/js/admin/custom.min.js"></script>
+	<script src="${contextPath}/resources/js/admin/datatables.min.js"></script>
 
 </body>
 </html>

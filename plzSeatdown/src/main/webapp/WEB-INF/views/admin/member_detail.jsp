@@ -58,6 +58,7 @@
 							action="updateMember?no=${member.memberNo}"
 							onsubmit="return validate();">
 							<div class="col-md-8" style="float: left;">
+							
 								<h6>회원번호</h6>
 								<input type="text" class="form-control input-comment mb-3"
 									id="no" name="no" value="${member.memberNo }" disabled required>
@@ -71,7 +72,6 @@
 									id="name" name="name" value="${member.memberName }" required>
 
 								<h6>닉네임</h6>
-								<div id="ninknameCheck"></div>
 								<input type="text" class="form-control input-comment mb-3"
 									id="nickname" name="nickname" value="${member.memberNickname }"
 									required>
@@ -123,7 +123,7 @@
 									<br>
 									<button type="button" id="upBtn"
 										class="btn btn-sm form-control profile-edit-btn"
-										style="width: 50px; float: right;">변경</button>
+										style="width: 50px; float: right;">삭제</button>
 									<br>
 								</div>
 							</div>
@@ -132,8 +132,8 @@
 								<button class="btn mt-5 form-control edit-btn" id="editBtn"
 									type="submit" style="width: 20%">수정</button>
 
-								<button class="btn mt-5 form-control edit-btn" id="cancleBtn"
-									type="button" style="width: 20%">취소</button>
+								<a href="list" class="btn mt-5 form-control edit-btn" id="cancleBtn"
+									type="button" style="width: 20%">취소</a>
 
 							</div>
 						</form>

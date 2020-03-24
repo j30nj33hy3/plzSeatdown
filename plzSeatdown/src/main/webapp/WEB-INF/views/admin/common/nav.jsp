@@ -10,7 +10,6 @@
 	    <div class="scroll-sidebar">       
 	        <nav class="sidebar-nav">
 	            <ul id="sidebarnav" class="p-t-30">
-	                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="${contextPath}/admin/dashBoard" aria-expanded="false"><i class="fas fa-home"></i><span class="hide-menu pl-3">Dashboard</span></a></li>
 	                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu pl-3">회원 관리</span></a>
 	                    <ul aria-expanded="false" class="collapse first-level">                               
    	                        <li class="sidebar-item"><a href="${contextPath}/admin/member/list" class="sidebar-link"><i class="far fa-address-book"></i><span class="hide-menu"> 회원 목록 </span></a></li>
@@ -25,9 +24,9 @@
    	                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 	                    <i class="fas fa-exclamation-triangle"></i><span class="hide-menu pl-3"> 신고 관리 </span></a>
 	                    <ul aria-expanded="false" class="collapse  first-level">
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/review_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 리뷰 신고 </span></a></li>
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/comm_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 글 신고 </span></a></li>
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/reply_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 댓글 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/review_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 리뷰 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/comm_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 글 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/reply_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 댓글 신고 </span></a></li>
 	                    </ul>
 	                </li>
 	            </ul>
