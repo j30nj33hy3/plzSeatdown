@@ -59,11 +59,6 @@
 		</div>
 	</section>
 	
-	
-	
-	
-	
-	
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.dropotron.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.scrolly.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.scrollex.min.js"></script>

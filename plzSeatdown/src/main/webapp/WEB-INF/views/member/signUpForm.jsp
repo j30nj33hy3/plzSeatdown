@@ -41,7 +41,7 @@
 										maxlength="20" placeholder="아이디 입력" autocomplete="off" required/>
 									<input type="hidden" name="idDup" id="idDup" value="false">
 									<div>
-	                            		<span id="checkId">&nbsp;</span>
+	                            		<span id="checkId" style="font-size: 0.8em">첫 글자 영어 소문자, 나머지 영어 대·소문자,숫자 조합 (6~12글자)</span>
 	                        		</div>
 								</div>
                         		
@@ -52,7 +52,7 @@
 									</label>
 									<input type="password" class="form-control" id="pwd1" name="memberPwd" maxlength="30" placeholder="비밀번호 입력" required/>
 									<div>
-                            			<span id="checkPwd1">&nbsp;</span>
+                            			<span id="checkPwd1" style="font-size: 0.8em">&nbsp;</span>
                         			</div>
 								</div>
 								
@@ -63,7 +63,7 @@
 									</label>
 									<input type="password" class="form-control" id="pwd2" maxlength="30" placeholder="비밀번호 확인" required/>
 									<div>
-                            			<span id="checkPwd2">&nbsp;</span>
+                            			<span id="checkPwd2" style="font-size: 0.8em">&nbsp;</span>
                         			</div>
 								</div>
 								
@@ -74,7 +74,7 @@
 									</label>
 									<input type="text" class="form-control" id="name" name="memberName" maxlength="10" required/>
 									<div>
-                            			<span id="checkName">&nbsp;</span>
+                            			<span id="checkName" style="font-size: 0.8em">&nbsp;</span>
                         			</div>
 								</div>
 								
@@ -86,7 +86,7 @@
 									<input type="text" class="form-control" id="nickname" name="memberNickname" maxlength="10" required/>
 									<input type="hidden" name="nicknameDup" id="nicknameDup" value="false">
 									<div>
-                            			<span id="checkNickname">&nbsp;</span>
+                            			<span id="checkNickname" style="font-size: 0.8em">한글, 영어 대·소문자, 숫자 조합 가능</span>
                         			</div>
 								</div>
 								
@@ -100,7 +100,7 @@
 			                        </div>
 			                    </div>
 			                    <div>
-			                       	<span id="checkEmail">&nbsp;</span>
+			                       	<span id="checkEmail" style="font-size: 0.8em">&nbsp;</span>
 			                    </div>
 			                    
 								<!-- 전화번호 -->
@@ -130,7 +130,7 @@
 			                        </div>
 			                    </div>
 			                    <div>
-			                        <span id="checkPhone">&nbsp;</span>
+			                        <span id="checkPhone" style="font-size: 0.8em">&nbsp;</span>
 			                    </div>
 			                    <!-- 프로필사진 -->
 			                    <div class="form-row">
@@ -169,10 +169,10 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-	
 	<!-- Script -->
 	<!-- 이미지 업로드 jQuery -->
     <script type="text/javascript">
+
     	// 유효성 검사 결과를 저장할 객체
     	var signUpCheck = {
     			"id":false,

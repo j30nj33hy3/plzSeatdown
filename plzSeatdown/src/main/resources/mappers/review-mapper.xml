@@ -38,6 +38,25 @@
 		<result property="theaterCode" column="THEATER_CODE"/>
 	</resultMap>
 	
+	<resultMap type="Review" id="reviewResultSet">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="reviewViewDate" column="REVIEW_VIEW_DT"/>
+		<result property="reviewSight" column="REVIEW_SIGHT"/>
+		<result property="reviewComfort" column="REVIEW_COMFORT"/>
+		<result property="reviewLegroom" column="REVIEW_LEGROOM"/>
+		<result property="reviewComment" column="REVIEW_COMMENT"/>
+		<result property="reviewWrite" column="REVIEW_WRITER"/>
+		<result property="seatCode" column="SEAT_CODE"/>
+	</resultMap>
+	
+	<resultMap type="ReviewImage" id="reviewImgResultSet">
+		<id property="reviewImageNo" column="REVIEW_IMG_NO"/>
+		<result property="reviewImagePath" column="REVIEW_IMG_PATH"/>
+		<result property="reviewNo" column="REVIEW_NO"/>
+		<result property="uploadDate" column="UPLOAD_DT"/>
+		<result property="imageType" column="IMG_TYPE"/>
+		<result property="uploadDate" column="UPLOAD_DT"/>
+	</resultMap>
 	
 	<!-- 공연시설장 수 -->
 	<select id="getTheaterCount" parameterType="string" resultType="_int">
@@ -110,6 +129,7 @@
 	<select id="selectTList" resultMap="theaterResultSet">
 		SELECT THEATER_CODE, THEATER_NM, THEATER_LAT, THEATER_LONG
 		FROM THEATER
+		ORDER BY THEATER_NM
 	</select>
 	
 	<!-- 공연장 코드 조회 -->
@@ -130,5 +150,91 @@
 		SELECT DISTINCT SEAT_FLOOR
 		FROM SEAT
 		WHERE THEATER_CODE = #{thCode}
+		ORDER BY SEAT_FLOOR
 	</select>
+	
+	<select id="selectAList" parameterType="Seat" resultMap="seatResultSet">
+		SELECT DISTINCT SEAT_AREA
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		ORDER BY SEAT_AREA
+	</select>
+	
+	<select id="selectRList" parameterType="Seat" resultMap="seatResultSet">
+		SELECT DISTINCT SEAT_ROW
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		ORDER BY SEAT_ROW
+	</select>
+	
+	<select id="selectRList2" parameterType="Seat" resultMap="seatResultSet">
+		SELECT DISTINCT SEAT_ROW
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		AND SEAT_AREA = #{seatArea}
+		ORDER BY SEAT_ROW
+	</select>
+	
+	<select id="selectCList" parameterType="Seat" resultMap="seatResultSet">
+		SELECT *
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		AND SEAT_ROW = #{seatRow}
+		ORDER BY SEAT_COL
+	</select>
+	
+	<select id="selectCList2" parameterType="Seat" resultMap="seatResultSet">
+		SELECT *
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		AND SEAT_AREA = #{seatArea}
+		AND SEAT_ROW = #{seatRow}
+		ORDER BY SEAT_COL
+	</select>
+	
+	<select id="selectSeatCode" parameterType="Seat" resultType="string">
+		SELECT SEAT_CODE
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		AND SEAT_ROW = #{seatRow}
+		AND SEAT_COL = #{seatCol}
+	</select>
+	
+	<select id="selectSeatCode2" parameterType="Seat" resultType="string">
+		SELECT SEAT_CODE
+		FROM SEAT
+		WHERE THEATER_CODE = #{theaterCode}
+		AND SEAT_FLOOR = #{seatFloor}
+		AND SEAT_AREA = #{seatArea}
+		AND SEAT_ROW = #{seatRow}
+		AND SEAT_COL = #{seatCol}
+	</select>
+	
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_RVNO.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<!-- 리뷰 작성 -->
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO REVIEW (REVIEW_NO, REVIEW_VIEW_DT,
+		REVIEW_SIGHT, REVIEW_COMFORT, REVIEW_LEGROOM, REVIEW_COMMENT,
+		REVIEW_WRITER, SEAT_CODE) VALUES (
+		#{reviewNo}, #{reviewViewDate},
+		#{reviewSight}, #{reviewComfort}, #{reviewLegroom},
+		#{reviewComment}, #{reviewWriter}, #{seatCode} )
+	</insert>
+	
+	<!-- 파일 삽입 -->
+	<insert id="insertReviewImage" parameterType="ReviewImage">
+		INSERT INTO REVIEW_IMAGE VALUES
+		(SEQ_RV_INO.NEXTVAL, #{reviewImagePath}, 
+		DEFAULT, DEFAULT, #{imageType}, #{reviewNo})
+	</insert>
 </mapper>

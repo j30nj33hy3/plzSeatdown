@@ -91,7 +91,7 @@ public class SeatController {
 	            Node nNode = nList.item(temp);
 	            Element ele = (Element)nNode;
 	            
-	            if(idtime == 1087181) {
+	            if(idtime == 1087181 || idtime == 1077682) {
 	            	// 구역이 없는 경우
 	            	String tooltip = getTagValue("Tooltip", ele);
 	            	String[] floor = tooltip.split("층");

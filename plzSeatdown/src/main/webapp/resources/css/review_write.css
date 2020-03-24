@@ -101,7 +101,10 @@ textarea{
     background-color: #917EC6;
     border: none;
 }
-
+#cancelBtn{
+	background-color: #917EC6;
+    border: none;
+}
 .ui-helper-hidden {
 	display: none;
 }
