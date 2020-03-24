@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
@@ -209,10 +210,37 @@ public class MypageDAO {
 	 * @param memberNo
 	 * @return
 	 */
-	public List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo) {
+	public List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo)throws Exception {
 		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
 	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("mypageMapper.selectRimgList",memberNo, rowBounds);
+	}
+
+
+
+	/** 마이글 게시물수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int getWriteCount(int memberNo)throws Exception {
+		return sqlSession.selectOne("mypageMapper.getWriteCount", memberNo);
+	}
+
+	
+	
+
+
+	/** 마이글 전체 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Community> selectClist(PageInfo pInf, int memberNo) throws Exception{
+		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("mypageMapper.selectClist",memberNo,rowBounds);
 	}
    
    

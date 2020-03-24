@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage-프로필</title>
-<link rel="stylesheet" href="${contextPath}/resources/css/mypage_ask.css"/>
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css"/>
 
 </head>
 <body class="homepage is-preload">
@@ -19,7 +19,7 @@
 					<div class="row gtr-200">
 					
 						<div class="col-2 col-12-mobile" id="sidebar" style="width: 200px;">
-						<h4><a href="mypage">문의 내역</a></h4>
+						<h4><a href="mycommu">내 커뮤</a></h4>
 							<ul>
 								<li><a href="mypage">프로필</a></li>
 								<li><a href="changePwd">비밀번호 변경</a></li>
@@ -39,24 +39,30 @@
 								">
 								  <tr>
 								  	<th scope="col" style="border-bottom:0px;">글번호</th>
+									<th scope="col" style="border-bottom:0px;">제목</th>
 									<th scope="col" style="border-bottom:0px;">내용</th>
+									<th scope="col" style="border-bottom:0px;">작성자</th>
 									<th scope="col" style="border-bottom:0px;">날짜</th>
-									<th scope="col" style="border-bottom:0px;">답장 여부</th>
+									<th scope="col" style="border-bottom:0px;"></th>
 								  </tr>
 								</thead>
 								<tbody>
-								<c:if test="${empty list}">
+								<c:if test="${empty clist}">
 										<tr>
-											<td colspan="4">존재하는 문의내역이 없습니다.</td>
+											<td colspan="6">존재하는 커뮤니티 내역이 없습니다.</td>
 										</tr>
 								</c:if>
-								<c:if test="${!empty list}">
-									<c:forEach var="qnaeh" items="${list}" varStatus="vs">
+								<c:if test="${!empty clist}">
+									<c:forEach var="community" items="${clist}" varStatus="vs">
 										<tr>
-											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaNo}</td>
-											<td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;" >${qnaeh.qnaContent}</td>
-											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaCreateDate}</td>
-											<td style="border-top:0px; padding-top:17px;">${qnaeh.qnaStatus}</td>
+											<td style="border-top:0px; padding-top:17px;">${community.communityNo}</td>
+											<td style="border-top:0px; padding-top:17px;">${community.communityTitle}</td>
+											<td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td>
+											<td style="border-top:0px; padding-top:17px;">${community.communityWriter}</td>
+											<td style="border-top:0px; padding-top:17px;">${community.communityCreateDate}</td>
+											<td style="border-top:0px; padding-top:17px;">
+											  <button id="moveBoard" class="btn btn-outline-secondary m-3">해당 글 이동</button>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -137,17 +143,18 @@
 		<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$(function(){
-			$("#list-table td").click(function(){
-				var qnaNo = $(this).parent().children().eq(0).text();
+			$("#moveBoard").click(function(){
+				var communityNo = $(this).parent().children().eq(0).text();
 				// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 				<c:url var="detailUrl" value="detail"> // 주소창의 detail
                  	<c:param name="currentPage" value="${pInf.currentPage}"/>
                	</c:url>
-				location.href="${detailUrl}&no="+qnaNo;
+				location.href="${detailUrl}&no="+communityNo;
 			}).mouseenter(function(){
 				$(this).parent().css("cursor", "pointer");
 			});
 		});
+		
 		
 		
 	</script>

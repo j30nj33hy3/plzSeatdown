@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
@@ -141,6 +142,26 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo)throws Exception;
+
+
+
+	/** 마이 글 게시글 수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract int getWriteCount(int memberNo)throws Exception;
+
+
+	
+	/** 마이글 전체 조회 
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<Community> selectClist(PageInfo pInf, int memberNo)throws Exception;
+	
 
 
 

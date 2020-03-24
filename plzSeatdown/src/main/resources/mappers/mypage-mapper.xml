@@ -69,7 +69,18 @@
      	<result property="reviewWriter" column="REVIEW_WRITER"/>
      </resultMap>
     
-    
+    <resultMap type="Community" id="communityResultSet">
+		<id property="communityNo" column="COMM_NO"/>
+		<result property="communityTitle" column="COMM_TITLE"/>
+		<result property="communityContent" column="COMM_CONTENT"/>
+		<result property="communityModifyDate" column="COMM_MODIFY_DT"/>
+		<result property="communityCount" column="COMM_COUNT"/>
+		<result property="communityWriter" column="COMM_WRITER"/>
+		<result property="categoryCode" column="CATEGORY_CD"/>
+		<result property="memberNickname" column="MEMBER_NICKNM"/>
+		<result property="categoryName" column="CATEGORY_NM"/>
+		<result property="profilePath"	column="PROFILE_PATH"/>
+	</resultMap>
     
     
     
@@ -201,6 +212,20 @@
 	<select id="selectRimgList" parameterType="_int" resultMap="ReviewImageEHResultSet">
 		SELECT * FROM V_RIMGEH
    		WHERE REVIEW_WRITER = #{memberNO} 
+	</select>
+	
+	
+	<!-- 마이글 전체 게시글수 조회 -->
+	<select id="getWriteCount" parameterType="_int" resultType="_int">
+		SELECT COUNT (*) FROM COMMUNITY
+		WHERE COMM_WRITER = #{memberNo} 
+	</select>
+	
+	
+	<!-- 마이글 전체 조회 -->
+	<select id="selectClist" parameterType="_int" resultMap="communityResultSet">
+		SELECT * FROM COMMUNITY
+		WHERE COMM_WRITER = #{memberNo} 
 	</select>
 	
 	

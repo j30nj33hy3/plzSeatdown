@@ -25,6 +25,7 @@
 								<li><a href="secession">회원 탈퇴</a></li>
 								<li><a href="myreview">내 리뷰</a></li>
 								<li><a href="myticket">내 티켓</a></li>
+								<li><a href="mycommu">내 커뮤</a></li>
 								<li><a href="ask">문의 내역</a></li>
 							</ul>
 					</div>

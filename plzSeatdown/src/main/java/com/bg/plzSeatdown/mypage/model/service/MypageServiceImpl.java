@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.plzSeatdown.common.vo.FileRename;
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.dao.MypageDAO;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
@@ -317,4 +318,32 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDAO.selectRimgList(pInf,memberNo);
 	}
 
+   
+   
+   /** 마이 글 게시글 수 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public int getWriteCount(int memberNo) throws Exception {
+		return mypageDAO.getWriteCount(memberNo);
+	}
+   
+   
+   
+   /** 마이글 전체 조회 
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public List<Community> selectClist(PageInfo pInf, int memberNo) throws Exception {
+		return mypageDAO.selectClist(pInf,memberNo);
+	}
+   
+   
+   
+   
 }

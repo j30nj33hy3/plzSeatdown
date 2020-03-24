@@ -11,7 +11,6 @@ body{
     font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
 }  
 
-
 #nav ul>li{
     margin-right: 150px;
     font-size: 15px;
@@ -29,25 +28,8 @@ body{
     padding: 6em 0 6em 0;
 }
 
-
-/* 별점 */
-span.star-prototype, span.star-prototype > * {
-    height: 16px; 
-    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-    width: 80px;
-    display: inline-block;
-}
- 
-span.star-prototype > * {
-    background-position: 0 0;
-    max-width:80px; 
-    
-}
-
-
-
-
 /* 사이드 바*/
+
 
 #sidebar h4{
     font-weight: bold;
@@ -106,88 +88,6 @@ span.star-prototype > * {
 
 
 
-
-/* 패널 */
-.overlay{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: none;
-    z-index: 9998;
-}
-
-
-/* sidebar 스타일 */
-.sidebarpan{
-    position:fixed;
-    top:50%;
-    right:-100%;
-    transform:translateY(-50%);
-    width:600px;
-    height:100vh;
-    min-height:100%;
-    padding:40px;
-    background:#fff;
-    box-shadow: 0 20px 50px rgba(0,0,0,.5);
-    box-sizing:border-box;
-    transition:0.5s;
-    z-index: 9999;
-    overflow-x: hidden; /* 가로 스크롤 X */
-    overflow-y: auto; /* 세로 스크롤 자동 */
-}
-.sidebarpan.active{
-    right:0;
-}
-
-/* 끝 */
-
-.card{
-    margin: 15px;
-}
-
-/* 메인화면 scroll 불가능 */
-.scrollHidden{
-    /* position: fixed; */
-    height: 100%;
-    min-height: 100%;
-    overflow: hidden !important;
-    touch-action: none;
-}
-
-
-
-/* 에디트 */
-
-.edit{
-    width: 25px;
-    height: 25px;
-}
-
-#editbtn{
-    padding : 135px 0px 0px 30px;
-}
-
-
-.updatebtn{
-    font-size: 15px;
-    background-color: white;
-    padding : 3px;
-    display: block;
-}
-
-.updatebtn:hover{
-    background-color: white;
-    color : white;
-    border : 0px;
-}
-
-
-
-
-
-
-
-
 /* 테이블 */
 
 .table{
@@ -219,52 +119,53 @@ span.star-prototype > * {
 
 
 .table tr:last-child{
-    border-bottom: 1px solid rgb(198, 180, 205);
+    border-bottom: 1px solid lightgray;
 }
 
 .table th:nth-child(1){ 
-    width: 80px;
-}
-
-.table th:nth-child(2){ 
-    width: 180px;
-}
-
-.table th:nth-child(3){ 
     width: 100px;
 }
 
-.table th:nth-child(4){ 
+.table th:nth-child(2){ 
     width: 220px;
 }
 
-.table th:nth-child(5){ 
+.table th:nth-child(3){ 
+    width: 220px;
+}
+
+.table th:nth-child(4){ 
     width: 150px;
 }
 
 
-
 .table th:last-child{ 
-    width: 50px;
+    width: 150px;
+    padding-right: 20px;
 }
 
 .table td{ 
-    height: 50px;
-    padding: 10px 0px 10px 0px;
+    height: 60px;
+    padding-top: 20px;
     border-color: rgb(198, 180, 205);
-    line-height: 40px;
 }
-
-
 
 .table td:last-child{ 
     width: 100px;
-    padding-left: 30px;
-    line-height: 0px;
+    padding-right: 30px;
 }
 
 
+.contentwrap{
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 400px;
+  height:40px;
+  margin-left:30px;
 
+}
 
 
 /*페이징바*/
