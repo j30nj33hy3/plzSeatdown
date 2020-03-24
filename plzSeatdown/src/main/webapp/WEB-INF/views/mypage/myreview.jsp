@@ -39,15 +39,15 @@
 									<div class="mb-4 mt-4">
 										<div style="display: inline-block; width: 100px; font-weight: bold;">
 											<span>시야</span>
-											<span style="display: block;">${revieweh.reviewSight}</span>
+											<span style="display: block;" class="star-prototype">${revieweh.reviewSight}</span>
 										</div>
 										<div style="display: inline-block;  width: 100px; font-weight: bold;">
 											<span>간격</span>
-											<span style="display: block;">${revieweh.reviewLegroom}</span>
+											<span style="display: block;" class="star-prototype">${revieweh.reviewLegroom}</span>
 										</div>
 										<div style="display: inline-block;  width: 100px; font-weight: bold;">
 											<span>편안함</span>
-											<span style="display: block;">${revieweh.reviewComfort}</span>
+											<span style="display: block;" class="star-prototype">${revieweh.reviewComfort}</span>
 										</div>
 									</div>
 										 <c:if test="${revieweh.reviewWriter == loginMember.memberNo}">
@@ -67,9 +67,6 @@
 				<div class="overlay"></div>
 			</div>
 			
-			
-	
-	
 	
 		<!-- Main -->
 			<div class="wrapper style1">
@@ -84,6 +81,7 @@
 								<li><a href="secession">회원 탈퇴</a></li>
 								<li><a href="myreview">내 리뷰</a></li>
 								<li><a href="myticket">내 티켓</a></li>
+								<li><a href="mycommu">내 커뮤</a></li>
 								<li><a href="ask">문의 내역</a></li>
 							</ul>
 						</div>
@@ -112,7 +110,7 @@
 											<tr id="seats">
 												<td>${revieweh.reviewNo}</td>
 												<td>${revieweh.seatArea}&nbsp;${revieweh.seatRow}&nbsp;${revieweh.seatNumber}</td>
-												<td>${(revieweh.reviewSight + revieweh.reviewComfort + revieweh.reviewLegroom)/3}</td>
+												<td><span class="star-prototype" style="display:inline;  background: url(http://i.imgur.com/YsyS5y8.png) 0 -18px repeat-x;">${(revieweh.reviewSight + revieweh.reviewComfort + revieweh.reviewLegroom)/3}</span></td>
 												<td>${revieweh.showTitle}</td>
 												<td>${revieweh.reviewCreateDate}</td>
 												<td>${revieweh.reviewImageStatus}</td>
@@ -237,6 +235,15 @@
 					}
 				});
 			});
+			
+			
+			// 별점 기능
+			$.fn.generateStars = function() {
+    		return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+			};
+
+			// 숫자 평점을 별로 변환하도록 호출하는 함수
+			$('.star-prototype').generateStars();
 
 		
 	</script>

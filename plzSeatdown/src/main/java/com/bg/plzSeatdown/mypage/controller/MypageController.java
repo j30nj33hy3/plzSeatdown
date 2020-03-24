@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.service.MypageService;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
@@ -370,6 +371,51 @@ public class MypageController {
 				}
 				
 			}
+			
+		
+			
+			// 문의내역 페이지 조회
+			@RequestMapping("mycommu") 
+			public String mycommu(Model model,
+				@RequestParam(value="currentPage",required=false)Integer currentPage
+					) { 
+							
+				try {
+								
+							int memberNo 
+							= ((Member)model.getAttribute("loginMember")).getMemberNo();
+								
+								// 전체 게시글 수 조회
+								int listCount = mypageService.getWriteCount(memberNo);
+								
+								
+								// 현재 페이지 확인
+								if(currentPage == null) currentPage = 1;
+								
+								// 페이지 정보를 저장
+								PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
+								
+								// 게시글 목록 조회
+								List<Community> clist = mypageService.selectClist(pInf,memberNo);
+								
+								model.addAttribute("clist",clist);
+								model.addAttribute("pInf",pInf);
+								
+								return "mypage/mycommu";
+								
+							}catch(Exception e) {
+								e.printStackTrace();
+								model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+								return "common/errorPage";
+							}
+							
+						}
+			
+			
+			
+			 
+				 
+			
 			
 		
 		
