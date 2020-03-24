@@ -62,8 +62,8 @@
 	<select id="getTheaterCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM THEATER
-		<if test="searchValue != null">
-			<bind name="sv" value="'%' + searchValue + '%'"/>
+		<if test="searchTheater != null">
+			<bind name="sv" value="'%' + searchTheater + '%'"/>
 			WHERE THEATER_NM LIKE #{sv}
 		</if>
 	</select>
@@ -73,8 +73,8 @@
 		SELECT THEATER_CODE, THEATER_NM, THEATER_LOGO_PATH
 		FROM THEATER
 		LEFT JOIN THEATER_LOGO USING(THEATER_CODE)
-		<if test="searchValue != null">
-			<bind name="sv" value="'%' + searchValue + '%'"/>
+		<if test="searchTheater != null">
+			<bind name="sv" value="'%' + searchTheater + '%'"/>
 			WHERE THEATER_NM LIKE #{sv}
 		</if>
 		ORDER BY THEATER_NM

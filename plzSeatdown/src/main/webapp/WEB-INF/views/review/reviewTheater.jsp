@@ -19,6 +19,9 @@
 		   text-overflow: ellipsis;
 		   white-space: nowrap;
 		}
+		.card :hover{
+			cursor: pointer;
+		}
 	</style>
 	
 	</head>
@@ -36,12 +39,14 @@
 					<div class="col-md-6">
 					</div>
                     <div class="col-md-6 text-right">
-						<div class="input-group">
-							<input type="text" class="form-control" name="search-theater" placeholder="공연장명을 입력하세요">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
-							</span>
-						</div>
+                    	<form>
+							<div class="input-group">
+								<input type="text" class="form-control" name="searchTheater" placeholder="공연장명을 입력하세요">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
+								</span>
+							</div>
+						</form>
                     </div>
 				</div>
 				<div class="row">
@@ -57,21 +62,19 @@
                     		<div class="row">
                     			<c:forEach var="theater" items="${list}" varStatus="vs">
                     				<div class="col-md-4 mb-3">
-	                   					<div class="card">
-    	                					<a href="seats?thCode=${theater.thCode }">
-    	                						<div style="height: 115px;">
-		                    						<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
-							                        <c:if test="${!empty theater.thLogoPath}">
-							                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
-							                        </c:if>
-							                        <img id="${theater.thCode}Img" class="card-img-top" src="${src}" style="width: 100%; height: 100%;">
-	                    						</div>
-	                    						<div class="card-block mt-3 ml-3 mr-3">
-	                    							<span class="card-title ellip">
-	                    								${theater.thNm}
-	                    							</span>
-	                    						</div>
-	                    					</a>
+	                   					<div class="card" onclick="location.href='seats?thCode=${theater.thCode }'">
+   	                						<div style="height: 115px;">
+	                    						<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
+						                        <c:if test="${!empty theater.thLogoPath}">
+						                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
+						                        </c:if>
+						                        <img id="${theater.thCode}Img" class="card-img-top" src="${src}" style="width: 100%; height: 100%;">
+                    						</div>
+                    						<div class="card-block mt-3 ml-3 mr-3">
+                    							<span class="card-title ellip">
+                    								${theater.thNm}
+                    							</span>
+                    						</div>
                     					</div>
                     				</div>
                     			</c:forEach>
@@ -88,12 +91,8 @@
 				                    <a class="page-link" 
 				                    	href=" 
 				                    	<c:url value="theater">
-				                    		<c:if test="${!empty param.searchKey }">
-								        		<c:param name="searchKey" value="${param.searchKey}"/>
-								        	</c:if>
-								        	
-								        	<c:if test="${!empty param.searchValue }">
-								        		<c:param name="searchValue" value="${param.searchValue}"/>
+								        	<c:if test="${!empty param.searchTheater }">
+								        		<c:param name="searchTheater" value="${param.searchTheater}"/>
 								        	</c:if>
 				                    		<c:param name="currentPage" value="1"/>
 				                    	</c:url>
@@ -105,12 +104,8 @@
 		                    	<!-- 이전으로 -->
 		                    	<a class="page-link" href=" 
 			                    	<c:url value="theater">
-			                    		<c:if test="${!empty param.searchKey }">
-							        		<c:param name="searchKey" value="${param.searchKey}"/>
-							        	</c:if>
-							        	
-							        	<c:if test="${!empty param.searchValue }">
-							        		<c:param name="searchValue" value="${param.searchValue}"/>
+							        	<c:if test="${!empty param.searchTheater }">
+							        		<c:param name="searchTheater" value="${param.searchTheater}"/>
 							        	</c:if>
 			                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 			                    	</c:url>
@@ -131,11 +126,8 @@
 	                    			<a class="page-link"
 	                    				href="
 	                    				<c:url value="theater">
-	                    					<c:if test="${!empty param.searchKey}">
-	                    						<c:param name="searchKey" value="${param.searchKey}"/>
-	                    					</c:if>
-	                    					<c:if test="${!empty param.searchValue}">
-	                    						<c:param name="searchKey" value="${param.searchValue}"/>
+	                    					<c:if test="${!empty param.searchTheater}">
+	                    						<c:param name="searchTheater" value="${param.searchTheater}"/>
 	                    					</c:if>
 	                    					<c:param name="currentPage" value="${p}"/>
 	                    				</c:url>
@@ -152,11 +144,8 @@
 	                    		<a class="page-link"
 	                    			href="
 	                    			<c:url value="theater">
-	                    				<c:if test="${!empty param.searchKey }">
-	                    					<c:param name="searchKey" value="${param.searchKey}"/>
-	                    				</c:if>
-	                    				<c:if test="${!empty param.searchValue }">
-							        		<c:param name="searchValue" value="${param.searchValue}"/>
+	                    				<c:if test="${!empty param.searchTheater }">
+							        		<c:param name="searchTheater" value="${param.searchTheater}"/>
 							        	</c:if>
 			                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                    			</c:url>
@@ -168,11 +157,8 @@
 			                    <a class="page-link" 
 			                    	href=" 
 			                    	<c:url value="theater">
-			                    		<c:if test="${!empty param.searchKey }">
-							        		<c:param name="searchKey" value="${param.searchKey}"/>
-							        	</c:if>
-							        	<c:if test="${!empty param.searchValue }">
-							        		<c:param name="searchValue" value="${param.searchValue}"/>
+							        	<c:if test="${!empty param.searchTheater }">
+							        		<c:param name="searchTheater" value="${param.searchTheater}"/>
 							        	</c:if>
 			                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 			                    	</c:url>
@@ -191,9 +177,21 @@
 			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 		</div>
+		
+		<!-- 페이지 이동 후에도 검색 결과가 검색창 input 태그에 표시되도록 하는 script -->
+		<script>
+			$(function(){
+				var searchTheater = "${param.searchTheater}";
+				
+				if(searchTheater != "null"){
+					$("input[name=searchTheater]").val(searchTheater);
+				}
+				
+			});
+		</script>
 
 		<script>
-			// 공연시설장 상세보기 기능 (jquery를 통해 작업)
+			/* // 공연시설장 상세보기 기능 (jquery를 통해 작업)
 			$(function(){
 				$("#list-table td").click(function(){
 					var noticeNo = $(this).parent().children().eq(0).text();
@@ -216,7 +214,7 @@
 				
 				});
 				
-			});
+			}); */
 		</script>
 	</body>
 </html>
