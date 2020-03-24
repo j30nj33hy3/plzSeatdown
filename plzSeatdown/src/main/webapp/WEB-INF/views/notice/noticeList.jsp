@@ -53,7 +53,7 @@
             </div>
             
             <!-- 페이징바 -->
-            <div class="col-md-12 d-flex justify-content-center">
+             <div class="col-md-12 d-flex justify-content-center">
                 <ul class="pagination pagination-info">
                 	<c:if test="${pInf.currentPage > 1}">
 	                	<li class="page-item">
@@ -157,7 +157,7 @@
             </div>
             
         </div>
-
+ 
         <form action="list" method="GET" class="text-center" id="searchForm" style="margin-bottom:100px;">
             <select name="searchKey" class="form-control" style="width:120px; display: inline-block;">
                 <option value="title">글제목</option>

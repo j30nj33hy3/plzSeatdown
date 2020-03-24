@@ -44,7 +44,7 @@
 		<!-- ============================================================== -->
 		<!-- Page wrapper  -->
 		<!-- ============================================================== -->
-		<div class="page-wrapper" style="background-color:white;">
+		<div class="page-wrapper" style="background-color: white;">
 			<!-- ============================================================== -->
 			<!-- Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
@@ -74,14 +74,16 @@
 								<!-- Create the editor container -->
 								<form name="notice_insert" action="insertNotice	" method="post">
 									<!-- <label class="input-group-addon mr-3">제목</label> -->
-									<input type="text" class="form-control" id="noticeTitle" name="noticeTitle" size="70"> <br>
+									<input type="text" class="form-control" id="noticeTitle"
+										name="noticeTitle" maxlength="33" size="70"> <br>
 									<textarea id="summernote" name="noticeContent"></textarea>
 									<br> <br>
 									<div style="text-align: center;">
 										<button class="form-control btn btn-primary" id="submit-btn"
 											type="submit">등록</button>
-										<button class="form-control btn btn-primary" id="reset-btn"
-											type="reset">취소</button>
+										<a href="${contextPath }/admin/notice/list"
+											class="form-control btn btn-primary" id="reset-btn"
+											>취소</a>
 									</div>
 								</form>
 							</div>
@@ -109,17 +111,16 @@
 		<!-- ============================================================== -->
 		<!-- This Page JS -->
 		<script>
-		$(document).ready(function() {
-		    $('#summernote').summernote({
-		        height : 300, // 에디터 높이
-		        minHeight : null, // 최소 높이
-		        maxHeight : null, // 최대 높이
-		        focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-		        lang : "ko-KR", // 한글 설정
-		        
-		    });
-		});
-		
+			$(document).ready(function() {
+				$('#summernote').summernote({
+					height : 300, // 에디터 높이
+					minHeight : null, // 최소 높이
+					maxHeight : null, // 최대 높이
+					focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+					lang : "ko-KR", // 한글 설정
+
+				});
+			});
 		</script>
 		<script
 			src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script>

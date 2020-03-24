@@ -55,8 +55,8 @@ public class AdminNoticeDAO {
 		return sqlSession.update("adminNoticeMapper.increaseCount", no);
 	}
 
-	public int updateNotice(int noticeNo) throws Exception {
-		return sqlSession.update("adminNoticeMapper.updateNotice", noticeNo);
+	public int updateNotice(AdminNotice adminNotice) throws Exception {
+		return sqlSession.update("adminNoticeMapper.updateNotice", adminNotice);
 	}
 
 	public int deleteNotice(Integer no) throws Exception{

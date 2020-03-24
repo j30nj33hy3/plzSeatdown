@@ -71,18 +71,17 @@
 								<h4 class="card-title"></h4>
 								<!-- Create the editor container -->
 								
-								
-								<form name="notice_update" action="" method="post">
+								<form name="notice_update" action="update?no=${adminNotice.noticeNo}" method="post">
 									<!-- <label class="input-group-addon mr-3">제목</label> -->
 									<input type="text" class="form-control" id="noticeTitle"
-										name="noticeTitle" value="${aNoticeList.noticeTitle }" size="70"> <br>
+										name="noticeTitle" value="${adminNotice.noticeTitle }" maxlength="33" size="70"> <br>
 									<textarea id="summernote" name="content" ></textarea>
 									<br> <br>
 									<div style="text-align: center;">
 										<button class="form-control btn btn-primary" id="submit-btn"
 											type="submit">수정</button>
-										<button class="form-control btn btn-primary" id="reset-btn"
-											type="reset">취소</button>
+										<a class="form-control btn btn-primary" id="reset-btn"
+											href='${header.referer}';>취소</a>
 									</div>
 									
 								</form>
@@ -111,7 +110,7 @@
 		<!-- ============================================================== -->
 		<!-- This Page JS -->
 		<script>
-
+		
 		$(document).ready(function() {
 		    $('#summernote').summernote({
 		        height : 300, // 에디터 높이
@@ -120,14 +119,10 @@
 		        focus : true, // 에디터 로딩후 포커스를 맞출지 여부
 		        lang : "ko-KR" // 한글 설정
 		    });
-		    
-		    $("#summernote").summernote('code', '${aNoticeList.noticeContent}');
+		    $("#summernote").summernote('code', '${adminNotice.noticeContent }');
 		    
 		});
-
 		</script>
-		<script
-			src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/mask.init.js"></script>
 		<script src="${contextPath}/resources/js/admin/select2.full.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/select2.min.js"></script>
@@ -135,8 +130,6 @@
 		<script src="${contextPath}/resources/js/admin/jquery-asGradient.js"></script>
 		<script
 			src="${contextPath}/resources/js/admin/jquery-asColorPicker.min.js"></script>
-		<script
-			src="${contextPath}/resources/js/admin/jquery.minicolors.min.js"></script>
 		<script
 			src="${contextPath}/resources/js/admin/bootstrap-datepicker.min.js"></script>
 

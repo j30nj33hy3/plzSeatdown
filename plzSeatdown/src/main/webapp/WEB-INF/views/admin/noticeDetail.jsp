@@ -62,10 +62,10 @@
 					<ul class="navbar-nav float-right">
 						<li class="nav-item dropdown pr-5">
 							<button class="btn btn" id="editBtn"
-								onclick="location.href='updateForm';">
+								onclick="location.href='updateForm?no=${adminNotice.noticeNo}';">
 								수정
 							</button>
-							<button class="btn btn" id="listBtn" onclick="location.href='list';">글목록</button>
+							<a class="btn btn" id="listBtn" onclick="location.href='list';">글목록</a>
 </div>
 						</li>
 					</ul>

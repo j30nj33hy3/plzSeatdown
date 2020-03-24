@@ -32,11 +32,12 @@ public interface AdminNoticeService {
 	public abstract AdminNotice selectNotice(Integer no) throws Exception;
 
 	/** 공지사항 수정용 Service
+	 * @param adminNotice 
 	 * @param noticeNo
 	 * @return  result
 	 * @throws Exception
 	 */
-	public abstract int updateNotice(int noticeNo) throws Exception;
+	public abstract int updateNotice(AdminNotice adminNotice) throws Exception;
 
 	public abstract int deleteNotice(Integer no) throws Exception;
 

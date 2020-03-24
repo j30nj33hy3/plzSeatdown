@@ -53,6 +53,13 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
+							<div style="height: 3em; background-color: #eeeeee;">
+								<button class="btn btn float-right" id="write-btn"
+									onclick="location.href='insertForm';"
+									style="float: right; width: 10%;">글작성</button>
+
+							</div>
+
 							<div class="table-responsive">
 								<table class="table" id="list-table">
 									<thead class="thead-light">
@@ -83,39 +90,14 @@
 											</c:forEach>
 										</c:if>
 									</tbody>
-									<!-- <tbody class="customtable">
-										<tr>
-											<td>1</td>
-											<td>공지사항 1번째 글입니다</td>
-											<td>2020/01/01</td>
-											<td>Y</td>
-											<td><i class="fas fa-trash-alt"></td>
-										</tr>
-									</tbody> -->
 								</table>
 							</div>
 						</div>
 
 
-						<!-- 						<nav aria-label="Page navigation example">
-							<ul class="pagination" style="justify-content: center;">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-								</a></li>
-							</ul>
-						</nav> -->
 
-						<%-- <!-- 페이징바 -->
+
+						<!-- 페이징바 -->
 						<div class="col-md-12 d-flex justify-content-center">
 							<ul class="pagination pagination-info">
 								<c:if test="${pInf.currentPage > 1}">
@@ -146,7 +128,7 @@
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
-	                    	">PREV</a>
+	                    	">&lt;</a>
 									</li>
 								</c:if>
 
@@ -189,7 +171,7 @@
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
                     			</c:url>
-                    			">NEXT</a>
+                    			">&gt;</a>
 									</li>
 
 									<!-- 맨 끝으로(>>) -->
@@ -209,127 +191,18 @@
 								</c:if>
 							</ul>
 						</div>
- --%>
 
-						<!---------------------------------- 페이징 바 ---------------------------------->
-						<div style="clear: both;">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination" style="justify-content: center;">
-									<c:if test="${pInf.currentPage > 1}">
-										<li>
-											<!-- 맨 처음으로(<<) --> <!-- 
-                                    c:url 태그에 var 속성이 존재하지 않으면
-                                   	 변수처럼 사용되는 것이 아닌, 작성된 자리에 바로 URL 형식으로 표기됨
-                                --> <a class="page-link"
-											href=" 
-                                    <c:url value="list">
-                                        <c:if test="${!empty param.searchKey }">
-                                            <c:param name="searchKey" value="${param.searchKey}"/>
-                                        </c:if>
-                                        
-                                        <c:if test="${!empty param.searchValue }">
-                                            <c:param name="searchValue" value="${param.searchValue}"/>
-                                        </c:if>
-                                        <c:param name="currentPage" value="1"/>
-                                    </c:url>
-                                ">
-												&lt;&lt; </a>
-										</li>
+						<form action="list" method="GET" class="text-center"
+							id="searchForm">
+							<select id="searchTitle" name="searchKey" class="form-control">
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+								<option value="titcont">제목+내용</option>
+							</select> <input type="text" id="searchInput" name="searchValue"
+								class="form-control" placeholder="검색어를 입력해주세요.">
+							<button id="searchBtn" class="form-control btn btn-primary">검색</button>
+						</form>
 
-										<li>
-											<!-- 이전으로(<) --> <a class="page-link"
-											href=" 
-                                    <c:url value="list">
-                                        <c:if test="${!empty param.searchKey }">
-                                            <c:param name="searchKey" value="${param.searchKey}"/>
-                                        </c:if>
-                                        
-                                        <c:if test="${!empty param.searchValue }">
-                                            <c:param name="searchValue" value="${param.searchValue}"/>
-                                        </c:if>
-                                        <c:param name="currentPage" value="${pInf.currentPage-1}"/>
-                                    </c:url>
-                                ">
-												&lt; </a>
-										</li>
-									</c:if>
-
-									<!-- 10개의 페이지 목록 -->
-									<c:forEach var="p" begin="${pInf.startPage}"
-										end="${pInf.endPage}">
-
-
-										<c:if test="${p == pInf.currentPage}">
-											<li><a class="page-link">${p}</a></li>
-										</c:if>
-
-										<c:if test="${p != pInf.currentPage}">
-											<li><a class="page-link"
-												href=" 
-                                        <c:url value="list">
-                                            <c:if test="${!empty param.searchKey }">
-                                                <c:param name="searchKey" value="${param.searchKey}"/>
-                                            </c:if>
-                                            
-                                            <c:if test="${!empty param.searchValue }">
-                                                <c:param name="searchValue" value="${param.searchValue}"/>
-                                            </c:if>
-                                            <c:param name="currentPage" value="${p}"/>
-                                        </c:url>
-                                    ">
-													${p} </a></li>
-										</c:if>
-
-									</c:forEach>
-
-									<!-- 다음 페이지로(>) -->
-									<c:if test="${pInf.currentPage < pInf.maxPage }">
-										<li><a class="page-link"
-											href=" 
-                                    <c:url value="list">
-                                        <c:if test="${!empty param.searchKey }">
-                                            <c:param name="searchKey" value="${param.searchKey}"/>
-                                        </c:if>
-                                        
-                                        <c:if test="${!empty param.searchValue }">
-                                            <c:param name="searchValue" value="${param.searchValue}"/>
-                                        </c:if>
-                                        <c:param name="currentPage" value="${pInf.currentPage+1}"/>
-                                    </c:url>
-                                ">
-												&gt; </a></li>
-
-										<!-- 맨 끝으로(>>) -->
-										<li><a class="page-link"
-											href=" 
-                                    <c:url value="list">
-                                        <c:if test="${!empty param.searchKey }">
-                                            <c:param name="searchKey" value="${param.searchKey}"/>
-                                        </c:if>
-                                        <c:if test="${!empty param.searchValue }">
-                                            <c:param name="searchValue" value="${param.searchValue}"/>
-                                        </c:if>
-                                        <c:param name="currentPage" value="${pInf.maxPage}"/>
-                                    </c:url>
-                                ">
-												&gt;&gt; </a></li>
-
-									</c:if>
-								</ul>
-							</nav>
-						</div>
-
-
-						<br>
-						<ul class="navbar-nav float-right">
-							<li class="nav-item dropdown pr-5">
-								<button class="btn btn" id="write-btn"
-									onclick="location.href='insertForm';">
-									<%-- <a href="${contextPath }/admin/notice/insertF" id="write-href"> --%>
-									글작성
-								</button>
-							</li>
-						</ul>
 
 					</div>
 				</div>
@@ -358,6 +231,22 @@
         /****************************************
          *       Basic Table                   *
          ****************************************/
+			$(function() {
+				var searchKey = "${param.searchKey}";
+				var searchValue = "${param.searchValue}";
+
+				if (searchKey != "null" && searchValue != "null") {
+					$.each($("select[name=searchKey] > option"),
+							function(index, item) {
+								if ($(item).val() == searchKey) {
+									$(item)
+											.prop("selected",
+													"true");
+								}
+							});
+					$("input[name=searchValue]").val(searchValue);
+				}
+			});
 
         // 공지사항 상세조회 기능
         $(function () {

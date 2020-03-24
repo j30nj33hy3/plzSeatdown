@@ -54,6 +54,11 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public int deleteImg(Integer no) throws Exception {
 		return adminMemberDAO.deleteImg(no);
+	}
+
+	@Override
+	public List<Member> selectSortList(Map<String, String> map, PageInfo pInf) throws Exception {
+		return adminMemberDAO.selectSortList(map, pInf);
 	}	
 	
 

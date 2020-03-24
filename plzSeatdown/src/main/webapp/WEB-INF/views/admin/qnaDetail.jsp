@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,13 +8,13 @@
 <meta charset="UTF-8">
 <title>관리자게시판 - 회원 문의 보기</title>
 
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/qnaDetail.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/qnaDetail.css" />
 
 </head>
 <body>
 
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath }" scope="application" />
 
 	<div id="main-wrapper">
 
@@ -48,32 +48,44 @@
 					<div class="col-8">
 						<h5 style="color: dimgray;">문의내역</h5>
 						<hr>
-						<form name="question" action="update?no=${qna.qnaNo}" method="post">
-							<textarea id="question-detail" rows="7"	>
+						<form name="question" action="update?no=${qna.qnaNo}"
+							method="post">
+							<textarea id="question-detail" rows="7"
+								style="background-color: lightgray; color: gray;" disabled>
 ${qna.qnaContent}
                             </textarea>
 							<br> <br> <br>
 							<h5 style="color: dimgray;">답변</h5>
 							<hr>
-<c:if test="${empty qna }">
-<textarea id="answer-detail" name="answer" rows="7" placeholder="답변을 등록해주세요." style="color:silver;"></textarea>
-</c:if>
-
-<c:if test="${!empty qna }">
+							<c:if test="${!empty qna.qnaAnswer}">
 <textarea id="answer-detail" name="answer" rows="7">
 ${qna.qnaAnswer }
 </textarea>
-</c:if>									
 
-							<br> <br> <br>
-							<div style="text-align: center;">
-								<button class="form-control btn btn-primary" id="submit-btn"
-									type="submit">등록</button>
-								<button class="form-control btn btn-primary" id="reset-btn"
-									type="reset">취소</button>
-							</div>
+								<br>
+								<br>
+								<br>
+
+								<div style="text-align: center;">
+									<a href="list" class="form-control btn btn-primary"
+										id="list-btn" type="button">목록</a>
+								</div>
+							</c:if>
+							<c:if test="${empty qna.qnaAnswer}">
+								
+<textarea id="answer-detail" name="answer" rows="7" placeholder="답변을 등록해주세요.">
+</textarea>
+								<br>
+								<br>
+								<br>
+								<div style="text-align: center;">
+									<button class="form-control btn btn-primary" id="submit-btn"
+										type="submit">등록</button>
+									<a href="list" class="form-control btn btn-primary"
+										id="reset-btn" type="button">취소</a>
+								</div>
+							</c:if>
 						</form>
-
 					</div>
 				</div>
 			</div>
@@ -87,6 +99,7 @@ ${qna.qnaAnswer }
 	<!-- ============================================================== -->
 
 	<script>
+		
 	</script>
 
 
