@@ -49,15 +49,8 @@ public class ReviewController {
 			
 		try {
 			
-			String searchValue = null;
-			
-			// 검색 조건이 있는지 확인하여 변수에 저장
-			if(searchTheater != null) {
-				searchValue = searchTheater;
-			}
-			
 			// 전체 공연시설장 수 조회
-			int theaterCount = reviewService.getTheaterCount(searchValue);
+			int theaterCount = reviewService.getTheaterCount(searchTheater);
 			
 			// 현재 페이지 확인
 			if(currentPage == null) currentPage = 1;
@@ -66,7 +59,7 @@ public class ReviewController {
 			PageInfo pInf = Pagination.getPageInfo(9, 5, currentPage, theaterCount);
 			
 			// 공연시설장 목록 조회
-			List<Theater> list = reviewService.selectTheaterList(searchValue, pInf);
+			List<Theater> list = reviewService.selectTheaterList(searchTheater, pInf);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);

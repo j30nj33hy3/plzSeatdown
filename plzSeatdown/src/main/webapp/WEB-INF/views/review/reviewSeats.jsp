@@ -67,6 +67,7 @@
         .popover_message {
         	text-align: center;
         }
+        
     </style>
 		
 	</head>
@@ -151,43 +152,61 @@
 						${theater.thNm}
                     </div>
 				</div>
+				
 
 				<div class="row">
 					<div class="col-md-9 text-center content" id="seat-status">
-						나쁨 ooooo 좋음
-						<div id="seats">
-							<%-- <a href="#" data-placement="top"
-								data-hover-content="<div class='hover-content'>
-								<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/344846/eyfel-kulesi-paris.jpg'>
-								<p><b>A구역 1열 1번</b></p>
-								<p>
-									★★★☆☆
-								</p>
-								<p>좌석 후기가 어쩌고저쩌고.. 근데 마우스 움직일 때마다 움직이네... 음..... 고정됐으면 좋겠는디</p>
-								<p>리뷰 총 개수</p>
-								</div>">
-								좌석 어떻게 해요.............................
-							</a> --%>
-							
-							<div class="seat" data-toggle="popover" data-trigger="hover">
-								<div class="popover_wrapper">
-							        <h2 class="popover_title">Hover:me</h2>
-							        <div class="popover_content">
-							          <p class="popover_message">Joseph Francis "Joey" Tribbiani, Jr.</p>
-							          <img alt="Joseph Francis Joey Tribbiani, Jr." src="https://media.giphy.com/media/11SIBu3s72Co8w/giphy.gif">
-							        </div>
-							    </div>
-							    <div class="popover_wrapper">
-							        <h2 class="popover_title">Hover:me</h2>
-							        <div class="popover_content">
-							          <p class="popover_message">Joseph Francis "Joey" Tribbiani, Jr.</p>
-							          <img alt="Joseph Francis Joey Tribbiani, Jr." src="https://media.giphy.com/media/11SIBu3s72Co8w/giphy.gif">
-							        </div>
-							    </div>
-							</div>
+						<div id="seat-level" style="position:relative; margin: auto;">
+							<ul class="list-group-horizontal">
+								<li><div>나쁨</div></li>
+								<li class="ml-2"><div class="sLevel1"></div></li>
+								<li class="ml-2"><div class="sLevel2"></div></li>
+								<li class="ml-2"><div class="sLevel3"></div></li>
+								<li class="ml-2"><div class="sLevel4"></div></li>
+								<li class="ml-2"><div class="sLevel5"></div></li>
+								<li class="ml-2"><div>좋음</div></li>
+							</ul>
 							
 							
 						</div>
+							
+						<!-- 좌석 jsp 영역 시작 -->
+						
+						<!-- 
+							FC000402-02 : 두산아트홀 연강홀
+							FC000031-01 : 블루스퀘어 인터파크홀
+							FC000012-01 : 샤롯데씨어터
+							FC000020-03 : 세종문화회관 M씨어터
+						 -->
+						
+						<c:set var="theaterCode" value="${theater.thCode}" />
+						
+						<c:choose>
+							<c:when test="${theaterCode eq 'FC000402-02'}">
+								<jsp:include page="/WEB-INF/views/review/seat_dusan_y.jsp"/>
+							</c:when>
+							<c:when test="${theaterCode eq 'FC000031-01'}">
+								<jsp:include page="/WEB-INF/views/review/seat_blue_inter.jsp"/>
+								<jsp:include page="/WEB-INF/views/review/seat_blue_inter2.jsp"/>
+							</c:when>
+							<c:when test="${theaterCode eq 'FC000012-01'}">
+								<jsp:include page="/WEB-INF/views/review/seat_lotte.jsp"/>
+							</c:when>
+							<c:when test="${theaterCode eq 'FC000020-03'}">
+								<jsp:include page="/WEB-INF/views/review/seat_sejong_M.jsp"/>
+							</c:when>
+							<c:otherwise>
+								<div>
+									<div id="seats" style="width: 817px; height: 352px;">
+									    <img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 좌석 jsp 영역 종료 -->
+						
+							
 					</div>
 					<div class="col-md-3 showInfo ">
 						<div class="showHeader">상영 중인 공연</div>
@@ -251,7 +270,8 @@
 					center: new kakao.maps.LatLng(${theater.thLat}, ${theater.thLong}),
 					level: 4 // 지도의 레벨
 				};
-		
+				
+				console.log(${theater.thLat});
 				var map = new kakao.maps.Map(con, options); // 지도 생성
 
 				// 지도 타입 컨트롤
@@ -271,13 +291,53 @@
 			</script>
 			
 			<script>
+				// popover
+				$(function(){
+					
+					/* $("#seats > div").popover({
+						html:true,
+						placement:"top",
+						trigger:"hover",
+						content : '<img class="popoverContent" src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
+					}); */
+					
+					$("#seats > div").popover({
+						html:true,
+						placement:"top",
+						trigger:"manual",
+						content : '<img class="popoverContent" src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
+					}).on("mouseenter", function(){
+						self = $(this);
+						
+						self.popover("show");
+						$(".popover").on("mouseleave", function(){
+							self.popover("hide");
+						});
+						
+					}).on("mouseleave", function(){
+						self = $(this);
+						
+						if(!$(".popover:hover").length){
+							self.popover("hide");
+						}
+					});
+					
+					/* $("#seats > div").popover({
+						html:true,
+						placement:"top",
+						trigger:"hover",
+						content : '<img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
+					}); */
+				});
 				
 			</script>
 
 			<script>
-				// sidebar
+			
 				$(function(){
-					$(".seat").on({
+					
+					// sidebar
+					$("#seats > div").on({
 						click : function(){
 							$(".sidebar").addClass("active");
 							$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
@@ -286,6 +346,7 @@
 							$(".overlay").fadeIn();
 						}
 					});
+					
 					$(".overlay").on({
 						click : function(){
 							$(".sidebar").removeClass("active");

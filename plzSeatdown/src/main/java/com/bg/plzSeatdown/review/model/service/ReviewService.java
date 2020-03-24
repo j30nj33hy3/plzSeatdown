@@ -19,7 +19,7 @@ public interface ReviewService {
 	 * @return theaterCount
 	 * @throws Exception
 	 */
-	int getTheaterCount(String searchValue) throws Exception;
+	int getTheaterCount(String searchTheater) throws Exception;
 	
 	/** 공연시설장 목록 조회용 Service
 	 * @param searchValue
@@ -27,7 +27,7 @@ public interface ReviewService {
 	 * @return list
 	 * @throws Exception
 	 */
-	List<Theater> selectTheaterList(String searchValue, PageInfo pInf) throws Exception;
+	List<Theater> selectTheaterList(String searchTheater, PageInfo pInf) throws Exception;
 
 	/** 전체 공연 수 조회용 Service
 	 * @param map

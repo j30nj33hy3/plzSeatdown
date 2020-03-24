@@ -27,8 +27,8 @@ public class ReviewDAO {
 	 * @return theaterCount
 	 * @throws Exception
 	 */
-	public int getTheaterCount(String searchValue) throws Exception{
-		return sqlSession.selectOne("reviewMapper.getTheaterCount", searchValue);
+	public int getTheaterCount(String searchTheater) throws Exception{
+		return sqlSession.selectOne("reviewMapper.getTheaterCount", searchTheater);
 	}
 	
 	/** 공연시설장 목록 조회용 Service
@@ -37,10 +37,10 @@ public class ReviewDAO {
 	 * @return list
 	 * @throws Exception
 	 */
-	public List<Theater> selectTheaterList(String searchValue, PageInfo pInf) throws Exception{
+	public List<Theater> selectTheaterList(String searchTheater, PageInfo pInf) throws Exception{
 		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
-		return sqlSession.selectList("reviewMapper.selectTheaterList", searchValue, rowBounds);
+		return sqlSession.selectList("reviewMapper.selectTheaterList", searchTheater, rowBounds);
 	}
 
 	/** 전체 공연 수 조회용 DAO
