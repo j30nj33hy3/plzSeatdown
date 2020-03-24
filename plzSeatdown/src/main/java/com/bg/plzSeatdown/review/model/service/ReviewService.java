@@ -6,7 +6,10 @@ import java.util.Map;
 
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
+import com.bg.plzSeatdown.review.model.vo.Review;
+import com.bg.plzSeatdown.review.model.vo.ReviewImage;
 import com.bg.plzSeatdown.review.model.vo.Show;
+import com.bg.plzSeatdown.seat.model.vo.Seat;
 
 public interface ReviewService {
 	
@@ -87,6 +90,63 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	List<String> selectFList(String thCode) throws Exception;
+
+	/** 구역 목록 조회용 Service
+	 * @param seat
+	 * @return aList
+	 * @throws Exception
+	 */
+	List<String> selectAList(Seat seat) throws Exception;
+
+	/** 열 목록 조회용 Service
+	 * @param seat
+	 * @return rList
+	 * @throws Exception
+	 */
+	List<String> selectRList(Seat seat) throws Exception;
+
+	/** 열 목록 조회용 Service
+	 * @param seat
+	 * @return rList
+	 * @throws Exception
+	 */
+	List<String> selectRList2(Seat seat) throws Exception;
+
+	/** 번호 목록 조회용 Service (구역 없음)
+	 * @param seat
+	 * @return cList
+	 * @throws Exception
+	 */
+	List<String> selectCList(Seat seat) throws Exception;
+
+	/** 번호 목록 조회용 Service
+	 * @param seat
+	 * @return cList
+	 * @throws Exception
+	 */
+	List<String> selectCList2(Seat seat) throws Exception;
+
+	/** 좌석 코드 조회 Service
+	 * @param seat
+	 * @return seatCode
+	 * @throws Exception
+	 */
+	String selectSeatCode(Seat seat) throws Exception;
+
+	/** 좌석 코드 조회 Service
+	 * @param seat
+	 * @return seatCode
+	 * @throws Exception
+	 */
+	String selectSeatCode2(Seat seat) throws Exception;
+
+	/** 리뷰 등록용 Service
+	 * @param review
+	 * @param files
+	 * @return result
+	 * @throws Exception
+	 */
+	int insertReview(Review review, List<ReviewImage> files) throws Exception;
 
 
 

@@ -40,6 +40,11 @@
 	
 		<!-- 좌석 -->
 		<typeAlias type="com.bg.plzSeatdown.seat.model.vo.Seat" alias="Seat"/>
+		<!-- 리뷰 -->
+		<typeAlias type="com.bg.plzSeatdown.review.model.vo.Review" alias="Review"/>
+		<!-- 리뷰 이미지 -->
+		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewImage" alias="ReviewImage"/>
+		
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->

@@ -13,7 +13,35 @@ public class Seat {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Seat(String seatFloor, String theaterCode) {
+		super();
+		this.seatFloor = seatFloor;
+		this.theaterCode = theaterCode;
+	}
 	
+	public Seat(String seatFloor, String seatArea, String theaterCode) {
+		super();
+		this.seatFloor = seatFloor;
+		this.seatArea = seatArea;
+		this.theaterCode = theaterCode;
+	}
+
+	public Seat(int seatValue, String seatFloor, String seatRow, String theaterCode) {
+		super();
+		this.seatValue = seatValue;
+		this.seatFloor = seatFloor;
+		this.seatRow = seatRow;
+		this.theaterCode = theaterCode;
+	}
+
+	public Seat(String seatFloor, String seatArea, String seatRow, String theaterCode) {
+		super();
+		this.seatFloor = seatFloor;
+		this.seatArea = seatArea;
+		this.seatRow = seatRow;
+		this.theaterCode = theaterCode;
+	}
+
 	public Seat(int seatValue, String seatFloor, String seatRow, String seatCol, String theaterCode) {
 		super();
 		this.seatValue = seatValue;
@@ -23,6 +51,14 @@ public class Seat {
 		this.theaterCode = theaterCode;
 	}
 
+	public Seat(String seatFloor, String seatArea, String seatRow, String seatCol, String theaterCode) {
+		super();
+		this.seatFloor = seatFloor;
+		this.seatArea = seatArea;
+		this.seatRow = seatRow;
+		this.seatCol = seatCol;
+		this.theaterCode = theaterCode;
+	}
 
 	public Seat(int seatValue, String seatFloor, String seatArea, String seatRow, String seatCol, String theaterCode) {
 		this(seatValue, seatFloor, seatRow, seatCol, theaterCode);

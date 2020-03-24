@@ -26,14 +26,14 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<form role="form">
+						<form role="form" action="writeReview" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
 							<div class="form-group form-inline mb-7">
 								<label for="showDate">관람일</label>
-								<input type="text" id="showDate" class="reviewText" autocomplete="off">
+								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" autocomplete="off" required>
 							</div>
 							<div class="form-group form-inline mb-7">
 								<label for="theater">공연장</label>
-								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" placeholder="공연장을 선택해주세요." size="40" autocomplete="off"/>
+								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" placeholder="공연장을 선택해주세요." size="40" autocomplete="off" required/>
 								<c:if test="${!empty tList}">
 									<datalist id="theaterList">
 											<c:forEach var="th" items="${tList}" varStatus="vs">
@@ -44,8 +44,8 @@
 							</div>
 							<div class="form-group form-inline mb-7">
 								<label for="showList">공연</label>
-								<select id="showList" name="showList">
-									<option value="1" disabled>관람일과 공연장을 먼저 선택해주세요.</option>
+								<select id="showList" name="showCode">
+									<option value="0" disabled>관람일과 공연장을 먼저 선택해주세요.</option>
 								</select>
 							</div>
 
@@ -59,60 +59,63 @@
 							<div class="form-group form-inline mb-7">
 								<label for="areaList">구역</label>
 								<select id="areaList" name="seatArea">
-									<option value="1">구역 선택</option>
+									<option value="0" disabled selected>구역 선택</option>
 								</select>
 							</div>
 							
 							<div class="form-group form-inline mb-7">
 								<label for="rowList">열</label>
 								<select id="rowList" name="seatRow">
-									<option value="1">열 선택</option>
+									<option value="0" disabled selected>열 선택</option>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="colList">번호</label>
 								<select id="colList" name="seatCol">
-									<option value="1">번호 선택</option>
+									<option value="0" disabled selected>번호 선택</option>
 								</select>
 							</div>
-
+							<input type="hidden" id="seatCode" name="seatCode">
+							
 							<div class="form-group form-inline mb-7">
 								<label for="view">시야</label>
 								<div id="view" class="star-rating">
-									<i class="far fa-star" id="view1" onclick="add1(this,1)"></i>
+									<i class="fas fa-star" id="view1" onclick="add1(this,1)"></i>
 									<i class="far fa-star" id="view2" onclick="add1(this,2)"></i>
 									<i class="far fa-star" id="view3" onclick="add1(this,3)"></i>
 									<i class="far fa-star" id="view4" onclick="add1(this,4)"></i>
 									<i class="far fa-star" id="view5" onclick="add1(this,5)"></i>
 								</div>
 							</div>
+							<input type="hidden" id="rView" name="reviewSight" value="1" required>
 
 							<div class="form-group form-inline mb-7">
 								<label for="comfort">편안함</label>
 								<div id="comfort" class="star-rating">
-									<i class="far fa-star" id="com1" onclick="add2(this,1)"></i>
+									<i class="fas fa-star" id="com1" onclick="add2(this,1)"></i>
 									<i class="far fa-star" id="com2" onclick="add2(this,2)"></i>
 									<i class="far fa-star" id="com3" onclick="add2(this,3)"></i>
 									<i class="far fa-star" id="com4" onclick="add2(this,4)"></i>
 									<i class="far fa-star" id="com5" onclick="add2(this,5)"></i>
 								</div>
 							</div>
+							<input type="hidden" id="rComfort" name="reviewComfort" value="1" required>
 
 							<div class="form-group form-inline mb-7">
 								<label for="legroom">좌석 간격</label>
 								<div id="legroom" class="star-rating">
-									<i class="far fa-star" id="room1" onclick="add3(this,1)"></i>
+									<i class="fas fa-star" id="room1" onclick="add3(this,1)"></i>
 									<i class="far fa-star" id="room2" onclick="add3(this,2)"></i>
 									<i class="far fa-star" id="room3" onclick="add3(this,3)"></i>
 									<i class="far fa-star" id="room4" onclick="add3(this,4)"></i>
 									<i class="far fa-star" id="room5" onclick="add3(this,5)"></i>
 								</div>
 							</div>
-
+							<input type="hidden" id="rLegroom" name="reviewLegroom" value="1" required>
 							<div class="form-group form-inline mb-7">
 								<label for="review">좌석 후기(선택)</label>
-								<textarea id="reviewComment"></textarea>
+								<textarea id="reviewComment" name="reviewComment"></textarea>
 							</div>
 							
 							<div class="form-group form-inline mb-7">
@@ -140,7 +143,7 @@
 							
 							
 							<div class="form-group text-center pt-20">
-								<a href="${header.referer}" class="btn btn-primary">
+								<a id="cancelBtn" href="${header.referer}" class="btn btn-primary">
 									취소
 								</a>
 								<button type="submit" class="btn btn-primary">
@@ -153,6 +156,24 @@
 			</div>
 
 			<script>
+				var reviewCheck = {
+					"seatFloor":false,
+					"seatArea":false,
+					"seatRow":false,
+					"seatCol":false
+				}
+				
+				function validate(){
+					for(var key in reviewCheck){
+						if(!reviewCheck[key]){
+							alert("필수 입력 정보를 작성해주세요");
+							var id = "#"+key;
+							$(id).focus();
+							return false;
+						}
+					}
+				}
+				
 				// STAR RATING
 				function add1(ths, sno) {
 					for (var i = 1; i <= 5; i++) {
@@ -165,6 +186,8 @@
 							cur.className = "fas fa-star"
 						}
 					}
+					var count = $("#view i[class='fas fa-star']").length;
+					$("#rView").val(count);
 				}
 
 				function add2(ths, sno) {
@@ -178,6 +201,8 @@
 							cur.className = "fas fa-star"
 						}
 					}
+					var count = $("#comfort i[class='fas fa-star']").length;
+					$("#rComfort").val(count);
 				}
 
 				function add3(ths, sno) {
@@ -191,6 +216,8 @@
 							cur.className = "fas fa-star"
 						}
 					}
+					var count = $("#legroom i[class='fas fa-star']").length;
+					$("#rLegroom").val(count);
 				}
 
 				// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
@@ -214,6 +241,7 @@
 						reader.readAsDataURL(value.files[0]);
 					}
 				}
+					
 				// 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function () {
 					// 파일 선택 버튼이 있는 영역을 보이지 않게 함
@@ -263,9 +291,8 @@
 					$("#theater").change(function(){
 			        	var dt = $("#showDate").val();
 						var th = $("#theater").val();
-						var sh = $("#showList");
 						var op = $("<option>");
-						
+						var sh = $("#showList");
 						sh.children("option").remove();
 						if(dt != null && th != null){
 							$.ajax({
@@ -282,8 +309,8 @@
 										sh.append(op);
 									}else{
 										$.each(sList, function(i){
-											op.val(sList[i].showCode).html(sList[i].showTitle);
-											sh.append(op);
+											var option = "<option value="+sList[i].showCode+">"+sList[i].showTitle+"</option>"
+											sh.append(option);
 										});
 									}
 								},
@@ -301,10 +328,6 @@
 						
 						/* 좌석 관련 변수 */
 						var fl = $("#floorList");
-						var ar = $("#areaList");
-						var row = $("#rowList");
-						var col = $("#colList");
-						
 						$.ajax({
 							url: "selectSeatFloor",
 							type: "POST",
@@ -318,9 +341,11 @@
 									op.prop("disabled", true).prop("selected", true).html("선택 가능한 층이 없습니다.");
 									fl.append(op);
 								}else{
-									$.each(fList, function(index){
-										op.val(fList[index].seatFloor).html(fList[index].seatFloor+"층");
-										fl.append(op);
+									op.prop("disabled", true).prop("selected", true).html("층을 선택해주세요.");
+									fl.append(op);
+									$.each(fList, function(i){
+										var option = "<option value="+fList[i].seatFloor+">"+fList[i].seatFloor+"층</option>";
+										fl.append(option);
 									});
 								}
 							},
@@ -330,6 +355,192 @@
 							}
 						});
 					});
+					
+					$("#floorList").change(function(){
+						var th = $("#theater").val();
+						var ar = $("#areaList");
+						var row = $("#rowList");
+						var fl = $("#floorList option:selected").val();
+						var op = $("<option>");
+						var rop = $("<option>");
+						if(fl != "0"){
+							reviewCheck.seatFloor = true;
+						}
+						$.ajax({
+							url: "selectSeatArea",
+							type: "POST",
+							data:{
+								"theater": th,
+								"seatFloor": fl
+							},
+							dataType: "json",
+							success: function(aList){
+								ar.children("option").remove();
+								if(aList != ""){
+									op.prop("disabled", true).prop("selected", true).html("구역을 선택해주세요.").val("0");
+									ar.append(op);
+									$.each(aList, function(i){
+										var option = "<option value="+aList[i].seatArea+">"+aList[i].seatArea+"구역</option>";
+										ar.append(option);
+									});
+								}else{
+									op.prop("disabled", true).prop("selected", true).html("선택 가능한 구역이 없습니다.").val("-1");
+									ar.append(op);
+								}
+								
+								if($("#areaList option:selected").val() < 0){
+									reviewCheck.seatArea = true;
+									$.ajax({
+										url: "selectSeatRow1",
+										type: "POST",
+										data:{
+											"theater": th,
+											"seatFloor": fl
+										},
+										dataType: "json",
+										success: function(rList){
+											row.children("option").remove();
+											if(rList == ""){
+												rop.prop("disabled", true).prop("selected", true).html("선택 가능한 열이 없습니다.");
+												row.append(rop);
+											}else{
+												rop.prop("disabled", true).prop("selected", true).html("열을 선택해주세요.");
+												row.append(rop);
+												$.each(rList, function(i){
+													var roption = "<option value="+rList[i].seatRow+">"+rList[i].seatRow+"열</option>";
+													row.append(roption);
+												});
+											}
+										},
+										error: function(e){
+											console.log("ajax 통신 실패");
+											console.log(e);
+										}
+									});
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+								console.log(e);
+							}
+						});
+					});
+					
+					$("#areaList").change(function(){
+						var th = $("#theater").val();
+						var fl = $("#floorList option:selected").val();
+						var al = $("#areaList option:selected").val();
+						var row = $("#rowList");
+						var op = $("<option>");
+						if(al != "0"){
+							reviewCheck.seatArea = true;
+						}
+						$.ajax({
+							url: "selectSeatRow2",
+							type: "POST",
+							data:{
+								"theater": th,
+								"seatFloor": fl,
+								"seatArea": al
+							},
+							dataType: "json",
+							success: function(rList){
+								row.children("option").remove();
+								if(rList == ""){
+									op.prop("disabled", true).prop("selected", true).html("선택 가능한 열이 없습니다.");
+									row.append(op);
+								}else{
+									op.prop("disabled", true).prop("selected", true).html("열을 선택해주세요.");
+									row.append(op);
+									$.each(rList, function(i){
+										var option = "<option value="+rList[i].seatRow+">"+rList[i].seatRow+"열</option>";
+										row.append(option);
+									});
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+								console.log(e);
+							}
+						});
+					});
+					
+					$("#rowList").change(function(){
+						var th = $("#theater").val();
+						var op = $("<option>");
+						var col = $("#colList");
+						var fl = $("#floorList option:selected").val();
+						var al = $("#areaList option:selected").val();
+						var rl = $("#rowList option:selected").val();
+						if(rl != "0"){
+							reviewCheck.seatRow = true;
+						}
+						$.ajax({
+							url: "selectSeatCol",
+							type: "POST",
+							data:{
+								"theater": th,
+								"seatFloor": fl,
+								"seatArea": al,
+								"seatRow": rl
+							},
+							dataType:"json",
+							success: function(cList){
+								col.children("option").remove();
+								if(cList == ""){
+									op.prop("disabled", true).prop("selected", true).html("선택 가능한 번호가 없습니다.");
+									col.append(op);
+								}else{
+									op.prop("disabled", true).prop("selected", true).html("번호를 선택해주세요.");
+									col.append(op);
+									$.each(cList, function(i){
+										var option = "<option value="+cList[i].seatCol+">"+cList[i].seatCol+"번</option>";
+										col.append(option);
+									});
+								}
+								
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+								console.log(e);
+							}
+						});
+					});
+					
+					$("#colList").change(function(){
+						var th = $("#theater").val();
+						var op = $("<option>");
+						var col = $("#colList");
+						var fl = $("#floorList option:selected").val();
+						var al = $("#areaList option:selected").val();
+						var rl = $("#rowList option:selected").val();
+						var cl = $("#colList option:selected").val();
+						if(cl != "0"){
+							reviewCheck.seatCol = true;
+						}
+						var seatCode = $("#seatCode");
+						$.ajax({
+							url: "selectSeatCode",
+							type: "POST",
+							data:{
+								"theater": th,
+								"seatFloor": fl,
+								"seatArea": al,
+								"seatRow": rl,
+								"seatCol": cl
+							},
+							dataType:"json",
+							success: function(result){
+								seatCode.val(result);
+								console.log(seatCode.val());
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+								console.log(e);
+							}
+						});
+					});
+					
 					
 					// 관람일 달력 datepicker
 					$("#showDate").datepicker({
@@ -350,9 +561,7 @@
 					 
 					//초기값을 오늘 날짜로 설정
 			        $('#datepicker').datepicker('setDate', 'today');
-					
 				});
-				
 				
 			</script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
