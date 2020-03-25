@@ -1,0 +1,88 @@
+@font-face { 
+    font-family: 'Handon3gyeopsal300g'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') 
+    format('woff'); 
+    font-weight: normal;
+    font-style: normal; 
+}
+
+
+
+
+body{
+    font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
+}  
+
+
+
+#chatting{
+    overflow:scroll; 
+    width:750px; 
+    height:500px; 
+    padding:10px; 
+    background-color:rgb(181,165,235);
+    margin:0 auto;
+}
+
+#chatgroup{
+	
+	margin-top: 100px;
+	height : 800px;
+	
+}
+
+#chatbox{
+	border : 1px solid lightgray;
+	border-radius: 20px;
+	width : 750px;
+	height : 650px;
+	margin: auto;
+	top: 0px;
+	left : 0px;
+	right: 0px;
+	bottom: 0px;
+	box-shadow:0 0 4px rgba(0,0,0,.15);
+}
+
+
+
+#sessionuserid>h6{
+	text-align:center;
+}
+
+
+::-webkit-scrollbar {
+		display:none;
+} 
+
+#message{
+	margin: 17px 10px 10px 20px;
+	border: 0px;
+}
+
+#sendBtn{
+	float:right;
+	width : 100px;
+	height: 70px;
+	margin : 10px 20px 10px 10px;
+	background-color:white;
+	border:0px;
+}
+
+#chattop{
+	height:50px;
+}
+
+#exitBtn{
+	float:right;
+	margin : 10px 10px 10px 10px;
+	background-color:white;
+	border:0px;
+}
+
+#chatlogo{
+	folat:left;
+	margin : 12px 10px 10px 20px;
+}
+
+
