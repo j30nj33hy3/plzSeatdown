@@ -67,6 +67,7 @@
 		<result property="reviewLegroom" column="REVIEW_LEGROOM"/>	
 		<result property="reviewRating" column="REVIEW_RATING"/>	
 		<result property="reviewComment" column="REVIEW_COMMENT"/>	
+		<result property="reviewImgPath" column="REVIEW_IMG_PATH"/>	
 		<result property="reviewWriter" column="REVIEW_WRITER"/>	
 		<result property="memberNickname" column="MEMBER_NICKNM"/>	
 		<result property="profilePath" column="PROFILE_PATH"/>	
@@ -268,4 +269,25 @@
 		FROM V_REVIEW
 		WHERE THEATER_CODE = #{thCode}
 	</select>
+	
+	<!-- 좌석별 모든 리뷰 조회 -->
+	<select id="selectAllReview" parameterType="string" resultMap="seatReviewResultSet">
+		SELECT *
+		FROM V_REVIEW
+		WHERE SEAT_VALUE = #{seatValue}
+	</select>
+	
+	<!-- 중복 신고 확인 -->
+	<select id="selectReviewReport" parameterType="ReviewReport" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW_REPORT
+		WHERE REVIEW_NO = #{reviewNo} 
+		AND MEMBER_REPORTER = #{memberReporter}
+	</select>
+	
+	<!-- 리뷰 신고 등록 -->
+	<insert id="insertReviewReport" parameterType="ReviewReport">
+		INSERT INTO REVIEW_REPORT
+		VALUES(SEQ_RV_RNO.NEXTVAL, #{reportContent}, #{reviewNo}, #{memberSuspector}, #{memberReporter}, #{reportCategory}, DEFAULT)
+	</insert>
 </mapper>

@@ -29,15 +29,16 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.review.model.service.ReviewService;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-@SessionAttributes({"loginMember","msg"})
 @Controller
 @RequestMapping("/review/*")
+@SessionAttributes({"loginMember","msg"})
 public class ReviewController {
 
 	@Autowired
@@ -131,6 +132,7 @@ public class ReviewController {
 	// 좌석 리뷰 페이지
 	@RequestMapping("seats")
 	public String seats(Model model, 
+						HttpServletRequest request,
 						@RequestParam(value="thCode", required=false) String thCode) {
 		
 		try {
@@ -379,6 +381,41 @@ public class ReviewController {
 			return "redirect:"+url;
 		}catch (Exception e) {
 			return ExceptionForward.errorPage("리뷰 작성", model, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectAllReview", produces="application/json; charset=utf-8")
+	public String selectAllReview(@RequestParam(value = "seatValue", required = false)String seatValue) {
+		
+		List<SeatReview> seatReviewList = reviewService.selectAllReview(seatValue);
+		
+		return new Gson().toJson(seatReviewList);
+	}
+	
+	// 리뷰 신고 등록
+	@RequestMapping("insertReviewReport")
+	public String insertReviewReport(ReviewReport report, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		
+		String referer = request.getHeader("Referer");
+		
+		int result = 0;
+		
+		try {
+			
+			result = reviewService.insertReviewReport(report);
+			String msg = null;
+			
+			if(result > 0) msg = "해당 리뷰를 신고했습니다.";
+			else if(result == -1) msg = "이미 신고한 리뷰입니다.";
+			else msg = "신고 실패";
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:"+referer;
+			
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("리뷰 신고 등록", model, e);
 		}
 	}
 }

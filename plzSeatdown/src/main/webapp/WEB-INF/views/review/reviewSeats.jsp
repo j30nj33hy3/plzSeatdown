@@ -11,64 +11,23 @@
 		<link rel="stylesheet" href="${contextPath}/resources/css/review_seats.css" />
 		
 		<!-- 카카오맵 API -->
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46bd51526fce597f882f7578409e88bc"></script>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44e60f3df8ed94bfd87cb89c72bd86a0"></script>
 		
 		<style>
-        a {
-        	text-decoration: none;
-        }
-
-        .popover_title {
-	        font-size: 24px;
-	        line-height: 36px;
-	        text-decoration: none;
-	        color: rgb(228, 68, 68);
-	        text-align: center;
-	        padding: 15px 0;
-        }
-        .popover_wrapper {
-	        position: relative;
-	        margin-top: 1.5rem;
-	        display: inline-block;
-        }
-        .popover_content {
-	        opacity: 0;
-	        visibility: hidden;
-	        position: absolute;
-	        left: -150px;
-	        transform: translate(0, 10px);
-	        background-color: #bfbfbf;
-	        padding: 1.5rem;
-	        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-	        width: auto;
-        }
-        .popover_content:before {
-	        position: absolute;
-	        z-index: -1;
-	        content: "";
-	        right: calc(50% - 10px);
-	        top: -8px;
-	        border-style: solid;
-	        border-width: 0 10px 10px 10px;
-	        border-color: transparent transparent #bfbfbf transparent;
-	        transition-duration: 0.3s;
-	        transition-property: transform;
-        }
-        .popover_title:hover{
-	        cursor: pointer;
-        }
-        .popover_wrapper:hover .popover_content {
-	        z-index: 10;
-	        opacity: 1;
-	        visibility: visible;
-	        transform: translate(0, -20px);
-	        transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-        }
-        .popover_message {
-        	text-align: center;
-        }
-        
-    </style>
+	        a {
+	        	text-decoration: none;
+	        }
+	        
+	        .card > .profile > img{
+	        	width : 50%;
+	        	height : 50%;
+	        }
+	        
+	        .star{
+	        	color : #FFD938;
+	        }
+		
+    	</style>
 		
 	</head>
 	<body class="homepage is-preload">
@@ -85,56 +44,68 @@
 				<div class="sidebar">
 					<div class="showContent pl-3 pr-10">
 						<div id="title" class="mb-4">
-							<h4>두산아트센터 - 연강홀</h4>
+							<h4>${theater.thNm}</h4>
 						</div>
-						<div id="seatId" class="mb-5">
+						<!-- <div id="seatId" class="mb-5">
 							<h5>A구역 4열 8번에 대한 리뷰</h5>
-						</div>
+						</div> -->
 						<div id="review">
-							<!-- 카드 1 시작 -->
-							<div class="card">
-								<div class="card-content">
-									<div class="profile" style="display:inline-block; width:100%; height: 50px;">
-										<img class="img-circle profile-photo" src="images/profile.jpg" width="50" height="50"/>
-										<div style="display:inline-block; width:100px;">user012345678</div>
-										<!-- <button class="like mt-3" style="float: right; width: 65px;">
-											<i class="far fa-heart"></i>
-											<i class="fas fa-heart"></i>
-											<p>2000</p>
-										</button> -->
-									</div>
-									<div class="row mb-4 mt-4" >
-										<div class="col text-center" style="font-weight: bold;">
-											<span>시야</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-										<div class="col text-center" style="font-weight: bold;">
-											<span>간격</span>
-											<span style="display: block;">★★★★★</span>
-										</div>
-										<div class="col text-center" style="font-weight: bold;">
-											<span>편안함</span>
-											<span style="display: block;">★★★☆☆</span>
-										</div>
-									</div>
-									<a href="#">
-										<img class="img-responsive" src="https://cdn-images-1.medium.com/freeze/max/640/0*f91Yj-y7rGzkXMp2." />
-										<div class="mt-4 mb-4">
-											맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 ! 
-											그들의 몸이 얼마나 튼튼하며 그들의 피부가 얼마나 생생하며 
-											그들의 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 
-											우리의 귀는 생의 찬미를 듣는다...
-										</div>
-									</a>
-										<!-- <button class="flag"  style="float: right; width: 20px;">
-											<i class="fas fa-flag"></i>
-										</button> -->
-								</div>
-							</div>
-							<!-- 카드 1 끝 -->
-
+							
+							
 
 						</div>
+						
+						<%-- 모달 시작 --%>
+		                     <div class="modal fade" id="reviewReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		                         <div class="modal-dialog modal-dialog-centered" role="document">
+		                           <div class="modal-content" style="border:0px;">
+		                             <div class="modal-header" style="background-color:rgb(198, 180, 205);">
+		                               <h5 class="modal-title" id="exampleModalLabel">신고하기</h5>
+		                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                                 <span aria-hidden="true">&times;</span>
+		                               </button>
+		                             </div>
+		                              <form method="post" action="insertReviewReport">
+		                                <div class="modal-body">
+		                                     <div class="form-group">
+		                                       <p>신고사유</p>
+		                                       <div class="form-check">
+												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+												  <label class="form-check-label" for="exampleRadios1">욕설</label>
+												</div>
+												<div class="form-check">
+												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+												  <label class="form-check-label" for="exampleRadios2">음란성</label>
+												</div>
+												<div class="form-check">
+												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="3">
+												  <label class="form-check-label" for="exampleRadios3">홍보/불법 정보</label>
+												</div>
+												<div class="form-check">
+												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="4">
+												  <label class="form-check-label" for="exampleRadios4">도배</label>
+												</div>
+												<div class="form-check">
+												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="5">
+												  <label class="form-check-label" for="exampleRadios5">기타</label>
+											   </div>
+		                                       <label for="message-text" class="col-form-label">내용</label>
+		                                       <textarea disabled class="form-control replyContent" id="reportContent" name="reportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
+		                                       <input type="hidden" name="reviewNo" value="">
+		                                       <input type="hidden" name="memberSuspector" value="">
+		                                       <input type="hidden" name="memberReporter" value="${loginMember.memberNo}">
+		                                       <input type="hidden" name="reportCategory" value="">
+		                                     </div>
+		                                </div>
+		                                <div class="modal-footer">
+		                                  <button type="submit" class="btn" onclick="return report();" style="background-color:#FFD938;">신고</button>
+		                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">취소</button>
+		                                </div>
+		                             </form>
+		                           </div>
+		                         </div>
+		                       </div>
+		                  <%-- 모달 끝 --%>
 					</div>
 				</div>
 				
@@ -270,7 +241,6 @@
 					level: 4 // 지도의 레벨
 				};
 				
-				console.log(${theater.thLat});
 				var map = new kakao.maps.Map(con, options); // 지도 생성
 
 				// 지도 타입 컨트롤
@@ -338,6 +308,116 @@
 					// sidebar
 					$("#seats > div").on({
 						click : function(){
+							
+							seatValue = $(this).attr("value");
+							
+							$.ajax({
+								url : "selectAllReview",
+								type : "POST",
+								data : {"seatValue" : seatValue},
+								success : function(seatReviewList){
+									
+									$("#review").html("");
+									
+									if(seatReviewList != ""){
+										
+										$.each(seatReviewList, function(i){
+											
+											var profileImg = null;
+											var reviewImg = null;
+											var reportBtn = "";
+											
+											// 프로필 사진 유무
+											if(seatReviewList[i].profilePath != null){
+												profileImg = "${contextPath}/resources/profileImages/"+seatReviewList[i].profilePath;
+											}else{
+												profileImg = "${contextPath}/resources/images/user.png";
+											}
+											
+											// 리뷰 사진 유무
+											if(seatReviewList[i].reviewImgPath != null){
+												reviewImg = "${contextPath}/resources/reviewImages/"+seatReviewList[i].reviewImgPath;
+											}else{
+												reviewImg = "${contextPath}/resources/images/no_seat.png";
+											}
+											
+											// 신고버튼의 id는 리뷰 번호
+											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
+												reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
+											}
+											
+											var sight = "";
+											var legroom = "";
+											var comfort = "";
+											
+											
+											for(var j=0; j<5; j++){
+												if(j < seatReviewList[i].reviewSight) sight += '<i class="fas fa-star"></i>';
+												else sight += '<i class="far fa-star"></i>';
+											}
+											
+											for(var j=0; j<5; j++){
+												if(j < seatReviewList[i].reviewLegroom) legroom += '<i class="fas fa-star"></i>';
+												else sight += '<i class="far fa-star"></i>';
+											}
+											
+											for(var j=0; j<5; j++){
+												if(j < seatReviewList[i].reviewComfort) comfort += '<i class="fas fa-star"></i>';
+												else sight += '<i class="far fa-star"></i>';
+											}
+											
+											
+											
+											// 카드 폼
+		                                   var card = 
+		                                    '<div class="card">' + 
+		                                       '<div class="card-content">' +
+		                                       
+		                                          '<div class="profile">' + 
+		                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
+		                                             '<div>' + seatReviewList[i].memberNickname + '</div>' + 
+		                                          '</div>' + 
+		                                          
+		                                          '<div class="row starValue mb-4 mt-4">' +
+		                                             '<div class="col text-center">' +
+		                                                '<span>시야</span>' + 
+		                                                '<span class="star" style="display: block;">' + sight + '</span>' + 
+		                                             '</div>' +
+		                                             
+		                                             '<div class="col text-center">' +
+		                                                '<span>간격</span>' + 
+		                                                '<span class="star" style="display: block;">' + legroom + '</span>' + 
+		                                             '</div>' +
+		                                             
+		                                             '<div class="col text-center">' +
+		                                                '<span>편안함</span>' + 
+		                                                '<span class="star" style="display: block;">' + comfort + '</span>' + 
+		                                             '</div>' +
+		                                          '</div>' +
+		                                          
+		                                          '<div class="reviewCont">' + 
+		                                             '<img class="img-responsive" src="' + reviewImg + '">' +
+		                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
+	                                                  reportBtn +
+		                                          '</div>' +  
+		                                       
+		                                       '</div>' +
+		                                    '</div>';
+		                                    // 카드 폼 종료
+			                                 
+			                                 $("#review").append(card);
+		                                    
+										});	
+											
+										
+									}else{
+										// 리뷰가 없는 경우
+										
+										$("#review").append("작성된 리뷰가 없습니다.");
+									}
+								}
+							});
+							
 							$(".sidebar").addClass("active");
 							$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
 								e.preventDefault();
@@ -356,6 +436,49 @@
 				});
 
 			</script>
+			
+			<!-- 리뷰 신고 -->
+			<script>
+			
+				function test(obj){
+					$("input[name='exampleRadios']").removeAttr('checked');
+					$("#exampleRadios1").prop("checked",true);
+					$("textarea[name=reportContent]").attr("disabled",true);
+					
+					$("input[name=reviewNo]").attr("value", obj.name);
+		     		$("input[name=memberSuspector]").attr("value", obj.value);
+				}
+			
+		     	$(document).on("click","input:radio[name=exampleRadios]",function(){
+					if($("input[name=exampleRadios]:checked").val() == "5"){
+						$("textarea[name=reportContent]").attr("disabled",false);
+					}else{
+						$("textarea[name=reportContent]").attr("disabled",true);
+					}
+				});
+		     
+		     	function report(){
+		     		
+		     		if($("input[name=exampleRadios]:checked").val() == "5" && $('#reportContent').val().length == 0){
+		   				alert("내용을 입력하세요.");
+		   				$('.reportContent').focus();
+		   				return false;
+		   			}
+		     		var $reportCategory = $("#reviewReportModal").find("input[name=exampleRadios]:checked").val();
+		     		$("#reviewReportModal").find("input[name=reportCategory]").val($reportCategory);
+		     	}
+		     	
+	     	</script>
+	     	
+	     	<!-- 별점 변환 -->
+	     	<!-- <script>
+	     		$.fn.generateStars = function() {
+	            	return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+	           };
+
+	           // 숫자 평점을 별로 변환하도록 호출하는 함수
+	           $('.star-prototype').generateStars();
+	     	</script> -->
 
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

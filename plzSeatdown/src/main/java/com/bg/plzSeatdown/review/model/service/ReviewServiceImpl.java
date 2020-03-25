@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.DAO.ReviewDAO;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
@@ -244,6 +245,35 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<SeatReview> selectReviewList(String thCode) throws Exception {
 		return reviewDAO.selectReviewList(thCode);
+	}
+
+	/** 좌석별 모든 리뷰 조회용 Service
+	 * @param seatValue
+	 * @return seatReviewList
+	 */
+	@Override
+	public List<SeatReview> selectAllReview(String seatValue){
+		return reviewDAO.selectAllReview(seatValue);
+	}
+
+	/** 리뷰 신고 등록용 Service
+	 * @param report
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertReviewReport(ReviewReport report) throws Exception {
+		
+		int result = 0;
+		
+		// 중복 신고 확인
+		int reportCount = reviewDAO.selectReviewReport(report);
+		
+		if(reportCount > 0) result = -1;
+		else result = reviewDAO.insertReviewReport(report);
+		
+		return result;
 	}
 	
 	

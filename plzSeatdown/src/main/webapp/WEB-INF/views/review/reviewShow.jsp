@@ -277,8 +277,6 @@
 								type : "GET",
 								data : {"selectShowCode" : showCode},
 								success : function(show){
-									console.log(show);
-									var msg;
 									$("#showPoster").prop("src", show.posterPath);
 									$("#showTitle").html(show.showTitle);
 									$("#startDt").html(show.startDt);
@@ -290,6 +288,7 @@
 									$("#img4").prop("src", show.showImg4);
 								}
 							});
+							
 							$(".sidebar").addClass("active").scrollTop(0);
 							$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
 								e.preventDefault();
