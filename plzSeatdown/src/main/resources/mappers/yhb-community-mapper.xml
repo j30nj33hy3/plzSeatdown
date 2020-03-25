@@ -244,8 +244,8 @@
 	<!-- 커뮤니티 기타 신고 -->
 	<insert id="insertCommunityReport" parameterType="Community">
 		INSERT INTO COMMUNITY_REPORT VALUES(
-		SEQ_C_RNO.NEXTVAL, #{reportCategory}, #{communityReportContent}, #{communityNo},
-		#{communityWriter}, #{memberReporter}, DEFAULT)
+		SEQ_C_RNO.NEXTVAL, #{communityReportContent}, #{communityNo},
+		#{communityWriter}, #{memberReporter}, #{reportCategory}, DEFAULT)
 	</insert>
 	
 	<select id="selectReplyReport" parameterType="Reply" resultType="_int">
@@ -255,7 +255,7 @@
 	
 	<insert id="insertReplyReport" parameterType="Reply">
 		INSERT INTO REPLY_REPORT VALUES(
-		SEQ_RP_RNO.NEXTVAL, #{reportCategory}, #{replyReportContent}, #{replyNo},
-		#{replyWriter}, #{memberReporter}, DEFAULT)
+		SEQ_RP_RNO.NEXTVAL, #{replyReportContent}, #{replyNo},
+		#{replyWriter}, #{memberReporter}, #{reportCategory}, DEFAULT)
 	</insert>
 </mapper>

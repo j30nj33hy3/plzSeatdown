@@ -6,19 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-
 
 <title>QNA</title>
 </head>
-<body>
+<body id="page-top">
 <jsp:include page="../common/header.jsp"/>
 <jsp:include page="../common/nav.jsp"/>
 
     <!-- Main -->
-    <div class="container" id="page-top">
-
+    <div class="container pb-5 mb-5" >
+	
+		<a style="display:none; position:fixed; bottom:25px; right:30px; z-index:5;" href="#page-top" id="top-btn">
+	    	<i class="fa fa-angle-up fa-2x" aria-hidden="true" style="color:#FFD938;"></i>
+	    </a>
         <nav id="frequent" class="py-5">
             <ul id="frequentul" class="d-flex justify-content-center">
                 <li><a href="#frequent" class="active">자주 묻는 질문</a></li>
@@ -207,7 +208,7 @@
                     <textarea class="form-control" rows="5" id="content" name="qnaContent" placeholder="문의 내용을 입력해주세요"
                         style="resize: none"></textarea>
                 </div>
-                <div class="float-right pt-3 pb-5 mb-5">
+                <div class="float-right pt-3 pb-5">
 	                <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
 	                    <button type="submit" class="btn btn-outline-secondary">문의하기</button>
 	                </c:if>
@@ -215,7 +216,8 @@
             </form>
         </div>
     </div>
-    <a style="display:scroll;position:fixed;bottom:10px;right:10px;" href="#page-top"></a>
+    <jsp:include page="../common/footer.jsp"/>
+    
 	<script>
 		// 유효성 검사
 		function validate(){
@@ -225,9 +227,16 @@
 				return false;
 			}
 		}
-	
+		$(function(){
+			$(window).scroll(function(){
+				  if ($(this).scrollTop()>100){
+				    $('#top-btn').fadeIn();
+				  } else {
+				    $('#top-btn').fadeOut();
+				  }
+			});
+		});
 	</script>
-	<jsp:include page="../common/footer.jsp"/>
 	
 </body>
 </html>
