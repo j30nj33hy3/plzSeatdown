@@ -197,7 +197,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+		
+		<!-- 웹소켓 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>5.0.2.RELEASE</version>
+		</dependency>
+									
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

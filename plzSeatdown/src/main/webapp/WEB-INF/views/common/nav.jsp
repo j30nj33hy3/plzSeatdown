@@ -147,6 +147,7 @@
 				</ul></li>
 			<li><a href="${contextPath}/community/list">Community</a></li>
 			<li><a href="${contextPath}/qna/list">Q&A</a></li>
+			<li><a href="${contextPath}/index2"><i class="far fa-comments"></i></a></li>
 		</ul>
 	</nav>
 	<script>
