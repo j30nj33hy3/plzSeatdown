@@ -60,7 +60,7 @@
 				<ul class="navbar-nav float-right">
 					<li class="nav-item dropdown">
 						<button class="btn btn" id="logoutBtn"
-							href="${contextPath}/member/logout">
+							href="${contextPath}/admin/logout">
 							<i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
 						</button>
 					</li>
