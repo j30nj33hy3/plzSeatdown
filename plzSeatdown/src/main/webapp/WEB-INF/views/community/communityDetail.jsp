@@ -15,12 +15,15 @@ tbody > tr:last-child{
 </style>
 <title>게시글 상세</title>
 </head>
-<body>
+<body id="page-top">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
         <!-- Main -->
 		
-        <div class="container py-5">
+        <div class="container py-5 mb-5">
+	        <a style="display:none; position:fixed; bottom:25px; right:30px; z-index:5;" href="#page-top" id="top-btn">
+		    	<i class="fa fa-angle-up fa-2x" aria-hidden="true" style="color:#FFD938;"></i>
+		    </a>
             <div>
             	<button id="pre" class="btn btn-sm btn-outline-secondary">이전글</button>
                 
@@ -749,6 +752,15 @@ tbody > tr:last-child{
      <%-- 댓글 신고 모달 끝  --%>
      
      <script>
+	     $(function(){
+			$(window).scroll(function(){
+				  if ($(this).scrollTop()>100){
+				    $('#top-btn').fadeIn();
+				  } else {
+				    $('#top-btn').fadeOut();
+				  }
+			});
+		});
      	$("#communityReportBtn").click(function(){
 			$("input[name='exampleRadios']").removeAttr('checked');
 			$("#exampleRadios1").prop("checked",true);
@@ -785,6 +797,6 @@ tbody > tr:last-child{
      		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
      </script>
-     
+     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
