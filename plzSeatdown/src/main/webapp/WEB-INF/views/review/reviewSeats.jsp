@@ -79,7 +79,7 @@
 
 			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
-
+			
 			<!-- sidebar -->
 			<div id="wrap">
 				<div class="sidebar">
@@ -262,7 +262,6 @@
 				
 
 			</div>
-
 			<!-- 카카오맵 script -->
 			<script>
 				var con = document.getElementById('map'); // 지도 담을 객체

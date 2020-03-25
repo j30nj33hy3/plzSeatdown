@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.DAO.ReviewDAO;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
 
@@ -219,7 +220,6 @@ public class ReviewServiceImpl implements ReviewService{
 		if(reviewNo > 0) {
 			review.setReviewComment(review.getReviewComment().replace("\r\n", "<br>"));
 			review.setReviewNo(reviewNo);
-			System.out.println(review);
 			result = reviewDAO.insertReview(review);
 		}
 		if(result > 0 && !files.isEmpty()) {
@@ -234,6 +234,16 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		return result;
+	}
+
+	/** 공연장별 좌석 리뷰 조회용 Service
+	 * @param thCode
+	 * @return rList
+	 * @throws Exception
+	 */
+	@Override
+	public List<SeatReview> selectReviewList(String thCode) throws Exception {
+		return reviewDAO.selectReviewList(thCode);
 	}
 	
 	

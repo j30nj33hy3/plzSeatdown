@@ -8,6 +8,7 @@ import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
 
@@ -147,6 +148,13 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	int insertReview(Review review, List<ReviewImage> files) throws Exception;
+
+	/** 공연장별 좌석 리뷰 조회용 Service
+	 * @param thCode
+	 * @return rList
+	 * @throws Exception
+	 */
+	List<SeatReview> selectReviewList(String thCode) throws Exception;
 
 
 
