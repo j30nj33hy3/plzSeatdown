@@ -50,7 +50,7 @@ public class CommunityController {
 			Map<String, Object> map = null;
 			if(searchKey != null && searchValue != null) {
 				map = new HashMap<String, Object>();
-				map.put("searchKey", searchValue);
+				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);
 				map.put("searchCategory", searchCategory);
 			}
@@ -101,7 +101,7 @@ public class CommunityController {
 			map = new HashMap<String, Object>();
 			map.put("no",no);
 			if(searchKey != null && searchValue != null) {
-				map.put("searchKey", searchValue);
+				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);
 				map.put("searchCategory", searchCategory);
 			}

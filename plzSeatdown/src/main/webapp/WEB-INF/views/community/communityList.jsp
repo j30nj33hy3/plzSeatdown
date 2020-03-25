@@ -8,11 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
-        
-<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" 
-integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" 
-integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>   -->      
 
 <title>커뮤니티 게시판</title>
 </head>
@@ -49,10 +44,14 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 	                    		<tr>
 		                            <td scope="row">${comm.communityNo}</td>
 		                            <td>${comm.categoryName}</td>
-		                            <td>${comm.communityTitle}&nbsp;&nbsp;
+		                            <td>${comm.communityTitle}&nbsp;
+		                           		<c:if test="${comm.replyCount != 0}">
+		                            		<span style="color:rgb(145, 126, 198);">[${comm.replyCount}]</span>
+		                            	</c:if>
 		                            	<c:if test="${fn:contains(comm.communityContent, '<img src=')}">
 		                            		<img src="${contextPath}/resources/images/gallery.png" style="width:20px; height:20px;">
 		                            	</c:if>
+		                            	
 		                            </td>
 		                            <td>${comm.memberNickname}</td>
 		                            <td class="text-center">${comm.communityCount}</td>

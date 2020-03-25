@@ -14,9 +14,8 @@
 		<result property="categoryName" column="CATEGORY_NM"/>
 		<result property="profilePath"	column="PROFILE_PATH"/>
 		<result property="nextCommunityNo" column="NEXT_COMM_NO"/>
-		<result property="nextCommunityTitle" column="NEXT_COMM_TITLE"/>
 		<result property="preCommunityNo" column="PRE_COMM_NO"/>
-		<result property="preCommunityTitle" column="PRE_COMM_TITLE"/>
+		<result property="replyCount" column="REPLY_COUNT"/>
 	</resultMap>
 	
 	<resultMap type="Reply" id="replyResultSet">
@@ -39,7 +38,7 @@
 	<select id="getListCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM V_COMMUNITY
 		<where>
-			<if test="searchKey != null">
+			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'title'">
@@ -66,12 +65,12 @@
 	<!-- 게시글 목록 조회 -->
 	<select id="selectList" parameterType="map" resultMap="communityResultSet">
 		SELECT COMM_NO, COMM_TITLE, COMM_CONTENT, COMM_MODIFY_DT,
-				COMM_COUNT, MEMBER_NICKNM, CATEGORY_NM,
+				COMM_COUNT, MEMBER_NICKNM, CATEGORY_NM, REPLY_COUNT,
 				LAG(COMM_NO, 1, 0) OVER (ORDER BY COMM_NO DESC) AS NEXT_COMM_NO,
             	LEAD(COMM_NO, 1, 0) OVER (ORDER BY COMM_NO DESC) AS PRE_COMM_NO
 		FROM V_COMMUNITY
 		<where>
-			<if test="searchKey != null">
+			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'title'">
@@ -140,7 +139,7 @@
 		            LEAD(COMM_NO, 1, 0) OVER (ORDER BY COMM_NO DESC) AS PRE_COMM_NO
 			FROM V_COMMUNITY
 			<where>
-				<if test="searchKey != null">
+				<if test="searchValue != null">
 					<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 					<choose>
 						<when test="searchKey == 'title'">

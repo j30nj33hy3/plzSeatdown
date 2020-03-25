@@ -20,9 +20,8 @@ public class Community {
 	private String communityReportContent;
 	private int reportCategory;
 	private int nextCommunityNo;
-	private String nextCoummunityTitle;
 	private int preCommunityNo;
-	private String preCoummunityTitle;
+	private int replyCount;
 	
 	public Community() {}
 
@@ -85,8 +84,7 @@ public class Community {
 	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
 			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
 			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
-			String communityReportContent, int reportCategory, int nextCommunityNo, String nextCoummunityTitle,
-			int preCommunityNo, String preCoummunityTitle) {
+			String communityReportContent, int reportCategory, int nextCommunityNo, int preCommunityNo) {
 		super();
 		this.communityNo = communityNo;
 		this.communityTitle = communityTitle;
@@ -104,9 +102,33 @@ public class Community {
 		this.communityReportContent = communityReportContent;
 		this.reportCategory = reportCategory;
 		this.nextCommunityNo = nextCommunityNo;
-		this.nextCoummunityTitle = nextCoummunityTitle;
 		this.preCommunityNo = preCommunityNo;
-		this.preCoummunityTitle = preCoummunityTitle;
+	}
+	
+	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
+			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
+			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
+			String communityReportContent, int reportCategory, int nextCommunityNo, int preCommunityNo,
+			int replyCount) {
+		super();
+		this.communityNo = communityNo;
+		this.communityTitle = communityTitle;
+		this.communityContent = communityContent;
+		this.communityCreateDate = communityCreateDate;
+		this.communityModifyDate = communityModifyDate;
+		this.communityCount = communityCount;
+		this.communityStatus = communityStatus;
+		this.communityWriter = communityWriter;
+		this.memberNickname = memberNickname;
+		this.categoryCode = categoryCode;
+		this.categoryName = categoryName;
+		this.profilePath = profilePath;
+		this.memberReporter = memberReporter;
+		this.communityReportContent = communityReportContent;
+		this.reportCategory = reportCategory;
+		this.nextCommunityNo = nextCommunityNo;
+		this.preCommunityNo = preCommunityNo;
+		this.replyCount = replyCount;
 	}
 
 	public int getCommunityNo() {
@@ -237,14 +259,6 @@ public class Community {
 		this.nextCommunityNo = nextCommunityNo;
 	}
 
-	public String getNextCoummunityTitle() {
-		return nextCoummunityTitle;
-	}
-
-	public void setNextCoummunityTitle(String nextCoummunityTitle) {
-		this.nextCoummunityTitle = nextCoummunityTitle;
-	}
-
 	public int getPreCommunityNo() {
 		return preCommunityNo;
 	}
@@ -253,12 +267,12 @@ public class Community {
 		this.preCommunityNo = preCommunityNo;
 	}
 
-	public String getPreCoummunityTitle() {
-		return preCoummunityTitle;
+	public int getReplyCount() {
+		return replyCount;
 	}
 
-	public void setPreCoummunityTitle(String preCoummunityTitle) {
-		this.preCoummunityTitle = preCoummunityTitle;
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	@Override
@@ -269,10 +283,8 @@ public class Community {
 				+ ", communityWriter=" + communityWriter + ", memberNickname=" + memberNickname + ", categoryCode="
 				+ categoryCode + ", categoryName=" + categoryName + ", profilePath=" + profilePath + ", memberReporter="
 				+ memberReporter + ", communityReportContent=" + communityReportContent + ", reportCategory="
-				+ reportCategory + ", nextCommunityNo=" + nextCommunityNo + ", nextCoummunityTitle="
-				+ nextCoummunityTitle + ", preCommunityNo=" + preCommunityNo + ", preCoummunityTitle="
-				+ preCoummunityTitle + "]";
+				+ reportCategory + ", nextCommunityNo=" + nextCommunityNo + ", preCommunityNo=" + preCommunityNo
+				+ ", replyCount=" + replyCount + "]";
 	}
-
 
 }
