@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
@@ -224,6 +225,34 @@ public class ReviewDAO {
 	public List<SeatReview> selectReviewList(String thCode) throws Exception{
 		return sqlSession.selectList("reviewMapper.selectReviewList", thCode);
 	}
+
+	/** 좌석별 모든 리뷰 조회용 DAO
+	 * @param seatValue
+	 * @return seatReviewList
+	 */
+	public List<SeatReview> selectAllReview(String seatValue){
+		return sqlSession.selectList("reviewMapper.selectAllReview", seatValue);
+	}
+	
+	/** 중복 신고 확인용 DAO
+	 * @param report
+	 * @return reportCount
+	 * @throws Exception
+	 */
+	public int selectReviewReport(ReviewReport report) throws Exception{
+		return sqlSession.selectOne("reviewMapper.selectReviewReport", report);
+	}
+
+	/** 리뷰 신고 등록용 DAO
+	 * @param report
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertReviewReport(ReviewReport report) throws Exception{
+		return sqlSession.insert("reviewMapper.insertReviewReport", report);
+	}
+
+	
 
 
 	

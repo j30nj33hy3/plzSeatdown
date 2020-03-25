@@ -11,6 +11,7 @@ public class SeatReview {
 	private int reviewLegroom;
 	private double reviewRating;
 	private String reviewComment;
+	private String reviewImgPath;
 	private int reviewWriter;
 	private String memberNickname;
 	private String profilePath;
@@ -30,9 +31,9 @@ public class SeatReview {
 	}
 
 	public SeatReview(int reviewNo, Date reviewCreateDt, Date reviewViewDt, int reviewSight, int reviewComfort,
-			int reviewLegroom, double reviewRating, String reviewComment, int reviewWriter, String memberNickname,
-			String profilePath, int seatCode, int seatValue, String seatFloor, String seatArea, String seatRow,
-			String seatCol, String thCode, String thName, String showCode, String showTitle) {
+			int reviewLegroom, double reviewRating, String reviewComment, String reviewImgPath, int reviewWriter,
+			String memberNickname, String profilePath, int seatCode, int seatValue, String seatFloor, String seatArea,
+			String seatRow, String seatCol, String thCode, String thName, String showCode, String showTitle) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewCreateDt = reviewCreateDt;
@@ -42,6 +43,7 @@ public class SeatReview {
 		this.reviewLegroom = reviewLegroom;
 		this.reviewRating = reviewRating;
 		this.reviewComment = reviewComment;
+		this.reviewImgPath = reviewImgPath;
 		this.reviewWriter = reviewWriter;
 		this.memberNickname = memberNickname;
 		this.profilePath = profilePath;
@@ -119,6 +121,14 @@ public class SeatReview {
 
 	public void setReviewComment(String reviewComment) {
 		this.reviewComment = reviewComment;
+	}
+
+	public String getReviewImgPath() {
+		return reviewImgPath;
+	}
+
+	public void setReviewImgPath(String reviewImgPath) {
+		this.reviewImgPath = reviewImgPath;
 	}
 
 	public int getReviewWriter() {
@@ -230,13 +240,11 @@ public class SeatReview {
 		return "SeatReview [reviewNo=" + reviewNo + ", reviewCreateDt=" + reviewCreateDt + ", reviewViewDt="
 				+ reviewViewDt + ", reviewSight=" + reviewSight + ", reviewComfort=" + reviewComfort
 				+ ", reviewLegroom=" + reviewLegroom + ", reviewRating=" + reviewRating + ", reviewComment="
-				+ reviewComment + ", reviewWriter=" + reviewWriter + ", memberNickname=" + memberNickname
-				+ ", profilePath=" + profilePath + ", seatCode=" + seatCode + ", seatValue=" + seatValue
-				+ ", seatFloor=" + seatFloor + ", seatArea=" + seatArea + ", seatRow=" + seatRow + ", seatCol="
-				+ seatCol + ", thCode=" + thCode + ", thName=" + thName + ", showCode=" + showCode + ", showTitle="
-				+ showTitle + "]";
+				+ reviewComment + ", reviewImgPath=" + reviewImgPath + ", reviewWriter=" + reviewWriter
+				+ ", memberNickname=" + memberNickname + ", profilePath=" + profilePath + ", seatCode=" + seatCode
+				+ ", seatValue=" + seatValue + ", seatFloor=" + seatFloor + ", seatArea=" + seatArea + ", seatRow="
+				+ seatRow + ", seatCol=" + seatCol + ", thCode=" + thCode + ", thName=" + thName + ", showCode="
+				+ showCode + ", showTitle=" + showTitle + "]";
 	}
 
-	
-	
 }
