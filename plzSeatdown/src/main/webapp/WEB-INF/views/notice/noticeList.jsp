@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
 <title>공지사항</title>
@@ -82,8 +81,8 @@
 						        	</c:if>
 						        	
 						        	<c:if test="${!empty param.searchValue }">
-						        		<c:param name="searchValue" value="${param.searchValue}"/>
-						        	</c:if>
+                                            <c:param name="searchValue" value="${param.searchValue}"/>
+                                    </c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
 	                    	">PREV</a>
@@ -101,21 +100,20 @@
                     	<c:if test="${p != pInf.currentPage}">
                     		<li class="page-item">
                     			<a class="page-link"
-                    				href="
-                    				<c:url value="list">
-                    					<c:if test="${!empty param.searchKey}">
-                    						<c:param name="searchKey" value="${param.searchKey}"/>
-                    					</c:if>
-                    					<c:if test="${!empty param.searchValue}">
-                    						<c:param name="searchKey" value="${param.searchValue}"/>
-                    					</c:if>
-                    					<c:param name="currentPage" value="${p}"/>
-                    				</c:url>
-                    				">${p}
-                    			</a>
-                    		</li>
-                    	</c:if>
-	                    
+										href=" 
+                                        <c:url value="list">
+                                            <c:if test="${!empty param.searchKey }">
+                                                <c:param name="searchKey" value="${param.searchKey}"/>
+                                            </c:if>
+                                            
+                                            <c:if test="${!empty param.searchValue }">
+                                                <c:param name="searchValue" value="${param.searchValue}"/>
+                                            </c:if>
+                                            <c:param name="currentPage" value="${p}"/>
+                                        </c:url>
+                                    ">${p}</a>
+                            </li>
+	                    </c:if>
                     </c:forEach>
                     
                     <!-- 다음 -->

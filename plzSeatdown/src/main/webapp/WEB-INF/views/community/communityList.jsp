@@ -81,10 +81,11 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 			                    	<c:url value="list">
 			                    		<c:if test="${!empty param.searchKey }">
 							        		<c:param name="searchKey" value="${param.searchKey}"/>
+							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
-							        	<c:if test="${!empty param.searchValue }">
-							        		<c:param name="searchValue" value="${param.searchValue}"/>
+							        	<c:if test="${!empty param.searchCategory}">
+							        		<c:param name="searchCategory" value="${param.searchCategory}"/>
 							        	</c:if>
 			                    		<c:param name="currentPage" value="1"/>
 			                    	</c:url>
@@ -98,11 +99,12 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 		                    	<c:url value="list">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
-						        	</c:if>
-						        	
-						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchCategory}">
+							        	<c:param name="searchCategory" value="${param.searchCategory}"/>
+							        </c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
 	                    	">PREV</a>
@@ -120,21 +122,21 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                     	<c:if test="${p != pInf.currentPage}">
                     		<li class="page-item">
                     			<a class="page-link"
-                    				href="
-                    				<c:url value="list">
-                    					<c:if test="${!empty param.searchKey}">
-                    						<c:param name="searchKey" value="${param.searchKey}"/>
-                    					</c:if>
-                    					<c:if test="${!empty param.searchValue}">
-                    						<c:param name="searchKey" value="${param.searchValue}"/>
-                    					</c:if>
-                    					<c:param name="currentPage" value="${p}"/>
-                    				</c:url>
-                    				">${p}
-                    			</a>
-                    		</li>
-                    	</c:if>
-	                    
+										href=" 
+                                        <c:url value="list">
+                                            <c:if test="${!empty param.searchKey }">
+                                                <c:param name="searchKey" value="${param.searchKey}"/>
+                                                <c:param name="searchValue" value="${param.searchValue}"/>
+                                            </c:if>
+                                            
+                                            <c:if test="${!empty param.searchCategory}">
+									        	<c:param name="searchCategory" value="${param.searchCategory}"/>
+									        </c:if>
+                                            <c:param name="currentPage" value="${p}"/>
+                                        </c:url>
+                                    ">${p}</a>
+                            </li>
+	                    </c:if>
                     </c:forEach>
                     
                     <!-- 다음 -->
@@ -144,11 +146,13 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
                     			href="
                     			<c:url value="list">
                     				<c:if test="${!empty param.searchKey }">
-                    					<c:param name="searchKey" value="${param.searchKey}"/>
-                    				</c:if>
-                    				<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchCategory}">
+							        	<c:param name="searchCategory" value="${param.searchCategory}"/>
+							        </c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
                     			</c:url>
                     			">NEXT</a>
@@ -161,10 +165,12 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 		                    	<c:url value="list">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
-						        	</c:if>
-						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchCategory}">
+							        	<c:param name="searchCategory" value="${param.searchCategory}"/>
+							        </c:if>
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
 	                    	">
@@ -200,7 +206,9 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 		$(function(){
 			var searchKey = "${param.searchKey}";
 			var searchValue = "${param.searchValue}";
-			
+			var searchCategory = "${param.searchCategory}";
+			console.log("searchKey : "+searchKey);
+			console.log("searchValue : "+searchValue);
 			if(searchKey != "null" && searchValue != "null"){
 				$.each($("select[name=searchKey] > option"), function(index, item){
 					if($(item).val() == searchKey){
@@ -210,16 +218,22 @@ integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG2
 				
 				$("input[name=searchValue]").val(searchValue);
 			}
+			if(searchCategory != "null" || searchCategory != ""){
+				$.each($("select[name=searchCategory] > option"), function(index, item){
+					if($(item).val() == searchCategory){
+						$(item).prop("selected","true");
+					}
+				});
+			}
 		});
 		
-		
-		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+		/* <c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
 			$.each($("select[name=searchCategory] > option"), function(index, item){
 				if($(item).val() == "${ct}"){
 					$(item).prop("selected","true");
 				}
 			});
-		</c:forEach>
+		</c:forEach> */
 		</script>
 
     </div>
