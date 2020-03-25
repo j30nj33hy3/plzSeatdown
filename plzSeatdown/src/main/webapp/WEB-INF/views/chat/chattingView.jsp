@@ -17,34 +17,42 @@ Latest compiled and minified JavaScript
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 <meta charset="UTF-8">
 <title>실시간 채팅</title>
-<style>
-#chatting{
-    overflow:scroll; 
-    width:1000px; 
-    height:300px; 
-    padding:10px; 
-    background-color:#9E87E8;
-    margin:0 auto;
-}
-</style>
+<link rel="stylesheet" href="${contextPath}/resources/css/chattingView.css"/>
 </head>
+
 <body>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
-<div class='form-group'>
-	<label id='sessionuserid'><h3>${userName}님이 입장하셨습니다.</h3></label><br/>
+
+
+<div id="chatgroup">
+<div id="chatbox" class='form-group'>
+	<div id="chattop">
+	<img id="chatlogo" src="${contextPath}/resources/images/logo.png" width="100" height="35">
+		<button class='btn btn-primary' id='exitBtn'>
+			<img src="${contextPath}/resources/images/close.png" width="20" height="20">
+		</button>
+	</div>
 	<!-- 대화내용이 출려되는 부분 -->
 	<div id="chatting"> 
+		<div id='sessionuserid'><h6 style="color:white;">${userName}님이 입장하셨습니다.</h6></div><br/>
 	<div class='panel panel-default'>
 		<div id='chatdata' class='panel-body'></div>
 	</div>
 	</div>
 	<!-- 메세지 작성부분 -->
-	<textarea rows="2" cols="50" name='message' id='message'></textarea>
-	<button class='btn btn-primary' id='sendBtn'>전송</button>
-	<button class='btn btn-primary' id='exitBtn'>나가기</button>
+	<textarea rows="2" cols="65" name='message' id='message'  style="resize: none; font-size:16px;"placeholder="메세지를 입력하세요"></textarea>
+	<button class='btn btn-primary' id='sendBtn'>
+		<img src="${contextPath}/resources/images/send.jpg" width="55" height="55">
+	</button>
 </div>
+</div>
+
+
+
 <script>
+
 	/* SockJS객체생성 보낼 url경로를 매개변수로 등록 */
 	var sock=new SockJS("<c:url value='/echo'/>");
 	sock.onmessage=onMessage;
@@ -101,18 +109,18 @@ Latest compiled and minified JavaScript
 			if(host==ck_host||(host==0&&ck_host.includes('0:0:')))
 			{
 				var printHTML="<div class='well' style='margin-left: 30%;'>";
-				printHTML+="<div class='alert alert-info'>";
+				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px;'>";
 				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+				printHTML+="<strong>"+userName+" : "+message+"</strong>";
 				printHTML+="</div>";
 				printHTML+="</div>";
 				$('#chatdata').append(printHTML);
 			}
 			else{
 				var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
-				printHTML+="<div class='alert alert-warning'>";
+				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px;'>";
 				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>["+userName+"] : "+message+"</strong>";
+				printHTML+="<strong>"+userName+" : "+message+"</strong>";
 				printHTML+="</div>";
 				printHTML+="</div>";
 				$('#chatdata').append(printHTML);
@@ -144,5 +152,10 @@ Latest compiled and minified JavaScript
 		$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 	});
 </script>
+
+
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+
 </body>
 </html>
