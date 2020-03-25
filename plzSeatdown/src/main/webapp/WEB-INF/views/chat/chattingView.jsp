@@ -36,7 +36,7 @@ Latest compiled and minified JavaScript
 	</div>
 	<!-- 대화내용이 출려되는 부분 -->
 	<div id="chatting"> 
-		<div id='sessionuserid'><h6 style="color:white;">${userName}님이 입장하셨습니다.</h6></div><br/>
+		<div id='sessionuserid'><h6 style="color:white;">${nickName}님이 입장하셨습니다.</h6></div><br/>
 	<div class='panel panel-default'>
 		<div id='chatdata' class='panel-body'></div>
 	</div>
@@ -81,7 +81,7 @@ Latest compiled and minified JavaScript
 		var data=evt.data;//new text객체로 보내준 값을 받아옴.
 		var host=null;//메세지를 보낸 사용자 ip저장
 		var strArray=data.split("|");//데이터 파싱처리하기
-		var userName=null;//대화명 저장
+		var nickName=null;//대화명 저장
 		
 
 		//전송된 데이터 출력해보기
@@ -94,7 +94,7 @@ Latest compiled and minified JavaScript
 			sessionId=strArray[0];
 			message=strArray[1];
 			host=strArray[2].substr(1,strArray[2].indexOf(":")-1);
-			userName=strArray[3];
+			nickName=strArray[3];
 			today=new Date();
 			printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 			
@@ -111,7 +111,7 @@ Latest compiled and minified JavaScript
 				var printHTML="<div class='well' style='margin-left: 30%;'>";
 				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px;'>";
 				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>"+userName+" : "+message+"</strong>";
+				printHTML+="<strong>"+nickName+" : "+message+"</strong>";
 				printHTML+="</div>";
 				printHTML+="</div>";
 				$('#chatdata').append(printHTML);
@@ -120,7 +120,7 @@ Latest compiled and minified JavaScript
 				var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
 				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px;'>";
 				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>"+userName+" : "+message+"</strong>";
+				printHTML+="<strong>"+nickName+" : "+message+"</strong>";
 				printHTML+="</div>";
 				printHTML+="</div>";
 				$('#chatdata').append(printHTML);

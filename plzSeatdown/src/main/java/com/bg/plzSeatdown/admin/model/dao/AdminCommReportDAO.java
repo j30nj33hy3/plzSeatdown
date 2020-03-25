@@ -24,7 +24,7 @@ public class AdminCommReportDAO {
 	 * @throws Exception
 	 */
 	public int getListCount(Map<String, String> map) throws Exception{
-		return sqlSession.selectOne("adminCommReportMapper.getListCount");
+		return sqlSession.selectOne("adminCommReportMapper.getListCount", map);
 	}
 
 	/** 커뮤니티 신고게시판 글 목록 조회 DAO

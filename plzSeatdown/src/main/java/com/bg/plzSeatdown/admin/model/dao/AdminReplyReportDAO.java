@@ -18,7 +18,8 @@ public class AdminReplyReportDAO {
 	SqlSessionTemplate sqlSession;
 	
 	public int getListCount(Map<String, String> map) throws Exception{
-		return sqlSession.selectOne("adminReplyReportMapper.getListCount");
+		return sqlSession.selectOne("adminReplyReportMapper.getListCount", map);
+
 	}
 
 	public List<AdminReplyReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception{

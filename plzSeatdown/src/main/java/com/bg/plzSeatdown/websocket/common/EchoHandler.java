@@ -28,10 +28,10 @@ public class EchoHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		//session.sendMessage(new TextMessage(session.getId() + "|" + message.getPayload()));
 		System.out.println("session주소 : "+session.getRemoteAddress());
-		System.out.println(session.getAttributes().get("userName"));
+		System.out.println(session.getAttributes().get("nickName"));
 		
 		for (WebSocketSession sss : sessionList) {
-			sss.sendMessage(new TextMessage(session.getId() + " | " + message.getPayload()+"|"+session.getRemoteAddress()+"|"+session.getAttributes().get("userName")));
+			sss.sendMessage(new TextMessage(session.getId() + " | " + message.getPayload()+"|"+session.getRemoteAddress()+"|"+session.getAttributes().get("nickName")));
 		}
 		// super.handleTextMessage(session, message);
 	}
@@ -44,7 +44,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		for (WebSocketSession sss : sessionList) {
 			if(sss==session) continue;
-			sss.sendMessage(new TextMessage(session.getAttributes().get("userName")+"님이 퇴장하셨습니다."));
+			sss.sendMessage(new TextMessage(session.getAttributes().get("nickName")+"님이 퇴장하셨습니다."));
 		}
 	}
 }
