@@ -1,0 +1,16 @@
+.login-page {
+	min-height: 100vh;
+}
+
+.login-page .avatar-icon img {
+	margin-top: -80px;
+	width: 128px;
+	height: 128px;
+}
+
+#chatBtn{
+	border : 1px solid #917ec6;
+	background-color : #917ec6;
+	position : relative;
+	left : 135px;
+}
