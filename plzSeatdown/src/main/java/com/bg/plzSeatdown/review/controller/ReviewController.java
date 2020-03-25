@@ -29,6 +29,7 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.review.model.service.ReviewService;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
 import com.google.gson.Gson;
@@ -136,10 +137,11 @@ public class ReviewController {
 			
 			Theater theater = reviewService.selectTheaterDetail(thCode);
 			Show nowShow = reviewService.selectNowShow(thCode);
+			List<SeatReview> review = reviewService.selectReviewList(thCode);
 			
+			model.addAttribute("review", review);
 			model.addAttribute("theater", theater);
 			model.addAttribute("show", nowShow);
-			
 			return "review/reviewSeats";
 			
 		}catch (Exception e) {
@@ -337,7 +339,6 @@ public class ReviewController {
 		
 		try {
 			String seatCode = review.getSeatCode();
-			System.out.println(seatCode);
 			String thCode = reviewService.selectTheaterCode(thName);
 			List<ReviewImage> files = new ArrayList<ReviewImage>();
 			ReviewImage ri = null;

@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
 
@@ -213,6 +214,15 @@ public class ReviewDAO {
 	 */
 	public int insertReviewImage(ReviewImage ri) throws Exception{
 		return sqlSession.insert("reviewMapper.insertReviewImage", ri);
+	}
+
+	/** 공연장별 좌석 리뷰 조회용 DAO
+	 * @param thCode
+	 * @return rList
+	 * @throws Exception
+	 */
+	public List<SeatReview> selectReviewList(String thCode) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectReviewList", thCode);
 	}
 
 
