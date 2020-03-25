@@ -36,11 +36,15 @@ public class AdminReplyReportController {
 			if(searchKey != null && searchValue != null) {
 				map = new HashMap<String, String>();
 				map.put("searchKey", searchKey);
-				map.put("searchValue", searchValue);		
+				map.put("searchValue", searchValue);	
+				
+				System.out.println(map);
 			}
 			
 			// 전체 게시글 수 조회
 			int listCount = adminReplyReportService.getListCount(map);
+			
+			System.out.println(listCount);
 			
 			// 현재 페이지 확인
 			if(currentPage == null) currentPage = 1;
@@ -50,6 +54,8 @@ public class AdminReplyReportController {
 			
 			// 게시글 목록 조회
 			List<AdminReplyReport> list = adminReplyReportService.selectList(map, pInf);
+			
+			System.out.println(list);
 					
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);
