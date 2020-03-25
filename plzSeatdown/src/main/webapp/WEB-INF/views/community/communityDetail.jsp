@@ -188,7 +188,6 @@ tbody > tr:last-child{
 		// 이전
 		$("#pre").on("click", function(){
 			var preCommNo = ${community.preCommunityNo};
-			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 			<c:url var="detailUrl" value="detail">
           		<c:if test="${!empty param.searchKey }">
         			<c:param name="searchKey" value="${param.searchKey}"/>
@@ -202,8 +201,11 @@ tbody > tr:last-child{
 	        	</c:if>
              	<c:param name="currentPage" value="${pInf.currentPage}"/>
            	</c:url>
-           	
-	        location.href="${detailUrl}&no="+preCommNo;
+           	if(preCommNo == 0){
+           		alert("마지막 글 입니다.");
+           	}else{
+		        location.href="${detailUrl}&no="+preCommNo;
+           	}
 		});
 		
 		// 다음
@@ -223,8 +225,11 @@ tbody > tr:last-child{
 	        	</c:if>
              	<c:param name="currentPage" value="${pInf.currentPage}"/>
            	</c:url>
-           	
-	        location.href="${detailUrl}&no="+nextCommNo;
+           	if(nextCommNo == 0){
+           		alert("가장 최신글 입니다.");
+           	}else{
+		        location.href="${detailUrl}&no="+nextCommNo;
+           	}
 		});
 		
 		// 삭제

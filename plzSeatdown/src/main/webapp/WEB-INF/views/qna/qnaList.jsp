@@ -7,18 +7,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-<%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
 
-<title>Insert title here</title>
+<title>QNA</title>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 <jsp:include page="../common/nav.jsp"/>
 
     <!-- Main -->
-    <div class="container">
+    <div class="container" id="page-top">
 
         <nav id="frequent" class="py-5">
             <ul id="frequentul" class="d-flex justify-content-center">
@@ -216,6 +215,7 @@
             </form>
         </div>
     </div>
+    <a style="display:scroll;position:fixed;bottom:10px;right:10px;" href="#page-top"></a>
 	<script>
 		// 유효성 검사
 		function validate(){
@@ -227,7 +227,7 @@
 		}
 	
 	</script>
-<%-- <jsp:include page="../common/footer.jsp"/> --%>
+	<jsp:include page="../common/footer.jsp"/>
 	
 </body>
 </html>
