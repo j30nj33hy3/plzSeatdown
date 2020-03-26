@@ -86,7 +86,7 @@
 											<td>${rereport.replyReportNo}</td>
 											<td>${rereport.reportCategoryName}</td>
 											<td>${rereport.replyReportContent}</td>
-											<td><a class="rcomment" href="">${rereport.replyNo}</a></td>
+											<td>${rereport.replyNo}</td>
 											<td>${rereport.suspectorId}</td>
 											<td>${rereport.reporterId}</td>
 											<td><a class="report"

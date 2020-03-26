@@ -86,7 +86,7 @@
 											<td>${commreport.commReportNo}</td>
 											<td>${commreport.reportCategoryName}</td>
 											<td>${commreport.commReportContent}</td>
-											<td><a class="rcomment" href="">${commreport.commNo}</a></td>
+											<td>${commreport.commNo}</td>
 											<td>${commreport.suspectorId}</td>
 											<td>${commreport.reporterId}</td>
 											<td><a class="report" 
