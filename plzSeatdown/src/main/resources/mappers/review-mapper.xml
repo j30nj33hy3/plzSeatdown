@@ -215,7 +215,7 @@
 		FROM SEAT
 		WHERE THEATER_CODE = #{theaterCode}
 		AND SEAT_FLOOR = #{seatFloor}
-		<if test="seatArea != -1">
+		<if test="seatArea != '-1'">
 			AND SEAT_AREA = #{seatArea}
 		</if>
 		AND SEAT_ROW = #{seatRow}
@@ -227,7 +227,7 @@
 		FROM SEAT
 		WHERE THEATER_CODE = #{theaterCode}
 		AND SEAT_FLOOR = #{seatFloor}
-		<if test="seatArea != -1">
+		<if test="seatArea != '-1'">
 			AND SEAT_AREA = #{seatArea}
 		</if>
 		AND SEAT_ROW = #{seatRow}
