@@ -21,7 +21,7 @@
 	    	<i class="fa fa-angle-up fa-2x" aria-hidden="true" style="color:#FFD938;"></i>
 	    </a>
         <nav id="frequent" class="py-5">
-            <ul id="frequentul" class="d-flex justify-content-center">
+            <ul id="frequentul" class="d-flex justify-content-center pl-0">
                 <li><a href="#frequent" class="active">자주 묻는 질문</a></li>
                 <li><a href="#faq">고객 센터</a></li>
             </ul>

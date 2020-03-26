@@ -57,54 +57,7 @@ public class Community {
 		this.categoryName = categoryName;
 		this.profilePath = profilePath;
 	}
-	
 
-	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
-			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
-			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
-			String communityReportContent, int reportCategory) {
-		super();
-		this.communityNo = communityNo;
-		this.communityTitle = communityTitle;
-		this.communityContent = communityContent;
-		this.communityCreateDate = communityCreateDate;
-		this.communityModifyDate = communityModifyDate;
-		this.communityCount = communityCount;
-		this.communityStatus = communityStatus;
-		this.communityWriter = communityWriter;
-		this.memberNickname = memberNickname;
-		this.categoryCode = categoryCode;
-		this.categoryName = categoryName;
-		this.profilePath = profilePath;
-		this.memberReporter = memberReporter;
-		this.communityReportContent = communityReportContent;
-		this.reportCategory = reportCategory;
-	}
-
-	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
-			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
-			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
-			String communityReportContent, int reportCategory, int nextCommunityNo, int preCommunityNo) {
-		super();
-		this.communityNo = communityNo;
-		this.communityTitle = communityTitle;
-		this.communityContent = communityContent;
-		this.communityCreateDate = communityCreateDate;
-		this.communityModifyDate = communityModifyDate;
-		this.communityCount = communityCount;
-		this.communityStatus = communityStatus;
-		this.communityWriter = communityWriter;
-		this.memberNickname = memberNickname;
-		this.categoryCode = categoryCode;
-		this.categoryName = categoryName;
-		this.profilePath = profilePath;
-		this.memberReporter = memberReporter;
-		this.communityReportContent = communityReportContent;
-		this.reportCategory = reportCategory;
-		this.nextCommunityNo = nextCommunityNo;
-		this.preCommunityNo = preCommunityNo;
-	}
-	
 	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
 			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
 			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,

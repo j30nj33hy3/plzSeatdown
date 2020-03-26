@@ -36,6 +36,10 @@
 	
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/noscript.css" />
+<script src="http://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <style>
 	#logoContainer{
 		margin: 0 auto;
@@ -63,5 +67,32 @@
 	<script type="text/javascript" src="${contextPath}/resources/js/breakpoints.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/util.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/main.js"></script>
+	
+	<script>
+	var socket = null;
+	
+	<c:if test="${!empty loginMember}">
+		var socket = new SockJS('<c:url value="/replyAlarmEcho"/>');
+	</c:if>
+	
+	socket.onmessage = function(evt){
+		var data = evt.data;
+		console.log("ReceiveMessage : " + data + "\n");
+		
+		toastr.options.closeButton = true;
+		toastr.options.progressBar = true;
+		toastr.info(data,{timeOut: 5000});
+		toastr.options.newestOnTop = true;
+
+	};
+	
+	socket.onclose = function(evt){
+		console.log('connect close');
+	};
+	
+	socket.onerror = function(err){
+		console.log('Errors :' , err);
+	};
+	</script>
 </body>
 </html>
