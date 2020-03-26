@@ -81,18 +81,18 @@
 									</tr>
 								</c:if>
 								<c:if test="${!empty list}">
-									<c:forEach var="review" items="${list}" varStatus="vs">
+									<c:forEach var="rvreport" items="${list}" varStatus="vs">
 										<tr>
 											<td>${rvreport.reviewReportNo}</td>
-											<td>${rvreport.reviewReportCategory}</td>
+											<td>${rvreport.reportCategoryName}</td>
 											<td>${rvreport.reviewReportContent}</td>
 											<td><a class="rcomment" href="">${rvreport.reviewNo}</a></td>
-											<td>${rvreport.reviewReportSuspector}</td>
-											<td>${rvreport.reviewReportReporter}</td>
+											<td>${rvreport.suspectorId}</td>
+											<td>${rvreport.reporterId}</td>
 											<td><a class="report"
-													onclick="location.href='${contextPath}/admin/updateRpCnt?rpCnt=${rvreport.reviewReportSuspector}'"><i
+													onclick="location.href='${contextPath}/admin/review_report/updateRpCnt?no=${rvreport.memberSuspector}&reportNo=${rvreport.reviewReportNo}'"><i
 													class="fas fa-exclamation-triangle"></i></a></td>
-											<td>상태</td>
+											<td>${rvreport.reportStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -239,6 +239,22 @@
                     </script>
 					<br>
 					<br>
+					<script>
+				        $(document).ready(function(){
+					        $(".report").click(function(){
+					        	var status = $(this).parent().next().text();
+					        	
+					        	if(status == "Y"){
+					        		alert('이미 신고처리가 된 댓글입니다.');
+					        		location.replace('list');
+					        	}else{
+					            	alert('신고처리가 완료되었습니다.');		            
+					            	location.replace('list');
+					        	}
+					        })
+					            
+				        });
+					  </script>
 				</div>
 			</div>
 		</div>

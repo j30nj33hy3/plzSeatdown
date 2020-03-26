@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="adminReplyReportMapper">
-	<resultMap type="AdminReplyReport" id="adminReplyReportResultSet">
-		<id property="replyReportNo" column="REPLY_REPORT_NO"/>
-		<result property="replyReportContent" column="REPLY_REPORT_CONTENT"/>
-		<result property="replyNo" column="REPLY_NO"/>
+<mapper namespace="adminReviewReportMapper">
+	<resultMap type="AdminReviewReport" id="adminReviewReportResultSet">
+		<id property = "reviewReportNo" column="REVIEW_REPORT_NO"/>
+		<result property="reviewReportContent" column="REVIEW_REPORT_CONTENT"/>
+		<result property="reviewNo" column="REVIEW_NO"/>
 		<result property="memberSuspector" column="MEMBER_SUSPECTOR"/>
 		<result property="memberReporter" column="MEMBER_REPORTER"/>
-		<result property="reportCategoryCode" column="REPORT_CATEGORY_CD"/>
-		<result property="reportCategoryName" column="REPORT_CATEGORY_NM"/>
+		<result property="reportCategoryName" column="REPORT_CATEGORY_NAME"/>
 		<result property="reportStatus" column="REPORT_STATUS"/>
 		<result property="suspectorId" column="SUSPECTOR_ID"/>
 		<result property="reporterId" column="REPORTER_ID"/>
@@ -30,42 +29,42 @@
 	
 		<!-- 전체 게시글 수 조회 -->
 	<select id="getListCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*) FROM A_REPLY_REPORT
+		SELECT COUNT(*) FROM A_REVIEW_REPORT
 		<where>
 			<if test="searchKey != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'reportNo'">
-						AND REPLY_REPORT_NO LIKE #{sv}
+						AND REVIEW_REPORT_NO LIKE #{sv}
 					</when>					
 					<when test="searchKey == 'content'">
-						AND REPLY_REPORT_CONTENT LIKE #{sv}
+						AND REVIEW_REPORT_CONTENT LIKE #{sv}
 					</when>
 				</choose>
 			</if>
 		</where>
-		ORDER BY REPLY_REPORT_NO DESC
+		ORDER BY REVIEW_REPORT_NO DESC
 	</select>
 	
 	<!-- 게시글 목록 조회 -->
-	<select id="selectList" parameterType="map" resultMap="adminReplyReportResultSet">
-		SELECT REPLY_REPORT_NO, REPLY_REPORT_CONTENT, REPLY_NO, MEMBER_SUSPECTOR, 
-			   MEMBER_REPORTER, REPORT_STATUS, REPORT_CATEGORY_NM, SUSPECTOR_ID, REPORTER_ID
-		FROM A_REPLY_REPORT
+	<select id="selectList" parameterType="map" resultMap="adminReviewReportResultSet">
+		SELECT REVIEW_REPORT_NO, REVIEW_REPORT_CONTENT, REVIEW_NO, MEMBER_SUSPECTOR, MEMBER_REPORTER, 
+			   REPORT_CATEGORY_CD, REPORT_STATUS, REPORT_CATEGORY_NM, SUSPECTOR_ID, REPORTER_ID
+		FROM A_REVIEW_REPORT
 		<where>
 			<if test="searchKey != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'reportNo'">
-						AND REPLY_REPORT_NO LIKE #{sv}
+						AND REVIEW_REPORT_NO LIKE #{sv}
 					</when>					
 					<when test="searchKey == 'content'">
-						AND REPLY_REPORT_CONTENT LIKE #{sv}
+						AND REVIEW_REPORT_CONTENT LIKE #{sv}
 					</when>
 				</choose>
 			</if>		
 		</where>
-		ORDER BY REPLY_REPORT_NO DESC
+		ORDER BY REVIEW_REPORT_NO DESC
 	</select>
 	
 	<!-- 신고횟수 업데이트  -->
@@ -76,7 +75,8 @@
 	
 	<!-- 신고글 처리상태 변경 -->
 	<update id="updateStatus" parameterType="_int">
-		UPDATE REPLY_REPORT SET REPORT_STATUS = 'Y'
-		WHERE REPLY_REPORT_NO = #{reportNo}
+		UPDATE REVIEW_REPORT SET REPORT_STATUS = 'Y'
+		WHERE REVIEW_REPORT_NO = #{reportNo}
 	</update>
+	
 </mapper>
