@@ -8,14 +8,16 @@ public class AdminCommunityReport {
 	private int memberSuspector;
 	private int memberReporter;
 	private int reportCategoryCode;
-	private String memberId;
 	private String reportCategoryName;
 	private char reportStatus;
+	private String suspectorId;
+	private String reporterId;
 	
 	public AdminCommunityReport() {}
 
 	public AdminCommunityReport(int commReportNo, String commReportContent, int commNo, int memberSuspector,
-			int memberReporter, int reportCategoryCode, String memberId, String reportCategoryName, char reportStatus) {
+			int memberReporter, int reportCategoryCode, String reportCategoryName, char reportStatus,
+			String suspectorId, String reporterId) {
 		super();
 		this.commReportNo = commReportNo;
 		this.commReportContent = commReportContent;
@@ -23,9 +25,10 @@ public class AdminCommunityReport {
 		this.memberSuspector = memberSuspector;
 		this.memberReporter = memberReporter;
 		this.reportCategoryCode = reportCategoryCode;
-		this.memberId = memberId;
 		this.reportCategoryName = reportCategoryName;
 		this.reportStatus = reportStatus;
+		this.suspectorId = suspectorId;
+		this.reporterId = reporterId;
 	}
 
 	public int getCommReportNo() {
@@ -76,14 +79,6 @@ public class AdminCommunityReport {
 		this.reportCategoryCode = reportCategoryCode;
 	}
 
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
 	public String getReportCategoryName() {
 		return reportCategoryName;
 	}
@@ -100,12 +95,31 @@ public class AdminCommunityReport {
 		this.reportStatus = reportStatus;
 	}
 
+	public String getSuspectorId() {
+		return suspectorId;
+	}
+
+	public void setSuspectorId(String suspectorId) {
+		this.suspectorId = suspectorId;
+	}
+
+	public String getReporterId() {
+		return reporterId;
+	}
+
+	public void setReporterId(String reporterId) {
+		this.reporterId = reporterId;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminCommunityReport [commReportNo=" + commReportNo + ", commReportContent=" + commReportContent
 				+ ", commNo=" + commNo + ", memberSuspector=" + memberSuspector + ", memberReporter=" + memberReporter
-				+ ", reportCategoryCode=" + reportCategoryCode + ", memberId=" + memberId + ", reportCategoryName="
-				+ reportCategoryName + ", reportStatus=" + reportStatus + "]";
+				+ ", reportCategoryCode=" + reportCategoryCode + ", reportCategoryName=" + reportCategoryName
+				+ ", reportStatus=" + reportStatus + ", suspectorId=" + suspectorId + ", reporterId=" + reporterId
+				+ "]";
 	}
 	
+	
+
 }

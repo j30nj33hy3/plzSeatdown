@@ -1,10 +1,9 @@
 package com.bg.plzSeatdown.admin.model.vo;
 
-public class AdminReplyReport {
-	
-	private int replyReportNo;
-	private String replyReportContent;
-	private int replyNo;
+public class AdminReviewReport {
+	private int reviewReportNo;
+	private String reviewReportContent;
+	private int reviewNo;
 	private int memberSuspector;
 	private int memberReporter;
 	private String reportCategoryName;
@@ -12,14 +11,14 @@ public class AdminReplyReport {
 	private String suspectorId;
 	private String reporterId;
 	
-	public AdminReplyReport() {}
+	public AdminReviewReport() {}
 
-	public AdminReplyReport(int replyReportNo, String replyReportContent, int replyNo, int memberSuspector,
+	public AdminReviewReport(int reviewReportNo, String reviewReportContent, int reviewNo, int memberSuspector,
 			int memberReporter, String reportCategoryName, char reportStatus, String suspectorId, String reporterId) {
 		super();
-		this.replyReportNo = replyReportNo;
-		this.replyReportContent = replyReportContent;
-		this.replyNo = replyNo;
+		this.reviewReportNo = reviewReportNo;
+		this.reviewReportContent = reviewReportContent;
+		this.reviewNo = reviewNo;
 		this.memberSuspector = memberSuspector;
 		this.memberReporter = memberReporter;
 		this.reportCategoryName = reportCategoryName;
@@ -28,28 +27,28 @@ public class AdminReplyReport {
 		this.reporterId = reporterId;
 	}
 
-	public int getReplyReportNo() {
-		return replyReportNo;
+	public int getReviewReportNo() {
+		return reviewReportNo;
 	}
 
-	public void setReplyReportNo(int replyReportNo) {
-		this.replyReportNo = replyReportNo;
+	public void setReviewReportNo(int reviewReportNo) {
+		this.reviewReportNo = reviewReportNo;
 	}
 
-	public String getReplyReportContent() {
-		return replyReportContent;
+	public String getReviewReportContent() {
+		return reviewReportContent;
 	}
 
-	public void setReplyReportContent(String replyReportContent) {
-		this.replyReportContent = replyReportContent;
+	public void setReviewReportContent(String reviewReportContent) {
+		this.reviewReportContent = reviewReportContent;
 	}
 
-	public int getReplyNo() {
-		return replyNo;
+	public int getReviewNo() {
+		return reviewNo;
 	}
 
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
 
 	public int getMemberSuspector() {
@@ -84,11 +83,11 @@ public class AdminReplyReport {
 		this.reportStatus = reportStatus;
 	}
 
-	public String getsuspectorId() {
+	public String getSuspectorId() {
 		return suspectorId;
 	}
 
-	public void setsuspectorId(String suspectorId) {
+	public void setSuspectorId(String suspectorId) {
 		this.suspectorId = suspectorId;
 	}
 
@@ -102,10 +101,10 @@ public class AdminReplyReport {
 
 	@Override
 	public String toString() {
-		return "AdminReplyReport [replyReportNo=" + replyReportNo + ", replyReportContent=" + replyReportContent
-				+ ", replyNo=" + replyNo + ", memberSuspector=" + memberSuspector + ", memberReporter=" + memberReporter
-				+ ", reportCategoryName=" + reportCategoryName + ", reportStatus=" + reportStatus + ", suspectorId="
-				+ suspectorId + ", reporterId=" + reporterId + "]";
+		return "AdminReviewReport [reviewReportNo=" + reviewReportNo + ", reviewReportContent=" + reviewReportContent
+				+ ", reviewNo=" + reviewNo + ", memberSuspector=" + memberSuspector + ", memberReporter="
+				+ memberReporter + ", reportCategoryName=" + reportCategoryName + ", reportStatus=" + reportStatus
+				+ ", suspectorId=" + suspectorId + ", reporterId=" + reporterId + "]";
 	}
 
 }

@@ -37,6 +37,7 @@
 		
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminCommunityReport" alias="AdminCommunityReport"/>
 		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminReplyReport" alias="AdminReplyReport"/>
+		<typeAlias type="com.bg.plzSeatdown.admin.model.vo.AdminReviewReport" alias="AdminReViewReport"/>
 	
 		<!-- 좌석 -->
 		<typeAlias type="com.bg.plzSeatdown.seat.model.vo.Seat" alias="Seat"/>
@@ -70,6 +71,7 @@
 		<mapper resource="/mappers/admin-qna-mapper.xml"/>
 		<mapper resource="/mappers/admin-comm-report-mapper.xml"/>
 		<mapper resource="/mappers/admin-reply-report-mapper.xml"/>
+		<mapper resource="/mappers/admin-review-report-mapper.xml"/>
 		<mapper resource="/mappers/seat-mapper.xml"/>
 	</mappers>
 

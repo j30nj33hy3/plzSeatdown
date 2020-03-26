@@ -87,8 +87,8 @@
 											<td>${commreport.reportCategoryName}</td>
 											<td>${commreport.commReportContent}</td>
 											<td><a class="rcomment" href="">${commreport.commNo}</a></td>
-											<td>${commreport.memberId}</td>
-											<td>${commreport.memberId}</td>
+											<td>${commreport.suspectorId}</td>
+											<td>${commreport.reporterId}</td>
 											<td><a class="report" 
 												onclick="location.href='${contextPath}/admin/comm_report/updateRpCnt?no=${commreport.memberSuspector}&reportNo=${commreport.commReportNo}'">
 												<i class="fas fa-exclamation-triangle"></i></a></td>
@@ -240,16 +240,16 @@
 					<br>
 						<script>
 					        $(document).ready(function(){
-					        $(".report").click(function(){
-					            var result = alert('신고처리가 완료되었습니다.');
-					    
-					            if(result){
-					            	location.replace('list');
-					            // 확인 버튼을 누르면 'admin/comm_report/list'페이지로 이동
-					            }else{
-					            // 취소
-					            }
-					        })
+						        $(".report").click(function(){
+						        	var status = $(this).parent().next().text();						        	
+						        	if(status == "Y"){
+						        		alert('이미 신고처리가 된 댓글입니다.');
+						        		location.replace('list');
+						        	}else{
+						            	alert('신고처리가 완료되었습니다.');		            
+						            	location.replace('list');
+						            }
+						        })
 					        });
 					  </script>
 				</div>
