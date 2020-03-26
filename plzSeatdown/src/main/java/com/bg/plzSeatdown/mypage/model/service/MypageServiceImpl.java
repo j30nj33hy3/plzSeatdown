@@ -281,18 +281,6 @@ public class MypageServiceImpl implements MypageService{
    
    
    
-   /** 마이리뷰 이미지  조회
-	 * @param reviewNo
-	 * @return
-	 * @throws Exception
-	 */
-   @Override
-	public ReviewImageEH selectReviewImage(int reviewNo) throws Exception {
-		return mypageDAO.selectReviewImage(reviewNo);
-	}
-   
-   
-   
    
    /** 마이티켓 게시글 수 조회
 	 * @param memberNo
@@ -343,6 +331,18 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDAO.selectClist(pInf,memberNo);
 	}
    
+   
+   
+
+	/** 마이리뷰 그림들 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public List<ReviewImageEH> selectRimglist(int memberNo) throws Exception {
+		return mypageDAO.selectRimglist(memberNo);
+	}
    
    
    

@@ -116,14 +116,6 @@ public interface MypageService {
 
 
 
-	/** 마이리뷰 이미지  조회
-	 * @param reviewNo
-	 * @return
-	 * @throws Exception
-	 */
-	public abstract ReviewImageEH selectReviewImage(int reviewNo)throws Exception;
-
-
 
 	/** 마이티켓 게시글 수 조회
 	 * @param memberNo
@@ -161,6 +153,16 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract List<Community> selectClist(PageInfo pInf, int memberNo)throws Exception;
+
+
+
+
+	/** 마이리뷰 그림들 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<ReviewImageEH> selectRimglist(int memberNo)throws Exception;
 	
 
 

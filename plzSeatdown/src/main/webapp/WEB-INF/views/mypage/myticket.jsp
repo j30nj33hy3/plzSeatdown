@@ -50,7 +50,7 @@
           							  	<div style="display:none;">${reviewimg.reviewNo}</div>
           							  	
           							  		<c:if test="${reviewimg.reviewWriter == loginMember.memberNo}">
-                                         		<c:set var="src" value="${contextPath}/resources/profileImages/${reviewimg.reviewImagePath}"/>
+                                         		<c:set var="src" value="${contextPath}/resources/images/${reviewimg.reviewImagePath}"/>
                                         	</c:if>
                                       
                 							<a class="thumbnail fancybox" rel="ligthbox" href="${src}">
@@ -64,67 +64,67 @@
 
 									   </div>
 
-									    <!-- 페이징바 -->
-							 		 <div class="form-group col-9">
-	         				   			<ul class="pagination">
-	            						<c:if test="${pInf.currentPage > 1}">
-	                					<li>
-	                						<!-- 맨 처음으로(<<) -->
-	                    					<a class="page-link" href="
-	                    					<c:url value="list"> 
-	                    						<c:param name="currentPage" value="1"/>
-	                    					</c:url>
-	                    					">&lt;&lt;</a>
-	                					</li>
+									     <!-- 페이징바 -->
+           					 <div class="col-md-12 d-flex justify-content-center" style="margin-top: 175px;">
+	         				   <ul class="pagination pagination-info">
+	            				<c:if test="${pInf.currentPage > 1}">
+	                			<li class="page-item">
+	                				<!-- 맨 처음으로(<<) -->
+	                    			<a class="page-link" href="
+	                    			<c:url value="myticket"> 
+	                    				<c:param name="currentPage" value="1"/>
+	                    			</c:url>
+	                    			">&lt;&lt;</a>
+	                			</li>
 	                
-	                					<li>
-	                						<!-- 이전으로(<) -->
-                   							<a class="page-link" href="
-                   							<c:url value="list">
-                   								<c:param name="currentPage" value="${pInf.currentPage-1}"/>
-                   							</c:url>
-                   							">&lt;</a>
+	                			<li class="page-item">
+	                				<!-- 이전으로(<) -->
+                   					<a class="page-link" href="
+                   					<c:url value="myticket">
+                   					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+                   					</c:url>
+                   					">PREV</a>
+	                			</li>
+	                			</c:if>
+	                
+	              			  <!-- 10개의 페이지 목록 -->
+	               			 	 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+	                				<c:if test="${p == pInf.currentPage}">
+		              			  		<li class="active page-item">
+		               			   	  		<a class="page-link">${p}</a>
+		               					 </li>
+	                				</c:if>
+	                				<c:if test="${p != pInf.currentPage}">
+                						<li class="page-item">
+	                    					<a class="page-link" href="
+	                    					<c:url value="myticket">
+	                    						<c:param name="currentPage" value="${p}"/>
+	                    					</c:url>
+	                    					">${p}</a>
 	                					</li>
 	                					</c:if>
+	            			  	 </c:forEach>
+	                			<!-- 다음 페이지로(>) -->
+	                			<c:if test="${pInf.currentPage < pInf.maxPage }">
+	                			<li class="page-item">
+	                			    <a class="page-link" href="
+	                			    	<c:url value="myticket">
+	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+	                			    	</c:url>
+	                			    ">NEXT</a>
+	                			</li>
 	                
-	              			 		 <!-- 10개의 페이지 목록 -->
-	               			 			 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
-	                						<c:if test="${p == pInf.currentPage}">
-		              			  				<li>
-		               			   	  				<a class="page-link">${p}</a>
-		               							</li>
-	                						</c:if>
-	                						<c:if test="${p != pInf.currentPage}">
-                								<li>
-	                    							<a class="page-link" href="
-	                    							<c:url value="list">
-	                    								<c:param name="currentPage" value="${p}"/>
-	                    							</c:url>
-	                    							">${p}</a>
-	                							</li>
-	                							</c:if>
-	            			  	 		</c:forEach>
-	                					<!-- 다음 페이지로(>) -->
-	                					<c:if test="${pInf.currentPage < pInf.maxPage }">
-	                					<li>
-	                			    		<a class="page-link" href="
-	                			    			<c:url value="list">
-	                			    				<c:param name="currentPage" value="${pInf.currentPage+1}"/>
-	                			    			</c:url>
-	                			   		 ">&gt;</a>
-	                					</li>
-	                
-	               					 <!-- 맨 끝으로(>>) -->
-	              			 		 <li>
-	                   					 <a class="page-link" href="
-	                   			 			<c:url value="list">
-	                   			 				<c:param name="currentPage" value="${pInf.maxPage}"/>
-	                   			 			</c:url>
-	                   			 		">&gt;&gt;</a>
-	               					 </li>
-	               					 </c:if>
-	        			    		</ul>
-							 		 </div>
+	               			 <!-- 맨 끝으로(>>) -->
+	              			  <li class="page-item">
+	                   			 <a class="page-link" href="
+	                   			 	<c:url value="myticket">
+	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
+	                   			 	</c:url>
+	                   			 ">&gt;&gt;</a>
+	               			 </li>
+	               			 </c:if>
+	        			    </ul>
+							  </div>
 
 										</div>
 									</div>

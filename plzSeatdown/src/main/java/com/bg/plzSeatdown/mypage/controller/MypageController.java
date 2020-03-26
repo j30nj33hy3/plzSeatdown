@@ -301,7 +301,7 @@ public class MypageController {
 					if(currentPage == null) currentPage = 1;
 					
 					// 페이지 정보를 저장
-					PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
+					PageInfo pInf = Pagination.getPageInfo(8, 5, currentPage, listCount);
 					
 					// 티켓게시글 목록 조회
 					List<ReviewImageEH> rimgList = mypageService.selectRimgList(pInf, memberNo);
@@ -336,6 +336,7 @@ public class MypageController {
 					// 전체 게시글 수 조회
 					int listCount = mypageService.getReviewCount(memberNo);
 					
+					
 					// 현재 페이지 확인
 					if(currentPage == null) currentPage = 1;
 					
@@ -345,21 +346,18 @@ public class MypageController {
 					// 게시글 목록 조회
 					List<ReviewEH> rlist = mypageService.selectRlist(pInf, memberNo);
 					
-					ArrayList<ReviewEH> reviews = new ArrayList<ReviewEH>(rlist);
-					int reviewNo = 0;
-					
-					for(ReviewEH re : reviews) {
-						reviewNo = re.getReviewNo();
-					}
+					List<ReviewImageEH> rimgList = mypageService.selectRimglist(memberNo);
 					
 					
-					Profile image = mypageService.selectMypageProf(memberNo);
-					ReviewImageEH rimage = mypageService.selectReviewImage(reviewNo);
+					Profile profile = mypageService.selectMypageProf(memberNo);
+					
+					
+					System.out.println("rimgList :" + rimgList);
 					
 					
 					model.addAttribute("list",rlist);
-					model.addAttribute("rimage",rimage);
-					model.addAttribute("profile",image);
+					model.addAttribute("rimgList",rimgList);
+					model.addAttribute("profile",profile);
 					model.addAttribute("pInf",pInf);
 					
 					return "mypage/myreview";

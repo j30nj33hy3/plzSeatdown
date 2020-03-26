@@ -17,7 +17,7 @@ body{
 
 #chatting{
     overflow:scroll; 
-    width:750px; 
+    width:850px; 
     height:500px; 
     padding:10px; 
     background-color:rgb(181,165,235);
@@ -34,7 +34,7 @@ body{
 #chatbox{
 	border : 1px solid lightgray;
 	border-radius: 20px;
-	width : 750px;
+	width : 850px;
 	height : 650px;
 	margin: auto;
 	top: 0px;
@@ -64,7 +64,7 @@ body{
 	float:right;
 	width : 100px;
 	height: 70px;
-	margin : 10px 20px 10px 10px;
+	margin : 10px 25px 10px 0px;
 	background-color:white;
 	border:0px;
 }
