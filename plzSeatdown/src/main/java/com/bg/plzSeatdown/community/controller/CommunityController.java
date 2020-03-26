@@ -355,13 +355,13 @@ public class CommunityController {
 			rdAttr.addFlashAttribute("msg", msg);
 			return "redirect:"+referer;
 		}catch(Exception e) {
-			return ExceptionForward.errorPage("글 상세 조회", model, e);
+			return ExceptionForward.errorPage("글 신고 조회", model, e);
 		}
 	}
 	
 	// 댓글 신고
 	@RequestMapping("replyReport")
-	public String communityReport(Reply reply,
+	public String replyReport(Reply reply,
 								Model model,
 								RedirectAttributes rdAttr,
 								HttpServletRequest request) {
@@ -376,7 +376,7 @@ public class CommunityController {
 			rdAttr.addFlashAttribute("msg", msg);
 			return "redirect:"+referer;
 		}catch(Exception e) {
-			return ExceptionForward.errorPage("글 상세 조회", model, e);
+			return ExceptionForward.errorPage("댓글 신고 조회", model, e);
 		}
 	}
 }
