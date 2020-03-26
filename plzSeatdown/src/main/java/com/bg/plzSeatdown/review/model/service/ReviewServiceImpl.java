@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.DAO.ReviewDAO;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
@@ -228,12 +229,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	/** 좌석별 모든 리뷰 조회용 Service
-	 * @param seatValue
+	 * @param review
 	 * @return seatReviewList
 	 */
 	@Override
-	public List<SeatReview> selectAllReview(String seatValue){
-		return reviewDAO.selectAllReview(seatValue);
+	public List<SeatReview> selectAllReview(SeatReview review){
+		return reviewDAO.selectAllReview(review);
 	}
 
 	/** 리뷰 신고 등록용 Service
@@ -264,6 +265,34 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<SeatReview> selectRatingList(String thCode) throws Exception {
 		return reviewDAO.selectRatingList(thCode);
+	}
+
+	/** 리뷰 좋아요 Service
+	 * @param like
+	 * @param likeStatus 
+	 * @return statusChange
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateLike(ReviewLike like, Integer likeStatus) {
+	
+		int result = 0;
+		int statusChange = 0;
+		
+		// 좋아요가 눌린 상태
+		if(likeStatus > 0) {
+			result = reviewDAO.deleteLike(like);
+			
+			if(result > 0) statusChange = -1;
+			// 좋아요 O -> 좋아요 X
+		}else {
+			result = reviewDAO.insertLike(like);
+			
+			if(result > 0) statusChange = 1;
+			// 좋아요 X -> 좋아요 O
+		}
+		
+		return statusChange;
 	}
 	
 	

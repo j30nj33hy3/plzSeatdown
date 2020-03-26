@@ -51,6 +51,7 @@
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.Rating" alias="Rating"/>
 		
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewReport" alias="ReviewReport"/>
+		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewLike" alias="ReviewLike"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->

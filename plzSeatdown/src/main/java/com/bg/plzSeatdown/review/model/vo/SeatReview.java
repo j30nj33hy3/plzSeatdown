@@ -25,15 +25,25 @@ public class SeatReview {
 	private String thName;
 	private String showCode;
 	private String showTitle;
+	private int likeCount;
+	private int likeStatus; // 내가 해당 리뷰에 좋아요를 눌렀는지 확인 여부
 	
 	public SeatReview() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	// 리뷰 전체 목록 출력하기 위해 파라미터로 사용됨 ( ReviewController의 selectAllReview)
+	public SeatReview(int seatValue, int likeStatus) {
+		super();
+		this.seatValue = seatValue;
+		this.likeStatus = likeStatus;
 	}
 
 	public SeatReview(int reviewNo, Date reviewCreateDt, Date reviewViewDt, int reviewSight, int reviewComfort,
 			int reviewLegroom, double reviewRating, String reviewComment, String reviewImgPath, int reviewWriter,
 			String memberNickname, String profilePath, int seatCode, int seatValue, String seatFloor, String seatArea,
-			String seatRow, String seatCol, String thCode, String thName, String showCode, String showTitle) {
+			String seatRow, String seatCol, String thCode, String thName, String showCode, String showTitle,
+			int likeCount, int likeStatus) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewCreateDt = reviewCreateDt;
@@ -57,6 +67,8 @@ public class SeatReview {
 		this.thName = thName;
 		this.showCode = showCode;
 		this.showTitle = showTitle;
+		this.likeCount = likeCount;
+		this.likeStatus = likeStatus;
 	}
 
 	public int getReviewNo() {
@@ -235,6 +247,22 @@ public class SeatReview {
 		this.showTitle = showTitle;
 	}
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getLikeStatus() {
+		return likeStatus;
+	}
+
+	public void setLikeStatus(int likeStatus) {
+		this.likeStatus = likeStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "SeatReview [reviewNo=" + reviewNo + ", reviewCreateDt=" + reviewCreateDt + ", reviewViewDt="
@@ -244,7 +272,8 @@ public class SeatReview {
 				+ ", memberNickname=" + memberNickname + ", profilePath=" + profilePath + ", seatCode=" + seatCode
 				+ ", seatValue=" + seatValue + ", seatFloor=" + seatFloor + ", seatArea=" + seatArea + ", seatRow="
 				+ seatRow + ", seatCol=" + seatCol + ", thCode=" + thCode + ", thName=" + thName + ", showCode="
-				+ showCode + ", showTitle=" + showTitle + "]";
+				+ showCode + ", showTitle=" + showTitle + ", likeCount=" + likeCount + ", likeStatus=" + likeStatus
+				+ "]";
 	}
 
 }
