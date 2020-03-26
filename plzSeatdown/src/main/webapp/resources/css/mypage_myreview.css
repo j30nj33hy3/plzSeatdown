@@ -182,13 +182,30 @@ span.star-prototype > * {
 }
 
 
+#filedelete:hover{
+    background-color:rgba(198, 180, 205, 0.5);
+}
 
 
 
+.contentwrap{
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 220px;
+  height:40px;
+
+}
 
 
 
 /* 테이블 */
+
+.commu-body tr:hover{
+    background-color: rgba(198, 180, 205, 0.3);
+    cursor: pointer;
+}
 
 .table{
     text-align: center;
@@ -219,7 +236,7 @@ span.star-prototype > * {
 
 
 .table tr:last-child{
-    border-bottom: 1px solid rgb(198, 180, 205);
+    border-bottom: 1px solid lightgray;
 }
 
 .table th:nth-child(1){ 
@@ -227,11 +244,11 @@ span.star-prototype > * {
 }
 
 .table th:nth-child(2){ 
-    width: 180px;
+    width: 200px;
 }
 
 .table th:nth-child(3){ 
-    width: 100px;
+    width: 130px;
 }
 
 .table th:nth-child(4){ 
@@ -239,7 +256,7 @@ span.star-prototype > * {
 }
 
 .table th:nth-child(5){ 
-    width: 150px;
+    width: 130px;
 }
 
 
@@ -249,10 +266,9 @@ span.star-prototype > * {
 }
 
 .table td{ 
-    height: 50px;
-    padding: 10px 0px 10px 0px;
+    height: 60px;
+    padding-top: 20px;
     border-color: rgb(198, 180, 205);
-    line-height: 40px;
 }
 
 
@@ -260,7 +276,6 @@ span.star-prototype > * {
 .table td:last-child{ 
     width: 100px;
     padding-left: 30px;
-    line-height: 0px;
 }
 
 

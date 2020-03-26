@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
+import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
@@ -244,6 +245,22 @@ public class MypageDAO {
 	 */
 	public List<ReviewImageEH> selectRimglist(int memberNo)throws Exception {
 		return sqlSession.selectList("mypageMapper.selectRimglist", memberNo);
+	}
+
+
+
+	
+	
+	/**마이 커뮤 댓글조회
+	 * @param pInf 
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Reply> selectReplist(PageInfo pInf, int memberNo)throws Exception  {
+		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("mypageMapper.selectReplist",memberNo,rowBounds);
 	}
    
 	

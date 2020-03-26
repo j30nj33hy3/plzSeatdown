@@ -71,10 +71,12 @@
 	<script>
 	var socket = null;
 	
+	// servlet-context와 매칭됨
 	<c:if test="${!empty loginMember}">
-		var socket = new SockJS('<c:url value="/replyAlarmEcho"/>');
+		var socket = new SockJS('<c:url value="/replyAlarmEcho"/>'); // comm에서 받은거 다시 핸들러로
 	</c:if>
 	
+	// 출력
 	socket.onmessage = function(evt){
 		var data = evt.data;
 		console.log("ReceiveMessage : " + data + "\n");

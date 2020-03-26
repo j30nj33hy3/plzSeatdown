@@ -83,7 +83,21 @@
 		<result property="profilePath"	column="PROFILE_PATH"/>
 	</resultMap>
     
-    
+    <resultMap type="Reply" id="replyResultSet">
+		<id property="replyNo" column="REPLY_NO"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+		<result property="replyModifyDate" column="REPLY_MODIFY_DT"/>
+		<result property="replySecret" column="REPLY_SECRET"/>
+		<result property="depth" column="REPLY_DEPTH"/>
+		<result property="parentNo" column="REPLY_PARENT_NO"/>
+		<result property="communityNo" column="COMM_NO"/>
+		<result property="replyWriter" column="REPLY_WRITER"/>
+		<result property="replyGroup" column="REPLY_GROUP"/>
+		<result property="communityWriter" column="COMM_WRITER"/>
+		<result property="memberNickname" column="MEMBER_NICKNM"/>
+		<result property="profilePath" column="PROFILE_PATH"/>
+	</resultMap>
     
     <!-- 마이페이지 조회용 -->
     <select id="selectMypage" parameterType="_int" resultMap="memberResultSet">
@@ -198,6 +212,7 @@
 	<select id="selectRimglist" parameterType="_int" resultMap="ReviewImageEHResultSet">
 		SELECT * FROM V_RIMGEH
    		WHERE REVIEW_WRITER = #{memberNO} 
+   		AND IMG_TYPE=0
 	</select>
 	
 	
@@ -210,16 +225,20 @@
 	<!-- 마이티켓 게시글수 조회  -->
 	<select id="getTicketCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_RIMGEH 
-   		WHERE REVIEW_WRITER = #{memberNO} 
+   		WHERE REVIEW_WRITER = #{memberNO}
+   		AND IMG_TYPE=1
 	</select>
 	
 	
 	<!-- 마이티켓 이미지 조회  -->
 	<select id="selectRimgList" parameterType="_int" resultMap="ReviewImageEHResultSet">
 		SELECT * FROM V_RIMGEH
-   		WHERE REVIEW_WRITER = #{memberNO} 
+   		WHERE REVIEW_WRITER = #{memberNO}
+   		AND IMG_TYPE=1
 	</select>
 	
+	
+	<!-- 마이커뮤  -->
 	
 	<!-- 마이글 전체 게시글수 조회 -->
 	<select id="getWriteCount" parameterType="_int" resultType="_int">
@@ -234,6 +253,12 @@
 		WHERE COMM_WRITER = #{memberNo} 
 	</select>
 	
+	
+	<!-- 마이 커뮤 댓글 조회 -->
+	<select id="selectReplist" parameterType="_int" resultMap="replyResultSet">
+		SELECT * FROM V_REPLY
+   		WHERE REPLY_WRITER = #{memberNO} 
+	</select> 
 	
 	
 

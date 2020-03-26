@@ -33,14 +33,25 @@
 						
 						
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
+							<div class="mb-2 ml-2">
+							<span class="mr-2">
+							<a href="mycommu" id="writebtn" type="button"  class="btn btn-outline-secondary">
+								<img src="${contextPath}/resources/images/writeC.png" width="30" height="30">&nbsp;&nbsp;글
+							</a>
+							</span>
+							<span>
+							<a href="mycommu2" id="writebtn2" type="button" class="btn btn-outline-secondary">
+								<img src="${contextPath}/resources/images/writeB.png" width="30" height="30">&nbsp;&nbsp;댓글
+							</a>
+							</span>
+							</div>
+						
 							<table  id="list-table" class="table" style="margin-left:20px;">
-								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;
-								
-								">
+								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 								  <tr>
 								  	<th scope="col" style="border-bottom:0px;">글번호</th>
 									<th scope="col" style="border-bottom:0px;">제목</th>
-									<th scope="col" style="border-bottom:0px;">내용</th>
+									<!-- <th scope="col" style="border-bottom:0px;">내용</th> -->
 									<th scope="col" style="border-bottom:0px;">날짜</th>
 									<th scope="col" style="border-bottom:0px;"></th>
 								  </tr>
@@ -48,18 +59,21 @@
 								<tbody>
 								<c:if test="${empty clist}">
 										<tr>
-											<td colspan="6">존재하는 커뮤니티 내역이 없습니다.</td>
+											<td colspan="4">존재하는 커뮤니티 글 내역이 없습니다.</td>
 										</tr>
 								</c:if>
 								<c:if test="${!empty clist}">
 									<c:forEach var="community" items="${clist}" varStatus="vs">
 										<tr>
-											<td style="border-top:0px; padding-top:17px;">${community.communityNo}</td>
-											<td style="border-top:0px; padding-top:17px;">${community.communityTitle}</td>
-											<td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td>
-											<td style="border-top:0px; padding-top:17px;">${community.communityCreateDate}</td>
-											<td style="border-top:0px; padding-top:17px;">
-											  <button id="moveBoard" class="btn btn-outline-secondary m-3">해당 글 이동</button>
+											<td style="border-top:0px; padding-top:22px;">${community.communityNo}</td>
+											<td style="border-top:0px; padding-top:22px;">${community.communityTitle}</td>
+											<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
+											<td style="border-top:0px; padding-top:22px;">${community.communityModifyDate}</td>
+											<td style="border-top:0px; padding-top:15px;">
+											  <button id="filedelete" type="button"  class="btn btn-outline-secondary updatebtn" 
+											  style="border-color: rgb(198, 180, 205); color:rgb(198, 180, 205);">
+												게시글로 이동
+												</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -69,39 +83,39 @@
 
 
 							   <!-- 페이징바 -->
-							  <div class="form-group col-9">
-	         				   <ul class="pagination">
+           					 <div class="col-md-12 d-flex justify-content-center">
+	         				   <ul class="pagination pagination-info">
 	            				<c:if test="${pInf.currentPage > 1}">
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 맨 처음으로(<<) -->
 	                    			<a class="page-link" href="
-	                    			<c:url value="list"> 
+	                    			<c:url value="community"> 
 	                    				<c:param name="currentPage" value="1"/>
 	                    			</c:url>
 	                    			">&lt;&lt;</a>
 	                			</li>
 	                
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 이전으로(<) -->
                    					<a class="page-link" href="
-                   					<c:url value="list">
+                   					<c:url value="community">
                    					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
                    					</c:url>
-                   					">&lt;</a>
+                   					">PREV</a>
 	                			</li>
 	                			</c:if>
 	                
 	              			  <!-- 10개의 페이지 목록 -->
 	               			 	 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
 	                				<c:if test="${p == pInf.currentPage}">
-		              			  		<li>
+		              			  		<li class="active page-item">
 		               			   	  		<a class="page-link">${p}</a>
 		               					 </li>
 	                				</c:if>
 	                				<c:if test="${p != pInf.currentPage}">
-                						<li>
+                						<li class="page-item">
 	                    					<a class="page-link" href="
-	                    					<c:url value="list">
+	                    					<c:url value="community">
 	                    						<c:param name="currentPage" value="${p}"/>
 	                    					</c:url>
 	                    					">${p}</a>
@@ -110,18 +124,18 @@
 	            			  	 </c:forEach>
 	                			<!-- 다음 페이지로(>) -->
 	                			<c:if test="${pInf.currentPage < pInf.maxPage }">
-	                			<li>
+	                			<li class="page-item">
 	                			    <a class="page-link" href="
-	                			    	<c:url value="list">
+	                			    	<c:url value="community">
 	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                			    	</c:url>
-	                			    ">&gt;</a>
+	                			    ">NEXT</a>
 	                			</li>
 	                
 	               			 <!-- 맨 끝으로(>>) -->
-	              			  <li>
+	              			  <li class="page-item">
 	                   			 <a class="page-link" href="
-	                   			 	<c:url value="list">
+	                   			 	<c:url value="community">
 	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
 	                   			 	</c:url>
 	                   			 ">&gt;&gt;</a>
@@ -141,13 +155,16 @@
 		<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$(function(){
-			$("#moveBoard").click(function(){
-				var communityNo = $(this).parent().children().eq(0).text();
+					
+			$(document).on("click",".updatebtn", function(){
+				
+				var communityNo = $(this).parent().parent().children().eq(0).text()
 				// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 				<c:url var="detailUrl" value="detail"> // 주소창의 detail
                  	<c:param name="currentPage" value="${pInf.currentPage}"/>
                	</c:url>
-				location.href="${detailUrl}&no="+communityNo;
+				//location.href="${detailUrl}&no="+communityNo;
+				location.href="${contextPath}/community/"+"${detailUrl}&no="+communityNo;
 			}).mouseenter(function(){
 				$(this).parent().css("cursor", "pointer");
 			});
