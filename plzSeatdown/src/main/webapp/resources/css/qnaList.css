@@ -22,12 +22,11 @@ body {
 .ellip{
    margin: 0;
    margin: auto;
-   width: 100px;
+   width: 200px;
    height: 1.5em;
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
-
 }
 
 

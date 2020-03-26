@@ -12,14 +12,15 @@ public class AdminQna{
 	private String memberId;
 	private String memberName;
 	private String memberNickname;
+	private String memberEmail;
+	
 	public AdminQna() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	public AdminQna(int qnaNo, String qnaContent, Date qnaCreateDate, String qnaStatus, int qnaWriter, String qnaAnswer,
-			String memberId, String memberName, String memberNickname) {
+			String memberId, String memberName, String memberNickname, String memberEmail) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaContent = qnaContent;
@@ -30,7 +31,9 @@ public class AdminQna{
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberNickname = memberNickname;
+		this.memberEmail = memberEmail;
 	}
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
@@ -85,11 +88,21 @@ public class AdminQna{
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+	
 	@Override
 	public String toString() {
-		return "QnAEH [qnaNo=" + qnaNo + ", qnaContent=" + qnaContent + ", qnaCreateDate=" + qnaCreateDate
+		return "AdminQna [qnaNo=" + qnaNo + ", qnaContent=" + qnaContent + ", qnaCreateDate=" + qnaCreateDate
 				+ ", qnaStatus=" + qnaStatus + ", qnaWriter=" + qnaWriter + ", qnaAnswer=" + qnaAnswer + ", memberId="
-				+ memberId + ", memberName=" + memberName + ", memberNickname=" + memberNickname + "]";
+				+ memberId + ", memberName=" + memberName + ", memberNickname=" + memberNickname + ", memberEmail="
+				+ memberEmail + "]";
 	}
+
+	
 	
 }

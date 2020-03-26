@@ -11,6 +11,7 @@
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="memberNickname" column="MEMBER_NICKNM"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
 	</resultMap>
 	
 	<resultMap type="AdminQnaAnswer" id="adminQnaAnswerResultSet">
@@ -73,11 +74,26 @@
 		WHERE QNA_NO=#{qnaNo}
 	</select>
 	
+	
+	<!-- 문의글 작성자 정보 -->
+	<!-- <select id="selectInfo" parameterType="_int" resultMap="adminQnaResultSet">
+		SELECT MEMBER_EMAIL
+		FROM V_QNAADMIN
+		WHERE QNA_NO=#{no}
+	</select> -->	
+	
 	<!-- QNA 답변 등록 -->
 	<insert id="insertAnswer" parameterType="AdminQnaAnswer">
 		INSERT INTO QNA_ANSWER VALUES(
 			#{qnaNo}, #{qnaAnswer})
 	</insert>
+	
+	<!-- QNA 답변 조회 -->
+	<select id="selectAnswer" parameterType="_int" resultType="string">
+		SELECT QNA_ANSWER
+		FROM V_QNAADMIN
+		WHERE QNA_NO=#{no}
+	</select>
 	
 	<!-- QNA 상태 변경 -->
 	<update id="updateQnaStatus" parameterType="_int">

@@ -50,12 +50,14 @@ body {
 .table-responsive {
 	text-align: center;
 }
+.pagination .page-link:focus{
+    box-shadow: none;
+}
 
-.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus,
-	.pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span,
-	.pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover
-	{
-	border: 0;
+
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:hover {
+   	border: 0;
 	background-color: #917EC6;
 	color: #FFFFFF;
 }
+

@@ -31,20 +31,26 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 
 	@Override
 	public AdminQna selectQna(Integer no) throws Exception {
-		return adminQnaDAO.selectQna(no);
+		AdminQna adminQna = adminQnaDAO.selectQna(no);
+		adminQna.setQnaContent(adminQna.getQnaContent().replace("<br>","\r\n"));
+		return adminQna;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertAnswer(AdminQnaAnswer adminQnaAnswer) throws Exception {
 		
-		int result = adminQnaDAO.insertAnswer(adminQnaAnswer);
+		int result = 0;
+		adminQnaAnswer.setQnaAnswer(adminQnaAnswer.getQnaAnswer().replace("<br>", "\r\n"));		
+
+		result = adminQnaDAO.insertAnswer(adminQnaAnswer);
 
 		int no = adminQnaAnswer.getQnaNo();
 //		System.out.println("서비스 no : " + no);
 		int status = adminQnaDAO.updateQnaStatus(no);
 //		if(result > 0 ) {
 		if(result > 0 && status > 0) {
+			
 			result = no;
 		}
 		return  result;
@@ -55,6 +61,17 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 	public int deleteQna(Integer no) throws Exception {
 		return adminQnaDAO.deleteQna(no);
 	}
+
+	@Override
+	public List<AdminQna> selectInfo(Integer no) throws Exception {
+		return adminQnaDAO.selectInfo(no);
+	}
+
+	@Override
+	public String selectAnswer(Integer no) throws Exception {
+		return adminQnaDAO.selectAnswer(no);
+	}
+
 
 
 

@@ -20,6 +20,11 @@ public interface AdminQnaService {
 
 	public abstract int deleteQna(Integer no) throws Exception;
 
+	public abstract List<AdminQna> selectInfo(Integer no) throws Exception;
+
+	public abstract String selectAnswer(Integer no) throws Exception;
+
+
 
 
 }

@@ -69,17 +69,17 @@
 
 								<h6>이름</h6>
 								<input type="text" class="form-control input-comment mb-3"
-									id="name" name="name" value="${member.memberName }" required>
+									id="name" name="name" maxlength="10" value="${member.memberName }" required>
 
 								<h6>닉네임</h6>
-								<input type="text" class="form-control input-comment mb-3"
+								<input type="text" class="form-control input-comment" style="display:inline-block; width:84%;"
 									id="nickname" name="nickname" value="${member.memberNickname }"
-									required>
-
+									required>&nbsp;&nbsp;<a class="btn" id="nickname-edit-btn">변경하기</a>
+								<div class="mb-3" id="checkNickname" style="height:1.5em;"></div>
 								<h6>이메일</h6>
-								<input type="email" class="form-control input-comment mb-3"
+								<input type="email" class="form-control input-comment"
 									id="email" name="email" value="${member.memberEmail }" required>
-
+								<div class="mb-3" id="checkEmail" style="height:1.5em;"></div>
 								<h6>전화번호</h6>
 								<!-- <select class="custom-select form-control input-comment" id="phone1" name="phone1"
                                     style="float:left; width:165px; background-color: white;" disabled required>
@@ -148,6 +148,33 @@
 							}).mouseenter(function(){
 								$(this).parent().css("cursor", "pointer");
 							});	
+						});
+						
+						$(function(){
+							$("#nickname-edit-btn").click(function(){
+							var memberId = '${member.memberId}';
+							var ranNum = Math.round(Math.random()*10000);
+							console.log(ranNum);
+							var nickname = memberId + ranNum;
+							$("#nickname").attr('value', nickname);
+							
+							var $nickname = $("#nickname");
+							$.ajax({
+		                		url : "nicknameDupCheck",
+		                		data : {memberaNickname: $nickname.val() }, // paramter->k:v형태
+		                		type : "post",
+		                		success : function(result){
+		                			
+		                			if(result == "true"){
+		                				$("#checkNickname").text("사용 가능한 닉네임입니다.").css({"color":"green","font-weight":"bold"});
+		                				updateCheck.nicknameDup = true;
+		                			}else{
+		                				$("#checkNickname").text("사용할 수 없는 닉네임 입니다.").css({"color":"red","font-weight":"bold"});
+		                				updateCheck.nicknameDup = false;
+		                			}
+		                		}
+							})
+						});
 						});
 
 						

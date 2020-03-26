@@ -37,7 +37,6 @@ public class AdminMemberController {
 			@RequestParam(value = "searchKey", required = false) String searchKey,
 			@RequestParam(value = "searchValue", required = false) String searchValue,
 			@RequestParam(value = "currentPage", required = false) Integer currentPage) {
-
 		try {
 			Map<String, String> map = null;
 
@@ -56,10 +55,6 @@ public class AdminMemberController {
 
 			List<Member> list = adminMemberService.selectList(map, pInf);
 
-//				for(Member m : list) {
-//					System.out.println(m);
-//				}
-
 			mv.addObject("list", list);
 			mv.addObject("pInf", pInf);
 			mv.setViewName("admin/memberList");
@@ -76,13 +71,11 @@ public class AdminMemberController {
 	// 회원 상세보기 페이지로 이동
 	@RequestMapping("detail")
 	public String memberDetail(Integer no, Model model, RedirectAttributes rdAttr) {
-//		String beforeUrl = request.getHeader("referer");
 
 		try {
 			Member member = adminMemberService.selectMember(no);
 			if (member != null) {
 				Attachment attachment = adminMemberService.selectImg(no);
-				// System.out.println(attachment);
 				if (attachment != null) {
 					model.addAttribute("attachment", attachment);
 				}
@@ -130,14 +123,12 @@ public class AdminMemberController {
 			model.addAttribute("errorMsg", "회원 정보 수정 과정에서 오류 발생");
 			return "common/errorPage";
 		}
-//		return "admin/member_detail";
 	}
 
 	// 프로필 사진 삭제
 	@RequestMapping("deleteImg")
 	public String deleteImg(Integer no, Model model, RedirectAttributes rdAttr) {
 		try {
-			System.out.println(no);
 			int result = 0;
 			result = adminMemberService.deleteImg(no);
 
@@ -183,17 +174,13 @@ public class AdminMemberController {
 
 	}
 
-	// 댓글 목록 조회
-	// JSON : 자바스크립트 객체 모양의 String
-	// produces : 조건에 지정한 미디어 타입과 관련된 응답을 생성하는데 사용한 실제 컨텐트 타입을 보장한다
-	// --> 응답 데이터의 Content - Type 지정 가능
-	// text/html; charset=utf-8
-	@ResponseBody
-	@RequestMapping(value = "sortList", produces = "application/json; charset=utf-8")
-	public String sortList(String searchKey, String searchValue, Integer currentPage) { // Integer, String, int 다
-		System.out.println(searchKey);																		// 가능 -> 알아서 매핑됨
-		Gson gson = new GsonBuilder().create();
-		List<Member> sList = new ArrayList(); 
+	
+	// 신고횟수 순 정렬
+	@RequestMapping("sortList")
+	public String sortList(Model model, @RequestParam(value = "searchKey", required = false) String searchKey,
+			@RequestParam(value = "searchValue", required = false) String searchValue,
+			@RequestParam(value = "currentPage", required = false) Integer currentPage) { 
+
 		
 		try {
 			Map<String, String> map = null;
@@ -205,24 +192,39 @@ public class AdminMemberController {
 			}
 
 			int listCount = adminMemberService.getListCount(map);
-
 			if (currentPage == null)
 				currentPage = 1;
 
 			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
-			sList = adminMemberService.selectSortList(map, pInf);
+			List<Member> sList = adminMemberService.selectSortList(map, pInf);
 
-			// gson을 string 형태로 보냄
-			System.out.println(sList);
+			model.addAttribute("sList", sList);
+			model.addAttribute("pInf", pInf);
+			return "admin/memberSortList";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMsg", "회원 목록 정렬 과정 중 오류 발생");
+			return "common/errorPage";
+			
 		}
-		
-		return gson.toJson(sList);
-		
 	}
-//	
-//	@RequestMapping("sort")
-//	public String 
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("nicknameDupCheck")
+	public String nicknameDupCheck(String memberNickname, Model model) { //return을 위한 model
+		try {
+			return adminMemberService.nicknameDupCheck(memberNickname) == 0 ? true+"" : false+""; 
+			// 값 자체로 return을 하고 싶은데 페이지로 이동하려함 WEB-INF/views/ + return값(true/false) + .jsp 페이지
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "아이디 중복체크 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
 
+	
 }

@@ -55,12 +55,23 @@ body {
 
 
 #upBtn,
-#editBtn {
+#editBtn{
     background-color: #917EC6;
     border: #917EC6;
     color: white;
-
+ 
 }	
+
+#nickname-edit-btn{
+	background-color: white;
+    border-color: #917EC6;
+    color: #917EC6;
+}
+#nickname-edit-btn:hover{
+	background-color: #917EC6;
+    border: #917EC6;
+    color: white;
+}
 
 
 @media screen and (max-width: 1065px) {
