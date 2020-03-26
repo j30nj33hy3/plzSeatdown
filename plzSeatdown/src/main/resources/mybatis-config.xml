@@ -46,6 +46,9 @@
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewImage" alias="ReviewImage"/>
 		<!-- 좌석리뷰 뷰 -->
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.SeatReview" alias="SeatReview"/>
+		<!-- 좌석평점 뷰 -->
+		<typeAlias type="com.bg.plzSeatdown.review.model.vo.Rating" alias="Rating"/>
+		
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewReport" alias="ReviewReport"/>
 	</typeAliases>
 	

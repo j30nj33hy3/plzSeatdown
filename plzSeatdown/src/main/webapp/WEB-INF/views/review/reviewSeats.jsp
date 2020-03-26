@@ -233,6 +233,39 @@
 				
 
 			</div>
+			<!-- 좌석 평점 표시 -->
+			<script>
+				<c:forEach var="r" items="${rating}">
+					var val = "${r.seatValue}";
+					var rating = "${r.rating}";
+					$.each($(".s13"), function(index, item){
+						if($(item).attr("value") == val){
+							$(item).removeClass("s13");
+							$(item).removeClass("s2");
+							$(item).removeClass("s3");
+							$(item).removeClass("s0");
+							$(item).removeClass("s5");
+							$(item).removeClass("s7");
+						}
+						if(rating == 1){
+							$(item).addClass("s2");
+						}
+						if(rating == 2){
+							$(item).addClass("s3");
+						}
+						if(rating == 3){
+							$(item).addClass("s0");
+						}
+						if(rating == 4){
+							$(item).addClass("s5");
+						}
+						if(rating == 5){
+							$(item).addClass("s7");
+						}
+					});
+				 </c:forEach>
+			</script>
+			
 			<!-- 카카오맵 script -->
 			<script>
 				var con = document.getElementById('map'); // 지도 담을 객체
@@ -358,12 +391,12 @@
 											
 											for(var j=0; j<5; j++){
 												if(j < seatReviewList[i].reviewLegroom) legroom += '<i class="fas fa-star"></i>';
-												else sight += '<i class="far fa-star"></i>';
+												else legroom += '<i class="far fa-star"></i>';
 											}
 											
 											for(var j=0; j<5; j++){
 												if(j < seatReviewList[i].reviewComfort) comfort += '<i class="fas fa-star"></i>';
-												else sight += '<i class="far fa-star"></i>';
+												else comfort += '<i class="far fa-star"></i>';
 											}
 											
 											
@@ -412,7 +445,6 @@
 										
 									}else{
 										// 리뷰가 없는 경우
-										
 										$("#review").append("작성된 리뷰가 없습니다.");
 									}
 								}

@@ -87,7 +87,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RequestMapping("/member/*") // 내부 메소드 레벨에서 매핑되는 주소에 공통되는 부분 작성.
 public class MemberController {
 	
-	private static String serverIp = "192.168.10.57";
+	private static String serverIp = "192.168.10.55";
 	@Inject
 	JavaMailSender mailSender;
 	// 로깅 변수
