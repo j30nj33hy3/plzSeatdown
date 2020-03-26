@@ -72,12 +72,14 @@
 	<update id="updateRpCnt" parameterType="_int">
 		UPDATE MEMBER SET MEMBER_REPORT_CNT = MEMBER_REPORT_CNT + 1
 		WHERE MEMBER_NO = #{no}
+		AND REPORT_STATUS = 'N'
 	</update>
 	
 	<!-- 신고글 처리상태 변경 -->
 	<update id="updateStatus" parameterType="_int">
 		UPDATE COMMUNITY_REPORT SET REPORT_STATUS = 'Y'
 		WHERE COMM_REPORT_NO = #{reportNo}
+		
 	</update>
 	
 </mapper>

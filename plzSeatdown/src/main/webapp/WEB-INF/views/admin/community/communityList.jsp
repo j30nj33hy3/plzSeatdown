@@ -22,13 +22,36 @@
 }
 
 .ellip{
-	margin: 0;
-	margin: auto;
-	width: 200px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+   margin: 0;
+   margin: auto;
+   width: 200px;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
+
+#ellip1{
+   margin: 0;
+   margin: auto;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 100px;
+}
+
+#commCon{
+   margin: 0;
+   margin: auto;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+}
+
 
 #searchTitle {
 	width: 110px;
@@ -50,6 +73,7 @@
 .table-responsive {
 	text-align: center;
 }
+
 </style>
 </head>
 <body>
@@ -76,7 +100,6 @@
 									<th scope="col">글 번호</th>
 									<th scope="col">말머리</th>
 									<th scope="col">글 제목</th>
-									<th scope="col">내용</th>
 									<th scope="col">닉네임</th>
 									<th scope="col">작성일</th>
 									<th scope="col">상태</th>
@@ -94,8 +117,8 @@
 										<tr>											
 				                            <td scope="row">${comm.communityNo}</td>
 				                            <td>${comm.categoryName}</td>
-				                            <td><p class="ellip">${comm.communityTitle}</p></td>
-				                            <td><p class="ellip">${comm.communityContent}</p></td>
+				                            <td><p class="ellip" id="ellip1">
+				                            	<a class="rcomment" href="${contextPath}/community/detail?no=${comm.communityNo}&currentPage=">${comm.communityTitle}</a></p></td>
 				                            <td>${comm.memberNickname}</td>
 				                            <td>${comm.communityModifyDate}</td>
 				                            <td>${comm.communityStatus}</td>
@@ -157,7 +180,7 @@
 
 
 								<c:if test="${p == pInf.currentPage}">
-									<li><a class="page-link">${p}</a></li>
+									<li><a id="cp" class="page-link">${p}</a></li>
 								</c:if>
 
 								<c:if test="${p != pInf.currentPage}">
@@ -246,6 +269,22 @@
                             }
                                 
                         });
+                        
+        				/* 글 이동 스크립트 */
+        				$(function(){
+        					//var before = $("#ellip1").next("a").prop("href");
+        					var cp = $("#cp").text();
+        								
+        					$(".ellip").each(function(index, item){
+        						console.log(item);
+        						
+        						var before = $(item).children().prop("href");
+        						$(item).next("a").prop("href", before+cp);
+        						console.log(before + cp);
+        					});
+        					
+        					 //$("#ellip1").next("a").prop("href", before+cp);
+        				});
                     </script>
 					<br>
 					<br>

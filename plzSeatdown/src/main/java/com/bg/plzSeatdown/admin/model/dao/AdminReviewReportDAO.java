@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.bg.plzSeatdown.admin.model.vo.AdminReplyReport;
+import com.bg.plzSeatdown.admin.model.vo.AdminReviewReport;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
 @Repository
@@ -31,7 +32,7 @@ public class AdminReviewReportDAO {
 	 * @return listCount
 	 * @throws Exception
 	 */
-	public List<AdminReplyReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
+	public List<AdminReviewReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
 		int offset = (pInf.getCurrentPage()-1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("adminReviewReportMapper.selectList", map, rowBounds);

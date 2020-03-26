@@ -86,7 +86,7 @@
 											<td>${rvreport.reviewReportNo}</td>
 											<td>${rvreport.reportCategoryName}</td>
 											<td>${rvreport.reviewReportContent}</td>
-											<td>${rvreport.reviewNo}</td>
+											<td><a class="rcomment" href="${contextPath}/review/seats?thCode=FC000402-02">${rvreport.reviewNo}</a></td>
 											<td>${rvreport.suspectorId}</td>
 											<td>${rvreport.reporterId}</td>
 											<td><a class="report"
