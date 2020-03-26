@@ -6,21 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자게시판 - 회원 문의 목록</title>
-
-<link rel="stylesheet" href="${contextPath}/resources/css/qnaList.css" />
+<title>관리자페이지 - 회원 목록</title>
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/memberList.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/admin.css" />
 </head>
-<body>
 
+<body>
 	<c:set var="contextPath"
 		value="${pageContext.servletContext.contextPath }" scope="application" />
 
 	<div id="main-wrapper">
-
 		<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
 		<jsp:include page="/WEB-INF/views/admin/common/nav.jsp" />
-
 		<!-- ============================================================== -->
 		<!-- Page wrapper  -->
 		<!-- ============================================================== -->
@@ -31,7 +29,7 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-12 d-flex no-block align-items-center">
-						<h3 class="page-title mt-3 ml-3 mb-3">회원 문의</h3>
+						<h3 class="page-title mt-3 ml-3 mb-3">회원 목록</h3>
 						<div class="ml-auto text-right">
 							<nav aria-label="breadcrumb"></nav>
 						</div>
@@ -50,34 +48,42 @@
 						<table class="table" id="list-table">
 							<thead class="thead-light">
 								<tr>
-									<th scope="col">글번호</th>
+									<th scope="col">회원번호</th>
 									<th scope="col">아이디</th>
 									<th scope="col">이름</th>
 									<th scope="col">닉네임</th>
-									<th scope="col">문의 내역</th>
-									<th scope="col">작성일</th>
+									<th scope="col">이메일</th>
+									<th scope="col">전화번호</th>
+									<th scope="col">가입일</th>
+									<th scope="col">상태</th>
+									<th scope="col">신고 횟수
+										<a class="down" type="button" location.href="sortList"
+											style="border: none; background-color: #E9ECEF">▼</a>
+									</th>
+									<th scope="col">수정</th>
 									<th scope="col">삭제</th>
-									<th scope="col">처리</th>
 								</tr>
 							</thead>
 							<tbody class="customtable">
-								<c:if test="${empty qlist }">
+								<c:if test="${empty sList }">
 									<tr>
-										<td colspan="7">문의내역이 존재하지 않습니다.</td>
+										<td colspan="10">회원이 존재하지 않습니다.</td>
 									</tr>
 								</c:if>
-
-								<c:if test="${!empty qlist }">
-									<c:forEach var="qna" items="${qlist}" varStatus="vs">
+								<c:if test="${!empty sList }">
+									<c:forEach var="member" items="${sList}" varStatus="vs">
 										<tr>
-											<td>${qna.qnaNo}</td>
-											<td>${qna.memberId}</td>
-											<td>${qna.memberName}</td>
-											<td>${qna.memberNickname}</td>
-											<td class="qnaTitle"><p class="ellip">${qna.qnaContent}</p></td>
-											<td>${qna.qnaCreateDate}</td>
+											<td>${member.memberNo}</td>
+											<td>${member.memberId}</td>
+											<td>${member.memberName}</td>
+											<td>${member.memberNickname}</td>
+											<td>${member.memberEmail}</td>
+											<td>${member.memberPhone}</td>
+											<td>${member.memberEnrollDate}</td>
+											<td>${member.memberStatus}</td>
+											<td>${member.memberReportCount}</td>
+											<td><i class="fas fa-cog editBtn"></i></td>
 											<td><i class="fas fa-trash-alt deleteBtn"></td>
-											<td>${qna.qnaStatus}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -91,7 +97,7 @@
 						<c:if test="${pInf.currentPage > 1}">
 							<li class="page-item"><a class="page-link"
 								href=" 
-			                    	<c:url value="list">
+			                    	<c:url value="sortList">
 			                    		<c:if test="${!empty param.searchKey }">
 							        		<c:param name="searchKey" value="${param.searchKey}"/>
 							        	</c:if>
@@ -106,7 +112,7 @@
 							<li class="page-item">
 								<!-- 이전으로 --> <a class="page-link"
 								href=" 
-		                    	<c:url value="list">
+		                    	<c:url value="sortList">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -130,7 +136,7 @@
 							<c:if test="${p != pInf.currentPage}">
 								<li class="page-item"><a class="page-link"
 									href=" 
-                                        <c:url value="list">
+                                        <c:url value="sortList">
                                             <c:if test="${!empty param.searchKey }">
                                                 <c:param name="searchKey" value="${param.searchKey}"/>
                                             </c:if>
@@ -149,7 +155,7 @@
 						<c:if test="${pInf.currentPage < pInf.maxPage}">
 							<li class="page-item"><a class="page-link"
 								href="
-                    			<c:url value="list">
+                    			<c:url value="sortList">
                     				<c:if test="${!empty param.searchKey }">
                     					<c:param name="searchKey" value="${param.searchKey}"/>
                     				</c:if>
@@ -164,7 +170,7 @@
 							<!-- 맨 끝으로(>>) -->
 							<li class="page-item"><a class="page-link"
 								href=" 
-		                    	<c:url value="list">
+		                    	<c:url value="sortList">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -179,32 +185,68 @@
 					</ul>
 				</div>
 
-
 				<div>
-					<form action="list" method="GET" class="text-center"
+					<form action="sortList" method="GET" class="text-center"
 						id="searchForm">
 						<select id="searchTitle" name="searchKey" class="form-control">
 							<option value="id">아이디</option>
-							<option value="content">문의 내역</option>
+							<option value="email">이메일</option>
 						</select> <input type="text" id="searchInput" name="searchValue"
 							class="form-control" placeholder="검색어를 입력해주세요.">
 						<button id="searchBtn" class="form-control btn btn-primary">검색</button>
 					</form>
+
 					<!-- 페이지 이동 후에도 검색 결과가 검색창 input 태그에 표시되도록 하는 script -->
 					<script>
-                        $(function () {
-                            var searchKey = "${param.searchKey}";
-                            var searchValue = "${param.searchValue}";
-                            if (searchKey != "null" && searchValue != "null") {
-                                $.each($("select[name=searchKey] > option"), function (index, item) {
-                                    if ($(item).val() == searchKey) {
-                                        $(item).prop("selected", "true");
-                                    }
-                                });
-                                $("input[name=searchValue]").val(searchValue);
-                            }
-                        });
-                    </script>
+						$(function() {
+							var searchKey = "${param.searchKey}";
+							var searchValue = "${param.searchValue}";
+
+							if (searchKey != "null" && searchValue != "null") {
+								$.each($("select[name=searchKey] > option"),
+										function(index, item) {
+											if ($(item).val() == searchKey) {
+												$(item)
+														.prop("selected",
+																"true");
+											}
+										});
+								$("input[name=searchValue]").val(searchValue);
+							}
+						});
+						
+						$(function() {
+							$(".editBtn").click(function(){
+								var memberNo = $(this).parent().parent().children().eq(0).text();
+								//console.log(memberNo); 
+								<c:url var="detailUrl" value="detail">
+									<c:if test="${!empty param.seatchKey}">
+										<c:param name="searchKey" value="${param.searchKey}"/>
+									</c:if>
+									<c:if test="${!empty param.seatchValue}">
+										<c:param name="searchValue" value="${param.searchValue}"/>
+									</c:if>
+									<c:param name="currentPage" value="${pInf.currentPage}" />
+ 								</c:url>
+								location.href="${detailUrl}&no="+memberNo;
+							}).mouseenter(function(){
+								$(this).css("cursor", "pointer");
+							});	
+						});
+						
+						$(function() {
+							$(".deleteBtn").click(function(){
+							var memberNo = $(this).parent().parent().children().eq(0).text();
+							console.log(memberNo); 
+							if(confirm("정말 삭제 하시겠습니까?"))
+								location.href = "delete?no="+memberNo;
+							}).mouseenter(function(){
+								$(this).parent().css("cursor", "pointer");
+							});	
+						});
+						
+					
+					</script>
 				</div>
 				<br>
 			</div>
@@ -216,41 +258,44 @@
 	<!-- ============================================================== -->
 	<!-- End Wrapper -->
 	<!-- ============================================================== -->
-	<script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        // 문의내역 상세조회 기능
-        $(function () {
-            $(".qnaTitle").click(function(){
-                var qnaNo = $(this).parent().children().eq(0).text();
-				console.log(qnaNo);
-                <c:url var="detailUrl" value="detail">
-				<c:if test="${!empty param.searchKey}">
-					<c:param name="searchKey" value="${param.searchKey}"/>
-				</c:if>
-				<c:if test="${!empty param.searchValue}">
-					<c:param name="searchValue" value="${param.searchValue}"/>
-				</c:if>
-				<c:param name="currentPage" value="${pInf.currentPage}" />
-				</c:url>
-				location.href="${detailUrl}&no="+qnaNo;
-			}).mouseenter(function(){
-				$(this).css("cursor", "pointer");
-			});	
-		});
-               
-        
-        $(function() {
-			$(".deleteBtn").click(function(){
-			var qnaNo = $(this).parent().parent().children().eq(0).text();
-			console.log(qnaNo); 
-			if(confirm("정말 삭제 하시겠습니까?"))
-				location.href = "delete?no="+qnaNo;
-			}).mouseenter(function(){
-				$(this).parent().css("cursor", "pointer");
-			});	
-		});
-	</script>
-</body>
+
+	<!-- 	<script>
+		/****************************************
+		 *       Basic Table                   *
+		 ****************************************/
+		$('#zero_config').DataTable();
+	</script> -->
+
+<script>
+$('.down').on('click', function(){
+	location.href="list";
+})
+</script>
+
+<!-- 	<script>
+    $('.down').on('click', function () {
+    	var searchKey = "${param.searchKey}";
+		var searchValue = "${param.searchValue}";
+		var currentPage = "${param.currentPage}";
+    	console.log(searchKey);
+    	console.log(searchValue);
+    	console.log(currentPage);
+    	
+        // property를 설정한다.
+        $.ajax({
+
+            url : "sortList",
+            type : "post",
+            data : {searchKey : searchKey, searchValue : searchValue, currentPage : currentPage},
+            success : function (sortList) {
+                console.log(sortList);
+            },
+            error : function() {
+				console.log("댓글 목록 조회 ajax 호출 실패");
+			}
+        });
+    });
+
+</script>
+ --></body>
 </html>

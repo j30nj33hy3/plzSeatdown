@@ -4,7 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +25,18 @@ import com.bg.plzSeatdown.admin.model.vo.AdminQnaAnswer;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
-
 @RequestMapping("/admin/qna/*")
-@SessionAttributes({"msg"})
 @Controller
 public class AdminQnaController {
 
 	@Autowired
 	private AdminQnaService adminQnaService;
-	
+	@Inject
+	JavaMailSender mailSender;
+
 	// QnA 목록 출력
 	@RequestMapping("list")
-	public ModelAndView qnaList(ModelAndView mv,
-			@RequestParam(value = "searchKey", required = false) String searchKey,
+	public ModelAndView qnaList(ModelAndView mv, @RequestParam(value = "searchKey", required = false) String searchKey,
 			@RequestParam(value = "searchValue", required = false) String searchValue,
 			@RequestParam(value = "currentPage", required = false) Integer currentPage) {
 
@@ -54,7 +59,7 @@ public class AdminQnaController {
 			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 
 			List<AdminQna> qlist = adminQnaService.selectList(map, pInf);
-				
+
 			mv.addObject("qlist", qlist);
 			mv.addObject("pInf", pInf);
 			mv.setViewName("admin/qnaList");
@@ -72,7 +77,7 @@ public class AdminQnaController {
 	public ModelAndView selectQna(ModelAndView mv, @RequestParam(value = "no", required = false) Integer no) {
 //		System.out.println(no);
 		try {
-		AdminQna qna = adminQnaService.selectQna(no);
+			AdminQna qna = adminQnaService.selectQna(no);
 			if (qna != null) {
 				mv.addObject("qna", qna);
 				mv.addObject("no", no);
@@ -85,27 +90,46 @@ public class AdminQnaController {
 		}
 		return mv;
 	}
-	
+
 	// QNA 답변 등록
 	@RequestMapping("update")
-	public String insertAnswer(Integer no, String answer, Model model, RedirectAttributes rdAttr) {
-		
+	public String insertAnswer(Integer no, String answer, Model model, RedirectAttributes rdAttr,
+			HttpServletRequest request) {
+
 		AdminQnaAnswer adminQnaAnswer = new AdminQnaAnswer();
 		adminQnaAnswer.setQnaNo(no);
 		adminQnaAnswer.setQnaAnswer(answer.replace("<br>", "\r"));
-
-//		System.out.println("컨트롤러" + adminQnaAnswer);
 		
 		try {
+			AdminQna qna = adminQnaService.selectQna(no);
+		
 			int result = adminQnaService.insertAnswer(adminQnaAnswer);
+
+			String setfrom = "khblackgang@gmail.com";
+			String tomail = qna.getMemberEmail();
+			String title = "[PleaseSeatDown] 고객님의 문의에 대한 답변입니다.";
+			String content =  "\r\n" + adminQnaService.selectQna(no).getQnaContent() +  "\r\n\r\n" + "안녕하세요 PleaseSeatDown 사이트를 이용해주셔서 감사합니다." + "\r\n" +
+			"문의하신 내용에 대해 답변 드립니다." + "\r\n" + adminQnaService.selectAnswer(no) + "\r\n" +"앞으로도 PleaseSeatDown에 많은 관심 부탁드립니다.";
 			
 			String msg = null;
 			String url = null;
 			
-			if(result > 0) {
-				msg="답변이 등록되었습니다.";
-				url="detail?no="+no;
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			if (result > 0) {
+
+				messageHelper.setFrom(setfrom); // 보내는사람 생략하거나 하면 정상작동을 안함
+				messageHelper.setTo(tomail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+				messageHelper.setText(content); // 메일 내용
+
+				mailSender.send(message);
+
+				msg = "답변이 등록되었습니다.";
+				url = "detail?no=" + no;
 				model.addAttribute("asnwer", answer);
+				
 			} else {
 				msg = "답변이 등록되지 않았습니다.";
 				url = "list";
@@ -120,30 +144,31 @@ public class AdminQnaController {
 			model.addAttribute("errorMsg", "문의 내역 답변 등록 중 오류 발생");
 			return ("common/errorPage");
 		}
-		
+
 	}
-	
+
 	// QNA 삭제
 	@RequestMapping("delete")
 	public String deleteQna(Integer no, Model model, RedirectAttributes rdAttr) {
 		try {
 			int result = adminQnaService.deleteQna(no);
-			
+
 			String msg = null;
-			if(result > 0) msg="문의 내역 삭제 성공";
-			else 		msg="문의 내역 삭제 실패"; 
-			
+			if (result > 0)
+				msg = "문의 내역 삭제 성공";
+			else
+				msg = "문의 내역 삭제 실패";
+
 			rdAttr.addFlashAttribute("msg", msg);
-			
+
 			return "redirect:list";
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "문의 내역 삭제 과정 중 오류 발생");
 			return "common/errorPage";
 		}
-		
-	}
 
+	}
 
 }

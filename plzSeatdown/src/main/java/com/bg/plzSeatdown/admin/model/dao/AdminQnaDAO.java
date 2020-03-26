@@ -76,5 +76,14 @@ public class AdminQnaDAO {
 		return sqlSession.update("adminQnaMapper.updateQnaStatus", no);
 	}
 
+	public List<AdminQna> selectInfo(Integer no) throws Exception{
+		return sqlSession.selectList("adminQnaMapper.selectInfo", no);
+	}
+
+	public String selectAnswer(Integer no) throws Exception{
+		return sqlSession.selectOne("adminQnaMapper.selectAnswer", no);
+	}
+
+
 	
 }

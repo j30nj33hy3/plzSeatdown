@@ -25,4 +25,7 @@ public interface AdminMemberService {
 
 	public abstract List<Member> selectSortList(Map<String, String> map, PageInfo pInf) throws Exception;
 
+	public abstract int nicknameDupCheck(String memberNickname) throws Exception;
+
+
 }

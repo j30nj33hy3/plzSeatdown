@@ -9,11 +9,19 @@
 <title>관리자페이지 - 회원 목록</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/memberList.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/admin.css" />
+<style>
+.down {
+	border: none;
+	background-color: #E9ECEF"
+}
+</style>
 </head>
 
 <body>
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application" />
-	
+	<c:set var="contextPath"
+		value="${pageContext.servletContext.contextPath }" scope="application" />
+
 	<div id="main-wrapper">
 		<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
 		<jsp:include page="/WEB-INF/views/admin/common/nav.jsp" />
@@ -54,7 +62,9 @@
 									<th scope="col">전화번호</th>
 									<th scope="col">가입일</th>
 									<th scope="col">상태</th>
-									<th scope="col">신고 횟수<button class="down" style="border:none; background-color:#E9ECEF">▼</button></th>
+									<th scope="col">신고 횟수 <a class="down" name="down"
+										type="button">▼</a>
+									</th>
 									<th scope="col">수정</th>
 									<th scope="col">삭제</th>
 								</tr>
@@ -86,14 +96,12 @@
 						</table>
 					</div>
 				</div>
-
-
-<!-- 페이징바 -->
-						<div class="col-md-12 d-flex justify-content-center">
-							<ul class="pagination pagination-info">
-								<c:if test="${pInf.currentPage > 1}">
-									<li class="page-item"><a class="page-link"
-										href=" 
+				<!-- 페이징바 -->
+				<div class="col-md-12 d-flex justify-content-center">
+					<ul class="pagination pagination-info">
+						<c:if test="${pInf.currentPage > 1}">
+							<li class="page-item"><a class="page-link"
+								href=" 
 			                    	<c:url value="list">
 			                    		<c:if test="${!empty param.searchKey }">
 							        		<c:param name="searchKey" value="${param.searchKey}"/>
@@ -105,54 +113,53 @@
 			                    		<c:param name="currentPage" value="1"/>
 			                    	</c:url>
 		                    	">
-											&lt;&lt; </a></li>
-									<li class="page-item">
-										<!-- 이전으로 --> <a class="page-link"
-										href=" 
+									&lt;&lt; </a></li>
+							<li class="page-item">
+								<!-- 이전으로 --> <a class="page-link"
+								href=" 
 		                    	<c:url value="list">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
 						        	
 						        	<c:if test="${!empty param.searchValue }">
-						        		<c:param name="searchValue" value="${param.searchValue}"/>
-						        	</c:if>
+                                            <c:param name="searchValue" value="${param.searchValue}"/>
+                                    </c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
 	                    	">&lt;</a>
-									</li>
-								</c:if>
+							</li>
+						</c:if>
 
-								<c:forEach var="p" begin="${pInf.startPage}"
-									end="${pInf.endPage}">
+						<c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
 
-									<c:if test="${p == pInf.currentPage}">
-										<li class="active page-item"><a class="page-link">${p}</a>
-										</li>
-									</c:if>
+							<c:if test="${p == pInf.currentPage}">
+								<li class="active page-item"><a class="page-link">${p}</a>
+								</li>
+							</c:if>
 
-									<c:if test="${p != pInf.currentPage}">
-										<li class="page-item"><a class="page-link"
-											href="
-                    				<c:url value="list">
-                    					<c:if test="${!empty param.searchKey}">
-                    						<c:param name="searchKey" value="${param.searchKey}"/>
-                    					</c:if>
-                    					<c:if test="${!empty param.searchValue}">
-                    						<c:param name="searchKey" value="${param.searchValue}"/>
-                    					</c:if>
-                    					<c:param name="currentPage" value="${p}"/>
-                    				</c:url>
-                    				">${p}
-										</a></li>
-									</c:if>
+							<c:if test="${p != pInf.currentPage}">
+								<li class="page-item"><a class="page-link"
+									href=" 
+                                        <c:url value="list">
+                                            <c:if test="${!empty param.searchKey }">
+                                                <c:param name="searchKey" value="${param.searchKey}"/>
+                                            </c:if>
+                                            
+                                            <c:if test="${!empty param.searchValue }">
+                                                <c:param name="searchValue" value="${param.searchValue}"/>
+                                            </c:if>
+                                            <c:param name="currentPage" value="${p}"/>
+                                        </c:url>
+                                    ">${p}</a>
+								</li>
+							</c:if>
+						</c:forEach>
 
-								</c:forEach>
-
-								<!-- 다음 -->
-								<c:if test="${pInf.currentPage < pInf.maxPage}">
-									<li class="page-item"><a class="page-link"
-										href="
+						<!-- 다음 -->
+						<c:if test="${pInf.currentPage < pInf.maxPage}">
+							<li class="page-item"><a class="page-link"
+								href="
                     			<c:url value="list">
                     				<c:if test="${!empty param.searchKey }">
                     					<c:param name="searchKey" value="${param.searchKey}"/>
@@ -163,11 +170,11 @@
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
                     			</c:url>
                     			">&gt;</a>
-									</li>
+							</li>
 
-									<!-- 맨 끝으로(>>) -->
-									<li class="page-item"><a class="page-link"
-										href=" 
+							<!-- 맨 끝으로(>>) -->
+							<li class="page-item"><a class="page-link"
+								href=" 
 		                    	<c:url value="list">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
@@ -178,21 +185,19 @@
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
 	                    	">
-											&gt;&gt; </a></li>
-								</c:if>
-							</ul>
-						</div>
+									&gt;&gt; </a></li>
+						</c:if>
+					</ul>
+				</div>
 
-
-
- 
 				<div>
-					<form action="list" method="GET" class="text-center" id="searchForm">
+					<form action="list" method="GET" class="text-center"
+						id="searchForm">
 						<select id="searchTitle" name="searchKey" class="form-control">
 							<option value="id">아이디</option>
 							<option value="email">이메일</option>
-						</select>
-						<input type="text" id="searchInput" name="searchValue" class="form-control" placeholder="검색어를 입력해주세요.">
+						</select> <input type="text" id="searchInput" name="searchValue"
+							class="form-control" placeholder="검색어를 입력해주세요.">
 						<button id="searchBtn" class="form-control btn btn-primary">검색</button>
 					</form>
 
@@ -244,6 +249,8 @@
 								$(this).parent().css("cursor", "pointer");
 							});	
 						});
+						
+					
 					</script>
 				</div>
 				<br>
@@ -263,14 +270,22 @@
 		 ****************************************/
 		$('#zero_config').DataTable();
 	</script> -->
-<script>
+
+	<script>
+$('.down').on('click', function(){
+	location.href="sortList";
+})
+</script>
+
+	<!-- 	<script>
     $('.down').on('click', function () {
-    	var searchKey = $("searchKey").val();
-    	var searchValue = $("searchValue").val();
-    	var currentPage = $("currentPage").val();
+    	var searchKey = "${param.searchKey}";
+		var searchValue = "${param.searchValue}";
+		var currentPage = "${param.currentPage}";
     	console.log(searchKey);
     	console.log(searchValue);
     	console.log(currentPage);
+    	
         // property를 설정한다.
         $.ajax({
 
@@ -287,5 +302,6 @@
     });
 
 </script>
+ -->
 </body>
 </html>

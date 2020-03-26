@@ -9,6 +9,7 @@
 <title>관리자게시판 - 공지사항</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/noticeList.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/admin.css" />
 </head>
 <body>
 
@@ -124,8 +125,8 @@
 						        	</c:if>
 						        	
 						        	<c:if test="${!empty param.searchValue }">
-						        		<c:param name="searchValue" value="${param.searchValue}"/>
-						        	</c:if>
+                                            <c:param name="searchValue" value="${param.searchValue}"/>
+                                    </c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
 	                    	">&lt;</a>
@@ -142,20 +143,20 @@
 
 									<c:if test="${p != pInf.currentPage}">
 										<li class="page-item"><a class="page-link"
-											href="
-                    				<c:url value="list">
-                    					<c:if test="${!empty param.searchKey}">
-                    						<c:param name="searchKey" value="${param.searchKey}"/>
-                    					</c:if>
-                    					<c:if test="${!empty param.searchValue}">
-                    						<c:param name="searchKey" value="${param.searchValue}"/>
-                    					</c:if>
-                    					<c:param name="currentPage" value="${p}"/>
-                    				</c:url>
-                    				">${p}
-										</a></li>
+											href=" 
+                                        <c:url value="list">
+                                            <c:if test="${!empty param.searchKey }">
+                                                <c:param name="searchKey" value="${param.searchKey}"/>
+                                            </c:if>
+                                            
+                                            <c:if test="${!empty param.searchValue }">
+                                                <c:param name="searchValue" value="${param.searchValue}"/>
+                                            </c:if>
+                                            <c:param name="currentPage" value="${p}"/>
+                                        </c:url>
+                                    ">${p}</a>
+										</li>
 									</c:if>
-
 								</c:forEach>
 
 								<!-- 다음 -->
@@ -191,42 +192,40 @@
 								</c:if>
 							</ul>
 						</div>
+<div>
+					<form action="list" method="GET" class="text-center"
+						id="searchForm">
+						<select id="searchTitle" name="searchKey" class="form-control">
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+						</select> <input type="text" id="searchInput" name="searchValue"
+							class="form-control" placeholder="검색어를 입력해주세요.">
+						<button id="searchBtn" class="form-control btn btn-primary">검색</button>
+					</form>
 
-						<form action="list" method="GET" class="text-center"
-							id="searchForm">
-							<select id="searchTitle" name="searchKey" class="form-control">
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-								<option value="titcont">제목+내용</option>
-							</select> <input type="text" id="searchInput" name="searchValue"
-								class="form-control" placeholder="검색어를 입력해주세요.">
-							<button id="searchBtn" class="form-control btn btn-primary">검색</button>
-						</form>
+					
 
-
+						<!-- ============================================================== -->
+						<!-- End PAge Content -->
+						<!-- ============================================================== -->
+						<!-- ============================================================== -->
+						<!-- Right sidebar -->
+						<!-- ============================================================== -->
+						<!-- .right-sidebar -->
+						<!-- ============================================================== -->
+						<!-- End Right sidebar -->
+						<!-- ============================================================== -->
 					</div>
+					<!-- ============================================================== -->
+					<!-- End Container fluid  -->
+					<!-- ============================================================== -->
+
 				</div>
 				<!-- ============================================================== -->
-				<!-- End PAge Content -->
+				<!-- End Page wrapper  -->
 				<!-- ============================================================== -->
-				<!-- ============================================================== -->
-				<!-- Right sidebar -->
-				<!-- ============================================================== -->
-				<!-- .right-sidebar -->
-				<!-- ============================================================== -->
-				<!-- End Right sidebar -->
-				<!-- ============================================================== -->
-			</div>
-			<!-- ============================================================== -->
-			<!-- End Container fluid  -->
-			<!-- ============================================================== -->
 
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
-		<!-- ============================================================== -->
-
-		<script>
+				<script>
 		
         /****************************************
          *       Basic Table                   *

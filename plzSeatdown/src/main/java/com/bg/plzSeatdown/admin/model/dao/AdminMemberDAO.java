@@ -83,4 +83,9 @@ public class AdminMemberDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("adminMemberMapper.selectSortList", map, rowBounds);
 	}
+
+	public int nicknameDupChekc(String memberNickname) throws Exception {
+		return sqlSession.selectOne("adminMemberMapper.nicknameDupCheck", memberNickname);
+	}
+
 }

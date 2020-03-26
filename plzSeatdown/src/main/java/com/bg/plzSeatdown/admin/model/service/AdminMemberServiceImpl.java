@@ -59,7 +59,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public List<Member> selectSortList(Map<String, String> map, PageInfo pInf) throws Exception {
 		return adminMemberDAO.selectSortList(map, pInf);
-	}	
+	}
+
+	@Override
+	public int nicknameDupCheck(String memberNickname) throws Exception {
+		return adminMemberDAO.nicknameDupChekc(memberNickname);
+	}
 	
 
 }

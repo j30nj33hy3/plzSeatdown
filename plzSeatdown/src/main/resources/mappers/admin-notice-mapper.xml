@@ -17,7 +17,7 @@
 		SELECT COUNT(*) FROM NOTICE
 		<where>
 			<if test="searchValue != null">
-				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+			<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'title'">
 						AND NOTICE_TITLE LIKE #{sv}
@@ -42,7 +42,7 @@
 		FROM NOTICE
 		<where>
 			<if test="searchValue != null">
-				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+			<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
 					<when test="searchKey == 'title'">
 						AND NOTICE_TITLE LIKE #{sv}
