@@ -50,7 +50,7 @@
           							  	<div style="display:none;">${reviewimg.reviewNo}</div>
           							  	
           							  		<c:if test="${reviewimg.reviewWriter == loginMember.memberNo}">
-                                         		<c:set var="src" value="${contextPath}/resources/images/${reviewimg.reviewImagePath}"/>
+                                         		<c:set var="src" value="${contextPath}/resources/reviewImages/${reviewimg.reviewImagePath}"/>
                                         	</c:if>
                                       
                 							<a class="thumbnail fancybox" rel="ligthbox" href="${src}">

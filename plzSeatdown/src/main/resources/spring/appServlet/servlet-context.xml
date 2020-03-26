@@ -31,7 +31,7 @@
 	<!-- AOP -->
 	<!-- <aop:aspectj-autoproxy/> -->
 	
-		<!-- 웹소켓 -->
+		<!-- 웹소켓  채팅-->
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo"/>
 		<websocket:handshake-interceptors>
@@ -41,6 +41,8 @@
 	</websocket:handlers>
 	<beans:bean id="echoHandler" class="com.bg.plzSeatdown.websocket.common.EchoHandler"/>
 	
+	
+	<!-- 알림 웹소켓 -->
 	<websocket:handlers>
 		<websocket:mapping handler="replyAlarmEchoHandler" path="/replyAlarmEcho"/>
 		<websocket:handshake-interceptors>

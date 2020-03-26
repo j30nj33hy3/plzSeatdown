@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
+import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
@@ -163,6 +164,18 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract List<ReviewImageEH> selectRimglist(int memberNo)throws Exception;
+
+
+
+	
+	
+	/** 마이커뮤 댓글 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<Reply> selectReplist(PageInfo pInf, int memberNo)throws Exception;
 	
 
 

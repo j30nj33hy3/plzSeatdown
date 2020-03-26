@@ -90,6 +90,12 @@ body{
 
 /* 테이블 */
 
+
+.commu-body tr:hover{
+    background-color: rgba(198, 180, 205, 0.3);
+    cursor: pointer;
+}
+
 .table{
     text-align: center;
     margin-bottom: 30px;

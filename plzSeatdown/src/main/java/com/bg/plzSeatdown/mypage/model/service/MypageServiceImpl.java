@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bg.plzSeatdown.common.vo.FileRename;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
+import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.dao.MypageDAO;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
@@ -73,8 +74,14 @@ public class MypageServiceImpl implements MypageService{
       
       
       if(!image.getOriginalFilename().equals("")) {
+    	  
+    	  
+    	  System.out.println("image :" + image);
+    	  System.out.println("image.getOriginalFilename() :" +image.getOriginalFilename());
       
          String changeFileName = FileRename.rename(image.getOriginalFilename());
+         
+         System.out.println("changeFileName:" + changeFileName);
          
       // 이미지 기존에 O -> update 진행
       			if(file != null) { //이미지가 비어있지 않다면
@@ -343,6 +350,21 @@ public class MypageServiceImpl implements MypageService{
 	public List<ReviewImageEH> selectRimglist(int memberNo) throws Exception {
 		return mypageDAO.selectRimglist(memberNo);
 	}
+   
+   
+   
+   
+   /** 마이커뮤 댓글 조회
+	 * @param pInf
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+   @Override
+	public List<Reply> selectReplist(PageInfo pInf, int memberNo) throws Exception {
+		return mypageDAO.selectReplist(pInf,memberNo);
+	}
+   
    
    
    
