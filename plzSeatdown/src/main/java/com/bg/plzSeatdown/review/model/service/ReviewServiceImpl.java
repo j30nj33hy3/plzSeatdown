@@ -164,7 +164,7 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.selectRList2(seat);
 	}
 
-	/** 번호 목록 조회용 Service (구역 없음)
+	/** 번호 목록 조회용 Service
 	 * @param seat
 	 * @return cList
 	 * @throws Exception
@@ -172,16 +172,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<String> selectCList(Seat seat) throws Exception {
 		return reviewDAO.selectCList(seat);
-	}
-
-	/** 번호 목록 조회용 Service
-	 * @param seat
-	 * @return cList
-	 * @throws Exception
-	 */
-	@Override
-	public List<String> selectCList2(Seat seat) throws Exception {
-		return reviewDAO.selectCList2(seat);
 	}
 
 	/** 좌석 코드 조회 Service
@@ -192,16 +182,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public String selectSeatCode(Seat seat) throws Exception {
 		return reviewDAO.selectSeatCode(seat);
-	}
-
-	/** 좌석 코드 조회 Service
-	 * @param seat
-	 * @return seatCode
-	 * @throws Exception
-	 */
-	@Override
-	public String selectSeatCode2(Seat seat) throws Exception {
-		return reviewDAO.selectSeatCode2(seat);
 	}
 
 	/** 리뷰 등록용 Service
@@ -276,8 +256,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return result;
 	}
 	
-	
-
+	/** 좌석 평점 조회용 Service
+	 * @param thCode
+	 * @return rating
+	 * @throws Exception
+	 */
+	@Override
+	public List<SeatReview> selectRatingList(String thCode) throws Exception {
+		return reviewDAO.selectRatingList(thCode);
+	}
 	
 	
 

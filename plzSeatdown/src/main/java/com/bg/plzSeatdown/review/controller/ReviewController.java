@@ -139,9 +139,9 @@ public class ReviewController {
 			
 			Theater theater = reviewService.selectTheaterDetail(thCode);
 			Show nowShow = reviewService.selectNowShow(thCode);
-			List<SeatReview> review = reviewService.selectReviewList(thCode);
-			
-			model.addAttribute("review", review);
+			List<SeatReview> rList = reviewService.selectReviewList(thCode);
+			List<SeatReview> rating = reviewService.selectRatingList(thCode);
+			model.addAttribute("rating", rating);
 			model.addAttribute("theater", theater);
 			model.addAttribute("show", nowShow);
 			return "review/reviewSeats";
@@ -275,15 +275,8 @@ public class ReviewController {
 			@RequestParam(value = "seatRow", required = false)String seatRow) {
 		try {
 			String thCode = reviewService.selectTheaterCode(thName);
-			Seat seat = null;
-			List<String> cList = null;
-			if(seatArea.equals("-1")) {
-				seat = new Seat(0, seatFloor, seatRow, thCode);
-				cList = reviewService.selectCList(seat);
-			}else {
-				seat = new Seat(seatFloor, seatArea, seatRow, thCode);
-				cList = reviewService.selectCList2(seat);
-			}
+			Seat seat = new Seat(seatFloor, seatArea, seatRow, thCode);
+			List<String> cList = reviewService.selectCList(seat);
 			return new Gson().toJson(cList);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -301,15 +294,8 @@ public class ReviewController {
 			@RequestParam(value = "seatCol", required = false)String seatCol) {
 		try {
 			String thCode = reviewService.selectTheaterCode(thName);
-			Seat seat = null;
-			String result = null;
-			if(seatArea.equals("-1")) {
-				seat = new Seat(0, seatFloor, seatRow, seatCol, thCode);
-				result = reviewService.selectSeatCode(seat);
-			}else {
-				seat = new Seat(seatFloor, seatArea, seatRow, seatCol, thCode);
-				result = reviewService.selectSeatCode2(seat);
-			}
+			Seat seat = new Seat(seatFloor, seatArea, seatRow, seatCol, thCode);
+			String result = reviewService.selectSeatCode(seat);
 			return new Gson().toJson(result);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -372,7 +358,7 @@ public class ReviewController {
 					}
 				}
 				msg = "리뷰 등록 성공";
-				url = "/";
+				url = "seats?thCode="+thCode;
 			}else {
 				msg = "리뷰 등록 실패";
 				url = "write";

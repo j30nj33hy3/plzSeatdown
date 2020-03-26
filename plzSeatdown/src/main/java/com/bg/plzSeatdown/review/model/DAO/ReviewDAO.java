@@ -164,15 +164,6 @@ public class ReviewDAO {
 		return sqlSession.selectList("reviewMapper.selectCList", seat);
 	}
 
-	/** 번호 목록 조회용 DAO
-	 * @param seat
-	 * @return cList
-	 * @throws Exception
-	 */
-	public List<String> selectCList2(Seat seat) throws Exception{
-		return sqlSession.selectList("reviewMapper.selectCList2", seat);
-	}
-
 	/** 좌석 코드 조회용  DAO
 	 * @param seat
 	 * @return seatCode
@@ -182,14 +173,6 @@ public class ReviewDAO {
 		return sqlSession.selectOne("reviewMapper.selectSeatCode", seat);
 	}
 
-	/** 좌석 코드 조회용  DAO
-	 * @param seat
-	 * @return seatCode
-	 * @throws Exception
-	 */
-	public String selectSeatCode2(Seat seat) throws Exception{
-		return sqlSession.selectOne("reviewMapper.selectSeatCode2", seat);
-	}
 
 	/** 다음 리뷰 번호 얻어오기
 	 * @return reviewNo
@@ -252,8 +235,15 @@ public class ReviewDAO {
 		return sqlSession.insert("reviewMapper.insertReviewReport", report);
 	}
 
+	/** 좌석 평점 리뷰 조회용 DAO
+	 * @param thCode
+	 * @return rating
+	 * @throws Exception
+	 */
+	public List<SeatReview> selectRatingList(String thCode) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectRatingList", thCode);
+	}
 	
-
 
 	
 

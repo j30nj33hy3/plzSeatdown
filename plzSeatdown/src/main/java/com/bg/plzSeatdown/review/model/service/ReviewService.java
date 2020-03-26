@@ -118,19 +118,12 @@ public interface ReviewService {
 	 */
 	List<String> selectRList2(Seat seat) throws Exception;
 
-	/** 번호 목록 조회용 Service (구역 없음)
-	 * @param seat
-	 * @return cList
-	 * @throws Exception
-	 */
-	List<String> selectCList(Seat seat) throws Exception;
-
 	/** 번호 목록 조회용 Service
 	 * @param seat
 	 * @return cList
 	 * @throws Exception
 	 */
-	List<String> selectCList2(Seat seat) throws Exception;
+	List<String> selectCList(Seat seat) throws Exception;
 
 	/** 좌석 코드 조회 Service
 	 * @param seat
@@ -138,13 +131,6 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	String selectSeatCode(Seat seat) throws Exception;
-
-	/** 좌석 코드 조회 Service
-	 * @param seat
-	 * @return seatCode
-	 * @throws Exception
-	 */
-	String selectSeatCode2(Seat seat) throws Exception;
 
 	/** 리뷰 등록용 Service
 	 * @param review
@@ -174,7 +160,12 @@ public interface ReviewService {
 	 */
 	int insertReviewReport(ReviewReport report) throws Exception;
 
-
+	/** 좌석 평점 조회용 Service
+	 * @param thCode
+	 * @return rating
+	 * @throws Exception
+	 */
+	List<SeatReview> selectRatingList(String thCode) throws Exception;
 
 
 	

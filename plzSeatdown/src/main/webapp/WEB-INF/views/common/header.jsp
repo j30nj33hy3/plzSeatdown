@@ -36,6 +36,11 @@
 	
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/noscript.css" />
+<style>
+	#logoContainer{
+		margin: 0 auto;
+	}
+</style>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
@@ -45,17 +50,9 @@
 	</c:if>
 	<!-- Header -->
 	<section id="header">
-		<div class="row container-fluid">
-			<div class="col-md-4">
-			
-			</div>
-			<div class="col-md-4">
+		<div id="logoContainer" class="col-md-12">
 				<!-- Logo -->
 				<a href="${contextPath}"><img src="${contextPath}/resources/images/logo.png"></a>
-			</div>
-			<div class="col-md-4">
-			
-			</div>
 		</div>
 	</section>
 	
