@@ -93,6 +93,12 @@
 	#navbarTogglerDemo01{
       	background: rgb(198, 180, 205);
    	}
+   	.alarm-dropdown{
+   		background-color: rgba(255, 255, 255, 0.8);
+   	}
+   	.alarm-dropdown > a{
+   		border-bottom: solid 0.5px #ccc;
+   	}
 </style>
 </head>
 <body>
@@ -133,6 +139,17 @@
 			<li class="nav-item"><a href="${contextPath}/qna/list" class="nav-link d-md-inline-block">Q&A</a></li>
 			<c:if test="${! empty sessionScope.loginMember}">
 				<li class="nav-item"><a href="${contextPath}/index2" class="nav-link d-md-inline-block"><i class="far fa-comments"></i></a></li>
+				<li class="nav-item dropdown">
+					<a href="" class="nav-link d-md-inline-block" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-bell" aria-hidden="true" style="color:white;"></i>
+						<span class="badge badge-pill badge-warning">1</span>
+					</a>
+					<div class="dropdown-menu alarm-dropdown mt-3 py-3" aria-labelledby="alarmDropdown">
+						<a href="" class="dropdown-item text-muted">알람표시</a>
+						<a href="" class="dropdown-item text-muted">됩니다</a>
+						<a href="" class="dropdown-item text-muted">아마도....</a>
+					</div>
+				</li>
 			</c:if>
 			</ul>
 		</div>

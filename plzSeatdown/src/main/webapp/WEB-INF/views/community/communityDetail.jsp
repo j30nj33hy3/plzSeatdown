@@ -186,8 +186,9 @@ tbody > tr:last-child{
 	             </a>
             </div>
         </div>
-
+	<jsp:include page="../common/footer.jsp"/>
 	<script>
+	
 		// 이전
 		$("#pre").on("click", function(){
 			var preCommNo = ${community.preCommunityNo};
@@ -256,9 +257,8 @@ tbody > tr:last-child{
 				replySecret = "Y";
 			}
 			
-			
 			var replyNo;
-			
+			//var socketMsg ="메세지 확인";
 			$.ajax({
 				url : "insertReply",
 				dataType : "json",
@@ -277,6 +277,12 @@ tbody > tr:last-child{
 					switch(result){
 					case 1 : $("#replyContent").val("");
 						selectRlist();
+						alert(socket);	
+					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+						console.log("socketMsg : " + socketMsg);
+						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
+						socket.send(socketMsg);
+						
 						break;
 					case 0 : alert("댓글 등록 실패"); break;
 					case -1 : alert("댓글 등록 오류 발생"); break;
@@ -298,7 +304,7 @@ tbody > tr:last-child{
 				data : {"communityNo":communityNo},
 				dataType : "json",
 				success : function(rList){
-					console.log(rList);
+					//console.log(rList);
 					
 					var $rArea = $("#replyListArea");
 
@@ -315,7 +321,7 @@ tbody > tr:last-child{
 							if(rList[i].replyStatus=='Y'){
 								rCount ++
 							}
-							console.log(rCount);
+							//console.log(rCount);
 							$("#replyCount").html(rCount);
 							/* 공통  */
 							var $li = $("<li>").prop("class","comment");
@@ -364,7 +370,7 @@ tbody > tr:last-child{
 							// rPrint 3 : 자식댓글 비밀출력
 							// v_rereply : 대댓글 보여줄지 말지 1:보여줌 0:숨김
 							if(rList[i].replyStatus != 'W'){
-								if(${loginMember.memberNo} == ${community.communityWriter}){
+								if(${loginMember.memberNo} == ${community.communityWriter} || ${loginMember.memberGrade == 'A'}){
 									if(rList[i].depth==0) rPrint = 0;
 									else rPrint = 2;
 								}else if(${loginMember.memberNo} == rList[i].replyWriter){
@@ -398,8 +404,8 @@ tbody > tr:last-child{
 								rPrint = 4;
 							}
 							
-							console.log("replyStatus : " + rList[i].replyStatus);
-							console.log("rPrint : " + rPrint);
+							//console.log("replyStatus : " + rList[i].replyStatus);
+							//console.log("rPrint : " + rPrint);
 							if(rPrint == 0){
 								$li.append($div);
 								$div.append($img);
@@ -643,7 +649,12 @@ tbody > tr:last-child{
 				success : function(result){
 					var msg;
 					switch(result){
-					case 1 : selectRlist(); break;
+					case 1 : selectRlist(); 
+						var socketMsgRR = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+							console.log("socketMsg : " + socketMsgRR);
+							/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
+							socket.send(socketMsgRR);					
+							break;
 					case 0 : alert("답댓글 등록 실패"); break;
 					case -1 : alert("답댓글 등록 오류 발생"); break;
 					}
@@ -797,6 +808,6 @@ tbody > tr:last-child{
      		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
      </script>
-     <jsp:include page="../common/footer.jsp"/>
+     
 </body>
 </html>

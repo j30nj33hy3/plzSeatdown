@@ -40,4 +40,13 @@
 		<websocket:sockjs/>
 	</websocket:handlers>
 	<beans:bean id="echoHandler" class="com.bg.plzSeatdown.websocket.common.EchoHandler"/>
+	
+	<websocket:handlers>
+		<websocket:mapping handler="replyAlarmEchoHandler" path="/replyAlarmEcho"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
+	</websocket:handlers>
+	<beans:bean id="replyAlarmEchoHandler" class="com.bg.plzSeatdown.alarm.common.ReplyEchoHandler"/>
 </beans:beans>

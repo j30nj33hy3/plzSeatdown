@@ -145,43 +145,6 @@ public class CommunityController {
 	public String insertForm() {
 		return "community/communityInsert";
 	}
-
-	/*
-	// 이미지 등록
-	@RequestMapping("insertImage")
-	@ResponseBody
-	public ResponseEntity<?> insertImage(@RequestParam(value="uploadFile", required=false) MultipartFile multipartFile,
-							HttpServletRequest request) {
-		
-		JsonObject jsonObject = new JsonObject();
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "/communityImages";
-		
-		File folder = new File(savePath);
-		
-		if(!folder.exists()) folder.mkdir();
-		
-		String originFileName = multipartFile.getOriginalFilename();
-		String changeFileName = FileRename.rename(originFileName);
-		
-		File file = new File(savePath+"/"+changeFileName);
-		
-		try {
-			multipartFile.transferTo(file);
-			
-			//jsonObject.addProperty("url", request.getContextPath()+"/resuorces/communityImages/"+changeFileName);
-			//jsonObject.addProperty("responseCode", "success");
-			return ResponseEntity.ok().body(savePath+"/"+changeFileName);
-		}catch(Exception e) {
-			//FileUtils.deleteDirectory(file); //저장된 파일 삭제
-			//jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	*/
-	
 	
 	// 글 등록
 	@RequestMapping("insert")
