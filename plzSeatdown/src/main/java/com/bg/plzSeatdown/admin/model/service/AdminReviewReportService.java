@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bg.plzSeatdown.admin.model.vo.AdminReplyReport;
+import com.bg.plzSeatdown.admin.model.vo.AdminReviewReport;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
 public interface AdminReviewReportService {
@@ -21,7 +22,7 @@ public interface AdminReviewReportService {
 	 * @return list
 	 * @throws Exception
 	 */
-	public abstract List<AdminReplyReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+	public abstract List<AdminReviewReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
 
 	/** 신고 횟수 증가용 서비스
 	 * @param no

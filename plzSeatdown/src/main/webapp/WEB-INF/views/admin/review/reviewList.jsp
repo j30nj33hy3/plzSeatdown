@@ -22,12 +22,23 @@
 }
 
 .ellip{
-	margin: 0;
-	margin: auto;
-	width: 200px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+   margin: 0;
+   margin: auto;
+   width: 300px;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+#ellip1{
+   margin: 0;
+   margin: auto;
+   height: 1.5em;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
 }
 
 #searchTitle {
@@ -91,7 +102,7 @@
 									<c:forEach var="review" items="${list}" varStatus="vs">
 										<tr>
 											<td>${review.reviewNo}</td>
-											<td><p class="ellip"><a class="rcomment" href="">${review.reviewComment}</a></p></td>
+											<td><p class="ellip" id="ellip1">${review.reviewComment}</p></td>
 											<td>${review.memberNickname}</td>
 											<td>${review.reviewCreateDate}</td>
 											<td>${review.reviewStatus}</td>

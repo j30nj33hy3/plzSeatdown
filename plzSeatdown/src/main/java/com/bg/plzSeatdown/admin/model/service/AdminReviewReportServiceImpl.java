@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bg.plzSeatdown.admin.model.dao.AdminReviewReportDAO;
 import com.bg.plzSeatdown.admin.model.vo.AdminReplyReport;
+import com.bg.plzSeatdown.admin.model.vo.AdminReviewReport;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
 @Service
@@ -33,7 +34,7 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<AdminReplyReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
+	public List<AdminReviewReport> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
 		return adminReviewReportDAO.selectList(map, pInf);
 	}
 

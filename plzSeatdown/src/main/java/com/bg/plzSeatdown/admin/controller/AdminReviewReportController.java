@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bg.plzSeatdown.admin.model.service.AdminReviewReportService;
 import com.bg.plzSeatdown.admin.model.vo.AdminReplyReport;
+import com.bg.plzSeatdown.admin.model.vo.AdminReviewReport;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
@@ -36,8 +37,7 @@ public class AdminReviewReportController {
 				map = new HashMap<String, String>();
 				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);	
-				
-				System.out.println(map);
+						
 			}
 			
 			// 전체 게시글 수 조회
@@ -50,7 +50,7 @@ public class AdminReviewReportController {
 			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 			
 			// 게시글 목록 조회
-			List<AdminReplyReport> list = adminReviewReportService.selectList(map, pInf);
+			List<AdminReviewReport> list = adminReviewReportService.selectList(map, pInf);
 					
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);

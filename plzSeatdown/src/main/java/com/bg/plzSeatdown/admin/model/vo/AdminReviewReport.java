@@ -6,6 +6,7 @@ public class AdminReviewReport {
 	private int reviewNo;
 	private int memberSuspector;
 	private int memberReporter;
+	private int reportCategoryCode;
 	private String reportCategoryName;
 	private char reportStatus;
 	private String suspectorId;
@@ -14,13 +15,15 @@ public class AdminReviewReport {
 	public AdminReviewReport() {}
 
 	public AdminReviewReport(int reviewReportNo, String reviewReportContent, int reviewNo, int memberSuspector,
-			int memberReporter, String reportCategoryName, char reportStatus, String suspectorId, String reporterId) {
+			int memberReporter, int reportCategoryCode, String reportCategoryName, char reportStatus,
+			String suspectorId, String reporterId) {
 		super();
 		this.reviewReportNo = reviewReportNo;
 		this.reviewReportContent = reviewReportContent;
 		this.reviewNo = reviewNo;
 		this.memberSuspector = memberSuspector;
 		this.memberReporter = memberReporter;
+		this.reportCategoryCode = reportCategoryCode;
 		this.reportCategoryName = reportCategoryName;
 		this.reportStatus = reportStatus;
 		this.suspectorId = suspectorId;
@@ -67,6 +70,14 @@ public class AdminReviewReport {
 		this.memberReporter = memberReporter;
 	}
 
+	public int getReportCategoryCode() {
+		return reportCategoryCode;
+	}
+
+	public void setReportCategoryCode(int reportCategoryCode) {
+		this.reportCategoryCode = reportCategoryCode;
+	}
+
 	public String getReportCategoryName() {
 		return reportCategoryName;
 	}
@@ -103,8 +114,8 @@ public class AdminReviewReport {
 	public String toString() {
 		return "AdminReviewReport [reviewReportNo=" + reviewReportNo + ", reviewReportContent=" + reviewReportContent
 				+ ", reviewNo=" + reviewNo + ", memberSuspector=" + memberSuspector + ", memberReporter="
-				+ memberReporter + ", reportCategoryName=" + reportCategoryName + ", reportStatus=" + reportStatus
-				+ ", suspectorId=" + suspectorId + ", reporterId=" + reporterId + "]";
+				+ memberReporter + ", reportCategoryCode=" + reportCategoryCode + ", reportCategoryName="
+				+ reportCategoryName + ", reportStatus=" + reportStatus + ", suspectorId=" + suspectorId
+				+ ", reporterId=" + reporterId + "]";
 	}
-
 }
