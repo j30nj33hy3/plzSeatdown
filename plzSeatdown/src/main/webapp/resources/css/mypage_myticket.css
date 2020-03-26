@@ -34,7 +34,6 @@ body{
 .gallery
 {
     display: inline-block;
-    margin-top: 20px;
 }
 
 
@@ -116,65 +115,29 @@ body{
 /*페이징바*/
 
 
-.form-group{
-    margin: auto;
-    top:0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+
+.pagination .page-link:focus{
+    box-shadow: none;
 }
-
-.pagination{
-    width : 300px;
-    margin: auto;
-    top:0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+.pagination>.page-item>.page-link, .pagination>.page-item>span {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px !important;
+    margin: 0 3px !important;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: 0 0;
+    text-align: center;
 }
-
-.pagination>li>a{
-    border-radius: 100%;
-}
-
-.page-item:first-child .page-link {
-    margin-left: 0;
-    border-top-left-radius: 100%;
-    border-bottom-left-radius: 100%;
-}
-
-.page-item:last-child .page-link {
-    border-top-right-radius: 100%;
-    border-bottom-right-radius: 100%;
-    background-color: white;
-}
-
-.page-link{
-    line-height: 1.2;
-    padding: .4rem .75rem  .5rem  .75rem ;
-    color : rgb(163, 99, 189);
-    border : 1px solid white;
-}
-
-
-
-.page-link:hover{
-    color : purple;
-    border : 1px solid white;
-    background-color: thistle;
-}
-
-.page-item.disabled .page-link{
-    color : rgb(163, 99, 189);
-    border: 1px solid white;
-    background-color: white;
-
-}
-
-.page-item.active .page-link {
-    color: rgb(163, 99, 189);
-    background-color:white;
-    border-color:rgb(163, 99, 189);
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus, .pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span, .pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover {
+    background-color: rgba(145, 126, 198, 0.2);
+    border-color:rgb(145, 126, 198);
 }
 
 
@@ -191,9 +154,6 @@ body{
 
 }
 
-.grid{
-    margin-top : 40px;
-}
 
 
 .grid figure {

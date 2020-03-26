@@ -42,7 +42,7 @@ Latest compiled and minified JavaScript
 	</div>
 	</div>
 	<!-- 메세지 작성부분 -->
-	<textarea rows="2" cols="65" name='message' id='message'  style="resize: none; font-size:16px;"placeholder="메세지를 입력하세요"></textarea>
+	<textarea rows="2" cols="75" name='message' id='message'  style="resize: none; font-size:16px;"placeholder="메세지를 입력하세요"></textarea>
 	<button class='btn btn-primary' id='sendBtn'>
 		<img src="${contextPath}/resources/images/send.jpg" width="55" height="55">
 	</button>

@@ -41,7 +41,6 @@
 								  	<th scope="col" style="border-bottom:0px;">글번호</th>
 									<th scope="col" style="border-bottom:0px;">제목</th>
 									<th scope="col" style="border-bottom:0px;">내용</th>
-									<th scope="col" style="border-bottom:0px;">작성자</th>
 									<th scope="col" style="border-bottom:0px;">날짜</th>
 									<th scope="col" style="border-bottom:0px;"></th>
 								  </tr>
@@ -58,7 +57,6 @@
 											<td style="border-top:0px; padding-top:17px;">${community.communityNo}</td>
 											<td style="border-top:0px; padding-top:17px;">${community.communityTitle}</td>
 											<td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td>
-											<td style="border-top:0px; padding-top:17px;">${community.communityWriter}</td>
 											<td style="border-top:0px; padding-top:17px;">${community.communityCreateDate}</td>
 											<td style="border-top:0px; padding-top:17px;">
 											  <button id="moveBoard" class="btn btn-outline-secondary m-3">해당 글 이동</button>

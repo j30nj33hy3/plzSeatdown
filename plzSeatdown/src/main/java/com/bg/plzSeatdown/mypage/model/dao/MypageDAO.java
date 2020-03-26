@@ -181,16 +181,6 @@ public class MypageDAO {
 
 	
 
-	/** 마이리뷰 이미지 조회
-	 * @param reviewNo
-	 * @return
-	 * @throws Exception
-	 */
-	public ReviewImageEH selectReviewImage(int reviewNo) throws Exception{
-		return sqlSession.selectOne("mypageMapper.selectReviewImage", reviewNo);
-	}
-
-
 	
 	
 	/** 마이티켓 게시글수 조회
@@ -242,7 +232,23 @@ public class MypageDAO {
 	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("mypageMapper.selectClist",memberNo,rowBounds);
 	}
+
+
+
+
+	
+	/** 마이리뷰 그림들 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ReviewImageEH> selectRimglist(int memberNo)throws Exception {
+		return sqlSession.selectList("mypageMapper.selectRimglist", memberNo);
+	}
    
+	
+	
+	
    
    
    

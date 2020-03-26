@@ -50,9 +50,10 @@
     	<result property="reviewComment" column="REVIEW_COMMENT"/>
     	<result property="reviewLegroom" column="REVIEW_LEGROOM"/>
     	<result property="reviewCreateDate" column="REVIEW_CREATE_DT"/>
+    	<result property="seatFloor" column="SEAT_FLOOR"/>
     	<result property="seatArea" column="SEAT_AREA"/>
     	<result property="seatRow" column="SEAT_ROW"/>
-    	<result property="seatNumber" column="SEAT_NUMBER"/>
+    	<result property="seatCol" column="SEAT_COL"/>
     	<result property="showTitle" column="SHOW_TITLE"/>
     	<result property="reviewWriter" column="REVIEW_WRITER"/>
     	<result property="reviewImageStatus" column="REVIEW_IMG_STATUS"/>
@@ -61,7 +62,7 @@
     
      <resultMap type="ReviewImageEH" id="ReviewImageEHResultSet">
      	<id property="reviewImageNo" column="REVIEW_IMG_NO"/>
-     	<result property="reviewImagePath" column="RIVIEW_IMG_PATH"/>
+     	<result property="reviewImagePath" column="REVIEW_IMG_PATH"/> 
      	<result property="uploadDate" column="UPLOAD_DT"/>
      	<result property="reviewImageStatus" column="REVIEW_IMG_STATUS"/>
      	<result property="imageType" column="IMG_TYPE"/>
@@ -191,11 +192,16 @@
    		WHERE REVIEW_WRITER = #{memberNO} 
 	</select>
 	
-	<!-- 마이리뷰 이미지 조회 -->
-	<select id="selectReviewImage" parameterType="_int" resultMap="ReviewImageEHResultSet">
+	
+	
+	<!-- 마이 리뷰 그림들 조회 -->
+	<select id="selectRimglist" parameterType="_int" resultMap="ReviewImageEHResultSet">
 		SELECT * FROM V_RIMGEH
-   		WHERE REVIEW_NO = #{reviewNO} 
+   		WHERE REVIEW_WRITER = #{memberNO} 
 	</select>
+	
+	
+	
 	
 	
 	

@@ -10,19 +10,20 @@ public class ReviewEH {
 	private String reviewComment;
 	private int reviewLegroom;
 	private Date reviewCreateDate;
+	private String seatFloor;
 	private String seatArea;
 	private String seatRow;
-	private int seatCol;
+	private String seatCol;
 	private String showTitle;
-	private String reviewWriter;
+	private int reviewWriter;
 	private String reviewImageStatus;
 	
 	public ReviewEH() {
 	}
 
 	public ReviewEH(int reviewNo, int reviewSight, int reviewComfort, String reviewComment, int reviewLegroom,
-			Date reviewCreateDate, String seatArea, String seatRow, int seatCol, String showTitle,
-			String reviewWriter, String reviewImageStatus) {
+			Date reviewCreateDate, String seatFloor, String seatArea, String seatRow, String seatCol, String showTitle,
+			int reviewWriter, String reviewImageStatus) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewSight = reviewSight;
@@ -30,6 +31,7 @@ public class ReviewEH {
 		this.reviewComment = reviewComment;
 		this.reviewLegroom = reviewLegroom;
 		this.reviewCreateDate = reviewCreateDate;
+		this.seatFloor = seatFloor;
 		this.seatArea = seatArea;
 		this.seatRow = seatRow;
 		this.seatCol = seatCol;
@@ -86,6 +88,14 @@ public class ReviewEH {
 		this.reviewCreateDate = reviewCreateDate;
 	}
 
+	public String getSeatFloor() {
+		return seatFloor;
+	}
+
+	public void setSeatFloor(String seatFloor) {
+		this.seatFloor = seatFloor;
+	}
+
 	public String getSeatArea() {
 		return seatArea;
 	}
@@ -102,11 +112,11 @@ public class ReviewEH {
 		this.seatRow = seatRow;
 	}
 
-	public int getseatCol() {
+	public String getSeatCol() {
 		return seatCol;
 	}
 
-	public void setseatCol(int seatCol) {
+	public void setSeatCol(String seatCol) {
 		this.seatCol = seatCol;
 	}
 
@@ -118,11 +128,11 @@ public class ReviewEH {
 		this.showTitle = showTitle;
 	}
 
-	public String getReviewWriter() {
+	public int getReviewWriter() {
 		return reviewWriter;
 	}
 
-	public void setReviewWriter(String reviewWriter) {
+	public void setReviewWriter(int reviewWriter) {
 		this.reviewWriter = reviewWriter;
 	}
 
@@ -138,9 +148,9 @@ public class ReviewEH {
 	public String toString() {
 		return "ReviewEH [reviewNo=" + reviewNo + ", reviewSight=" + reviewSight + ", reviewComfort=" + reviewComfort
 				+ ", reviewComment=" + reviewComment + ", reviewLegroom=" + reviewLegroom + ", reviewCreateDate="
-				+ reviewCreateDate + ", seatArea=" + seatArea + ", seatRow=" + seatRow + ", seatCol=" + seatCol
-				+ ", showTitle=" + showTitle + ", reviewWriter=" + reviewWriter + ", reviewImageStatus="
-				+ reviewImageStatus + "]";
+				+ reviewCreateDate + ", seatFloor=" + seatFloor + ", seatArea=" + seatArea + ", seatRow=" + seatRow
+				+ ", seatCol=" + seatCol + ", showTitle=" + showTitle + ", reviewWriter=" + reviewWriter
+				+ ", reviewImageStatus=" + reviewImageStatus + "]";
 	}
 
 	

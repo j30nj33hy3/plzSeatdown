@@ -64,40 +64,40 @@
 							  </table>
 
 
-							   <!-- 페이징바 -->
-							  <div class="form-group col-9">
-	         				   <ul class="pagination">
+							     <!-- 페이징바 -->
+           					 <div class="col-md-12 d-flex justify-content-center">
+	         				   <ul class="pagination pagination-info">
 	            				<c:if test="${pInf.currentPage > 1}">
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 맨 처음으로(<<) -->
 	                    			<a class="page-link" href="
-	                    			<c:url value="list"> 
+	                    			<c:url value="myreview"> 
 	                    				<c:param name="currentPage" value="1"/>
 	                    			</c:url>
 	                    			">&lt;&lt;</a>
 	                			</li>
 	                
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 이전으로(<) -->
                    					<a class="page-link" href="
-                   					<c:url value="list">
+                   					<c:url value="myreview">
                    					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
                    					</c:url>
-                   					">&lt;</a>
+                   					">PREV</a>
 	                			</li>
 	                			</c:if>
 	                
 	              			  <!-- 10개의 페이지 목록 -->
 	               			 	 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
 	                				<c:if test="${p == pInf.currentPage}">
-		              			  		<li>
+		              			  		<li class="active page-item">
 		               			   	  		<a class="page-link">${p}</a>
 		               					 </li>
 	                				</c:if>
 	                				<c:if test="${p != pInf.currentPage}">
-                						<li>
+                						<li class="page-item">
 	                    					<a class="page-link" href="
-	                    					<c:url value="list">
+	                    					<c:url value="myreview">
 	                    						<c:param name="currentPage" value="${p}"/>
 	                    					</c:url>
 	                    					">${p}</a>
@@ -106,18 +106,18 @@
 	            			  	 </c:forEach>
 	                			<!-- 다음 페이지로(>) -->
 	                			<c:if test="${pInf.currentPage < pInf.maxPage }">
-	                			<li>
+	                			<li class="page-item">
 	                			    <a class="page-link" href="
-	                			    	<c:url value="list">
+	                			    	<c:url value="myreview">
 	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                			    	</c:url>
-	                			    ">&gt;</a>
+	                			    ">NEXT</a>
 	                			</li>
 	                
 	               			 <!-- 맨 끝으로(>>) -->
-	              			  <li>
+	              			  <li class="page-item">
 	                   			 <a class="page-link" href="
-	                   			 	<c:url value="list">
+	                   			 	<c:url value="myreview">
 	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
 	                   			 	</c:url>
 	                   			 ">&gt;&gt;</a>

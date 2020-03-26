@@ -18,50 +18,51 @@
 			<div id="wrap">
 				<div class="sidebarpan">
 					<div class="showContent pl-3 pr-10">
-						<c:forEach var="revieweh" items="${list}" varStatus="vs">
-						<div id="title" class="mb-4">
-							<h4>${revieweh.showTitle}</h4>
+							<div id="title" class="mb-4">
+							<h4> </h4>
 						</div>
 						<div id="seatId" class="mb-5">
-							<h5>${revieweh.seatArea}&nbsp;${revieweh.seatRow}열 &nbsp;${revieweh.seatNumber}번에 대한 리뷰</h5>
+							<h5> </h5>
 						</div>
 						<div id="review">
 							<!-- 카드 1 시작 -->
 							<div class="card">
 								<div class="card-content">
 									<div class="profile" style="display:inline-block; width:100%; height: 50px;" >
+									<c:set var="src1" value="${contextPath}/resources/images/user.png"/>
 				                        <c:if test="${profile.memberNo == loginMember.memberNo}">
-				                        	<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
+				                        	<c:set var ="src1" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
 				                        </c:if>
-										<img class="img-circle profile-photo" src="${src}" width="50" height="50" style="border-radius: 5em;"/>
+										<img class="img-circle profile-photo" src="${src1}" width="50" height="50" style="border-radius: 5em;"/>
 										<div style="display:inline-block; width:100px;">${loginMember.memberId}</div>
 									</div>
 									<div class="mb-4 mt-4">
 										<div style="display: inline-block; width: 100px; font-weight: bold;">
 											<span>시야</span>
-											<span style="display: block;" class="star-prototype">${revieweh.reviewSight}</span>
+											<span style="display: block;" class="star-prototype" id="reviewSight"> </span>
 										</div>
 										<div style="display: inline-block;  width: 100px; font-weight: bold;">
 											<span>간격</span>
-											<span style="display: block;" class="star-prototype">${revieweh.reviewLegroom}</span>
+											<span style="display: block;" class="star-prototype" id="reviewLegroom"> </span>
 										</div>
 										<div style="display: inline-block;  width: 100px; font-weight: bold;">
 											<span>편안함</span>
-											<span style="display: block;" class="star-prototype">${revieweh.reviewComfort}</span>
+											<span style="display: block;" class="star-prototype" id="reviewComfort"> </span>
 										</div>
 									</div>
-										 <c:if test="${revieweh.reviewWriter == loginMember.memberNo}">
-				                        	<c:set var ="src" value="${contextPath}/resources/images/${rimage.reviewImagePath}"/>
-				                        </c:if>
-										<img class="img-responsive" src="${src}" />
+									<%-- 	<c:if test="${revieweh.reviewWriter == loginMember.memberNo}">
+											<c:forEach var="rimage" items="${rimgList}" varStatus="vs">
+				                        	<c:set var ="src2" value="${contextPath}/resources/images/${rimage.reviewImagePath}"/>
+				                        	</c:forEach>
+				                        </c:if> --%> 
+										<img class="img-responsive" src="" id="reviewImage"/>
 										<div class="sub-heading mt-4 mb-4">
-											<p>${revieweh.reviewComment}</p>z
+											<p id="reviewComment"> </p>
 										</div>
 								</div>
 							</div>
 							<!-- 카드 1 끝 -->
 						</div>
-						</c:forEach>
 					</div>
 				</div>
 				<div class="overlay"></div>
@@ -107,9 +108,9 @@
 									</c:if>
 									<c:if test="${!empty list}">
 										<c:forEach var="revieweh" items="${list}" varStatus="vs">
-											<tr id="seats">
+											<tr class="seats">
 												<td>${revieweh.reviewNo}</td>
-												<td>${revieweh.seatArea}&nbsp;${revieweh.seatRow}&nbsp;${revieweh.seatNumber}</td>
+												<td>${revieweh.seatArea}&nbsp;${revieweh.seatFloor}&nbsp;${revieweh.seatRow}&nbsp;${revieweh.seatCol}</td>
 												<td><span class="star-prototype" style="display:inline;  background: url(http://i.imgur.com/YsyS5y8.png) 0 -18px repeat-x;">${(revieweh.reviewSight + revieweh.reviewComfort + revieweh.reviewLegroom)/3}</span></td>
 												<td>${revieweh.showTitle}</td>
 												<td>${revieweh.reviewCreateDate}</td>
@@ -124,39 +125,39 @@
 							  </table>
 
 							   <!-- 페이징바 -->
-							  <div class="form-group col-9">
-	         				   <ul class="pagination">
+           					 <div class="col-md-12 d-flex justify-content-center">
+	         				   <ul class="pagination pagination-info">
 	            				<c:if test="${pInf.currentPage > 1}">
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 맨 처음으로(<<) -->
 	                    			<a class="page-link" href="
-	                    			<c:url value="list"> 
+	                    			<c:url value="myreview"> 
 	                    				<c:param name="currentPage" value="1"/>
 	                    			</c:url>
 	                    			">&lt;&lt;</a>
 	                			</li>
 	                
-	                			<li>
+	                			<li class="page-item">
 	                				<!-- 이전으로(<) -->
                    					<a class="page-link" href="
-                   					<c:url value="list">
+                   					<c:url value="myreview">
                    					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
                    					</c:url>
-                   					">&lt;</a>
+                   					">PREV</a>
 	                			</li>
 	                			</c:if>
 	                
 	              			  <!-- 10개의 페이지 목록 -->
 	               			 	 <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
 	                				<c:if test="${p == pInf.currentPage}">
-		              			  		<li>
+		              			  		<li class="active page-item">
 		               			   	  		<a class="page-link">${p}</a>
 		               					 </li>
 	                				</c:if>
 	                				<c:if test="${p != pInf.currentPage}">
-                						<li>
+                						<li class="page-item">
 	                    					<a class="page-link" href="
-	                    					<c:url value="list">
+	                    					<c:url value="myreview">
 	                    						<c:param name="currentPage" value="${p}"/>
 	                    					</c:url>
 	                    					">${p}</a>
@@ -165,18 +166,18 @@
 	            			  	 </c:forEach>
 	                			<!-- 다음 페이지로(>) -->
 	                			<c:if test="${pInf.currentPage < pInf.maxPage }">
-	                			<li>
+	                			<li class="page-item">
 	                			    <a class="page-link" href="
-	                			    	<c:url value="list">
+	                			    	<c:url value="myreview">
 	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                			    	</c:url>
-	                			    ">&gt;</a>
+	                			    ">NEXT</a>
 	                			</li>
 	                
 	               			 <!-- 맨 끝으로(>>) -->
-	              			  <li>
+	              			  <li class="page-item">
 	                   			 <a class="page-link" href="
-	                   			 	<c:url value="list">
+	                   			 	<c:url value="myreview">
 	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
 	                   			 	</c:url>
 	                   			 ">&gt;&gt;</a>
@@ -187,8 +188,6 @@
 							  
 							  
 						</div>
-
-
 					</div>
 				</div>
 			</div>
@@ -211,20 +210,81 @@
 		}); */
 		
 			$(function(){
-				$("#seats").mouseenter(function(){
+				$(".seats").mouseenter(function(){
 					$(this).parent().css("cursor", "pointer");
 				})
 			});
+			
 		
 			// sidebar pannel 기능
+			
 			$(function(){
-				$("#seats").on({
+				var arr = new Array();
+				<c:forEach var="r" items="${list}">
+					var review = {
+						reviewNo : "${r.reviewNo}",
+						reviewSight : "${r.reviewSight}",
+						reviewComfort : "${r.reviewComfort}",
+						reviewComment : "${r.reviewComment}",
+						reviewLegroom : "${r.reviewLegroom}",
+						reviewCreateDate : "${r.reviewCreateDate}",
+						seatArea : "${r.seatArea}",
+						seatFloor : "${r.seatFloor}",
+						seatRow : "${r.seatRow}",
+						seatCol : "${r.seatCol}",
+						showTitle : "${r.showTitle}",
+						reviewWriter : "${r.reviewWriter}"
+					}
+					
+					arr.push(review);
+				</c:forEach>
+				
+				
+				var arrimg = new Array();
+				<c:forEach var="rimg" items="${rimgList}">
+					var reviewImg = {
+						reviewImagePath : "${rimg.reviewImagePath}"
+					}
+					
+					arrimg.push(reviewImg);
+				</c:forEach>
+				
+				$(".seats").on({
 					click : function(){
+						
+						var index = $(this).index();
+						
 						$(".sidebarpan").addClass("active");
+						
+						
 						$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
 							e.preventDefault();
 						}); // 스크롤 불가능
 						$(".overlay").fadeIn();
+						
+						console.log(arr[index]);
+						console.log(arrimg[index]);
+						
+						$("#title").children("h4").text(arr[index].showTitle);
+						$("#seatId").children("h5").text(arr[index].seatArea + " " + arr[index].seatFloor + " " + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+						$("#reviewSight").text(arr[index].reviewSight);
+						$("#reviewLegroom").text(arr[index].reviewLegroom);
+						$("#reviewComment").text(arr[index].reviewComment);
+						
+						
+						/* <c:if test="${revieweh.reviewWriter == loginMember.memberNo}">
+						<c:forEach var="rimage" items="${rimgList}" varStatus="vs">
+                    	<c:set var ="src2" value="${contextPath}/resources/images/${rimage.reviewImagePath}"/>
+                    	</c:forEach>
+                   		 </c:if> 
+						<img class="img-responsive" src="${src2}" id="reviewImage"/> */
+						
+						
+						if(arrimg[index].reviewWriter == "${loginMember.memberNo}"){
+							$("#reviewImage").attr("src", "${contextPath}/resources/images/"+arrimg[index].reviewImagePath);
+						}
+						
+							$("#reviewComment").text(arr[index].reviewComment);
 					}
 				});
 				$(".overlay").on({
