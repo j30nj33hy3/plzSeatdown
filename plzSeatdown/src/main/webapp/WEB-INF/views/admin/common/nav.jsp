@@ -24,9 +24,9 @@
    	                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 	                    <i class="fas fa-exclamation-triangle"></i><span class="hide-menu pl-3"> 신고 관리 </span></a>
 	                    <ul aria-expanded="false" class="collapse  first-level">
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/review_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 리뷰 신고 </span></a></li>
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/comm_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 글 신고 </span></a></li>
-	                        <li class="sidebar-item"><a href="${contextPath}/admin/reply_report" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 댓글 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/review_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 리뷰 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/comm_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 글 신고 </span></a></li>
+	                        <li class="sidebar-item"><a href="${contextPath}/admin/reply_report/list" class="sidebar-link"><i class="fas fa-flag"></i><span class="hide-menu"> 커뮤니티 댓글 신고 </span></a></li>
 	                    </ul>
 	                </li>
 	            </ul>

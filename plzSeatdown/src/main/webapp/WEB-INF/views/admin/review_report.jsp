@@ -86,7 +86,7 @@
 											<td>${rvreport.reviewReportNo}</td>
 											<td>${rvreport.reportCategoryName}</td>
 											<td>${rvreport.reviewReportContent}</td>
-											<td><a class="rcomment" href="">${rvreport.reviewNo}</a></td>
+											<td>${rvreport.reviewNo}</td>
 											<td>${rvreport.suspectorId}</td>
 											<td>${rvreport.reporterId}</td>
 											<td><a class="report"
