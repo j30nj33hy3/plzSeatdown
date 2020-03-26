@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
@@ -210,11 +211,11 @@ public class ReviewDAO {
 	}
 
 	/** 좌석별 모든 리뷰 조회용 DAO
-	 * @param seatValue
+	 * @param review
 	 * @return seatReviewList
 	 */
-	public List<SeatReview> selectAllReview(String seatValue){
-		return sqlSession.selectList("reviewMapper.selectAllReview", seatValue);
+	public List<SeatReview> selectAllReview(SeatReview review){
+		return sqlSession.selectList("reviewMapper.selectAllReview", review);
 	}
 	
 	/** 중복 신고 확인용 DAO
@@ -243,6 +244,23 @@ public class ReviewDAO {
 	public List<SeatReview> selectRatingList(String thCode) throws Exception{
 		return sqlSession.selectList("reviewMapper.selectRatingList", thCode);
 	}
+
+	/** 리뷰 좋아요 삽입용 DAO
+	 * @param like
+	 * @return result
+	 */
+	public int insertLike(ReviewLike like) {
+		return sqlSession.insert("reviewMapper.insertLike", like);
+	}
+
+	/** 리뷰 좋아요 삭제용 DAO
+	 * @param like
+	 * @return result
+	 */
+	public int deleteLike(ReviewLike like) {
+		return sqlSession.delete("reviewMapper.deleteLike", like);
+	}
+
 	
 
 	

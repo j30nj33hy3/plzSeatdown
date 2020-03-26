@@ -26,6 +26,15 @@
 	        .star{
 	        	color : #FFD938;
 	        }
+	        .profile{
+	        	font-size : 18px !important;
+	        }
+	        .reviewLike :hover{
+	        	cursor: pointer;
+	        }
+	        .fa-heart{
+	        	color : #ff6666;
+	        }
 		
     	</style>
 		
@@ -342,12 +351,14 @@
 					$("#seats > div").on({
 						click : function(){
 							
+							var loginMemberNo = "${loginMember.memberNo}"
+							
 							seatValue = $(this).attr("value");
 							
 							$.ajax({
 								url : "selectAllReview",
 								type : "POST",
-								data : {"seatValue" : seatValue},
+								data : {"seatValue" : seatValue, "loginMemberNo" : loginMemberNo},
 								success : function(seatReviewList){
 									
 									$("#review").html("");
@@ -375,7 +386,7 @@
 												reviewImg = "${contextPath}/resources/images/no_seat.png";
 											}
 											
-											// 신고버튼의 id는 리뷰 번호
+											// 신고버튼의 name은 리뷰 번호, value는 작성자
 											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
 												reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
 											}
@@ -387,7 +398,6 @@
 											var sight = "";
 											var legroom = "";
 											var comfort = "";
-											
 											
 											for(var j=0; j<5; j++){
 												if(j < seatReviewList[i].reviewSight) sight += '<i class="fas fa-star"></i>';
@@ -404,17 +414,39 @@
 												else comfort += '<i class="far fa-star"></i>';
 											}
 											
+											// 좋아요 여부
+											var likeStatus ="";
+											if(seatReviewList[i].likeStatus == 1) likeStatus = '<i class="fas fa-heart"></i>';
+											else likeStatus = '<i class="far fa-heart"></i>';
+											
+											// 좋아요 버튼
+											var likeBtn = "";
+											
+											// 로그인 안 했을 때, 본인이 작성한 리뷰
+											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
+												likeBtn = '<span class="reviewLike" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);">' + likeStatus + '</span>';
+											}else{
+												likeBtn = '<span class="reviewLike">' + likeStatus + '</span>';
+											}
+											
 											
 											
 											// 카드 폼
+											// 좋아요 버튼의 value는 리뷰 번호
 		                                   var card = 
 		                                    '<div class="card">' + 
 		                                       '<div class="card-content">' +
 		                                       
-		                                          '<div class="profile">' + 
-		                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
-		                                             '<div>' + seatReviewList[i].memberNickname + '</div>' + 
-		                                          '</div>' + 
+		                                          '<div class="row profile">' + 
+		                                          	 '<div class="col">' + 
+			                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
+			                                             '<span>' + seatReviewList[i].memberNickname + '</span>' + 
+			                                         '</div>' +
+			                                         '<div class="col text-right">' + 
+			                                             likeBtn + 
+			                                             '<span class="reviewLikeCount ml-2" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</span>' + 
+		                                          	 '</div>' + 
+			                                      '</div>' + 
 		                                          
 		                                          '<div class="row starValue mb-4 mt-4">' +
 		                                             '<div class="col text-center">' +
@@ -503,6 +535,44 @@
 		     		$("#reviewReportModal").find("input[name=reportCategory]").val($reportCategory);
 		     	}
 		     	
+	     	</script>
+	     	
+	     	<!-- 리뷰 좋아요 -->
+	     	<script>
+	     	
+				function reviewLike(obj){
+					
+					var likeStatus = $(obj).attr("value");
+					var reviewNo = $(obj).attr("id");
+					var likeCount = $("#likeCount"+reviewNo);
+					var count = "";
+					
+					$.ajax({
+						url : "updateLike",
+						type : "POST",
+						data : {"reviewNo" : reviewNo, "likeStatus" : likeStatus},
+						success : function(status){
+							
+							var statusChange = "";
+							
+							if(status == 1){
+								$(obj).attr("value", 1);
+								statusChange = '<i class="fas fa-heart"></i>';
+								count = Number(likeCount.text()) + 1;
+							}else if(status == -1){
+								$(obj).attr("value", 0);
+								statusChange = '<i class="far fa-heart"></i>';
+								count = Number(likeCount.text()) - 1;
+							}else if(status == 0){
+								console.log("좋아요 ajax 실패");
+							}
+							
+							$(obj).html(statusChange);
+							likeCount.html(count);
+						}
+					});
+				}
+				
 	     	</script>
 	     	
 	     	<!-- 별점 변환 -->

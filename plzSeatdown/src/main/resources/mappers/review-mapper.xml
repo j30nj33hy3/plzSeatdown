@@ -81,6 +81,8 @@
 		<result property="thName" column="THEATER_NM"/>	
 		<result property="showCode" column="SHOW_CODE"/>	
 		<result property="showTitle" column="SHOW_TITLE"/>	
+		<result property="likeCount" column="LIKE_COUNT"/>	
+		<result property="likeStatus" column="LIKE_STATUS"/>	
 	</resultMap>
 	
 	<resultMap type="Rating" id="RatingResultSet">
@@ -264,8 +266,13 @@
 	</select>
 	
 	<!-- 좌석별 모든 리뷰 조회 -->
-	<select id="selectAllReview" parameterType="string" resultMap="seatReviewResultSet">
+	<!-- <select id="selectAllReview" parameterType="string" resultMap="seatReviewResultSet">
 		SELECT *
+		FROM V_REVIEW
+		WHERE SEAT_VALUE = #{seatValue}
+	</select> -->
+	<select id="selectAllReview" parameterType="SeatReview" resultMap="seatReviewResultSet">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE RL WHERE V_REVIEW.REVIEW_NO = RL.REVIEW_NO AND RL.MEMBER_NO = #{likeStatus}) AS LIKE_STATUS, V_REVIEW.*
 		FROM V_REVIEW
 		WHERE SEAT_VALUE = #{seatValue}
 	</select>
@@ -290,4 +297,17 @@
 		FROM V_RATING
 		WHERE THEATER_CODE = #{thCode}
 	</select>
+	
+	<!-- 좋아요 삽입 -->
+	<insert id="insertLike" parameterType="ReviewLike">
+		INSERT INTO REVIEW_LIKE
+		VALUES (#{memberNo}, #{reviewNo})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="ReviewLike">
+		DELETE 
+		FROM REVIEW_LIKE
+		WHERE MEMBER_NO = #{memberNo}
+		AND REVIEW_NO = #{reviewNo}
+	</delete>
 </mapper>

@@ -8,6 +8,7 @@ import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
@@ -148,10 +149,10 @@ public interface ReviewService {
 	List<SeatReview> selectReviewList(String thCode) throws Exception;
 
 	/** 좌석별 모든 리뷰 조회용 Service
-	 * @param seatValue
+	 * @param review
 	 * @return seatReviewList
 	 */
-	List<SeatReview> selectAllReview(String seatValue);
+	List<SeatReview> selectAllReview(SeatReview review);
 
 	/** 리뷰 신고 등록용 Service
 	 * @param report
@@ -166,6 +167,13 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	List<SeatReview> selectRatingList(String thCode) throws Exception;
+
+	/** 리뷰 좋아요 Service
+	 * @param like
+	 * @param likeStatus 
+	 * @return statusChange
+	 */
+	int updateLike(ReviewLike like, Integer likeStatus);
 
 
 	

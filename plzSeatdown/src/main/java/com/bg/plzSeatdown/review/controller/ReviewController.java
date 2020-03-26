@@ -29,6 +29,7 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.review.model.service.ReviewService;
 import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
+import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
@@ -36,6 +37,10 @@ import com.bg.plzSeatdown.seat.model.vo.Seat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author user1
+ *
+ */
 @Controller
 @RequestMapping("/review/*")
 @SessionAttributes({"loginMember","msg"})
@@ -370,11 +375,17 @@ public class ReviewController {
 		}
 	}
 	
+	// 모든 리뷰 출력
 	@ResponseBody
 	@RequestMapping(value="selectAllReview", produces="application/json; charset=utf-8")
-	public String selectAllReview(@RequestParam(value = "seatValue", required = false)String seatValue) {
+	public String selectAllReview(Model model, @RequestParam(value = "seatValue", required = false)Integer seatValue,
+												@RequestParam(value = "loginMemberNo", required = false)Integer loginMemberNo) {
 		
-		List<SeatReview> seatReviewList = reviewService.selectAllReview(seatValue);
+		if(loginMemberNo == null) loginMemberNo = 0;
+		
+		SeatReview review = new SeatReview(seatValue, loginMemberNo);
+		
+		List<SeatReview> seatReviewList = reviewService.selectAllReview(review);
 		
 		return new Gson().toJson(seatReviewList);
 	}
@@ -403,5 +414,25 @@ public class ReviewController {
 		}catch (Exception e) {
 			return ExceptionForward.errorPage("리뷰 신고 등록", model, e);
 		}
+	}
+	
+	// 리뷰 좋아요
+	@ResponseBody
+	@RequestMapping("updateLike")
+	public int updateLike(Model model, Integer reviewNo, Integer likeStatus) {
+		
+		// Session에서 회원번호 얻어오기
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		
+		ReviewLike like = new ReviewLike(memberNo, reviewNo);
+		
+		int statusChange = reviewService.updateLike(like, likeStatus);
+		
+		// statusChange == -1	좋아요 O -> 좋아요 X
+		// statusChange == 1	좋아요 X -> 좋아요 O
+		// statusChange == 0	좋아요 작동 실패
+		
+		return statusChange;
 	}
 }
