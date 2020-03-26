@@ -89,6 +89,10 @@
 	.navbar-toggler{
 		margin: 0 auto;
 	}
+	
+	#navbarTogglerDemo01{
+      	background: rgb(198, 180, 205);
+   	}
 </style>
 </head>
 <body>

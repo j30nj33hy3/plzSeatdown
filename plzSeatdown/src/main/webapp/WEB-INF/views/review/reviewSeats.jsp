@@ -359,6 +359,7 @@
 											var profileImg = null;
 											var reviewImg = null;
 											var reportBtn = "";
+											var updateBtn = "";
 											
 											// 프로필 사진 유무
 											if(seatReviewList[i].profilePath != null){
@@ -377,6 +378,10 @@
 											// 신고버튼의 id는 리뷰 번호
 											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
 												reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
+											}
+											if("${loginMember.memberNo}" == seatReviewList[i].reviewWriter){
+												/* updateBtn = '<button class="btn float-right text-muted updateBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">수정</button>'; */
+												updateBtn = '<a class="btn float-right text-muted updateBtn" href="updateForm?no='+seatReviewList[i].reviewNo +'">수정</a>';
 											}
 											
 											var sight = "";
@@ -431,9 +436,8 @@
 		                                          '<div class="reviewCont">' + 
 		                                             '<img class="img-responsive" src="' + reviewImg + '">' +
 		                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
-	                                                  reportBtn +
+	                                                  reportBtn + updateBtn +
 		                                          '</div>' +  
-		                                       
 		                                       '</div>' +
 		                                    '</div>';
 		                                    // 카드 폼 종료
@@ -471,7 +475,6 @@
 			
 			<!-- 리뷰 신고 -->
 			<script>
-			
 				function test(obj){
 					$("input[name='exampleRadios']").removeAttr('checked');
 					$("#exampleRadios1").prop("checked",true);
