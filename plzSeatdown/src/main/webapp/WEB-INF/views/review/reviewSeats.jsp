@@ -29,12 +29,32 @@
 	        .profile{
 	        	font-size : 18px !important;
 	        }
-	        .reviewLike :hover{
+	        /* .reviewLike :hover{
 	        	cursor: pointer;
-	        }
+	        } */
 	        .fa-heart{
 	        	color : #ff6666;
 	        }
+	        .heart {
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+                /* background-position: 0 0; */
+                cursor: pointer;
+                /* animation: fave-heart 1s steps(28); */
+            }
+            @keyframes fave-heart {
+                0% {
+                    background-position: 0 0;
+                }
+                100% {
+                    background-position: -2800px 0;
+                }
+            }
 		
     	</style>
 		
@@ -305,14 +325,14 @@
 				// popover
 				$(function(){
 					
-					/* $("#seats > div").popover({
+					$("#seats div[name='tk']").popover({
 						html:true,
 						placement:"top",
 						trigger:"hover",
-						content : '<img class="popoverContent" src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
-					}); */
+						content : "좌석 번호 알려줄거임"
+					});
 					
-					$("#seats > div").popover({
+					/* $("#seats > div").popover({
 						html:true,
 						placement:"top",
 						trigger:"manual",
@@ -331,7 +351,7 @@
 						if(!$(".popover:hover").length){
 							self.popover("hide");
 						}
-					});
+					}); */
 					
 					/* $("#seats > div").popover({
 						html:true,
@@ -348,9 +368,8 @@
 				$(function(){
 					
 					// sidebar
-					$("#seats > div").on({
+					$("#seats div[name='tk']").on({
 						click : function(){
-							
 							var loginMemberNo = "${loginMember.memberNo}"
 							
 							seatValue = $(this).attr("value");
@@ -424,9 +443,12 @@
 											
 											// 로그인 안 했을 때, 본인이 작성한 리뷰
 											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
-												likeBtn = '<span class="reviewLike" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);">' + likeStatus + '</span>';
+												//likeBtn = '<span class="reviewLike heart" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);">' + likeStatus + '</span>';
+												if(seatReviewList[i].likeStatus == 1) likeBtn = '<div class="reviewLike heart" style="background-position:-2800px 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
+												else likeBtn = '<div class="reviewLike heart" style="background-position:0 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
 											}else{
-												likeBtn = '<span class="reviewLike">' + likeStatus + '</span>';
+												//likeBtn = '<span class="reviewLike heart">' + likeStatus + '</span>';
+												likeBtn = '<div class="reviewLike heart"></div>';
 											}
 											
 											
@@ -444,7 +466,7 @@
 			                                         '</div>' +
 			                                         '<div class="col text-right">' + 
 			                                             likeBtn + 
-			                                             '<span class="reviewLikeCount ml-2" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</span>' + 
+			                                             '<div class="reviewLikeCount pr-4" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</div>' + 
 		                                          	 '</div>' + 
 			                                      '</div>' + 
 		                                          
@@ -556,18 +578,18 @@
 							var statusChange = "";
 							
 							if(status == 1){
-								$(obj).attr("value", 1);
-								statusChange = '<i class="fas fa-heart"></i>';
+								$(obj).attr("value", 1).css({"background-position" : "-2800px 0", "transition" : "background 1s steps(28)"});
+								//statusChange = '<i class="fas fa-heart"></i>';
 								count = Number(likeCount.text()) + 1;
 							}else if(status == -1){
-								$(obj).attr("value", 0);
-								statusChange = '<i class="far fa-heart"></i>';
+								$(obj).attr("value", 0).css({"background-position" : "0 0", "transition" : "background 1s steps(28)"});
+								//statusChange = '<i class="far fa-heart"></i>';
 								count = Number(likeCount.text()) - 1;
 							}else if(status == 0){
 								console.log("좋아요 ajax 실패");
 							}
 							
-							$(obj).html(statusChange);
+							//$(obj).html(statusChange);
 							likeCount.html(count);
 						}
 					});
