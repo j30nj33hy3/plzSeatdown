@@ -70,8 +70,23 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 				}
 			}
 			
+			if(strs != null && strs.length == 4) {
+				String li = strs[0];
+				String thwriter = strs[1];
+				String thNm = strs[2];
+				String thCode = strs[3];
+				
+				WebSocketSession reviewSession = userSessionsMap.get(thwriter);
+				
+				if("like".equals(li) && reviewSession != null) {
+					TextMessage tmpMsg = new TextMessage("<a href='/plzSeatdown/review/seats?thCode=" + thCode + "' > ["+thNm+"...]</a> 리뷰에 좋아요가 눌렸습니다.");
+					reviewSession.sendMessage(tmpMsg);
+				}
+			}
 			
 		}
+		
+	
 		
 	}
 	

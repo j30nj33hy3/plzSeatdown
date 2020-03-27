@@ -597,6 +597,8 @@
 					var reviewNo = $(obj).attr("id");
 					var likeCount = $("#likeCount"+reviewNo);
 					var count = "";
+					 var nick = $(obj).parent().prev().children("span").html();
+
 					
 					$.ajax({
 						url : "updateLike",
@@ -610,6 +612,11 @@
 								$(obj).attr("value", 1).css({"background-position" : "-2800px 0", "transition" : "background 1s steps(28)"});
 								//statusChange = '<i class="fas fa-heart"></i>';
 								count = Number(likeCount.text()) + 1;
+								// 웹소켓
+								var socketMsg = "like" + "," + nick + "," +"${theater.thNm}" + "," + "${theater.thCode}";
+		                        console.log("socketMsg : " + socketMsg);   
+		                        socket.send(socketMsg);
+		                        
 							}else if(status == -1){
 								$(obj).attr("value", 0).css({"background-position" : "0 0", "transition" : "background 1s steps(28)"});
 								//statusChange = '<i class="far fa-heart"></i>';

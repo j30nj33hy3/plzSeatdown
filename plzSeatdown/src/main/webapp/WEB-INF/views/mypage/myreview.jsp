@@ -7,7 +7,14 @@
 <meta charset="UTF-8">
 <title>mypage-프로필</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_myreview.css"/>
-
+<style>
+            
+     #heartimg{
+     		width:30px;
+     		height:30px;
+     		
+     }       
+</style>
 </head>
 <body class="homepage is-preload">
    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -35,6 +42,10 @@
                                     </c:if>
                               <img class="img-circle profile-photo" src="${src1}" width="50" height="50" style="border-radius: 5em;"/>
                               <div style="display:inline-block; width:100px;">${loginMember.memberId}</div>
+                           <div class="reviewLikeCount heart" id="likeCount" style="float:right;">
+                           <p  style="display:inline;">like</p>
+                           	<img id="heartimg" src="${contextPath}/resources/images/heart.png"  style="display:inline;">
+                           </div>
                            </div>
                            <div class="mb-4 mt-4">
                               <div style="display: inline-block; width: 100px; font-weight: bold;">
