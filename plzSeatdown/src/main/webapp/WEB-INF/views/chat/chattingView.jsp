@@ -18,19 +18,6 @@ Latest compiled and minified JavaScript
 <meta charset="UTF-8">
 <title>실시간 채팅</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/chattingView.css"/>
-
-<style>
-
-sub{
-	left : 430px;
-}
-
-#img{
- 	width: 40px;
-	border: 1px solid gray;
-	border-radius : 50%;
-}
-</style>
 </head>
 
 <body>
@@ -120,7 +107,7 @@ sub{
 			host=strArray[2].substr(1,strArray[2].indexOf(":")-1);
 			nickName=strArray[3];
 			today=new Date();
-			printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+			printDate=today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 			
 			console.log(today);
 			var ck_host='${host}';
