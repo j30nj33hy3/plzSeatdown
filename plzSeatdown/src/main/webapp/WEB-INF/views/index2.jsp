@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buttercake@3.0.0/dist/css/butterCake.min.css">
+<!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buttercake@3.0.0/dist/css/butterCake.min.css"> -->
   <link rel="stylesheet" href="${contextPath}/resources/css/chat.css" />
 <meta charset="UTF-8">
 <title>PleaseSeatDown</title>
@@ -84,11 +84,11 @@
 				            		<input type="hidden" name="profile"  value="${contextPath}/resources/profileImages/${profile.profilePath}">
 				            </c:if>
 				            <img class="img-circle" src="${src}" style="width : 150px;">
-						</div>
+						</div><br>
 						<!-- 닉네임 -->
-						<div class="group">
-							<input type="text" class="input" name="nickName" id="nickName"
-								value="${member.memberNickname}"  readonly>
+						<div class="form-group">
+  							<input class="form-control form-control-lg" type="text" 
+  								name="nickName" id="nickName" value="${member.memberNickname}" readonly>
 						</div>
 						<!-- LOGIN -->
 						<div class="group">

@@ -89,8 +89,10 @@
 											<td>${commreport.commNo}</td>
 											<td>${commreport.suspectorId}</td>
 											<td>${commreport.reporterId}</td>
-											<td><a class="report" 
-												onclick="location.href='${contextPath}/admin/comm_report/updateRpCnt?no=${commreport.memberSuspector}&reportNo=${commreport.commReportNo}'">
+											<td>
+											<%-- '${commreport.memberSuspector}', '${commreport.commReportNo}',  --%>
+											<a class="report" 
+												onclick="locationReport('${commreport.memberSuspector}', '${commreport.commReportNo}', this)";>
 												<i class="fas fa-exclamation-triangle"></i></a></td>
 											<td>${commreport.reportStatus}</td>
 										</tr>
@@ -236,21 +238,33 @@
                             }
                                 
                         });
-                    </script>
-					<br>
-						<script>
-					        $(document).ready(function(){
-						        $(".report").click(function(){
-						        	var status = $(this).parent().next().text();						        	
-						        	if(status == "Y"){
-						        		alert('이미 신고처리가 된 댓글입니다.');
-						        		location.replace('list');
-						        	}else{
-						            	alert('신고처리가 완료되었습니다.');		            
-						            	location.replace('list');
-						            }
-						        })
-					        });
+ 
+ 				       /*  $(document).ready(function(){
+					        $(".report").click(function(){
+					        	var status = $(this).parent().next().text();					        	
+					        	if(status == "Y"){
+					        		alert('이미 신고처리가 된 댓글입니다.');
+					        		location.replace('list');
+					        	}else{
+					            	alert('신고처리가 완료되었습니다.');		            
+					            	location.replace('list');
+					            }
+				        	})
+				        });
+ */ 				        
+ 				        function locationReport(memberSuspector, commReportNo, obj){
+ 				        	//console.log(memberSuspector);
+ 				        	//console.log(commReportNo);
+ 				        	//console.log(obj.parentNode.nextSibling.nextSibling.innerText);
+ 				        	var status = obj.parentNode.nextSibling.nextSibling.innerText; 
+ 				        	if(status == "Y"){
+				        		alert('이미 신고처리가 된 댓글입니다.');
+				        		return false;
+				        	}else{
+				            	alert('신고처리가 완료되었습니다.');		            
+				            	location.replace("${contextPath}"+"/admin/comm_report/updateRpCnt?no="+memberSuspector+"&reportNo="+commReportNo);
+				            }
+ 				        }
 					  </script>
 				</div>
 			</div>

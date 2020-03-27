@@ -90,8 +90,9 @@
 											<td>${rvreport.suspectorId}</td>
 											<td>${rvreport.reporterId}</td>
 											<td><a class="report"
-													onclick="location.href='${contextPath}/admin/review_report/updateRpCnt?no=${rvreport.memberSuspector}&reportNo=${rvreport.reviewReportNo}'"><i
-													class="fas fa-exclamation-triangle"></i></a></td>
+													onclick="locationReport('${rvreport.memberSuspector}', '${rvreport.reviewReportNo}', this)";>											
+													<i class="fas fa-exclamation-triangle"></i></a></td>
+										
 											<td>${rvreport.reportStatus}</td>
 										</tr>
 									</c:forEach>
@@ -236,11 +237,22 @@
                             }
                                 
                         });
-                    </script>
-					<br>
-					<br>
-					<script>
-				        $(document).ready(function(){
+                        
+ 				        function locationReport(memberSuspector, reviewReportNo, obj){
+ 				        	//console.log(memberSuspector);
+ 				        	//console.log(reviewReportNo);
+ 				        	//console.log(obj.parentNode.nextSibling.nextSibling.innerText);
+ 				        	var status = obj.parentNode.nextSibling.nextSibling.innerText; 
+ 				        	if(status == "Y"){
+				        		alert('이미 신고처리가 된 댓글입니다.');
+				        		return false;
+				        	}else{
+				            	alert('신고처리가 완료되었습니다.');		            
+				            	location.replace("${contextPath}"+"/admin/review_report/updateRpCnt?no="+memberSuspector+"&reportNo="+reviewReportNo);
+				            }
+ 				        }
+ 				        
+/* 				        $(document).ready(function(){
 					        $(".report").click(function(){
 					        	var status = $(this).parent().next().text();
 					        	
@@ -252,7 +264,7 @@
 					            	location.replace('list');
 					        	}
 					        })
-					            
+					           */  
 				        });
 					  </script>
 				</div>
