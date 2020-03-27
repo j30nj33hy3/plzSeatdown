@@ -26,7 +26,7 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<form role="form" action="writeReview" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
+						<form role="form" action="write" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
 							<div class="form-group form-inline mb-7">
 								<label for="showDate">관람일</label>
 								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" autocomplete="off" required>
@@ -532,7 +532,6 @@
 							dataType:"json",
 							success: function(result){
 								seatCode.val(result);
-								console.log(seatCode.val());
 							},
 							error: function(e){
 								console.log("ajax 통신 실패");

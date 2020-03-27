@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/member-signUp.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/member-progress.css" />
 <style>
 	/* number 태그 화살표 제거 */
 	input[type="number"]::-webkit-outer-spin-button,
@@ -30,7 +31,18 @@
 						<div id="signUpTitle" class="col-md-3">
 							<h4>회원가입</h4>
 						</div>
+			
 						<div id="signUpFormBox" class="col-md-6">
+							<div class="step-box">
+								<div class="step-state step1">
+									<ul>
+										<li><p>회원가입</p></li>
+										<li><p>정보입력</p></li>
+										<li><p>이메일 인증</p></li>
+										<li><p>가입완료</p></li>
+									</ul>
+								</div>
+							</div>
 							<form action="signUp" enctype="multipart/form-data" role="form" method="POST" onsubmit="return validate();">
 								<!-- 아이디 -->
 								<div class="form-group">
@@ -148,7 +160,7 @@
 										</div>
 										<br>
 										<div>
-                            				<span id="checkProfile" style="color:#666">
+                            				<span id="checkProfile" style="color:#666; font-size:0.8em;">
                             					기본 제공 사진이 자동으로 등록됩니다.
                             				</span>
                         				</div>
@@ -188,6 +200,7 @@
     	// 실시간 입력 형식 검사
     	// 정규표현식
 		$(function(){
+			
 			// jQuery 변수 : 변수에 직접적으로 jQuery 메소드를 사용할 수 있음
 			var $id = $("#id");
 			var $pwd1 = $("#pwd1");
@@ -232,7 +245,7 @@
                 	
                 }
 			});
-
+			
 			// 비밀번호  유효성 검사
 			$pwd1.on("input", function(){
 				//영어 대,소문자 + 숫자, 총 6~12글자

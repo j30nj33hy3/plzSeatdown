@@ -262,7 +262,51 @@ public class ReviewDAO {
 	}
 
 	
+	/** 리뷰 상세 조회용 DAO
+	 * @param no
+	 * @return result
+	 * @throws Exception
+	 */
+	public SeatReview selectReview(Integer no) throws Exception{
+		return sqlSession.selectOne("reviewMapper.selectReview", no);
+	}
 
+	/** 리뷰 첨부 이미지 조회용 DAO
+	 * @param no
+	 * @return files
+	 * @throws Exception
+	 */
+	public List<ReviewImage> selectFiles(Integer no) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectFiles", no);
+	}
+
+	/** 리뷰 수정용 DAO
+	 * @param review
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReview(Review review) throws Exception{
+		return sqlSession.update("reviewMapper.updateReview", review);
+	}
+
+	/** 리뷰 이미지 수정용 DAO
+	 * @param ri
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReviewImage(ReviewImage ri) throws Exception{
+		return sqlSession.update("reviewMapper.updateReviewImage", ri);
+	}
+
+	/** 리뷰 삭제용 DAO
+	 * @param reviewNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteReview(Integer reviewNo) throws Exception{
+		return sqlSession.update("reviewMapper.deleteReview", reviewNo);
+	}
+	
 	
 
 	

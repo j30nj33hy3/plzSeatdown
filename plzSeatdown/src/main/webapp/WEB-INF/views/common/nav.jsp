@@ -131,7 +131,7 @@
 					<a href="${contextPath}/review/theater" class="dropdown-item">공연장별</a>
 					<a href="${contextPath}/review/show" class="dropdown-item">공연별</a>
 					<c:if test="${! empty sessionScope.loginMember}">
-					<a href="${contextPath}/review/write" class="dropdown-item">리뷰 작성</a>
+					<a href="${contextPath}/review/writeForm" class="dropdown-item">리뷰 작성</a>
 					</c:if>
 				</div>
 			</li>

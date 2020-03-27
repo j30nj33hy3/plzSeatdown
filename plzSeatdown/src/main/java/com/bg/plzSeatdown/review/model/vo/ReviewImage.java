@@ -19,6 +19,12 @@ public class ReviewImage {
 		super();
 		this.reviewImagePath = reviewImagePath;
 	}
+	
+	public ReviewImage(int reviewImageNo, String reviewImagePath) {
+		super();
+		this.reviewImageNo = reviewImageNo;
+		this.reviewImagePath = reviewImagePath;
+	}
 
 	public ReviewImage(int reviewImageNo, String reviewImagePath, Date uploadDate, String reviewImageStatus,
 			int imageType, int reviewNo) {

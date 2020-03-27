@@ -21,19 +21,19 @@
 
 			<div class="container container-fluid">
 				<div class="mt-5 mb-5 pt-3 page-title">
-					<h3>리뷰 작성</h3>
+					<h3>리뷰 수정</h3>
 				</div>
 
 				<div class="row">
 					<div class="col-md-12">
-						<form role="form" action="writeReview" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
+						<form role="form" action="update?no=${review.reviewNo}&url=${url}" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
 							<div class="form-group form-inline mb-7">
 								<label for="showDate">관람일</label>
-								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" autocomplete="off" required>
+								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" value="${review.reviewViewDt}" autocomplete="off" required>
 							</div>
 							<div class="form-group form-inline mb-7">
 								<label for="theater">공연장</label>
-								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" placeholder="공연장을 선택해주세요." size="40" autocomplete="off" required/>
+								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" placeholder="공연장을 선택해주세요." value="${review.thName}" size="40" autocomplete="off" required/>
 								<c:if test="${!empty tList}">
 									<datalist id="theaterList">
 											<c:forEach var="th" items="${tList}" varStatus="vs">
@@ -45,38 +45,46 @@
 							<div class="form-group form-inline mb-7">
 								<label for="showList">공연</label>
 								<select id="showList" name="showCode">
-									<option value="0" disabled>관람일과 공연장을 먼저 선택해주세요.</option>
+									<option value="${review.showCode }">${review.showTitle }</option>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="floorList">층</label>
 								<select id="floorList" name="seatFloor">
-									<option value="0" disabled selected>공연장을 먼저 선택해주세요.</option>
+									<c:forEach var="f" items="${fList}">
+										<option value="${f.seatFloor}">${f.seatFloor}층</option>
+									</c:forEach>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="areaList">구역</label>
 								<select id="areaList" name="seatArea">
-									<option value="0" disabled selected>구역 선택</option>
+									<c:forEach var="a" items="${aList}">
+										<option value="${a.seatArea}">${a.seatArea}구역</option>
+									</c:forEach>								
 								</select>
 							</div>
 							
 							<div class="form-group form-inline mb-7">
 								<label for="rowList">열</label>
 								<select id="rowList" name="seatRow">
-									<option value="0" disabled selected>열 선택</option>
+									<c:forEach var="r" items="${rList}">
+										<option value="${r.seatRow}">${r.seatRow}열</option>
+									</c:forEach>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="colList">번호</label>
 								<select id="colList" name="seatCol">
-									<option value="0" disabled selected>번호 선택</option>
+									<c:forEach var="c" items="${cList}">
+										<option value="${c.seatCol}">${c.seatCol}열</option>
+									</c:forEach>
 								</select>
 							</div>
-							<input type="hidden" id="seatCode" name="seatCode">
+							<input type="hidden" id="seatCode" name="seatCode" value="${review.seatCode}">
 							
 							<div class="form-group form-inline mb-7">
 								<label for="view">시야</label>
@@ -115,7 +123,7 @@
 							<input type="hidden" id="rLegroom" name="reviewLegroom" value="1" required>
 							<div class="form-group form-inline mb-7">
 								<label for="review">좌석 후기(선택)</label>
-								<textarea id="reviewComment" name="reviewComment"></textarea>
+								<textarea id="reviewComment" name="reviewComment">${review.reviewComment }</textarea>
 							</div>
 							
 							<div class="form-group form-inline mb-7">
@@ -135,12 +143,26 @@
 									<img id="ticketImg">
 								</div>
 							</div>
+							<c:forEach var="img" items="${files}" varStatus="vs">
+								<script>
+									$(function(){
+										var imgTag;
+										var src = "${contextPath}/resources/reviewImages/${img.reviewImagePath}";
+										if("${img.imageType}" == 0){
+											imgTag = "#seatImg";
+										}else{
+											var imgTag = "#ticketImg";
+										}
+										$(imgTag).prop("src",src);
+									});
+								</script>
+							</c:forEach>
+							
 							<!-- 파일 업로드 하는 부분 -->
 							<div id="fileArea" style="display: none;">
 								<input type="file" id="seatFile" name="seatFile" onchange="LoadSeat(this)"> 
 								<input type="file" id="ticketFile" name="ticketFile" onchange="LoadTicket(this)"> 
 							</div>
-							
 							
 							<div class="form-group text-center pt-20">
 								<a id="cancelBtn" href="${header.referer}" class="btn btn-primary">
@@ -244,6 +266,76 @@
 					
 				// 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function () {
+					$("#floorList option").each(function(i){
+						if($(this).val() == "${review.seatFloor}"){
+							$(this).prop("selected", true);
+						}
+						reviewCheck.seatFloor = true;
+					});
+					$("#areaList option").each(function(i){
+						if($(this).val() == "${review.seatArea}"){
+							$(this).prop("selected", true);
+						}
+						reviewCheck.seatArea = true;
+					});
+					$("#rowList option").each(function(i){
+						if($(this).val() == "${review.seatRow}"){
+							$(this).prop("selected", true);
+						}
+						reviewCheck.seatRow = true;
+					});
+					$("#colList option").each(function(i){
+						if($(this).val() == "${review.seatCol}"){
+							$(this).prop("selected", true);
+						}
+						reviewCheck.seatCol = true;
+					});
+					
+					if($("#areaList option").val() == ""){
+						$("#areaList option").prop("disabled", true).prop("selected", true).html("선택 가능한 구역이 없습니다.").val("-1");
+					}
+					
+					
+					for (var i = 1; i <= 5; i++) {
+						var cur = document.getElementById("view" + i)
+						cur.className = "far fa-star"
+					}
+					for (var i = 1; i <= "${review.reviewSight}"; i++) {   
+						var cur = document.getElementById("view" + i)
+						if (cur.className == "far fa-star") {
+							cur.className = "fas fa-star"
+						}
+					}
+					var count = $("#view i[class='fas fa-star']").length;
+					$("#rView").val(count);
+					
+					for (var i = 1; i <= 5; i++) {
+						var cur = document.getElementById("com" + i)
+						cur.className = "far fa-star"
+					}
+					for (var i = 1; i <= "${review.reviewComfort}"; i++) {
+						var cur = document.getElementById("com" + i)
+						if (cur.className == "far fa-star") {
+							cur.className = "fas fa-star"
+						}
+					}
+					var count = $("#comfort i[class='fas fa-star']").length;
+					$("#rComfort").val(count);
+					
+					for (var i = 1; i <= 5; i++) {
+						var cur = document.getElementById("room" + i)
+						cur.className = "far fa-star"
+					}
+					for (var i = 1; i <= "${review.reviewLegroom}"; i++) {
+						var cur = document.getElementById("room" + i)
+						if (cur.className == "far fa-star") {
+							cur.className = "fas fa-star"
+						}
+					}
+					var count = $("#legroom i[class='fas fa-star']").length;
+					$("#rLegroom").val(count);
+					
+					//////////////////////////////////////////////////////////
 					// 파일 선택 버튼이 있는 영역을 보이지 않게 함
 					$("#fileArea").hide();
 					// 이미지 영역 클릭 시 파일 첨부창 띄우기
@@ -532,7 +624,6 @@
 							dataType:"json",
 							success: function(result){
 								seatCode.val(result);
-								console.log(seatCode.val());
 							},
 							error: function(e){
 								console.log("ajax 통신 실패");
