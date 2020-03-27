@@ -291,6 +291,13 @@
 						if(rating == 5){
 							$(item).addClass("s7");
 						}
+						if($(item).attr("value") != val){
+							$(item).removeClass("s2");
+							$(item).removeClass("s3");
+							$(item).removeClass("s0");
+							$(item).removeClass("s5");
+							$(item).removeClass("s7");
+						}
 					});
 				 </c:forEach>
 			</script>
@@ -390,6 +397,8 @@
 											var reviewImg = "";
 											var reportBtn = "";
 											var updateBtn = "";
+											var deleteBtn = "";
+											var	reviewNo = "<input type='hidden' value='"+seatReviewList[i].reviewNo+"'>"
 											
 											var floor = "";
 											var area = "";
@@ -421,8 +430,8 @@
 												reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
 											}
 											if("${loginMember.memberNo}" == seatReviewList[i].reviewWriter){
-												/* updateBtn = '<button class="btn float-right text-muted updateBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">수정</button>'; */
-												updateBtn = '<a class="btn float-right text-muted updateBtn" href="updateForm?no='+seatReviewList[i].reviewNo +'">수정</a>';
+												updateBtn = '<a class="float-right text-muted updateBtn mr-2 ml-2" href="updateForm?no='+seatReviewList[i].reviewNo +'"><i class="far fa-edit"></i></a>';
+												deleteBtn = '<a class="float-right text-muted deleteBtn mr-2 ml-2" href="delete?no='+seatReviewList[i].reviewNo +'"><i class="far fa-trash-alt"></i></a>';
 											}
 											
 											var sight = "";
@@ -504,8 +513,7 @@
 		                                             reviewImg +
 		                                             
 		                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
-		                                             '<div>' + seatReviewList[i].reviewViewDt + ' 관람' + reportBtn + updateBtn + '</div>' + 
-		                                             
+		                                             '<div>' + seatReviewList[i].reviewViewDt + ' 관람' + reportBtn + deleteBtn + reviewNo + updateBtn + '</div>' + 
 		                                          '</div>' +  
 		                                       '</div>' +
 		                                    '</div>';
@@ -541,7 +549,13 @@
 				});
 
 			</script>
-			
+			<script>
+				$(document).on('click','.deleteBtn', function(){
+					var rno = $(this).next().val();
+					if(confirm("정말 삭제 하시겠습니까?")) location.href = "delete?no="+rno;
+				});
+				
+			</script>
 			<!-- 리뷰 신고 -->
 			<script>
 				function test(obj){

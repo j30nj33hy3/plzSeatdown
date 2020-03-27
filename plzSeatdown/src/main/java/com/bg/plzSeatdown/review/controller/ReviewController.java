@@ -160,7 +160,7 @@ public class ReviewController {
 	}
 	
 	// 리뷰 작성 화면 전환
-	@RequestMapping(value="write")
+	@RequestMapping(value="writeForm")
 	public String reviewWrite(Model model,
 			RedirectAttributes rdAttr,
 			HttpServletRequest request) {
@@ -308,7 +308,7 @@ public class ReviewController {
 		}
 	}
 	
-	@RequestMapping(value="writeReview")
+	@RequestMapping(value="write")
 	public String insertReview(Review review, Model model,
 			HttpServletRequest request, // 파일경로
 			RedirectAttributes rdAttr,
@@ -437,4 +437,112 @@ public class ReviewController {
 		
 		return statusChange;
 	}
+	
+		// 리뷰 수정 화면 전환
+		@RequestMapping("updateForm")
+		public String updateForm(Integer no, 
+				Model model, 
+				HttpServletRequest request) {
+				
+			// 이전 페이지(상세조회) 주소를 저장
+			String detailUrl = request.getHeader("referer");
+			model.addAttribute("url", detailUrl);
+				
+			try {
+				List<Theater> tList = reviewService.selectTList();
+				SeatReview review = null;
+				List<String> fList = null;
+				List<String> aList = null;
+				List<String> rList = null;
+				List<String> cList = null;
+				if(tList != null) {
+					// 1) 리뷰 상세 조회
+					review = reviewService.selectReview(no);
+					if(review != null) {
+						review.setReviewComment(review.getReviewComment().replace("<br>", "\r\n"));
+						List<ReviewImage> files = reviewService.selectFiles(no);
+						if(!files.isEmpty()) {
+							model.addAttribute("files", files);
+						}
+							
+						// 해당 공연장의 층, 구역, 열, 번호 목록 호출
+						String thCode = review.getThCode();
+						String seatFloor = review.getSeatFloor();
+						String seatArea = review.getSeatArea();
+						String seatRow = review.getSeatRow();
+						String seatCol = review.getSeatCol();
+							
+						Seat seat = new Seat(seatFloor,seatArea,seatRow,seatCol,thCode);
+						fList = reviewService.selectFList(thCode);
+						aList = reviewService.selectAList(seat);
+						if(aList.size() == 1) {
+							seat.setSeatArea("-1");
+							rList = reviewService.selectRList(seat);
+						}else {
+							rList = reviewService.selectRList2(seat);
+						}
+						cList = reviewService.selectCList(seat);
+					}
+				}
+				model.addAttribute("tList", tList);
+				model.addAttribute("fList", fList);
+				model.addAttribute("aList", aList);
+				model.addAttribute("rList", rList);
+				model.addAttribute("cList", cList);
+				model.addAttribute("review", review);
+				return "review/reviewUpdate";
+			}catch (Exception e) {
+				return ExceptionForward.errorPage("수정화면 전환", model, e);
+			}
+				
+		}
+			
+			
+		// 리뷰 수정
+		@RequestMapping("update")
+		public String updateReview(Integer no,
+				String url,
+				Review review, Model model,
+				RedirectAttributes rdAttr, HttpServletRequest request,
+				@RequestParam(value="thName", required=false)String thName,
+				@RequestParam(value="seatFile", required=false)MultipartFile seatImg,
+				@RequestParam(value="ticketFile", required=false)MultipartFile ticketImg) {
+			review.setReviewNo(no);
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "/reviewImages";
+				
+			File folder = new File(savePath);
+			if(!folder.exists()) folder.mkdir();
+			try {
+				int result = reviewService.updateReview(review, seatImg, ticketImg, savePath);
+				String msg = null;
+				if(result > 0) msg = "리뷰 수정 성공";
+				else		   msg = "리뷰 수정 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				return "redirect:"+url;
+			}catch (Exception e) {
+				return ExceptionForward.errorPage("리뷰 수정", model, e);
+			}			
+		}
+		
+		@RequestMapping("delete")
+		public String deleteNotice(Model model,
+				HttpServletRequest request, 
+				RedirectAttributes rdAttr,
+				@RequestParam(value="no", required=true)Integer reviewNo) {
+			String referer = request.getHeader("Referer");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "/reviewImages";
+			try {
+				int result = reviewService.deleteReview(reviewNo, savePath);
+				if(result > 0) {
+					rdAttr.addFlashAttribute("msg", "리뷰 삭제 성공");
+				}else {
+					rdAttr.addFlashAttribute("msg", "리뷰 삭제 실패");
+				}
+				return "redirect:"+referer;
+			}catch (Exception e) {
+				return ExceptionForward.errorPage("리뷰 삭제", model, e);
+			}
+		}
 }

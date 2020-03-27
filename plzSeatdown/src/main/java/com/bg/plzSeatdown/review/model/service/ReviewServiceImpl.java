@@ -1,14 +1,18 @@
 package com.bg.plzSeatdown.review.model.service;
 
+import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.plzSeatdown.api.model.vo.Theater;
+import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.DAO.ReviewDAO;
 import com.bg.plzSeatdown.review.model.vo.Review;
@@ -295,7 +299,171 @@ public class ReviewServiceImpl implements ReviewService{
 		return statusChange;
 	}
 	
-	
+	/** 리뷰 상세 조회용 Service
+	 * @param no
+	 * @return review
+	 * @throws Exception
+	 */
+	@Override
+	public SeatReview selectReview(Integer no) throws Exception {
+		return reviewDAO.selectReview(no);
+	}
+
+	/** 리뷰 이미지 조회용 Service
+	 * @param no
+	 * @return files
+	 * @throws Exception
+	 */
+	@Override
+	public List<ReviewImage> selectFiles(Integer no) throws Exception {
+		return reviewDAO.selectFiles(no);
+	}
+
+	/** 리뷰 수정용 Service
+	 * @param review
+	 * @param seatImg
+	 * @param ticketImg
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath)
+			throws Exception {
+		// 기존 리뷰 이미지 정보 조회
+		List<ReviewImage> files = reviewDAO.selectFiles(review.getReviewNo());
+		
+		// 좌석, 티켓 이미지 분리
+		ReviewImage beforeSeat = null;
+		ReviewImage beforeTicket = null;
+		
+		for(ReviewImage ri : files) {
+			if(ri.getImageType() == 0) {
+				beforeSeat = ri;
+			}else {
+				beforeTicket = ri;
+			}
+		}
+		
+		// 새롭게 삽입할 파일 목록
+		List<ReviewImage> insertList = new ArrayList<ReviewImage>();
+		// 기존 행을 수정할 파일 목록
+		List<ReviewImage> updateList = new ArrayList<ReviewImage>();
+		
+		ReviewImage file = null; // 리스트에 추가될 이미지 객체 참조 변수 선언
+		
+		// 새롭게 등록된 좌석사진 확인
+		if(!seatImg.getOriginalFilename().equals("")) {
+			// 신규 좌석 이미지 존재
+			// rename 작업 진행
+			String changeFileName = FileRename.rename(seatImg.getOriginalFilename());
+			
+			// 기존 이미지 존재 -> update
+			if(beforeSeat != null) {
+				// 변경파일 = (기존 이미지 번호, 변경 이미지 이름)
+				file = new ReviewImage(beforeSeat.getReviewImageNo(), changeFileName);
+				file.setImageType(0); // 좌석 이미지
+				updateList.add(file);
+			}else {
+				// 기존 이미지 X -> insert
+				file = new ReviewImage(changeFileName);
+				file.setImageType(0);
+				file.setReviewNo(review.getReviewNo());
+				insertList.add(file);
+			}
+		}
+
+		// 새롭게 등록된 티켓 사진 확인
+		if(!ticketImg.getOriginalFilename().equals("")) {
+			String changeFileName = FileRename.rename(ticketImg.getOriginalFilename());
+			
+			// 기존 티켓 이미지 존재 -> update
+			if(beforeTicket != null) {
+				file = new ReviewImage(beforeTicket.getReviewImageNo(),changeFileName);
+				file.setImageType(1);
+				updateList.add(file);
+			}else {
+				// 기존 이미지X -> insert
+				file = new ReviewImage(changeFileName);
+				file.setImageType(1);
+				file.setReviewNo(review.getReviewNo());
+				insertList.add(file);
+			}
+		}
+		
+		// 리뷰 수정
+		int result = 0;
+		review.setReviewComment(review.getReviewComment().replace("\r\n", "<br>"));
+		result = reviewDAO.updateReview(review);
+		
+		// 새로 삽입할 파일이 있을 경우
+		if(result > 0 && !insertList.isEmpty()) {
+			result = 0;
+			for(ReviewImage ri : insertList) {
+				result = reviewDAO.insertReviewImage(ri);
+				if(result == 0) {
+					throw new Exception("파일 삽입 과정에서 오류 발생");
+				}
+			}
+		}
+		// 기존 이미지 테이블을 수정할 파일이 있을 경우
+		if(result > 0 && !updateList.isEmpty()) {
+			result = 0;
+			for(ReviewImage ri : updateList) {
+				result = reviewDAO.updateReviewImage(ri);
+				if(result == 0) {
+					throw new Exception("파일 삽입 과정에서 오류 발생");
+				}
+			}
+		}
+		
+		// DB 수정이 정상적으로 처리된 경우
+		if(result > 0) {
+			insertList.addAll(updateList);
+			for(ReviewImage ri : insertList) {
+				if(ri.getImageType() == 0) {
+					seatImg.transferTo(new File(savePath+"/"+ri.getReviewImagePath()));
+				}else {
+					ticketImg.transferTo(new File(savePath+"/"+ri.getReviewImagePath()));
+				}
+			}
+		}
+		
+		for(ReviewImage ri : files) {
+			for(ReviewImage newImage : insertList) {
+				if(ri.getReviewImageNo() == newImage.getReviewImageNo()) {
+					File deleteFile = new File(savePath+"/"+ri.getReviewImagePath());
+					deleteFile.delete();
+				}
+			}
+		}
+		return result;
+	}
+
+	/** 리뷰 삭제용 Service
+	 * @param reviewNo
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReview(Integer reviewNo, String savePath) throws Exception {
+		int result = 0;
+		List<ReviewImage> files = reviewDAO.selectFiles(reviewNo);
+		if(files != null) {
+			for(ReviewImage ri : files) {
+				File deleteFile = new File(savePath+"/"+ri.getReviewImagePath());
+				deleteFile.delete();
+			}
+		}
+		result = reviewDAO.deleteReview(reviewNo);
+		if(result == 0) {
+			throw new Exception("리뷰 삭제 과정에서 오류 발생");
+		}
+		return result;
+	}
 
 	
 

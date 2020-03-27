@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
@@ -175,6 +177,39 @@ public interface ReviewService {
 	 */
 	int updateLike(ReviewLike like, Integer likeStatus);
 
+	/** 리뷰 상세 조회용 Service
+	 * @param no
+	 * @return review
+	 * @throws Exception
+	 */
+	SeatReview selectReview(Integer no) throws Exception;
+
+	/** 리뷰 이미지 조회용 Service
+	 * @param no
+	 * @return files
+	 * @throws Exception
+	 */
+	List<ReviewImage> selectFiles(Integer no) throws Exception;
+
+	/** 리뷰 수정용 Service
+	 * @param review
+	 * @param seatImg
+	 * @param ticketImg
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath) throws Exception;
+
+	/** 리뷰 삭제용 Service
+	 * @param reviewNo
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	int deleteReview(Integer reviewNo, String savePath) throws Exception;
+
+	
 
 	
 

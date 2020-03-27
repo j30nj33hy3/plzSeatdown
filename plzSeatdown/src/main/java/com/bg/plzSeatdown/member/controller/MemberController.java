@@ -319,7 +319,7 @@ public class MemberController {
 				int result = memberService.mailAuth(member);
 				if(result > 0) {
 					model.addAttribute("msg","이메일 인증이 완료되었습니다.");
-					view = "redirect:/";
+					view = "member/signUpComplete";
 				}
 			}else {
 				rdAttr.addFlashAttribute("msg","인증번호가 일치하지 않습니다. 재발송된 인증번호로 인증을 다시 진행해주세요.");
