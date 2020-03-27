@@ -90,8 +90,8 @@
 											<td>${rereport.suspectorId}</td>
 											<td>${rereport.reporterId}</td>
 											<td><a class="report"
-													onclick="location.href='${contextPath}/admin/reply_report/updateRpCnt?no=${rereport.memberSuspector}&reportNo=${rereport.replyReportNo}'"><i
-													class="fas fa-exclamation-triangle"></i></a></td>
+													onclick="locationReport('${rereport.memberSuspector}', '${rereport.replyReportNo}', this)";>												
+												<i class="fas fa-exclamation-triangle"></i></a></td>
 											<td>${rereport.reportStatus}</td>
 										</tr>
 									</c:forEach>
@@ -236,13 +236,10 @@
                             }
                                 
                         });
-                    </script>
-					<br>
-					<script>
-				        $(document).ready(function(){
+/* 				        $(document).ready(function(){
 					        $(".report").click(function(){
-					        	var status = $(this).parent().next().text();
-					        	
+					        	$(this).attr('onclick', 'return false') 
+					        	var status = $(this).parent().next().text();					        	
 					        	if(status == "Y"){
 					        		alert('이미 신고처리가 된 댓글입니다.');
 					        		location.replace('list');
@@ -251,7 +248,21 @@
 					            	location.replace('list');
 					            }
 				        	})
-				        });
+				        }); */
+				        
+ 				        function locationReport(memberSuspector, replyReportNo, obj){
+ 				        	//console.log(memberSuspector);
+ 				        	//console.log(replyReportNo);
+ 				        	//console.log(obj.parentNode.nextSibling.nextSibling.innerText);
+ 				        	var status = obj.parentNode.nextSibling.nextSibling.innerText; 
+ 				        	if(status == "Y"){
+				        		alert('이미 신고처리가 된 댓글입니다.');
+				        		return false;
+				        	}else{
+				            	alert('신고처리가 완료되었습니다.');		            
+				            	location.replace("${contextPath}"+"/admin/reply_report/updateRpCnt?no="+memberSuspector+"&reportNo="+replyReportNo);
+				            }
+ 				        }
 					</script>
 				</div>
 			</div>

@@ -59,6 +59,7 @@ body{
 }
 
 #sendBtn{
+	position : absolute;
 	float:right;
 	width : 100px;
 	height: 70px;
