@@ -209,6 +209,13 @@ public interface ReviewService {
 	 */
 	int deleteReview(Integer reviewNo, String savePath) throws Exception;
 
+	/** 공연장별 좌석 조회용 Service
+	 * @param thCode
+	 * @return sList
+	 * @throws Exception
+	 */
+	List<Seat> selectSeatList(String thCode) throws Exception;
+
 	
 
 	

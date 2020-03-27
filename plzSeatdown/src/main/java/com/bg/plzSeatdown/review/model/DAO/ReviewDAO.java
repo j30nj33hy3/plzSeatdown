@@ -306,6 +306,15 @@ public class ReviewDAO {
 	public int deleteReview(Integer reviewNo) throws Exception{
 		return sqlSession.update("reviewMapper.deleteReview", reviewNo);
 	}
+
+	/** 공연장별 좌석 조회용 DAO
+	 * @param thCode
+	 * @return sList
+	 * @throws Exception
+	 */
+	public List<Seat> selectSeatList(String thCode) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectSeatList", thCode);
+	}
 	
 	
 
