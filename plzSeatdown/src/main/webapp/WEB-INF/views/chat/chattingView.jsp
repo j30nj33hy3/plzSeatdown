@@ -18,6 +18,19 @@ Latest compiled and minified JavaScript
 <meta charset="UTF-8">
 <title>실시간 채팅</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/chattingView.css"/>
+
+<style>
+
+sub{
+	left : 430px;
+}
+
+#img{
+ 	width: 40px;
+	border: 1px solid gray;
+	border-radius : 50%;
+}
+</style>
 </head>
 
 <body>
@@ -34,7 +47,7 @@ Latest compiled and minified JavaScript
 			<img src="${contextPath}/resources/images/close.png" width="20" height="20">
 		</button>
 	</div>
-	<!-- 대화내용이 출려되는 부분 -->
+	<!-- 대화내용이 출력되는 부분 -->
 	<div id="chatting"> 
 		<div id='sessionuserid'><h6 style="color:white;">${nickName}님이 입장하셨습니다.</h6></div><br/>
 	<div class='panel panel-default'>
@@ -66,6 +79,14 @@ Latest compiled and minified JavaScript
 			/* 전송 후 작성창 초기화 */
 			$("#message").val('');
 		});
+		
+		$('#message').keypress(function(event){
+		     if ( event.which == 13 ) {
+		         $('#sendBtn').click();
+		         return false;
+		     }
+		});
+		
 		$("#exitBtn").click(function(){
 			console.log("exit message.....");
 			/* 채팅창에 작성한 메세지 전송 */
@@ -82,6 +103,7 @@ Latest compiled and minified JavaScript
 		var host=null;//메세지를 보낸 사용자 ip저장
 		var strArray=data.split("|");//데이터 파싱처리하기
 		var nickName=null;//대화명 저장
+		var profile=null;
 		
 
 		//전송된 데이터 출력해보기
@@ -109,22 +131,23 @@ Latest compiled and minified JavaScript
 			if(host==ck_host||(host==0&&ck_host.includes('0:0:')))
 			{
 				var printHTML="<div class='well' style='margin-left: 30%;'>";
-				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px;'>";
-				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>"+nickName+" : "+message+"</strong>";
+				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px;'>";		
+				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
+				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";
-				$('#chatdata').append(printHTML);
+				$('#chatdata').append(printHTML);	
+				$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 			}
 			else{
 				var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
 				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px;'>";
-				printHTML+="<sub>"+printDate+"</sub><br/>";
-				printHTML+="<strong>"+nickName+" : "+message+"</strong>";
+				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
+				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";
 				$('#chatdata').append(printHTML);
-				
+				$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 			}
 			//console.log('chatting data : '+data);
 		}
@@ -139,18 +162,13 @@ Latest compiled and minified JavaScript
 			printHTML+="<strong>[서버관리자] : "+message+"</strong>";
 			printHTML+="</div>";
 			printHTML+="</div>";
-			$('#chatdata').append(printHTML);	
-			
+			$('#chatdata').append(printHTML);							
 		}
 	};
-
+	
 	function onClose(evt){
 		location.href='${pageContext.request.contextPath};';
 	};
-	
-	$(function(){
-		$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
-	});
 </script>
 
 

@@ -48,11 +48,14 @@ public class WebChattingController {
 		
 	}
 	@RequestMapping(value="/chatting.do", method=RequestMethod.POST)
-	public ModelAndView chat(ModelAndView mv, String nickName, HttpServletRequest request, HttpSession session) throws Exception
+	public ModelAndView chat(ModelAndView mv, String nickName, String profile, HttpServletRequest request, HttpSession session) throws Exception
 	{
 		
 			request.setCharacterEncoding("UTF-8");	
 			session.setAttribute("nickName", nickName);
+			session.setAttribute("profile", profile);
+			
+			
 			//System.out.println("controller : "+session.getAttribute("userName"));
 			String host=request.getRemoteAddr();
 			System.out.println("host주소 :"+host);

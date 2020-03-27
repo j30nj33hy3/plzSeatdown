@@ -76,15 +76,16 @@
 				enctype="multipart/form-data" method="post">
 				<div class="card overflow-unset mt-3 mb-1">
 					<div class="card-body">
-						<!-- profile -->
-						<div class="avatar-icon text-center">
+						<!-- 프로필 -->
+						<div id="profile" class="avatar-icon text-center">
 							<c:set var="src" value="${contextPath}/resources/images/user.png"/>
 				            	<c:if test="${profile.memberNo == member.memberNo}">
 				            		<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
+				            		<input type="hidden" name="profile"  value="${contextPath}/resources/profileImages/${profile.profilePath}">
 				            </c:if>
 				            <img class="img-circle" src="${src}" style="width : 150px;">
 						</div>
-						<!-- EMAIL -->
+						<!-- 닉네임 -->
 						<div class="group">
 							<input type="text" class="input" name="nickName" id="nickName"
 								value="${member.memberNickname}"  readonly>

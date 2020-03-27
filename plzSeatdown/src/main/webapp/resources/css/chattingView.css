@@ -13,10 +13,8 @@ body{
     font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
 }  
 
-
-
 #chatting{
-    overflow:scroll; 
+	overflow:scroll;  
     width:850px; 
     height:500px; 
     padding:10px; 
