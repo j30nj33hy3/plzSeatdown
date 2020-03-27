@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
@@ -115,6 +116,15 @@ public class CommunityDAO {
 	public int insertReply(Reply reply) throws Exception {
 		return sqlSession.insert("yhbCommunityMapper.insertReply", reply);
 	}
+	
+	/** 알림 삽입용 DAO
+	 * @param alarm
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertAlarm(Alarm alarm) throws Exception {
+		return sqlSession.insert("alarmMapper.insertAlarm", alarm);
+	}
 
 	/** 댓글 조회용 DAO
 	 * @param communityNo
@@ -187,6 +197,8 @@ public class CommunityDAO {
 	public int insertReplyReport(Reply reply) throws Exception{
 		return sqlSession.insert("yhbCommunityMapper.insertReplyReport", reply);
 	}
+
+	
 
 	
 

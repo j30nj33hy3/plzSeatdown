@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
@@ -237,10 +238,10 @@ public class CommunityController {
 	// 부모 댓글 등록 
 	@ResponseBody
 	@RequestMapping(value="insertReply", produces="application/json; charset=utf-8", method=RequestMethod.POST)
-	public int insertReply(Reply reply) {
+	public int insertReply(Reply reply, Alarm alarm) {
 		int result = 0;
 		try {
-			result = communityService.insertReply(reply);
+			result = communityService.insertReply(reply, alarm);
 		}catch(Exception e) {
 			e.printStackTrace();
 			result = -1;

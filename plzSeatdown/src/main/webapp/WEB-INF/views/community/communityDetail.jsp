@@ -258,6 +258,9 @@ tbody > tr:last-child{
 			}
 			
 			var replyNo;
+			var alarmUrl = "${contextPath}/community/datail?no=${community.communityNo}&currentPage=1";
+			var alarmContent = "${community.communityTitle}";
+			var alarmMemberNo = ${community.communityWriter};
 			//var socketMsg ="메세지 확인";
 			$.ajax({
 				url : "insertReply",
@@ -269,7 +272,10 @@ tbody > tr:last-child{
 					depth : "0",
 					parentNo : "0",
 					communityNo : ${community.communityNo},
-					replyWriter : ${loginMember.memberNo}
+					replyWriter : ${loginMember.memberNo},
+					alarmContent : alarmContent,
+					alarmUrl : alarmUrl,
+					alarmMemberNo : alarmMemberNo
 					},
 				success : function(result){
 					var msg;
@@ -277,7 +283,6 @@ tbody > tr:last-child{
 					switch(result){
 					case 1 : $("#replyContent").val("");
 						selectRlist();
-						alert(socket);	
 					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
 						console.log("socketMsg : " + socketMsg);
 						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
