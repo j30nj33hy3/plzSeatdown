@@ -387,7 +387,9 @@ public class ReviewController {
 		
 		List<SeatReview> seatReviewList = reviewService.selectAllReview(review);
 		
-		return new Gson().toJson(seatReviewList);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
+		
+		return gson.toJson(seatReviewList);
 	}
 	
 	// 리뷰 신고 등록
