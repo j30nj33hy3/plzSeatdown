@@ -330,212 +330,206 @@
 			
 			<script>
 				// popover
-				$(function(){
+				<c:forEach var="seat" items="${sList}">
 					
-					$("#seats div[name='tk']").popover({
-						html:true,
-						placement:"top",
-						trigger:"hover",
-						content : "좌석 번호 알려줄거임"
-					});
+					var seatValue = "${seat.seatValue}";
 					
-					/* $("#seats > div").popover({
-						html:true,
-						placement:"top",
-						trigger:"manual",
-						content : '<img class="popoverContent" src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
-					}).on("mouseenter", function(){
-						self = $(this);
-						
-						self.popover("show");
-						$(".popover").on("mouseleave", function(){
-							self.popover("hide");
-						});
-						
-					}).on("mouseleave", function(){
-						self = $(this);
-						
-						if(!$(".popover:hover").length){
-							self.popover("hide");
+					var seatFloor = "";
+					var seatArea = "";
+					var seatRow = "";
+					var seatCol = "";
+					
+					if("${seat.seatFloor}" != null) seatFloor = "${seat.seatFloor}" + "층 ";
+					if("${seat.seatArea}" != null) seatArea = "${seat.seatArea}" + "구역 ";
+					if("${seat.seatRow}" != null) seatRow = "${seat.seatRow}" + "열 ";
+					if("${seat.seatCol}" != null) seatCol = "${seat.seatCol}" + "번 ";
+					
+					$.each($("#seats div[name='tk']"), function(index, item){
+						if($(item).attr("value") == seatValue){
+							$(item).popover({
+								html: true,
+								placement: "top",
+								trigger: "hover", 
+								content: seatFloor + seatArea + seatRow + seatCol
+							});
 						}
-					}); */
-					
-					/* $("#seats > div").popover({
-						html:true,
-						placement:"top",
-						trigger:"hover",
-						content : '<img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">'
-					}); */
-				});
-				
+					});
+				</c:forEach>
+			
 			</script>
-
+			
 			<script>
 			
 				$(function(){
 					
 					// sidebar
 					$("#seats div[name='tk']").on({
+						
 						click : function(){
-							var loginMemberNo = "${loginMember.memberNo}"
 							
-							seatValue = $(this).attr("value");
-							
-							$.ajax({
-								url : "selectAllReview",
-								type : "POST",
-								data : {"seatValue" : seatValue, "loginMemberNo" : loginMemberNo},
-								success : function(seatReviewList){
+							if($(this).attr("class") != "s13"){
+								
+								var loginMemberNo = "${loginMember.memberNo}"
 									
-									$("#review").html("");
+									seatValue = $(this).attr("value");
 									
-									if(seatReviewList != ""){
-										
-										$.each(seatReviewList, function(i){
+									$.ajax({
+										url : "selectAllReview",
+										type : "POST",
+										data : {"seatValue" : seatValue, "loginMemberNo" : loginMemberNo},
+										success : function(seatReviewList){
 											
-											var profileImg = null;
-											var reviewImg = "";
-											var reportBtn = "";
-											var updateBtn = "";
-											var deleteBtn = "";
-											var	reviewNo = "<input type='hidden' value='"+seatReviewList[i].reviewNo+"'>"
+											$("#review").html("");
 											
-											var floor = "";
-											var area = "";
-											var seatRow = "";
-											var seatCol = "";
-											
-											if(seatReviewList[i].seatFloor != null) floor = seatReviewList[i].seatFloor + "층 ";
-											if(seatReviewList[i].seatArea != null) area = seatReviewList[i].seatArea + "구역 ";
-											if(seatReviewList[i].seatRow != null) seatRow = seatReviewList[i].seatRow + "열 ";
-											if(seatReviewList[i].seatCol != null) seatCol = seatReviewList[i].seatCol + "번 ";
-											
-											// 프로필 사진 유무
-											if(seatReviewList[i].profilePath != null){
-												profileImg = "${contextPath}/resources/profileImages/"+seatReviewList[i].profilePath;
+											if(seatReviewList != ""){
+												
+												$.each(seatReviewList, function(i){
+													
+													var profileImg = null;
+													var reviewImg = "";
+													var reportBtn = "";
+													var updateBtn = "";
+													var deleteBtn = "";
+													var	reviewNo = "<input type='hidden' value='"+seatReviewList[i].reviewNo+"'>"
+													
+													var floor = "";
+													var area = "";
+													var seatRow = "";
+													var seatCol = "";
+													
+													if(seatReviewList[i].seatFloor != null) floor = seatReviewList[i].seatFloor + "층 ";
+													if(seatReviewList[i].seatArea != null) area = seatReviewList[i].seatArea + "구역 ";
+													if(seatReviewList[i].seatRow != null) seatRow = seatReviewList[i].seatRow + "열 ";
+													if(seatReviewList[i].seatCol != null) seatCol = seatReviewList[i].seatCol + "번 ";
+													
+													// 프로필 사진 유무
+													if(seatReviewList[i].profilePath != null){
+														profileImg = "${contextPath}/resources/profileImages/"+seatReviewList[i].profilePath;
+													}else{
+														profileImg = "${contextPath}/resources/images/user.png";
+													}
+													
+													// 리뷰 사진 유무
+													if(seatReviewList[i].reviewImgPath != null){
+														reviewImg = '<img class="img-responsive" src="${contextPath}/resources/reviewImages/' + seatReviewList[i].reviewImgPath + '">';
+													}
+													//else{
+													//	reviewImg = "${contextPath}/resources/images/no_seat.png";
+													//}
+													
+													// 신고버튼의 name은 리뷰 번호, value는 작성자
+													if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
+														reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
+													}
+													if("${loginMember.memberNo}" == seatReviewList[i].reviewWriter){
+														updateBtn = '<a class="float-right text-muted updateBtn mr-2 ml-2" href="updateForm?no='+seatReviewList[i].reviewNo +'"><i class="far fa-edit"></i></a>';
+														deleteBtn = '<a class="float-right text-muted deleteBtn mr-2 ml-2" href="delete?no='+seatReviewList[i].reviewNo +'"><i class="far fa-trash-alt"></i></a>';
+													}
+													
+													var sight = "";
+													var legroom = "";
+													var comfort = "";
+													
+													for(var j=0; j<5; j++){
+														if(j < seatReviewList[i].reviewSight) sight += '<i class="fas fa-star"></i>';
+														else sight += '<i class="far fa-star"></i>';
+													}
+													
+													for(var j=0; j<5; j++){
+														if(j < seatReviewList[i].reviewLegroom) legroom += '<i class="fas fa-star"></i>';
+														else legroom += '<i class="far fa-star"></i>';
+													}
+													
+													for(var j=0; j<5; j++){
+														if(j < seatReviewList[i].reviewComfort) comfort += '<i class="fas fa-star"></i>';
+														else comfort += '<i class="far fa-star"></i>';
+													}
+													
+													// 좋아요 여부
+													var likeStatus ="";
+													if(seatReviewList[i].likeStatus == 1) likeStatus = '<i class="fas fa-heart"></i>';
+													else likeStatus = '<i class="far fa-heart"></i>';
+													
+													// 좋아요 버튼
+													var likeBtn = "";
+													
+													// 로그인 안 했을 때, 본인이 작성한 리뷰
+													if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
+														//likeBtn = '<span class="reviewLike heart" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);">' + likeStatus + '</span>';
+														if(seatReviewList[i].likeStatus == 1) likeBtn = '<div class="reviewLike heart" style="background-position:-2800px 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
+														else likeBtn = '<div class="reviewLike heart" style="background-position:0 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
+													}else{
+														//likeBtn = '<span class="reviewLike heart">' + likeStatus + '</span>';
+														likeBtn = '<div class="reviewLike heart"></div>';
+													}
+													
+													
+													
+													// 카드 폼
+													// 좋아요 버튼의 value는 리뷰 번호
+				                                   var card = 
+				                                    '<div class="card">' + 
+				                                       '<div class="card-content">' +
+				                                       
+				                                          '<div class="row profile">' + 
+				                                          	 '<div class="col">' + 
+					                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
+					                                             '<span>' + seatReviewList[i].memberNickname + '</span>' + 
+					                                         '</div>' +
+					                                         '<div class="col text-right">' + 
+					                                             likeBtn + 
+					                                             '<div class="reviewLikeCount" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</div>' + 
+				                                          	 '</div>' + 
+					                                      '</div>' + 
+					                                      
+					                                      '<div>' + floor + area + seatRow + seatCol + '</div>' + 
+				                                          
+				                                          '<div class="row starValue mb-4 mt-4">' +
+				                                             '<div class="col text-center">' +
+				                                                '<span>시야</span>' + 
+				                                                '<span class="star" style="display: block;">' + sight + '</span>' + 
+				                                             '</div>' +
+				                                             
+				                                             '<div class="col text-center">' +
+				                                                '<span>간격</span>' + 
+				                                                '<span class="star" style="display: block;">' + legroom + '</span>' + 
+				                                             '</div>' +
+				                                             
+				                                             '<div class="col text-center">' +
+				                                                '<span>편안함</span>' + 
+				                                                '<span class="star" style="display: block;">' + comfort + '</span>' + 
+				                                             '</div>' +
+				                                          '</div>' +
+				                                          
+				                                          '<div class="reviewCont">' + 
+				                                             reviewImg +
+				                                             
+				                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
+				                                             '<div>' + seatReviewList[i].reviewViewDt + ' 관람' + reportBtn + deleteBtn + reviewNo + updateBtn + '</div>' + 
+				                                          '</div>' +  
+				                                       '</div>' +
+				                                    '</div>';
+				                                    // 카드 폼 종료
+					                                 
+					                                 $("#review").append(card);
+				                                    
+												});	
+													
+												
 											}else{
-												profileImg = "${contextPath}/resources/images/user.png";
+												// 리뷰가 없는 경우
+												$("#review").append("작성된 리뷰가 없습니다.");
 											}
-											
-											// 리뷰 사진 유무
-											if(seatReviewList[i].reviewImgPath != null){
-												reviewImg = '<img class="img-responsive" src="${contextPath}/resources/reviewImages/' + seatReviewList[i].reviewImgPath + '">';
-											}
-											//else{
-											//	reviewImg = "${contextPath}/resources/images/no_seat.png";
-											//}
-											
-											// 신고버튼의 name은 리뷰 번호, value는 작성자
-											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
-												reportBtn = '<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" name="'+ seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].reviewWriter + '">신고</button>';
-											}
-											if("${loginMember.memberNo}" == seatReviewList[i].reviewWriter){
-												updateBtn = '<a class="float-right text-muted updateBtn mr-2 ml-2" href="updateForm?no='+seatReviewList[i].reviewNo +'"><i class="far fa-edit"></i></a>';
-												deleteBtn = '<a class="float-right text-muted deleteBtn mr-2 ml-2" href="delete?no='+seatReviewList[i].reviewNo +'"><i class="far fa-trash-alt"></i></a>';
-											}
-											
-											var sight = "";
-											var legroom = "";
-											var comfort = "";
-											
-											for(var j=0; j<5; j++){
-												if(j < seatReviewList[i].reviewSight) sight += '<i class="fas fa-star"></i>';
-												else sight += '<i class="far fa-star"></i>';
-											}
-											
-											for(var j=0; j<5; j++){
-												if(j < seatReviewList[i].reviewLegroom) legroom += '<i class="fas fa-star"></i>';
-												else legroom += '<i class="far fa-star"></i>';
-											}
-											
-											for(var j=0; j<5; j++){
-												if(j < seatReviewList[i].reviewComfort) comfort += '<i class="fas fa-star"></i>';
-												else comfort += '<i class="far fa-star"></i>';
-											}
-											
-											// 좋아요 여부
-											var likeStatus ="";
-											if(seatReviewList[i].likeStatus == 1) likeStatus = '<i class="fas fa-heart"></i>';
-											else likeStatus = '<i class="far fa-heart"></i>';
-											
-											// 좋아요 버튼
-											var likeBtn = "";
-											
-											// 로그인 안 했을 때, 본인이 작성한 리뷰
-											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
-												//likeBtn = '<span class="reviewLike heart" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);">' + likeStatus + '</span>';
-												if(seatReviewList[i].likeStatus == 1) likeBtn = '<div class="reviewLike heart" style="background-position:-2800px 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
-												else likeBtn = '<div class="reviewLike heart" style="background-position:0 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
-											}else{
-												//likeBtn = '<span class="reviewLike heart">' + likeStatus + '</span>';
-												likeBtn = '<div class="reviewLike heart"></div>';
-											}
-											
-											
-											
-											// 카드 폼
-											// 좋아요 버튼의 value는 리뷰 번호
-		                                   var card = 
-		                                    '<div class="card">' + 
-		                                       '<div class="card-content">' +
-		                                       
-		                                          '<div class="row profile">' + 
-		                                          	 '<div class="col">' + 
-			                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
-			                                             '<span>' + seatReviewList[i].memberNickname + '</span>' + 
-			                                         '</div>' +
-			                                         '<div class="col text-right">' + 
-			                                             likeBtn + 
-			                                             '<div class="reviewLikeCount" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</div>' + 
-		                                          	 '</div>' + 
-			                                      '</div>' + 
-			                                      
-			                                      '<div>' + floor + area + seatRow + seatCol + '</div>' + 
-		                                          
-		                                          '<div class="row starValue mb-4 mt-4">' +
-		                                             '<div class="col text-center">' +
-		                                                '<span>시야</span>' + 
-		                                                '<span class="star" style="display: block;">' + sight + '</span>' + 
-		                                             '</div>' +
-		                                             
-		                                             '<div class="col text-center">' +
-		                                                '<span>간격</span>' + 
-		                                                '<span class="star" style="display: block;">' + legroom + '</span>' + 
-		                                             '</div>' +
-		                                             
-		                                             '<div class="col text-center">' +
-		                                                '<span>편안함</span>' + 
-		                                                '<span class="star" style="display: block;">' + comfort + '</span>' + 
-		                                             '</div>' +
-		                                          '</div>' +
-		                                          
-		                                          '<div class="reviewCont">' + 
-		                                             reviewImg +
-		                                             
-		                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
-		                                             '<div>' + seatReviewList[i].reviewViewDt + ' 관람' + reportBtn + deleteBtn + reviewNo + updateBtn + '</div>' + 
-		                                          '</div>' +  
-		                                       '</div>' +
-		                                    '</div>';
-		                                    // 카드 폼 종료
-			                                 
-			                                 $("#review").append(card);
-		                                    
-										});	
-											
-										
-									}else{
-										// 리뷰가 없는 경우
-										$("#review").append("작성된 리뷰가 없습니다.");
-									}
-								}
-							});
-							
-							$(".sidebar").addClass("active");
-							$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
-								e.preventDefault();
-							}); // 스크롤 불가능
-							$(".overlay").fadeIn();
+										}
+									});
+									
+									$(".sidebar").addClass("active");
+									$("body").addClass("scrollHidden").on("scroll touchmove mousewheel", function(e){
+										e.preventDefault();
+									}); // 스크롤 불가능
+									$(".overlay").fadeIn();
+									
+							}
 						}
 					});
 					
@@ -549,6 +543,7 @@
 				});
 
 			</script>
+
 			<script>
 				$(document).on('click','.deleteBtn', function(){
 					var rno = $(this).next().val();
@@ -556,6 +551,7 @@
 				});
 				
 			</script>
+			
 			<!-- 리뷰 신고 -->
 			<script>
 				function test(obj){
@@ -633,16 +629,6 @@
 				
 	     	</script>
 	     	
-	     	<!-- 별점 변환 -->
-	     	<!-- <script>
-	     		$.fn.generateStars = function() {
-	            	return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
-	           };
-
-	           // 숫자 평점을 별로 변환하도록 호출하는 함수
-	           $('.star-prototype').generateStars();
-	     	</script> -->
-
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

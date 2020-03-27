@@ -465,6 +465,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return result;
 	}
 
+	/** 공연장별 좌석 조회용 Service
+	 * @param thCode
+	 * @return sList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Seat> selectSeatList(String thCode) throws Exception {
+		return reviewDAO.selectSeatList(thCode);
+	}
+
 	
 
 	
