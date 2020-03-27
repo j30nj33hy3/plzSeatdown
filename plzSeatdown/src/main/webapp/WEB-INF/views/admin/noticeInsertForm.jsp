@@ -122,18 +122,18 @@
 				});
 			});
 		</script>
-		<script
-			src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script>
-		<script src="${contextPath}/resources/js/admin/mask.init.js"></script>
+		<script src="${contextPath}/resources/js/admin/noticeInsertForm.js"></script>
+ 		<script src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script> 
+ 		<script src="${contextPath}/resources/js/admin/mask.init.js"></script>
 		<script src="${contextPath}/resources/js/admin/select2.full.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/select2.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/jquery-asColor.min.js"></script>
 		<script src="${contextPath}/resources/js/admin/jquery-asGradient.js"></script>
 		<script
-			src="${contextPath}/resources/js/admin/jquery-asColorPicker.min.js"></script>
-		<script
+			src="${contextPath}/resources/js/admin/jquery-asColorPicker.min.js"></script> 
+ 		<script
 			src="${contextPath}/resources/js/admin/jquery.minicolors.min.js"></script>
-		<script
+ 		<script
 			src="${contextPath}/resources/js/admin/bootstrap-datepicker.min.js"></script>
 
 		<script src="${contextPath}/resources/js/admin/summernote-lite.js"></script>
@@ -143,9 +143,9 @@
 			src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
 			integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
 			crossorigin="anonymous"></script>
-		<script defer
+<!-- 		<script defer
 			src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
 			integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
-			crossorigin="anonymous"></script>
+			crossorigin="anonymous"></script> -->
 </body>
 </html>

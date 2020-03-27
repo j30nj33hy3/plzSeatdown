@@ -244,9 +244,13 @@
         $(function() {
 			$(".deleteBtn").click(function(){
 			var qnaNo = $(this).parent().parent().children().eq(0).text();
-			console.log(qnaNo); 
+			var status = $(this).parent().parent().children().eq(7).text();
 			if(confirm("정말 삭제 하시겠습니까?"))
-				location.href = "delete?no="+qnaNo;
+				if(status == 'D') {
+					alert("이미 삭제된 문의글입니다.");				
+				} else {
+					location.href = "delete?no="+qnaNo;
+				}
 			}).mouseenter(function(){
 				$(this).parent().css("cursor", "pointer");
 			});	

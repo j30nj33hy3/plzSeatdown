@@ -139,7 +139,12 @@
   		WHERE MEMBER_NICKNM=#{memberNickname}
 	</select>
 	
-	
+	<select id="emailDupCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_EMAIL=#{memberEmail}
+		
+	</select>
 	
 	
 </mapper>

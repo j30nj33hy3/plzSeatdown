@@ -270,9 +270,15 @@
            $(function() {
 			$(".deleteBtn").click(function(){
 			var noticeNo = $(this).parent().parent().children().eq(0).text();
-			console.log(noticeNo); 
+			var status = $(this).parent().parent().children().eq(3).text();
+			
+			console.log(status); 
 			if(confirm("정말 삭제 하시겠습니까?"))
-				location.href = "delete?no="+noticeNo;
+				if(status == 'N') {
+					alert("이미 삭제된 공지사항입니다.")
+				} else {
+					location.href = "delete?no="+noticeNo;
+				}
 			}).mouseenter(function(){
 				$(this).parent().css("cursor", "pointer");
 			});	

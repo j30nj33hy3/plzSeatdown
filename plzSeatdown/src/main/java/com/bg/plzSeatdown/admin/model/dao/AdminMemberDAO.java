@@ -88,4 +88,8 @@ public class AdminMemberDAO {
 		return sqlSession.selectOne("adminMemberMapper.nicknameDupCheck", memberNickname);
 	}
 
+	public int emailDupCheck(String memberEmail) throws Exception{
+		return sqlSession.selectOne("adminMemberMapper.emailDupCheck", memberEmail);
+	}
+
 }
