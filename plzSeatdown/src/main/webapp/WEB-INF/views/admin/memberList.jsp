@@ -242,15 +242,18 @@
 						$(function() {
 							$(".deleteBtn").click(function(){
 							var memberNo = $(this).parent().parent().children().eq(0).text();
-							console.log(memberNo); 
+							var status = $(this).parent().parent().children().eq(7).text();
 							if(confirm("정말 삭제 하시겠습니까?"))
-								location.href = "delete?no="+memberNo;
+								if(status == 'N') {
+									alert("이미 강퇴처리된 회원입니다.")
+								} else {
+									location.href = "delete?no="+memberNo;
+								}
 							}).mouseenter(function(){
 								$(this).parent().css("cursor", "pointer");
 							});	
 						});
 						
-					
 					</script>
 				</div>
 				<br>

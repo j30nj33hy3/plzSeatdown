@@ -20,6 +20,7 @@ import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.member.model.vo.Member;
 
+
 @Controller
 @RequestMapping("/admin/notice/*")
 @SessionAttributes({ "loginMember", "msg", "detailUrl" })

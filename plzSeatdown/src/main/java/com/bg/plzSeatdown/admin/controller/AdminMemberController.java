@@ -23,6 +23,7 @@ import com.bg.plzSeatdown.member.model.vo.Member;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+
 @SessionAttributes({ "msg" })
 @Controller
 @RequestMapping("/admin/member/*")
@@ -211,20 +212,28 @@ public class AdminMemberController {
 	}
 	
 	
-	
 	@ResponseBody
 	@RequestMapping("nicknameDupCheck")
 	public String nicknameDupCheck(String memberNickname, Model model) { //return을 위한 model
 		try {
 			return adminMemberService.nicknameDupCheck(memberNickname) == 0 ? true+"" : false+""; 
-			// 값 자체로 return을 하고 싶은데 페이지로 이동하려함 WEB-INF/views/ + return값(true/false) + .jsp 페이지
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "아이디 중복체크 과정에서 오류 발생");
 			return "common/errorPage";
 		}
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("emailDupCheck")
+	public String emailDupCheck(String memberEmail, Model model) {
+		try {
+			return adminMemberService.emailDupCheck(memberEmail) == 0 ? true+"" : false+"";
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이메일 중복체크 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
 	
 }

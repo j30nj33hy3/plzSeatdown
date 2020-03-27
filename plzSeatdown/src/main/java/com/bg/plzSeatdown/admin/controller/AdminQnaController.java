@@ -25,6 +25,7 @@ import com.bg.plzSeatdown.admin.model.vo.AdminQnaAnswer;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 
+
 @RequestMapping("/admin/qna/*")
 @Controller
 public class AdminQnaController {

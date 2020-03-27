@@ -27,5 +27,7 @@ public interface AdminMemberService {
 
 	public abstract int nicknameDupCheck(String memberNickname) throws Exception;
 
+	public abstract int emailDupCheck(String memberEmail) throws Exception;
+
 
 }

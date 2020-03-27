@@ -14,7 +14,6 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="${contextPath}/resources/js/admin/member_detail.js"></script>
 
 </head>
 <body>
@@ -58,7 +57,7 @@
 							action="updateMember?no=${member.memberNo}"
 							onsubmit="return validate();">
 							<div class="col-md-8" style="float: left;">
-							
+
 								<h6>회원번호</h6>
 								<input type="text" class="form-control input-comment mb-3"
 									id="no" name="no" value="${member.memberNo }" disabled required>
@@ -68,18 +67,20 @@
 									id="id" name="id" value="${member.memberId }" disabled required>
 
 								<h6>이름</h6>
-								<input type="text" class="form-control input-comment mb-3"
-									id="name" name="name" maxlength="10" value="${member.memberName }" required>
+								<input type="text" class="form-control input-comment mb-3 name"
+									id="name" name="name" maxlength="10"
+									value="${member.memberName }" required>
 
 								<h6>닉네임</h6>
-								<input type="text" class="form-control input-comment" style="display:inline-block; width:84%;"
-									id="nickname" name="nickname" value="${member.memberNickname }"
-									required>&nbsp;&nbsp;<a class="btn" id="nickname-edit-btn">변경하기</a>
-								<div class="mb-3" id="checkNickname" style="height:1.5em;"></div>
+								<input type="text" class="form-control input-comment nickname"
+									style="display: inline-block; width: 84%;" id="nickname"
+									name="nickname" value="${member.memberNickname }" required>&nbsp;&nbsp;<a
+									class="btn" id="nickname-edit-btn">변경하기</a>
+								<div class="mb-3" id="checkNickname" style="height: 1.5em;"></div>
 								<h6>이메일</h6>
-								<input type="email" class="form-control input-comment"
+								<input type="email" class="form-control input-comment email"
 									id="email" name="email" value="${member.memberEmail }" required>
-								<div class="mb-3" id="checkEmail" style="height:1.5em;"></div>
+								<div class="mb-3" id="checkEmail" style="height: 1.5em;"></div>
 								<h6>전화번호</h6>
 								<!-- <select class="custom-select form-control input-comment" id="phone1" name="phone1"
                                     style="float:left; width:165px; background-color: white;" disabled required>
@@ -107,24 +108,25 @@
 
 								<h6>프로필 사진</h6>
 								<div id="profile-wrap" style="text-align: center;">
-									<c:choose>
-										<c:when test="${empty attachment }">
-											<img class="member-profile" id="profile-img"
-												src="${contextPath }/resources/images/user.png" alt="프로필아이콘"
-												style="width: 240px">
-										</c:when>
-										<c:otherwise>
-											<img class="member-profile" id="profile-img"
-												src="${contextPath}/resources/profileImages/${attachment.profilePath}"
-												alt="프로필아이콘"
-												style="width: 240px; height: 240px; border-radius: 50%;">
-										</c:otherwise>
-									</c:choose>
+									<%-- <c:choose> --%>
+									<c:if test="${empty attachment }">
+										<img class="member-profile" id="profile-img"
+											src="${contextPath }/resources/images/user.png" alt="프로필아이콘"
+											style="width: 240px">
+									</c:if>
+									<c:if test="${!empty attachment }">
+										<img class="member-profile" id="profile-img"
+											src="${contextPath}/resources/profileImages/${attachment.profilePath}"
+											alt="프로필아이콘"
+											style="width: 240px; height: 240px; border-radius: 50%;">
+										<br>
+										<button type="button" id="upBtn"
+											class="btn btn-sm form-control profile-edit-btn"
+											style="width: 50px; float: right;">삭제</button>
+									</c:if>
+									<%-- </c:choose> --%>
 									<br>
-									<button type="button" id="upBtn"
-										class="btn btn-sm form-control profile-edit-btn"
-										style="width: 50px; float: right;">삭제</button>
-									<br>
+
 								</div>
 							</div>
 							<div class="col-md-12" style="clear: both; text-align: center;">
@@ -132,8 +134,8 @@
 								<button class="btn mt-5 form-control edit-btn" id="editBtn"
 									type="submit" style="width: 20%">수정</button>
 
-								<a href="list" class="btn mt-5 form-control edit-btn" id="cancleBtn"
-									type="button" style="width: 20%">취소</a>
+								<a href="list" class="btn mt-5 form-control edit-btn"
+									id="cancleBtn" type="button" style="width: 20%">취소</a>
 
 							</div>
 						</form>
@@ -150,33 +152,161 @@
 							});	
 						});
 						
+						
+						// 유효성 & 중복검사
+						var nameCheck = {
+							"name":false
+						}
+						var nicknameCheck = {
+							"nickname":false
+						}
+						var nicknameDup = {
+							"nicknameDup":false
+						}
+						var email = {
+							"email":false
+						}
+						var emailDup = {
+							"emailDup":false
+						}
+						
+						$(function() {
+							var $name = $("#name");
+							var $nickname = $("#nickname");
+							var $email = $("#email");
+							
+							$(".name").on("input", function(){
+								var regExp =  /^[가-힣]{2,}$/;
+								
+								if(!regExp.test($(this).val())){ // 이름이 정규식을 만족하지 않을경우
+									nameCheck = false;
+								}else{
+									nameCheck = true;
+								}
+							});
+							
+							$(".nickname").on("input",function(){
+								var regExp = /^[가-힣A-Za-z0-9]{2,15}$/;
+								
+								if(!regExp.test($nickname.val())){
+				                	$("#checkNickname").text("닉네임 형식이 유효하지 않습니다.").css({"color":"red","font-weight":"bold"});
+				                	nicknameCheck = false;
+				                }else{
+				                	nicknameCheck = true;
+				                		$.ajax({
+				                		url : "nicknameDupCheck",
+				                		data : {memberNickname: $nickname.val() }, // paramter->k:v형태
+				                		type : "post",
+				                		success : function(result){
+				                			if(result == "true"){
+				                				$("#checkNickname").text("사용 가능한 닉네임입니다.").css({"color":"green","font-weight":"bold"});
+				                				nicknameDup = true;
+				                			}else{
+				                				$("#checkNickname").text("사용할 수 없는 닉네임입니다.").css({"color":"red","font-weight":"bold"});
+				                				nicknameDup = false;
+				                			}
+				                		},
+				                		error : function(e){
+				                			console.log("ajax 통신 실패");
+				                			console.log(e);
+				                		}
+				                	});
+				                }
+							});
+							
+							$(".email").on("input",function(){
+								var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+								
+								if(!regExp.test($email.val())){
+				                	$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css({"color":"red","font-weight":"bold"});
+				                	emailCheck = false;
+				                }else{
+				                	emailCheck = true;
+				                		$.ajax({
+				                		url : "emailDupCheck",
+				                		data : {memberEmail: $email.val() }, // paramter->k:v형태
+				                		type : "post",
+				                		success : function(result){
+				                			if(result == "true"){
+				                				$("#checkEmail").text("사용 가능한 이메일입니다.").css({"color":"green","font-weight":"bold"});
+				                				emailDup = true;
+				                			}else{
+				                				$("#checkEmail").text("사용할 수 없는 이메일입니다.").css({"color":"red","font-weight":"bold"});
+				                				emailDup = false;
+				                			}
+				                		},
+				                		error : function(e){
+				                			console.log("ajax 통신 실패");
+				                			console.log(e);
+				                		}
+				                	});
+				                }
+							});
+						});
+						
+						
+						
+						// 닉네임 변경 버튼 클릭시					
 						$(function(){
 							$("#nickname-edit-btn").click(function(){
 							var memberId = '${member.memberId}';
 							var ranNum = Math.round(Math.random()*10000);
-							console.log(ranNum);
 							var nickname = memberId + ranNum;
 							$("#nickname").attr('value', nickname);
-							
+
 							var $nickname = $("#nickname");
 							$.ajax({
 		                		url : "nicknameDupCheck",
 		                		data : {memberaNickname: $nickname.val() }, // paramter->k:v형태
 		                		type : "post",
 		                		success : function(result){
-		                			
 		                			if(result == "true"){
-		                				$("#checkNickname").text("사용 가능한 닉네임입니다.").css({"color":"green","font-weight":"bold"});
+		                				$("#checkNickname").text("[변경버튼]사용 가능한 닉네임입니다.").css({"color":"green","font-weight":"bold"});
 		                				updateCheck.nicknameDup = true;
 		                			}else{
-		                				$("#checkNickname").text("사용할 수 없는 닉네임 입니다.").css({"color":"red","font-weight":"bold"});
+		                				$("#checkNickname").text("[변경버튼]사용할 수 없는 닉네임입니다.").css({"color":"red","font-weight":"bold"});
 		                				updateCheck.nicknameDup = false;
 		                			}
 		                		}
 							})
 						});
-						});
-
+					});
+						
+						// 수정 버튼 클릭시
+						function validate(){
+			
+							if(nameCheck == false){
+									alert("이름이 잘못 입력되었습니다.");
+									$("#name").focus();
+									return false;
+							}
+							
+							if(nicknameCheck == false){
+								alert("닉네임이 잘못 입력되었습니다.");
+								$("#nickname").focus();
+								return false;
+							
+							}
+							if(nicknameDup == false){
+								alert("중복된 닉네임입니다.");
+								$("#nickname").focus();
+								return false;
+							
+							}
+							if(emailCheck == false){
+								alert("이메일이 잘못 입력되었습니다.");
+								$("#email").focus();
+								return false;
+							
+							}
+							if(emailDup == false){
+								alert("중복된 이메일입니다.");
+								$("#email").focus();
+								return false;
+							
+							}
+						}			
+  	
 						
 						/* $(function() {
 								$("#upBtn").click(function() {

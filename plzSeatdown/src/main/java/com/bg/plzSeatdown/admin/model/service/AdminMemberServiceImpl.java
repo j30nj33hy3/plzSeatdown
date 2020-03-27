@@ -65,6 +65,11 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public int nicknameDupCheck(String memberNickname) throws Exception {
 		return adminMemberDAO.nicknameDupChekc(memberNickname);
 	}
+
+	@Override
+	public int emailDupCheck(String memberEmail) throws Exception {
+		return adminMemberDAO.emailDupCheck(memberEmail);
+	}
 	
 
 }
