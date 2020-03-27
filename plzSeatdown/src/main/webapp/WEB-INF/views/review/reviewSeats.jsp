@@ -39,7 +39,7 @@
                 width: 100px;
                 height: 100px;
                 position: absolute;
-                left: 50%;
+                left: 70%;
                 top: 50%;
                 transform: translate(-50%, -50%);
                 background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
@@ -387,9 +387,19 @@
 										$.each(seatReviewList, function(i){
 											
 											var profileImg = null;
-											var reviewImg = null;
+											var reviewImg = "";
 											var reportBtn = "";
 											var updateBtn = "";
+											
+											var floor = "";
+											var area = "";
+											var seatRow = "";
+											var seatCol = "";
+											
+											if(seatReviewList[i].seatFloor != null) floor = seatReviewList[i].seatFloor + "층 ";
+											if(seatReviewList[i].seatArea != null) area = seatReviewList[i].seatArea + "구역 ";
+											if(seatReviewList[i].seatRow != null) seatRow = seatReviewList[i].seatRow + "열 ";
+											if(seatReviewList[i].seatCol != null) seatCol = seatReviewList[i].seatCol + "번 ";
 											
 											// 프로필 사진 유무
 											if(seatReviewList[i].profilePath != null){
@@ -400,10 +410,11 @@
 											
 											// 리뷰 사진 유무
 											if(seatReviewList[i].reviewImgPath != null){
-												reviewImg = "${contextPath}/resources/reviewImages/"+seatReviewList[i].reviewImgPath;
-											}else{
-												reviewImg = "${contextPath}/resources/images/no_seat.png";
+												reviewImg = '<img class="img-responsive" src="${contextPath}/resources/reviewImages/' + seatReviewList[i].reviewImgPath + '">';
 											}
+											//else{
+											//	reviewImg = "${contextPath}/resources/images/no_seat.png";
+											//}
 											
 											// 신고버튼의 name은 리뷰 번호, value는 작성자
 											if("${loginMember.memberNo}" != seatReviewList[i].reviewWriter && "${loginMember.memberNo}" != ""){
@@ -466,9 +477,11 @@
 			                                         '</div>' +
 			                                         '<div class="col text-right">' + 
 			                                             likeBtn + 
-			                                             '<div class="reviewLikeCount pr-4" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</div>' + 
+			                                             '<div class="reviewLikeCount" id="likeCount' + seatReviewList[i].reviewNo + '">' + seatReviewList[i].likeCount + '</div>' + 
 		                                          	 '</div>' + 
 			                                      '</div>' + 
+			                                      
+			                                      '<div>' + floor + area + seatRow + seatCol + '</div>' + 
 		                                          
 		                                          '<div class="row starValue mb-4 mt-4">' +
 		                                             '<div class="col text-center">' +
@@ -488,9 +501,11 @@
 		                                          '</div>' +
 		                                          
 		                                          '<div class="reviewCont">' + 
-		                                             '<img class="img-responsive" src="' + reviewImg + '">' +
+		                                             reviewImg +
+		                                             
 		                                             '<div class="mt-4 mb-4">' + seatReviewList[i].reviewComment + '</div>' +
-	                                                  reportBtn + updateBtn +
+		                                             '<div>' + seatReviewList[i].reviewViewDt + ' 관람' + reportBtn + updateBtn + '</div>' + 
+		                                             
 		                                          '</div>' +  
 		                                       '</div>' +
 		                                    '</div>';
