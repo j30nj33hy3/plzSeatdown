@@ -3,6 +3,7 @@ package com.bg.plzSeatdown.community.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
@@ -72,7 +73,7 @@ public interface CommunityService {
 	 * @return result
 	 * @throws Exception
 	 */
-	public abstract int insertReply(Reply reply) throws Exception;
+	public abstract int insertReply(Reply reply, Alarm alarm) throws Exception;
 
 	/** 댓글 조회용 Service
 	 * @param communityNo

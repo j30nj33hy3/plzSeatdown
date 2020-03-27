@@ -52,6 +52,8 @@
 		
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewReport" alias="ReviewReport"/>
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewLike" alias="ReviewLike"/>
+		
+		<typeAlias type="com.bg.plzSeatdown.alarm.model.vo.Alarm" alias="Alarm"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -74,6 +76,7 @@
 		<mapper resource="/mappers/admin-reply-report-mapper.xml"/>
 		<mapper resource="/mappers/admin-review-report-mapper.xml"/>
 		<mapper resource="/mappers/seat-mapper.xml"/>
+		<mapper resource="/mappers/alarm-mapper.xml"/>
 	</mappers>
 
 </configuration>

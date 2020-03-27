@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.dao.CommunityDAO;
 import com.bg.plzSeatdown.community.model.vo.Community;
@@ -133,8 +134,25 @@ public class CommunityServiceImpl implements CommunityService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertReply(Reply reply) throws Exception {
-		return communityDAO.insertReply(reply);
+	public int insertReply(Reply reply, Alarm alarm) throws Exception {
+		int result = 0;
+		String alarmContent = null;
+		// 댓글 등록
+		result = communityDAO.insertReply(reply);
+		
+		// 알림 삽입
+		if(result>0) {
+			result = 0;
+			if(alarm.getAlarmContent().length()>=5) {
+				alarmContent = alarm.getAlarmContent().substring(0, 5);				
+			}else {
+				alarmContent = alarm.getAlarmContent();
+			}
+			alarm.setAlarmType("R");
+			alarm.setAlarmContent("["+alarmContent+"...]에 댓글이 달렸습니다.");
+			result = communityDAO.insertAlarm(alarm);
+		}
+		return result;
 	}
 
 	/** 댓글 조회용 Service
