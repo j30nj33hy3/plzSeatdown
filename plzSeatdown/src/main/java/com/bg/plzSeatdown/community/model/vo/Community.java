@@ -22,6 +22,7 @@ public class Community {
 	private int nextCommunityNo;
 	private int preCommunityNo;
 	private int replyCount;
+	private String memberId;
 	
 	public Community() {}
 
@@ -82,6 +83,33 @@ public class Community {
 		this.nextCommunityNo = nextCommunityNo;
 		this.preCommunityNo = preCommunityNo;
 		this.replyCount = replyCount;
+	}
+
+	public Community(int communityNo, String communityTitle, String communityContent, Date communityCreateDate,
+			Date communityModifyDate, int communityCount, String communityStatus, int communityWriter,
+			String memberNickname, int categoryCode, String categoryName, String profilePath, int memberReporter,
+			String communityReportContent, int reportCategory, int nextCommunityNo, int preCommunityNo, int replyCount,
+			String memberId) {
+		super();
+		this.communityNo = communityNo;
+		this.communityTitle = communityTitle;
+		this.communityContent = communityContent;
+		this.communityCreateDate = communityCreateDate;
+		this.communityModifyDate = communityModifyDate;
+		this.communityCount = communityCount;
+		this.communityStatus = communityStatus;
+		this.communityWriter = communityWriter;
+		this.memberNickname = memberNickname;
+		this.categoryCode = categoryCode;
+		this.categoryName = categoryName;
+		this.profilePath = profilePath;
+		this.memberReporter = memberReporter;
+		this.communityReportContent = communityReportContent;
+		this.reportCategory = reportCategory;
+		this.nextCommunityNo = nextCommunityNo;
+		this.preCommunityNo = preCommunityNo;
+		this.replyCount = replyCount;
+		this.memberId = memberId;
 	}
 
 	public int getCommunityNo() {
@@ -228,6 +256,14 @@ public class Community {
 		this.replyCount = replyCount;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	@Override
 	public String toString() {
 		return "Community [communityNo=" + communityNo + ", communityTitle=" + communityTitle + ", communityContent="
@@ -237,7 +273,7 @@ public class Community {
 				+ categoryCode + ", categoryName=" + categoryName + ", profilePath=" + profilePath + ", memberReporter="
 				+ memberReporter + ", communityReportContent=" + communityReportContent + ", reportCategory="
 				+ reportCategory + ", nextCommunityNo=" + nextCommunityNo + ", preCommunityNo=" + preCommunityNo
-				+ ", replyCount=" + replyCount + "]";
+				+ ", replyCount=" + replyCount + ", memberId=" + memberId + "]";
 	}
 
 }
