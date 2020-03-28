@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.FileRename;
@@ -424,24 +425,31 @@ public class ReviewController {
 	}
 	
 	// 리뷰 좋아요
-	@ResponseBody
-	@RequestMapping("updateLike")
-	public int updateLike(Model model, Integer reviewNo, Integer likeStatus) {
-		
-		// Session에서 회원번호 얻어오기
-		Member loginMember = (Member)model.getAttribute("loginMember");
-		int memberNo = loginMember.getMemberNo();
-		
-		ReviewLike like = new ReviewLike(memberNo, reviewNo);
-		
-		int statusChange = reviewService.updateLike(like, likeStatus);
-		
-		// statusChange == -1	좋아요 O -> 좋아요 X
-		// statusChange == 1	좋아요 X -> 좋아요 O
-		// statusChange == 0	좋아요 작동 실패
-		
-		return statusChange;
-	}
+	   @ResponseBody
+	   @RequestMapping("updateLike")
+	   public int updateLike(Model model, Integer reviewNo, Integer likeStatus, Alarm alarm) {
+	      
+	      System.out.println("alarm :" + alarm.getAlarmContent());
+	      // Session에서 회원번호 얻어오기
+	      Member loginMember = (Member)model.getAttribute("loginMember");
+	      int memberNo = loginMember.getMemberNo();
+	      
+	      ReviewLike like = new ReviewLike(memberNo, reviewNo);
+	      
+	      int statusChange =0;
+	      try {
+	         statusChange = reviewService.updateLike(like, likeStatus, alarm);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         statusChange =1;
+	      }
+	      
+	      // statusChange == -1   좋아요 O -> 좋아요 X
+	      // statusChange == 1   좋아요 X -> 좋아요 O
+	      // statusChange == 0   좋아요 작동 실패
+	   
+	      return statusChange;
+	   }
 	
 		// 리뷰 수정 화면 전환
 		@RequestMapping("updateForm")

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.common.vo.PageInfo;
@@ -272,32 +273,46 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	/** 리뷰 좋아요 Service
-	 * @param like
-	 * @param likeStatus 
-	 * @return statusChange
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int updateLike(ReviewLike like, Integer likeStatus) {
-	
-		int result = 0;
-		int statusChange = 0;
-		
-		// 좋아요가 눌린 상태
-		if(likeStatus > 0) {
-			result = reviewDAO.deleteLike(like);
-			
-			if(result > 0) statusChange = -1;
-			// 좋아요 O -> 좋아요 X
-		}else {
-			result = reviewDAO.insertLike(like);
-			
-			if(result > 0) statusChange = 1;
-			// 좋아요 X -> 좋아요 O
-		}
-		
-		return statusChange;
-	}
+	    * @param like
+	    * @param likeStatus 
+	    * @return statusChange
+	    * @throws Exception 
+	    */
+	   @Transactional(rollbackFor = Exception.class)
+	   @Override
+	   public int updateLike(ReviewLike like, Integer likeStatus, Alarm alarm) throws Exception {
+	   
+	      int result = 0;
+	      int statusChange = 0;
+	      String alarmContent = null;
+	      
+	      // 좋아요가 눌린 상태
+	      if(likeStatus > 0) {
+	         result = reviewDAO.deleteLike(like);
+	         
+	         if(result > 0) statusChange = -1;
+	         // 좋아요 O -> 좋아요 X
+	      }else {
+	         result = reviewDAO.insertLike(like);
+	         
+	         if(result > 0) {// 좋아요 X -> 좋아요 O
+	            result=0;
+	            
+	            if(alarm.getAlarmContent().length()>=5) {
+	               alarmContent = alarm.getAlarmContent().substring(0, 5);            
+	            }else {
+	               alarmContent = alarm.getAlarmContent();
+	            }
+	            
+	            alarm.setAlarmType("L");
+	            alarm.setAlarmContent("["+alarmContent+"...]에 좋아요가 달렸습니다.");
+	            statusChange = reviewDAO.insertAlarm(alarm);
+	         }
+	      }
+	      
+	      return statusChange;
+	   }
+	   
 	
 	/** 리뷰 상세 조회용 Service
 	 * @param no

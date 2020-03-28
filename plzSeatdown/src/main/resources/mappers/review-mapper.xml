@@ -59,31 +59,33 @@
 	</resultMap>
 	
 	<resultMap type="SeatReview" id="seatReviewResultSet">
-		<id property="reviewNo" column="REVIEW_NO"/>
-		<result property="reviewCreateDt" column="REVIEW_CREATE_DT"/>
-		<result property="reviewViewDt" column="REVIEW_VIEW_DT"/>	
-		<result property="reviewSight" column="REVIEW_SIGHT"/>	
-		<result property="reviewComfort" column="REVIEW_COMFORT"/>	
-		<result property="reviewLegroom" column="REVIEW_LEGROOM"/>	
-		<result property="reviewRating" column="REVIEW_RATING"/>	
-		<result property="reviewComment" column="REVIEW_COMMENT"/>	
-		<result property="reviewImgPath" column="REVIEW_IMG_PATH"/>	
-		<result property="reviewWriter" column="REVIEW_WRITER"/>	
-		<result property="memberNickname" column="MEMBER_NICKNM"/>	
-		<result property="profilePath" column="PROFILE_PATH"/>	
-		<result property="seatCode" column="SEAT_CODE"/>	
-		<result property="seatValue" column="SEAT_VALUE"/>	
-		<result property="seatFloor" column="SEAT_FLOOR"/>	
-		<result property="seatArea" column="SEAT_AREA"/>	
-		<result property="seatRow" column="SEAT_ROW"/>	
-		<result property="seatCol" column="SEAT_COL"/>	
-		<result property="thCode" column="THEATER_CODE"/>	
-		<result property="thName" column="THEATER_NM"/>	
-		<result property="showCode" column="SHOW_CODE"/>	
-		<result property="showTitle" column="SHOW_TITLE"/>	
-		<result property="likeCount" column="LIKE_COUNT"/>	
-		<result property="likeStatus" column="LIKE_STATUS"/>	
-	</resultMap>
+      <id property="reviewNo" column="REVIEW_NO"/>
+      <result property="reviewCreateDt" column="REVIEW_CREATE_DT"/>
+      <result property="reviewViewDt" column="REVIEW_VIEW_DT"/>   
+      <result property="reviewSight" column="REVIEW_SIGHT"/>   
+      <result property="reviewComfort" column="REVIEW_COMFORT"/>   
+      <result property="reviewLegroom" column="REVIEW_LEGROOM"/>   
+      <result property="reviewRating" column="REVIEW_RATING"/>   
+      <result property="reviewComment" column="REVIEW_COMMENT"/>   
+      <result property="reviewImgPath" column="REVIEW_IMG_PATH"/>   
+      <result property="reviewWriter" column="REVIEW_WRITER"/>   
+      <result property="memberNickname" column="MEMBER_NICKNM"/>   
+      <result property="memberId" column="MEMBER_ID"/>
+      <result property="profilePath" column="PROFILE_PATH"/>   
+      <result property="seatCode" column="SEAT_CODE"/>   
+      <result property="seatValue" column="SEAT_VALUE"/>   
+      <result property="seatFloor" column="SEAT_FLOOR"/>   
+      <result property="seatArea" column="SEAT_AREA"/>   
+      <result property="seatRow" column="SEAT_ROW"/>   
+      <result property="seatCol" column="SEAT_COL"/>   
+      <result property="thCode" column="THEATER_CODE"/>   
+      <result property="thName" column="THEATER_NM"/>   
+      <result property="showCode" column="SHOW_CODE"/>   
+      <result property="showTitle" column="SHOW_TITLE"/>   
+      <result property="likeCount" column="LIKE_COUNT"/>   
+      <result property="likeStatus" column="LIKE_STATUS"/>   
+   </resultMap>
+   
 	
 	<resultMap type="Rating" id="RatingResultSet">
 		<id property="thCode" column="THEATER_CODE"/>

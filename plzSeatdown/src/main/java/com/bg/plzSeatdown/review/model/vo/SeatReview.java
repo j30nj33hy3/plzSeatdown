@@ -14,6 +14,7 @@ public class SeatReview {
 	private String reviewImgPath;
 	private int reviewWriter;
 	private String memberNickname;
+	private String memberId;
 	private String profilePath;
 	private int seatCode;
 	private int seatValue;
@@ -41,7 +42,7 @@ public class SeatReview {
 
 	public SeatReview(int reviewNo, Date reviewCreateDt, Date reviewViewDt, int reviewSight, int reviewComfort,
 			int reviewLegroom, double reviewRating, String reviewComment, String reviewImgPath, int reviewWriter,
-			String memberNickname, String profilePath, int seatCode, int seatValue, String seatFloor, String seatArea,
+			String memberNickname, String memberId, String profilePath, int seatCode, int seatValue, String seatFloor, String seatArea,
 			String seatRow, String seatCol, String thCode, String thName, String showCode, String showTitle,
 			int likeCount, int likeStatus) {
 		super();
@@ -56,6 +57,7 @@ public class SeatReview {
 		this.reviewImgPath = reviewImgPath;
 		this.reviewWriter = reviewWriter;
 		this.memberNickname = memberNickname;
+		this.memberId = memberId;
 		this.profilePath = profilePath;
 		this.seatCode = seatCode;
 		this.seatValue = seatValue;
@@ -157,6 +159,15 @@ public class SeatReview {
 
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
+	}
+	
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getProfilePath() {
@@ -269,7 +280,7 @@ public class SeatReview {
 				+ reviewViewDt + ", reviewSight=" + reviewSight + ", reviewComfort=" + reviewComfort
 				+ ", reviewLegroom=" + reviewLegroom + ", reviewRating=" + reviewRating + ", reviewComment="
 				+ reviewComment + ", reviewImgPath=" + reviewImgPath + ", reviewWriter=" + reviewWriter
-				+ ", memberNickname=" + memberNickname + ", profilePath=" + profilePath + ", seatCode=" + seatCode
+				+ ", memberNickname=" + memberNickname + ", memberId=" + memberId + ", profilePath=" + profilePath + ", seatCode=" + seatCode
 				+ ", seatValue=" + seatValue + ", seatFloor=" + seatFloor + ", seatArea=" + seatArea + ", seatRow="
 				+ seatRow + ", seatCol=" + seatCol + ", thCode=" + thCode + ", thName=" + thName + ", showCode="
 				+ showCode + ", showTitle=" + showTitle + ", likeCount=" + likeCount + ", likeStatus=" + likeStatus
