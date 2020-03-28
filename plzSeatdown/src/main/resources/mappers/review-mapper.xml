@@ -92,7 +92,7 @@
 		<id property="seatValue" column="SEAT_VALUE"/>
 		<result property="rating" column="RATING"/>
 	</resultMap>
-	
+
 	<!-- 공연시설장 수 -->
 	<select id="getTheaterCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
@@ -357,5 +357,12 @@
 		SELECT *
 		FROM SEAT
 		WHERE THEATER_CODE = #{thCode}
+	</select>
+	
+	<select id="selectSeat" parameterType="ReviewWrite" resultMap="seatResultSet">
+		SELECT *
+		FROM SEAT
+		WHERE SEAT_VALUE = #{seatVal}
+		AND THEATER_CODE = #{thCd}
 	</select>
 </mapper>

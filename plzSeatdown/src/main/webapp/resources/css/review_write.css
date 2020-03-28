@@ -101,9 +101,23 @@ textarea{
     background-color: #917EC6;
     border: none;
 }
+.form-group button:hover{
+	background-color:rgb(163, 99, 189);
+}
+.form-group button:focus, .form-group button:active{
+	outline: none !important;
+   	box-shadow: none;
+}
 #cancelBtn{
 	background-color: #917EC6;
     border: none;
+}
+#cancelBtn:hover{
+	background-color:rgb(163, 99, 189);
+}
+#cancelBtn:focus, #cancelBtn:active{
+	outline: none !important;
+   	box-shadow: none;
 }
 .ui-helper-hidden {
 	display: none;
