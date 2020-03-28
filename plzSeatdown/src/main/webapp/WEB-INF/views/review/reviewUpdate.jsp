@@ -45,7 +45,7 @@
 							<div class="form-group form-inline mb-7">
 								<label for="showList">공연</label>
 								<select id="showList" name="showCode">
-									<option value="${review.showCode }">${review.showTitle }</option>
+									<option value="${review.showCode}">${review.showTitle}</option>
 								</select>
 							</div>
 

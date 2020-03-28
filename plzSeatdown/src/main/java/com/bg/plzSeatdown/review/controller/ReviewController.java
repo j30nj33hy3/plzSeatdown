@@ -174,11 +174,10 @@ public class ReviewController {
 		try {
 			String referer = request.getHeader("Referer");
 			String view = null;
-			Show show = reviewService.selectShowDetail(rWrite.getShowCode());
-			rWrite.setShowTitle(show.getShowTitle());
-			
 			List<Theater> tList = reviewService.selectTList();
-			if(rWrite != null) {
+			if(rWrite.getSeatVal() != 0) {
+				Show show = reviewService.selectShowDetail(rWrite.getShowCode());
+				rWrite.setShowTitle(show.getShowTitle());
 				Seat seat = reviewService.selectSeat(rWrite);
 				if(seat != null) {
 					rWrite.setSeatFloor(seat.getSeatFloor());
@@ -336,6 +335,7 @@ public class ReviewController {
 			@RequestParam(value="thName", required=false)String thName,
 			@RequestParam(value="seatFile", required=false)MultipartFile seatImg,
 			@RequestParam(value="ticketFile", required=false)MultipartFile ticketImg) {
+		System.out.println(review);
 		
 		// Session에서 회원번호 얻어오기
 		Member loginMember = (Member)model.getAttribute("loginMember");
@@ -352,7 +352,6 @@ public class ReviewController {
 		if(!folder.exists()) folder.mkdir();
 		
 		try {
-			String seatCode = review.getSeatCode();
 			String thCode = reviewService.selectTheaterCode(thName);
 			List<ReviewImage> files = new ArrayList<ReviewImage>();
 			ReviewImage ri = null;
@@ -487,7 +486,9 @@ public class ReviewController {
 					// 1) 리뷰 상세 조회
 					review = reviewService.selectReview(no);
 					if(review != null) {
-						review.setReviewComment(review.getReviewComment().replace("<br>", "\r\n"));
+						if(review.getReviewComment() != null) {
+							review.setReviewComment(review.getReviewComment().replace("<br>", "\r\n"));
+						}
 						List<ReviewImage> files = reviewService.selectFiles(no);
 						if(!files.isEmpty()) {
 							model.addAttribute("files", files);
