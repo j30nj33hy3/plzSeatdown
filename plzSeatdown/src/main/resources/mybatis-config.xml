@@ -54,6 +54,9 @@
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewLike" alias="ReviewLike"/>
 		
 		<typeAlias type="com.bg.plzSeatdown.alarm.model.vo.Alarm" alias="Alarm"/>
+		
+		<!-- 리뷰 작성 정보 -->
+		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewWrite" alias="ReviewWrite"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->

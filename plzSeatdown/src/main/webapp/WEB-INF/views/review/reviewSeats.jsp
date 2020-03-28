@@ -256,11 +256,15 @@
 					<div class="col-md-5">
 						<div class="theaterMap" id="map"></div>
 					</div>
+					<input id="hiddenLogin" type="hidden" value="${loginMember}">
 				</div>
-
-
-				
-
+				<form id="reviewWrite" action="writeForm" style="display: none" method="post">
+					<input id="thNm" name="thNm" type="hidden" value=""/>
+					<input id="thCd" name="thCd" type="hidden" value=""/>
+					<input id="viewDt" name="viewDt" type="hidden" value=""/>
+					<input id="seatVal" name="seatVal" type="hidden" value=""/>
+					<input id="showCode" name="showCode" type="hidden" value=""/>
+				</form>
 			</div>
 			<!-- 좌석 평점 표시 -->
 			<script>
@@ -401,6 +405,9 @@
 													if(seatReviewList[i].seatArea != null) area = seatReviewList[i].seatArea + "구역 ";
 													if(seatReviewList[i].seatRow != null) seatRow = seatReviewList[i].seatRow + "열 ";
 													if(seatReviewList[i].seatCol != null) seatCol = seatReviewList[i].seatCol + "번 ";
+													if(typeof (seatReviewList[i].reviewComment) == "undefined"){
+														seatReviewList[i].reviewComment = "";
+													}
 													
 													// 프로필 사진 유무
 													if(seatReviewList[i].profilePath != null){
@@ -531,6 +538,20 @@
 									}); // 스크롤 불가능
 									$(".overlay").fadeIn();
 									
+							}else {
+								var thNm = "${theater.thNm}";
+								var thCd = "${theater.thCode}";
+								var showCode = "${show.showCode}";
+								var today = new Date();
+								var dd = String(today.getDate()).padStart(2, '0');
+								var mm = String(today.getMonth() + 1).padStart(2, '0');
+								var yyyy = today.getFullYear();
+								var seatVal = $(this).attr("value");
+								today = yyyy+mm+dd;
+								if($("#hiddenLogin").val() != ""){
+									if(confirm("해당 좌석에 리뷰를 작성하시겠습니까?")) formChange(thNm,thCd,showCode,today,seatVal);
+									
+								}
 							}
 						}
 					});
@@ -543,7 +564,16 @@
 						}
 					});
 				});
-
+				
+				function formChange(thNm,thCd,showCode,today,seatVal){
+					$("#thNm").val(thNm);
+					$("#thCd").val(thCd);
+					$("#viewDt").val(today);
+					$("#seatVal").val(seatVal);
+					$("#showCode").val(showCode);
+					$("#reviewWrite").submit();
+					
+				}
 			</script>
 
 			<script>

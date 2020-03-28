@@ -3,7 +3,6 @@ package com.bg.plzSeatdown.review.controller;
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
 import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
+import com.bg.plzSeatdown.review.model.vo.ReviewWrite;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
@@ -169,11 +169,26 @@ public class ReviewController {
 	@RequestMapping(value="writeForm")
 	public String reviewWrite(Model model,
 			RedirectAttributes rdAttr,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			ReviewWrite rWrite) {
 		try {
 			String referer = request.getHeader("Referer");
 			String view = null;
+			Show show = reviewService.selectShowDetail(rWrite.getShowCode());
+			rWrite.setShowTitle(show.getShowTitle());
+			
 			List<Theater> tList = reviewService.selectTList();
+			if(rWrite != null) {
+				Seat seat = reviewService.selectSeat(rWrite);
+				if(seat != null) {
+					rWrite.setSeatFloor(seat.getSeatFloor());
+					rWrite.setSeatArea(seat.getSeatArea());
+					rWrite.setSeatRow(seat.getSeatRow());
+					rWrite.setSeatCol(seat.getSeatCol());
+					rWrite.setSeatCode(seat.getSeatCode());
+				}
+				model.addAttribute("rWrite", rWrite);
+			}
 			if(tList != null) {
 				model.addAttribute("tList", tList);
 				view = "review/reviewWrite";

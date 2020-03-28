@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -29,11 +30,15 @@
 						<form role="form" action="write" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
 							<div class="form-group form-inline mb-7">
 								<label for="showDate">관람일</label>
-								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" autocomplete="off" required>
+								<c:if test="${!empty rWrite}">
+									<fmt:parseDate var="dateParse" value="${rWrite.viewDt}" pattern="yyyyMMdd"/>
+									<fmt:formatDate var="dateformat" value="${dateParse}" pattern="yyyy-MM-dd"/>
+								</c:if>
+								<input type="text" id="showDate" name="reviewViewDate" class="reviewText" value="${dateformat}" autocomplete="off" required>
 							</div>
 							<div class="form-group form-inline mb-7">
 								<label for="theater">공연장</label>
-								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" placeholder="공연장을 선택해주세요." size="40" autocomplete="off" required/>
+								<input type="text" id="theater" class="reviewText" name="thName" list="theaterList" value="${rWrite.thNm}" placeholder="공연장을 선택해주세요." size="40" autocomplete="off" required/>
 								<c:if test="${!empty tList}">
 									<datalist id="theaterList">
 											<c:forEach var="th" items="${tList}" varStatus="vs">
@@ -45,38 +50,83 @@
 							<div class="form-group form-inline mb-7">
 								<label for="showList">공연</label>
 								<select id="showList" name="showCode">
-									<option value="0" disabled>관람일과 공연장을 먼저 선택해주세요.</option>
+									<c:choose>
+										<c:when test="${!empty rWrite}">
+											<option value="${rWrite.showCode}">${rWrite.showTitle}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0" disabled>관람일과 공연장을 먼저 선택해주세요.</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="floorList">층</label>
 								<select id="floorList" name="seatFloor">
-									<option value="0" disabled selected>공연장을 먼저 선택해주세요.</option>
+									<c:choose>
+										<c:when test="${!empty rWrite}">
+											<option value="${rWrite.seatFloor}" selected>${rWrite.seatFloor}층</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0" disabled selected>공연장을 먼저 선택해주세요.</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="areaList">구역</label>
 								<select id="areaList" name="seatArea">
-									<option value="0" disabled selected>구역 선택</option>
+									<c:choose>
+										<c:when test="${rWrite.seatArea eq null}">
+											<option value="-1" selected disabled>선택가능한 구역이 없습니다.</option>
+										</c:when>
+										<c:when test="${!empty rWrite}">
+											<option value="${rWrite.seatArea}" selected>${rWrite.seatArea}구역</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0" disabled selected>구역 선택</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 							</div>
 							
 							<div class="form-group form-inline mb-7">
 								<label for="rowList">열</label>
 								<select id="rowList" name="seatRow">
-									<option value="0" disabled selected>열 선택</option>
+									<c:choose>
+										<c:when test="${!empty rWrite}">
+											<option value="${rWrite.seatRow}" selected>${rWrite.seatRow}열</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0" disabled selected>열 선택</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 							</div>
 
 							<div class="form-group form-inline mb-7">
 								<label for="colList">번호</label>
 								<select id="colList" name="seatCol">
-									<option value="0" disabled selected>번호 선택</option>
+									<c:choose>
+										<c:when test="${!empty rWrite}">
+											<option value="${rWrite.seatCol}" selected>${rWrite.seatCol}번</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0" disabled selected>번호 선택</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 							</div>
-							<input type="hidden" id="seatCode" name="seatCode">
+							<c:choose>
+								<c:when test="${!empty rWrite}">
+									<input type="hidden" id="seatCode" name="seatCode" value="${rWrite.seatCode }">
+								</c:when>
+								<c:otherwise>
+									<input type="hidden" id="seatCode" name="seatCode" value="">
+								</c:otherwise>
+							</c:choose>
 							
 							<div class="form-group form-inline mb-7">
 								<label for="view">시야</label>
@@ -140,13 +190,12 @@
 								<input type="file" id="seatFile" name="seatFile" onchange="LoadSeat(this)"> 
 								<input type="file" id="ticketFile" name="ticketFile" onchange="LoadTicket(this)"> 
 							</div>
-							
-							
+							<input id="rWrite" type="hidden" value="${rWrite.seatCode}"/>
 							<div class="form-group text-center pt-20">
 								<a id="cancelBtn" href="${header.referer}" class="btn btn-primary">
 									취소
 								</a>
-								<button type="submit" class="btn btn-primary">
+								<button id="submitBtn" type="submit" class="btn btn-primary">
 									확인
 								</button>
 							</div>
@@ -253,6 +302,13 @@
 					$("#ticketImg").click(function(){
 						$("#ticketFile").click();
 					});
+					
+					if($("#rWrite").val() != "0"){
+						reviewCheck.seatFloor=true;
+						reviewCheck.seatArea=true;
+						reviewCheck.seatRow=true;
+						reviewCheck.seatCol=true;
+					}
 					
 					// 관람일, 공연장 선택 시 공연 목록 조회
 					$("#showDate").change(function(){
@@ -363,6 +419,7 @@
 						var fl = $("#floorList option:selected").val();
 						var op = $("<option>");
 						var rop = $("<option>");
+						reviewCheck.seatFloor = false;
 						if(fl != "0"){
 							reviewCheck.seatFloor = true;
 						}
@@ -432,6 +489,7 @@
 						var al = $("#areaList option:selected").val();
 						var row = $("#rowList");
 						var op = $("<option>");
+						reviewCheck.seatArea = false;
 						if(al != "0"){
 							reviewCheck.seatArea = true;
 						}
@@ -472,6 +530,7 @@
 						var fl = $("#floorList option:selected").val();
 						var al = $("#areaList option:selected").val();
 						var rl = $("#rowList option:selected").val();
+						reviewCheck.seatRow = false;
 						if(rl != "0"){
 							reviewCheck.seatRow = true;
 						}
@@ -515,6 +574,7 @@
 						var al = $("#areaList option:selected").val();
 						var rl = $("#rowList option:selected").val();
 						var cl = $("#colList option:selected").val();
+						reviewCheck.seatCol = false;
 						if(cl != "0"){
 							reviewCheck.seatCol = true;
 						}

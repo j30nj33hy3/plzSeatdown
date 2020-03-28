@@ -13,6 +13,7 @@ import com.bg.plzSeatdown.review.model.vo.Review;
 import com.bg.plzSeatdown.review.model.vo.ReviewImage;
 import com.bg.plzSeatdown.review.model.vo.ReviewLike;
 import com.bg.plzSeatdown.review.model.vo.ReviewReport;
+import com.bg.plzSeatdown.review.model.vo.ReviewWrite;
 import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 import com.bg.plzSeatdown.seat.model.vo.Seat;
@@ -217,17 +218,14 @@ public interface ReviewService {
 	 */
 	List<Seat> selectSeatList(String thCode) throws Exception;
 
-	
+	/** 좌석 정보 조회용 Service
+	 * @param rWrite
+	 * @return seat
+	 * @throws Exception
+	 */
+	Seat selectSeat(ReviewWrite rWrite) throws Exception;
 
-	
 
-	
-
-	
-
-	
-
-	
 
 
 }
