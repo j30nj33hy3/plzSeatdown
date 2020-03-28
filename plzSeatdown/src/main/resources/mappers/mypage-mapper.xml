@@ -15,6 +15,7 @@
        <result property="memberReportCount" column="MEMBER_REPORT_CNT"/>
        <result property="memberStatus" column="MEMBER_STATUS"/>
        <result property="memberGrade" column="MEMBER_GRADE"/>
+       <result property="profilePath" column="PROFILE_PATH"/>
     </resultMap>
     
     <resultMap type="Profile" id="profileResultSet">
@@ -101,8 +102,9 @@
     
     <!-- 마이페이지 조회용 -->
     <select id="selectMypage" parameterType="_int" resultMap="memberResultSet">
-      SELECT*FROM MEMBER
-      WHERE MEMBER_NO=#{memberNo}
+      SELECT *
+      FROM V_MEMBER
+      WHERE MEMBER_NO = #{memberNo}
    </select>
    
    
@@ -124,8 +126,8 @@
       <!-- 비밀번호 수정용 -->
    <update id="updatePwd" parameterType="Member">
       UPDATE MEMBER
-      SET MEMBER_PWD=#{memberPwd}
-      WHERE MEMBER_NO=#{memberNo}
+      SET MEMBER_PWD = #{memberPwd}
+      WHERE MEMBER_NO = #{memberNo}
    </update>
 
       <!-- 회원탈퇴용 -->
@@ -260,6 +262,11 @@
    		WHERE REPLY_WRITER = #{memberNO} 
 	</select> 
 	
+	<!--  -->
+	<select id="selectProfile" parameterType="_int" resultMap="profileResultSet">
+		SELECT *
+		FROM PROFILE
+		WHERE MEMBER_NO = #{memberNo}
 	
-
+	</select>
 </mapper>

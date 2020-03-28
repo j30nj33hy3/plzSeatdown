@@ -262,6 +262,17 @@ public class MypageDAO {
 	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("mypageMapper.selectReplist",memberNo,rowBounds);
 	}
+
+
+
+	/** 프로필 사진 조회 DAO
+	 * @param memberNo
+	 * @return profile
+	 * @throws Exception
+	 */
+	public Profile selectProfile(int memberNo) throws Exception {
+		return sqlSession.selectOne("mypageMapper.selectProfile", memberNo);
+	}
    
 	
 	

@@ -34,8 +34,8 @@
 							<form id="profile" action="updateprofile" enctype="multipart/form-data" method="POST" >
 								<div id="ImgArea">
 								  <c:set var="src" value="${contextPath}/resources/images/user.png"/>
-				                        <c:if test="${profile.memberNo == member.memberNo}">
-				                        	<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
+				                        <c:if test="${loginMember.profilePath != null}">
+				                        	<c:set var ="src" value="${contextPath}/resources/profileImages/${loginMember.profilePath}"/>
 				                        </c:if>
 				                        <img id="img1" src="${src}" style="border-radius: 5em;">
 								</div>
@@ -48,19 +48,19 @@
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userId" class="user">아이디</label>
-									<input type="text" class="form-control" id="userId" name="memberId" value="${member.memberId}" readonly style="border-radius: 1em;">
+									<input type="text" class="form-control" id="userId" name="memberId" value="${loginMember.memberId}" readonly style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userName" class="user">이름</label>
-									<input type="text" class="form-control" id="userName" name="memberName" value="${member.memberName}" readonly style="border-radius: 1em;">
+									<input type="text" class="form-control" id="userName" name="memberName" value="${loginMember.memberName}" readonly style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userEmail" class="user">이메일</label>
-									<input type="email" class="form-control" id="userEmail" name="memberEmail" value="${member.memberEmail}" readonly style="border-radius: 1em;">
+									<input type="email" class="form-control" id="userEmail" name="memberEmail" value="${loginMember.memberEmail}" readonly style="border-radius: 1em;">
 								</div>
 								<div class="form-group col-8 mb-0">
 									<label for="userNickname" class="user">닉네임</label>
-									<input type="text" class="form-control" id="userNickname" name="memberNickname" value="${member.memberNickname}" style="border-radius: 1em;">
+									<input type="text" class="form-control" id="userNickname" name="memberNickname" value="${loginMember.memberNickname}" style="border-radius: 1em;">
 									<button id="updatebtn" type="submit" class="btn btn-outline-secondary">수정</button>
 								</div>
 							</form>

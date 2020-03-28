@@ -15,6 +15,7 @@ public class Member {
 	private int memberReportCount;
 	private String memberStatus;
 	private String memberGrade;
+	private String profilePath;
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,15 @@ public class Member {
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberEmail = memberEmail;
+	}
+
+	public Member(int memberNo, String memberId, String memberName, String memberNickname, String profilePath) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.memberNickname = memberNickname;
+		this.profilePath = profilePath;
 	}
 
 	public Member(String memberId, String memberPwd, String memberName, String memberNickname, String memberEmail,
@@ -163,6 +173,14 @@ public class Member {
 	public void setMemberGrade(String memberGrade) {
 		this.memberGrade = memberGrade;
 	}
+	
+	public String getProfilePath() {
+		return profilePath;
+	}
+
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
+	}
 
 	@Override
 	public String toString() {
@@ -170,8 +188,10 @@ public class Member {
 				+ memberName + ", memberNickname=" + memberNickname + ", memberEmail=" + memberEmail
 				+ ", memberEmailCheck=" + memberEmailCheck + ", memberPhone=" + memberPhone + ", memberEnrollDate="
 				+ memberEnrollDate + ", memberReportCount=" + memberReportCount + ", memberStatus=" + memberStatus
-				+ ", memberGrade=" + memberGrade + "]";
+				+ ", memberGrade=" + memberGrade + ", profilePath=" + profilePath + "]";
 	}
+
+	
 
 	
 	

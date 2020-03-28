@@ -80,7 +80,7 @@
 								<label for="colList">번호</label>
 								<select id="colList" name="seatCol">
 									<c:forEach var="c" items="${cList}">
-										<option value="${c.seatCol}">${c.seatCol}열</option>
+										<option value="${c.seatCol}">${c.seatCol}번</option>
 									</c:forEach>
 								</select>
 							</div>
