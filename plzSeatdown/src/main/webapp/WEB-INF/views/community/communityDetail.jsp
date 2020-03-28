@@ -258,6 +258,7 @@ tbody > tr:last-child{
 			}
 			
 			var replyNo;
+			var replyWriter = ${loginMember.memberNo};
 			var alarmUrl = "${contextPath}/community/datail?no=${community.communityNo}&currentPage=1";
 			var alarmContent = "${community.communityTitle}";
 			var alarmMemberNo = ${community.communityWriter};
@@ -272,7 +273,7 @@ tbody > tr:last-child{
 					"depth" : "0",
 					"parentNo" : "0",
 					"communityNo" : ${community.communityNo},
-					"replyWriter" : ${loginMember.memberNo},
+					"replyWriter" : replyWriter,
 					"alarmContent" : alarmContent,
 					"alarmUrl" : alarmUrl,
 					"alarmMemberNo" : alarmMemberNo
@@ -284,10 +285,11 @@ tbody > tr:last-child{
 					case 1 : $("#replyContent").val("");
 						selectRlist();
 					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
-						console.log("socketMsg : " + socketMsg);
 						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-						socket.send(socketMsg);
-						
+						if(replyWriter != alarmMemberNo){
+							socket.send(socketMsg);
+							console.log("socketMsg : " + socketMsg);
+						}
 						break;
 					case 0 : alert("댓글 등록 실패"); break;
 					case -1 : alert("댓글 등록 오류 발생"); break;

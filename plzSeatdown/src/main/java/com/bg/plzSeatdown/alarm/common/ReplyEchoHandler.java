@@ -53,7 +53,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 			String ct = null;
 			if(strs != null && strs.length == 5) {
 				String cmd = strs[0];
-				String replyWriter = strs[1];
+				String replyWriterNick = strs[1];
 				String communityWriterId = strs[2];
 				String communityTitle = strs[3];
 				String cno = strs[4];
@@ -66,7 +66,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 					ct = communityTitle;
 				}
 				if("reply".equals(cmd) && communityWriterSession != null) {
-					TextMessage tmpMsg = new TextMessage(replyWriter + "님이 " + "<a href='/plzSeatdown/community/detail?no=" + cno + "&currentPage=1'> ["+ct+"...]</a> 게시글에 댓글을 남겼습니다.");
+					TextMessage tmpMsg = new TextMessage(replyWriterNick + "님이 " + "<a href='/plzSeatdown/community/detail?no=" + cno + "&currentPage=1'> ["+ct+"...]</a> 게시글에 댓글을 남겼습니다.");
 					communityWriterSession.sendMessage(tmpMsg);
 				}
 			}
