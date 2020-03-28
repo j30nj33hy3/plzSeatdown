@@ -152,11 +152,18 @@
 						</div>
 						<span id="intro-msg">${loginMember.memberNickname }님 앉아주세요</span>
 						<div id="iconBtnBox">
-							<a href="" class="d-md-inline-block" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<a href="${contextPath}/alarm/alarmlist" class="d-md-inline-block" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell" aria-hidden="true" style="color:white;"></i>
 								<span class="badge badge-pill badge-warning">1</span>
 							</a>
 							<div class="dropdown-menu alarm-dropdown mt-3 py-3" aria-labelledby="alarmDropdown">
+								<c:if test="${empty alist}">
+									<p class="dropdown-item text-muted">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>
+								</c:if>
+								<c:if test="${!empty alist}">
+									<c:forEach var="alarm" items="">
+									</c:forEach>
+								</c:if>
 								<a href="" class="dropdown-item text-muted">알람표시</a>
 								<a href="" class="dropdown-item text-muted">됩니다</a>
 								<a href="" class="dropdown-item text-muted">아마도....</a>
@@ -301,6 +308,7 @@
 	socket.onerror = function(err){
 		console.log('Errors :' , err);
 	};
+	
 	</script>
 </body>
 </html>

@@ -22,8 +22,7 @@ public class AlarmController {
 	private AlarmService alarmService;
 	
 	// 알림 목록 출력
-	@ResponseBody
-	@RequestMapping(value="alarmlist", produces="application/json; charset=utf-8")
+	@RequestMapping("alarmlist")
 	public List<Alarm> alarmList(Model model) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		List<Alarm> alist = alarmService.selectAlarmList(loginMember.getMemberNo());
