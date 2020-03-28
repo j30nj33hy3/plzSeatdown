@@ -41,9 +41,80 @@
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-<link rel="stylesheet" href="${contextPath}/resources/css/common-header.css" />
 <style>
-
+#logoContainer{
+	margin: 0 auto;
+}
+#HeadImgArea{
+	height:30px;
+	display: inline;
+}
+#HeadImgArea #prof1{
+	margin-top:10px;
+	width: 30px;
+	height: 30px;
+	display : block;
+}
+#intro-msg{
+	line-height: 30px;
+	color: #fff;
+}
+#logoutBtn{
+	margin: 0 0.5em;
+	background-color: #666;
+    border: 0px;
+}
+#logoutBtn:hover{
+	background-color: #444;
+}
+	
+#logoutBtn:focus, #logoutBtn:active{
+	outline: none !important;
+   	box-shadow: none;
+}
+.otherBtn{
+	margin: 0 0.5em;
+	background-color: #FFD938;
+	color: #000;
+    border: 0px;
+}
+.otherBtn:hover{
+	background-color: #FFC107;
+	color: #000;
+}
+.otherBtn:focus, .otherBtn:active{
+	outline: none !important;
+   	box-shadow: none;
+}
+.headBtn:focus, .headBtn:active{
+	outline: none !important;
+   	box-shadow: none;
+}
+#chatIcon{
+	color: #fff;
+	padding: 8px 0px;
+}
+#msgIcon{
+	color: #fff;
+	padding: 8px 0px;
+	margin-right: 1em;
+}
+#loginArea{
+	padding: 0;
+}
+@media screen and (max-width: 840px) {
+	#loginArea{
+		font-size: 0.9em;
+	}
+}
+@media screen and (max-width: 767px) {
+	#iconBtnBox{
+		margin: 1em 0;
+	}
+	#headBtnArea{
+		margin: 15px 0;
+	}
+}
 </style>
 </head>
 <body>
