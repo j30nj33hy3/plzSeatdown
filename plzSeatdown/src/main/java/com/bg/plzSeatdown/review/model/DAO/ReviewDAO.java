@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
@@ -318,7 +319,14 @@ public class ReviewDAO {
 	
 	
 
-	
+	   /** 알람 삽입용
+	    * @param alarm
+	    * @return
+	    * @throws Exception
+	    */
+	   public int insertAlarm(Alarm alarm) throws Exception{
+	      return sqlSession.insert("alarmMapper.insertAlarm", alarm);
+	   }
 
 	
 

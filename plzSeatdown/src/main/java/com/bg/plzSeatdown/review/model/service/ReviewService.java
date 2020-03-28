@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.api.model.vo.Theater;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.review.model.vo.Review;
@@ -175,7 +176,7 @@ public interface ReviewService {
 	 * @param likeStatus 
 	 * @return statusChange
 	 */
-	int updateLike(ReviewLike like, Integer likeStatus);
+	 int updateLike(ReviewLike like, Integer likeStatus, Alarm alarm)throws Exception;
 
 	/** 리뷰 상세 조회용 Service
 	 * @param no

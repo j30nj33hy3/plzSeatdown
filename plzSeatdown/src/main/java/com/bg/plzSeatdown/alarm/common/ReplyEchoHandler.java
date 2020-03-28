@@ -37,7 +37,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 		if(loginMember == null) {
 			return session.getId();
 		}else {
-			return loginMember.getMemberNickname();
+			return loginMember.getMemberId();
 		}
 	}
 	
@@ -45,6 +45,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{ 
 		
+		try {
 		// protocol : cmd, 댓글 작성자, 글 작성자, 글 번호, 글 제목
 		String msg = message.getPayload();
 		if(!StringUtils.isEmpty(msg)) {
@@ -84,6 +85,9 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 				}
 			}
 			
+		}
+		}catch(Exception e) {
+			// 예외무시 처리
 		}
 		
 	
