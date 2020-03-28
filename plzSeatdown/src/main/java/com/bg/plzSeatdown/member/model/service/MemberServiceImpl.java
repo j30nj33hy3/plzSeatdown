@@ -102,6 +102,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.nicknameDupCheck(memberNickname);
 	}
 
+	/** 이메일 중복체크용 Service
+	 * @param memberEmail
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int emailDupCheck(String memberEmail) throws Exception {
+		return memberDAO.emailDupCheck(memberEmail);
+	}
+	
 	/** 메일 인증용 Service
 	 * @param signUpMember
 	 * @return result
@@ -145,5 +155,17 @@ public class MemberServiceImpl implements MemberService{
 		member.setMemberPwd(encPwd);
 		return memberDAO.resetPwd(member);
 	}
+
+	/** 프로필 사진 조회용 Service
+	 * @param memberNo
+	 * @return attachment
+	 * @throws Exception
+	 */
+	@Override
+	public Attachment selectProfile(int memberNo) throws Exception {
+		return memberDAO.selectProfile(memberNo);
+	}
+	
+	
 
 }

@@ -106,4 +106,22 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.resetPwd", member);
 	}
 
+	/** 이메일 중복체크용 DAO
+	 * @param memberEmail
+	 * @return count
+	 * @throws Exception
+	 */
+	public int emailDupCheck(String memberEmail) throws Exception{
+		return sqlSession.selectOne("memberMapper.emailDupCheck", memberEmail);
+	}
+
+	/** 프로필 조회용 DAO
+	 * @param memberNo
+	 * @return attachment
+	 * @throws Exception
+	 */
+	public Attachment selectProfile(int memberNo) throws Exception{
+		return sqlSession.selectOne("memberMapper.selectProfile", memberNo);
+	}
+
 }

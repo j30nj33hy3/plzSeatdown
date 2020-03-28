@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
@@ -41,6 +42,7 @@ import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.member.model.service.MemberService;
 import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
+import com.bg.plzSeatdown.mypage.model.vo.Profile;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -111,6 +113,7 @@ public class MemberController {
 	public String memberLogin(Member member, Model model,
 			@RequestParam(value = "save", required = false) String save,
 			RedirectAttributes rdAttr,
+			HttpServletRequest request,
 			HttpServletResponse response) {
 		// Model은 응답으로 전달하고자 하는 데이터를 맵 형식(K,V)으로 담아 전달하는 역할
 		// scope는 기본적으로 request임
@@ -126,29 +129,7 @@ public class MemberController {
 				cookie.setPath("/");
 				response.addCookie(cookie);
 				
-				/*
-				String key = loginMember.getMemberId();
-				Map<String, Object> headers = new HashMap<String, Object>();
-				headers.put("typ", "JWT"); // typ: 토큰타입
-				headers.put("alg", "HS256"); // alg: 알고리즘(SHA256)
-				
-				// 만료시간 설정
-				Map<String, Object> payloads = new HashMap<String, Object>();
-				// payloads(내용): 원하는 데이터, 토큰 발급대상, 토큰 만료기간, 토큰 수령자 등 정보 작성
-				Long expiredTime = 1000 * 60l *5l; // 만료기간 5분
-				Date now = new Date();
-				now.setTime(now.getTime() + expiredTime);
-				payloads.put("exp", now);
-				payloads.put("data", "member Token test");
-				
-				String jwt = Jwts.builder().setHeader(headers)
-						.setClaims(payloads)
-						.signWith(SignatureAlgorithm.HS256, key.getBytes())
-						.compact();
-				*/
-				model.addAttribute("loginMember", loginMember);
-				
-				
+				request.getSession().setAttribute("loginMember", loginMember);
 			}else {
 				model.addAttribute("msg", "로그인 정보가 유효하지 않습니다.");
 			}
@@ -252,6 +233,15 @@ public class MemberController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping("emailDupCheck")
+	public String emailDupCheck(String memberEmail, Model model) {
+		try {
+			return memberService.emailDupCheck(memberEmail) == 0? true+"": false+"";
+		}catch (Exception e) {
+			return ExceptionForward.errorPage("이메일 중복체크", model, e);
+		}
+	}
 	// 이메일 인증 메일 전송 및 인증번호 입력 페이지 이동
 	@RequestMapping("mailAuthForm")
 	public ModelAndView mailAuthForm(Model model, ModelAndView mv) {

@@ -364,6 +364,17 @@ public class MypageServiceImpl implements MypageService{
 	public List<Reply> selectReplist(PageInfo pInf, int memberNo) throws Exception {
 		return mypageDAO.selectReplist(pInf,memberNo);
 	}
+
+   
+   /** 프로필 사진 가져오기
+	 * @param memberNo
+	 * @return profile
+	 * @throws Exception
+	 */
+	@Override
+	public Profile selectProfile(int memberNo) throws Exception {
+		return mypageDAO.selectProfile(memberNo);
+	}
    
    
    

@@ -176,6 +176,15 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract List<Reply> selectReplist(PageInfo pInf, int memberNo)throws Exception;
+
+
+
+	/** 프로필 사진 가져오기
+	 * @param memberNo
+	 * @return profile
+	 * @throws Exception
+	 */
+	public abstract Profile selectProfile(int memberNo) throws Exception;
 	
 
 

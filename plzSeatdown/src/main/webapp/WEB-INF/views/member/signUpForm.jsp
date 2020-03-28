@@ -64,7 +64,7 @@
 									</label>
 									<input type="password" class="form-control" id="pwd1" name="memberPwd" maxlength="30" placeholder="비밀번호 입력" required/>
 									<div>
-                            			<span id="checkPwd1" style="font-size: 0.8em">&nbsp;</span>
+                            			<span id="checkPwd1" style="font-size: 0.8em">영어 대·소문자,숫자 조합 (6글자 이상)</span>
                         			</div>
 								</div>
 								
@@ -86,7 +86,7 @@
 									</label>
 									<input type="text" class="form-control" id="name" name="memberName" maxlength="10" required/>
 									<div>
-                            			<span id="checkName" style="font-size: 0.8em">&nbsp;</span>
+                            			<span id="checkName" style="font-size: 0.8em">한글 (2~5자) </span>
                         			</div>
 								</div>
 								
@@ -109,10 +109,11 @@
 			                        </div>
 			                        <div class="col-md-9">
 			                            <input type="email" class="form-control" id="email" name="memberEmail" autocomplete="off" required>
+			                            <input type="hidden" name="emailDup" id="emailDup" value="false">
 			                        </div>
 			                    </div>
 			                    <div>
-			                       	<span id="checkEmail" style="font-size: 0.8em">&nbsp;</span>
+			                       	<span id="checkEmail" style="font-size: 0.8em">중복 이메일 계정으로 가입할 수 없습니다.</span>
 			                    </div>
 			                    
 								<!-- 전화번호 -->
@@ -194,7 +195,8 @@
     			"name":false,
     			"nickname":false,
     			"nicknameDup":false,
-    			"email":false
+    			"email":false,
+    			"emailDup": false
     	}
     	
     	// 실시간 입력 형식 검사
@@ -249,7 +251,7 @@
 			// 비밀번호  유효성 검사
 			$pwd1.on("input", function(){
 				//영어 대,소문자 + 숫자, 총 6~12글자
-				var regExp = /^[A-Za-z0-9]{6,12}$/;
+				var regExp = /^[A-Za-z0-9]{6,}$/;
 				if(!regExp.test($pwd1.val())){ 
                 	$("#checkPwd1").text("비밀번호 형식이 유효하지 않습니다.").css("color","red");
                 	signUpCheck.pwd1 = false;
@@ -303,7 +305,7 @@
                 				signUpCheck.nicknameDup = true;
                 			}else{
                 				$("#checkNickname").text("사용할 수 없는 닉네임 입니다.").css({"color":"red"});
-                				signUpCheck.nicknameDup = true;
+                				signUpCheck.nicknameDup = false;
                 			}
                 		},
                 		
@@ -349,8 +351,27 @@
 					$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color","red");
 					signUpCheck.email = false;
 				}else{
-					$("#checkEmail").text("유효한 이메일 형식입니다.").css("color","green");
 					signUpCheck.email = true;
+					$.ajax({
+                		url : "emailDupCheck",
+                		data : {memberEmail: $email.val() },
+                		type : "post",
+                		success : function(result){
+                			
+                			if(result == "true"){
+                				$("#checkEmail").text("유효한 이메일 형식입니다.").css("color","green");
+                				signUpCheck.emailDup = true;
+                			}else{
+                				$("#checkEmail").text("사용할 수 없는 이메일 계정입니다.").css("color","red");
+                				signUpCheck.emailDup = /*false*/true;
+                			}
+                		},
+                		
+                		error : function(e){
+                			console.log("ajax 통신 실패");
+                			console.log(e);
+                		}
+                	});
 				}
 			});
 			
@@ -368,7 +389,7 @@
 			$("#deleteImg").click(function(){
 				$("#profileImg").attr("src", "${contextPath}/resources/images/user.png");
 				$("#img1").val("");
-				$("#checkProfile").text("기본 제공 사진이 자동으로 등록됩니다.").css("color","#888");
+				$("#checkProfile").text("미변경시 기본 제공 사진이 자동으로 등록됩니다.").css("color","#888");
 			});
 		});
 		

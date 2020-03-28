@@ -50,11 +50,7 @@ public class MypageController {
 		try {
 			
 			Member member = mypageService.selectMypage(loginMember.getMemberNo());
-			
-			Profile image = mypageService.selectMypageProf(member.getMemberNo());
-			
-			model.addAttribute("member", member);
-			model.addAttribute("profile", image);
+			model.addAttribute("loginMember", member);
 			return "mypage/mypage";
 			
 		}catch(Exception e) {
@@ -97,16 +93,17 @@ public class MypageController {
 		try {
 			
 			int result
-			= mypageService.updateMypage(member,image,savePath, deleteCheck);
-			
-			System.out.println("");
-			
+			= mypageService.updateMypage(member,image,savePath,deleteCheck);
 			String msg = null;
 			
 			if(result>0) msg = "수정 성공!";
 			else 		 msg = "수정 실패!";
-			rdAttr.addFlashAttribute("msg",msg);
 			
+			Member updateMember = mypageService.selectMypage(member.getMemberNo());
+			
+			request.getSession().removeAttribute("loginMember");
+			model.addAttribute("loginMember", updateMember);
+			rdAttr.addFlashAttribute("msg",msg);
 			return "redirect:" + detailUrl2;
 			
 		}catch(Exception e) {

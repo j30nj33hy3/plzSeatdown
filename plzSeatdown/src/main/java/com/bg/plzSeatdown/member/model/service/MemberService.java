@@ -2,6 +2,7 @@ package com.bg.plzSeatdown.member.model.service;
 
 import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
+import com.bg.plzSeatdown.mypage.model.vo.Profile;
 
 public interface MemberService {
 	// Service Interface를 사용하는 이유
@@ -78,4 +79,18 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public abstract int resetPwd(Member member) throws Exception;
+
+	/** 이메일 중복체크용 Service
+	 * @param memberEmail
+	 * @return count
+	 * @throws Exception
+	 */
+	public abstract int emailDupCheck(String memberEmail) throws Exception;
+
+	/** 프로필 사진 조회용 Service
+	 * @param memberNo
+	 * @return attachment
+	 * @throws Exception
+	 */
+	public abstract Attachment selectProfile(int memberNo) throws Exception;
 }
