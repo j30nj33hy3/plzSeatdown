@@ -276,10 +276,10 @@ public class CommunityController {
 	// 자식 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReReply")
-	public int insertReReply(Reply reply) {
+	public int insertReReply(Reply reply, Alarm alarm) {
 		int result = 0;
 		try {
-			result = communityService.insertReReply(reply);
+			result = communityService.insertReReply(reply, alarm);
 		}catch(Exception e) {
 			e.printStackTrace();
 			result = -1;

@@ -141,7 +141,7 @@ public class CommunityServiceImpl implements CommunityService {
 		result = communityDAO.insertReply(reply);
 		
 		// 알림 삽입
-		if(result>0) {
+		if(result>0 && reply.getReplyWriter() != alarm.getAlarmMemberNo()) {
 			result = 0;
 			if(alarm.getAlarmContent().length()>=5) {
 				alarmContent = alarm.getAlarmContent().substring(0, 5);				
@@ -183,8 +183,9 @@ public class CommunityServiceImpl implements CommunityService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertReReply(Reply reply) throws Exception {
+	public int insertReReply(Reply reply, Alarm alarm) throws Exception {
 		int result = 0;
+		String alarmContent = null;
 		
 		int groupNo = communityDAO.selectReplyGroup(reply);
 		
@@ -194,6 +195,18 @@ public class CommunityServiceImpl implements CommunityService {
 			reply.setParentNo(reply.getReplyNo());
 			
 			result = communityDAO.insertReReply(reply);
+			// 알림 삽입
+			if(result>0 && reply.getReplyWriter() != alarm.getAlarmMemberNo()) {
+				result = 0;
+				if(alarm.getAlarmContent().length()>=5) {
+					alarmContent = alarm.getAlarmContent().substring(0, 5);				
+				}else {
+					alarmContent = alarm.getAlarmContent();
+				}
+				alarm.setAlarmType("R");
+				alarm.setAlarmContent("["+alarmContent+"...]에 댓글이 달렸습니다.");
+				result = communityDAO.insertAlarm(alarm);
+			}
 		}
 		return result;
 	}

@@ -54,11 +54,11 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 			if(strs != null && strs.length == 5) {
 				String cmd = strs[0];
 				String replyWriter = strs[1];
-				String communityWriter = strs[2];
+				String communityWriterId = strs[2];
 				String communityTitle = strs[3];
 				String cno = strs[4];
 				
-				WebSocketSession communityWriterSession = userSessionsMap.get(communityWriter);
+				WebSocketSession communityWriterSession = userSessionsMap.get(communityWriterId);
 				
 				if(communityTitle.length()>=7) {
 					ct = communityTitle.substring(0, 7);				
@@ -89,8 +89,6 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 		}catch(Exception e) {
 			// 예외무시 처리
 		}
-		
-	
 		
 	}
 	

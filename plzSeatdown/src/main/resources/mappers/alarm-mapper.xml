@@ -17,4 +17,14 @@
 		SEQ_ALNO.NEXTVAL, #{alarmContent}, #{alarmUrl}, DEFAULT,
 		#{alarmType}, DEFAULT, #{alarmMemberNo})
 	</insert>
+	
+	<select id="selectAlarmList" parameterType="_int" resultMap="alarmResultSet">
+		SELECT *
+		FROM ( SELECT *
+		            FROM ALARM
+		            WHERE ALARM_MEMBER_NO = #{alarmMemberNo}
+		            AND ALARM_STATUS = 'N'
+		            ORDER BY ALARM_NO DESC )
+		<![CDATA[WHERE ROWNUM <= 3]]>
+	</select>
 </mapper>

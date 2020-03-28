@@ -267,15 +267,15 @@ tbody > tr:last-child{
 				dataType : "json",
 				type : "POST",
 				data : {
-					replyContent : replyContent,
-					replySecret : replySecret,
-					depth : "0",
-					parentNo : "0",
-					communityNo : ${community.communityNo},
-					replyWriter : ${loginMember.memberNo},
-					alarmContent : alarmContent,
-					alarmUrl : alarmUrl,
-					alarmMemberNo : alarmMemberNo
+					"replyContent" : replyContent,
+					"replySecret" : replySecret,
+					"depth" : "0",
+					"parentNo" : "0",
+					"communityNo" : ${community.communityNo},
+					"replyWriter" : ${loginMember.memberNo},
+					"alarmContent" : alarmContent,
+					"alarmUrl" : alarmUrl,
+					"alarmMemberNo" : alarmMemberNo
 					},
 				success : function(result){
 					var msg;
@@ -283,7 +283,7 @@ tbody > tr:last-child{
 					switch(result){
 					case 1 : $("#replyContent").val("");
 						selectRlist();
-					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
 						console.log("socketMsg : " + socketMsg);
 						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
 						socket.send(socketMsg);
@@ -641,7 +641,9 @@ tbody > tr:last-child{
 			if($("#replySecret").is(":checked")){
 				replySecret = "Y";
 			}
-			
+			var alarmUrl = "${contextPath}/community/datail?no=${community.communityNo}&currentPage=1";
+			var alarmContent = "${community.communityTitle}";
+			var alarmMemberNo = ${community.communityWriter};
 			$.ajax({
 				url : "insertReReply",
 				type : "POST",
@@ -650,7 +652,11 @@ tbody > tr:last-child{
 						"replyContent" : replyContent,
 						"communityNo" : communityNo,
 						"depth" : depth,
-						"replySecret" : replySecret},
+						"replySecret" : replySecret,
+						"alarmContent" : alarmContent,
+						"alarmUrl" : alarmUrl,
+						"alarmMemberNo" : alarmMemberNo
+						},
 				success : function(result){
 					var msg;
 					switch(result){

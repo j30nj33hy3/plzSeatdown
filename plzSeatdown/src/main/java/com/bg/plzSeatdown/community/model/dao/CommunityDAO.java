@@ -39,10 +39,6 @@ public class CommunityDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("yhbCommunityMapper.selectList", map, rowBounds);
 	}
-	/*
-	 * public List<Community> selectImageList(List<Community> list) throws Exception
-	 * { return sqlSession.selectList("yhbCommunityMapper.selectImageList", list); }
-	 */
 
 	/** 게시글 삭제용 DAO
 	 * @param no

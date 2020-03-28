@@ -16,6 +16,7 @@
 		<result property="nextCommunityNo" column="NEXT_COMM_NO"/>
 		<result property="preCommunityNo" column="PRE_COMM_NO"/>
 		<result property="replyCount" column="REPLY_COUNT"/>
+		<result property="memberId" column="MEMBER_ID"/>
 	</resultMap>
 	
 	<resultMap type="Reply" id="replyResultSet">
@@ -134,7 +135,7 @@
 	<select id="selectCommunity" parameterType="map" resultMap="communityResultSet">
 		SELECT * FROM (
 			SELECT COMM_NO, COMM_TITLE, COMM_CONTENT, COMM_MODIFY_DT, COMM_COUNT, COMM_STATUS,
-		            COMM_WRITER, MEMBER_NICKNM, CATEGORY_CD, CATEGORY_NM, PROFILE_PATH,
+		            COMM_WRITER, MEMBER_ID, MEMBER_NICKNM, CATEGORY_CD, CATEGORY_NM, PROFILE_PATH,
 		            LAG(COMM_NO, 1, 0) OVER (ORDER BY COMM_NO DESC) AS NEXT_COMM_NO,
 		            LEAD(COMM_NO, 1, 0) OVER (ORDER BY COMM_NO DESC) AS PRE_COMM_NO
 			FROM V_COMMUNITY

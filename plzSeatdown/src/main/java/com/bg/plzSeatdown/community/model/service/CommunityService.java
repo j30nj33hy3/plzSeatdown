@@ -93,7 +93,7 @@ public interface CommunityService {
 	 * @return result
 	 * @throws Exception
 	 */
-	public abstract int insertReReply(Reply reply) throws Exception;
+	public abstract int insertReReply(Reply reply, Alarm alarm) throws Exception;
 
 	public abstract int deleteReply(Reply reply) throws Exception;
 
