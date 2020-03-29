@@ -53,24 +53,38 @@
                                 <c:if test="${!empty alist}">
                                    <c:forEach var="alarm" items="${alist}" varStatus="vs">
                                    
-                                <c:if test="${alarm.alarmType == 'L'}">
+                                <c:if test="${alarm.alarmType == 'L' && alarm.alarmStatus != 'D'}">
                                 <div class="row timeline-movement">
                                     <div class="timeline-badge center-left">
                                     </div>
                                     <div class="col-sm-6  timeline-item">
                                         <div class="row">
                                             <div class="col-sm-11">
-                                                <div class="timeline-panel credits  anim animate fadeInLeft">
+                                                <div class="timeline-panel credits  anim animate fadeInLeft"  style="position:relative;">
                                                     <ul class="timeline-panel-ul">
                                                         <div class="lefting-wrap">
-                                                            <li class="img-wraping"><a href="#"><img src="${contextPath}/resources/images/like3.png" class="img-responsive" alt="user-image" /></a></li>
-                                                        </div>
+                                                            <li class="img-wraping">
+                                                            	<a href="" style="cursor: auto;">
+                                                            		<img src="${contextPath}/resources/images/like3.png" class="img-responsive" alt="user-image" />
+                                                           	 	</a>
+                                                            </li>
+                                                        </div> 
+                                                        <form id="delAlarm" action="${contextPath}/alarm/deleteCheck" method="POST">
                                                         <div class="righting-wrap">
-                                                    <a href="${contextPath}/${alarm.alarmUrl}">
-                                                            <li><span class="causale">${alarm.alarmContent}</span> </li>
+                                                    	  <a href="#" class="updateAlarm">
+                                                        	<input type="hidden" value="${alarm.alarmUrl}">
+                                                        	<input type="hidden" name="alarmNo" value="${alarm.alarmNo}">
+                                                            <li style="margin-top:27px;"><span class="causale">${alarm.alarmContent}</span></li>
                                                             <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>${alarm.alarmDate}</small></p> </li>
                                                         </a>
+                                                        	<li style="position:absolute; top:0px; left:0px;">
+                                                        		<button class="filedelete" type="submit" style="background-color:white; border:0px;">
+																	<img src="${contextPath}/resources/images/quit.png" width="20" height="20">
+																</button>
+																<input type="hidden" name="deleteCheck" id="deleteCheck" class="deleteCheck" value="0">
+                                                        	</li>
                                                         </div>
+                                                        </form>
                                                         <div class="clear"></div>
                                                     </ul>
                                                 </div>
@@ -80,7 +94,7 @@
                                 </div>
                                 </c:if>
                     			
-                    			<c:if test="${alarm.alarmType == 'R'}">
+                    			<c:if test="${alarm.alarmType == 'R' && alarm.alarmStatus != 'D'}">
                                 <div class="row timeline-movement">
                                     <div class="timeline-badge center-right">
                                     </div>
@@ -90,12 +104,28 @@
                                                 <div class="timeline-panel debits  anim animate  fadeInRight">
                                                     <ul class="timeline-panel-ul">
                                                         <div class="lefting-wrap">
-                                                            <li class="img-wraping"><a href="#"><img src="${contextPath}/resources/images/chat.png" class="img-responsive"/></a></li>
+                                                            <li class="img-wraping">
+                                                            	<a href="" style="cursor: auto;">
+                                                            		<img src="${contextPath}/resources/images/chat.png" class="img-responsive"/>
+                                                            	</a>
+                                                            </li>
                                                         </div>
+                                                        <form id="delAlarm" action="${contextPath}/alarm/deleteCheck" method="POST">
                                                         <div class="righting-wrap">
+                                                    	  <a href="#" class="updateAlarm">
+                                                        	<input type="hidden" value="${alarm.alarmUrl}">
+                                                        	<input type="hidden" name="alarmNo" value="${alarm.alarmNo}">
                                                             <li><span class="causale">${alarm.alarmContent}</span></li>
                                                             <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>${alarm.alarmDate}</small></p> </li>
+                                                        </a>
+                                                        	<li style="float:right;">
+                                                        		<button class="filedelete" type="submit" style="background-color:white; border:0px;">
+																	<img src="${contextPath}/resources/images/quit.png" width="20" height="20">
+																</button>
+																<input type="hidden" name="deleteCheck" id="deleteCheck" class="deleteCheck" value="0">
+                                                        	</li>
                                                         </div>
+                                                        </form>
                                                         <div class="clear"></div>
                                                     </ul>
                                                 </div>
@@ -119,29 +149,6 @@
          </div>
          
          
-         
-      <script>
-      
-      // 게시글 상세보기 기능 (jquery를 통해 작업)
-      $(function(){
-               
-         $(document).on("click",".updatebtn", function(){
-            
-            var communityNo = $(this).parent().parent().children().eq(0).text()
-            // 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
-            <c:url var="detailUrl" value="detail"> // 주소창의 detail
-                    <c:param name="currentPage" value="${pInf.currentPage}"/>
-                  </c:url>
-            //location.href="${detailUrl}&no="+communityNo;
-            location.href="${contextPath}/community/"+"${detailUrl}&no="+communityNo;
-         }).mouseenter(function(){
-            $(this).parent().css("cursor", "pointer");
-         });
-      });
-       
-      
-   </script>
-   
             
          <script>
          
@@ -199,6 +206,28 @@
          
          </script>
    
+   		
+   		<script>
+   		$(document).on('click','.updateAlarm', function(){
+   			var alarmUrl = $(this).children().val();
+   			var alarmNo = $(this).children().next().val();
+   			location.href = "/plzSeatdown/alarm/updateAlarm?no="+alarmNo+"&url="+alarmUrl;
+   		});
+   		
+   		</script>
+   
+   		
+   		<script>
+   		
+   	 $(".filedelete").click(function(){
+   			 $(this).next().val("1");
+   		});
+   		
+   		
+   		
+   		</script>
+   		
+   		
    
    
    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

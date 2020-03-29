@@ -33,4 +33,17 @@
 		ALARM_STATUS = 'Y'
 		WHERE ALARM_NO = #{no}
 	</update>
+	
+	<update id="deleteAlarmList" parameterType="_int">
+	 	UPDATE ALARM
+		SET ALARM_STATUS = 'D'
+		WHERE ALARM_NO = #{alarmNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
