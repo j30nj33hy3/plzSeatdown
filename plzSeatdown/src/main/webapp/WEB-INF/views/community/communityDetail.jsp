@@ -270,65 +270,69 @@ tbody > tr:last-child{
 			if(confirm("정말 삭제 하시겠습니까?")) location.href = "delete?no=${param.no}";
 		});
 		
-		// 부모 댓글 등록 이벤트
-		$("#addReply").on("click",function(){
-			if($("#replyContent").val().trim() == ""){
-				alert("내용을 입력하세요.");
-				$("#replyContent").focus();
-				return false;
-			}
-			
-			var replyContent = $("#replyContent").val().replace("\n", "<br>");
-			var replySecret = "N";
-			
-			// 비밀댓글 체크 여부
-			if($("#replySecret").is(":checked")){
-				replySecret = "Y";
-			}
-			
-			var replyNo;
-			var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
-			var alarmContent = "${community.communityTitle}";
-			var alarmMemberNo = ${community.communityWriter};
-			//var socketMsg ="메세지 확인";
-			$.ajax({
-				url : "insertReply",
-				dataType : "json",
-				type : "POST",
-				data : {
-					replyContent : replyContent,
-					replySecret : replySecret,
-					depth : "0",
-					parentNo : "0",
-					communityNo : ${community.communityNo},
-					replyWriter : ${loginMember.memberNo},
-					alarmContent : alarmContent,
-					alarmUrl : alarmUrl,
-					alarmMemberNo : alarmMemberNo
-					},
-				success : function(result){
-					var msg;
-					$("#replySecret").prop('checked', false );
-					switch(result){
-					case 1 : $("#replyContent").val("");
-						selectRlist();
-						var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
-						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-
-						if(replyWriter != alarmMemberNo){
-							socket.send(socketMsg);
-							console.log("socketMsg : " + socketMsg);
-						}
-						break;
-					case 0 : alert("댓글 등록 실패"); break;
-					case -1 : alert("댓글 등록 오류 발생"); break;
-					}
-				},
-				error: function(){
-					console.log("ajax 통신 실패");
-				}
-			});
-		});
+		
+		
+	      // 부모 댓글 등록 이벤트
+	      $("#addReply").on("click",function(){
+	         if($("#replyContent").val().trim() == ""){
+	            alert("내용을 입력하세요.");
+	            $("#replyContent").focus();
+	            return false;
+	         }
+	         
+	         var replyContent = $("#replyContent").val().replace("\n", "<br>");
+	         var replySecret = "N";
+	         
+	         // 비밀댓글 체크 여부
+	         if($("#replySecret").is(":checked")){
+	            replySecret = "Y";
+	         }
+	         
+	         var replyNo;
+	         var replyWriter = ${loginMember.memberNo};
+	         var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
+	         var alarmContent = "${community.communityTitle}";
+	         var alarmMemberNo = ${community.communityWriter};
+	         //var socketMsg ="메세지 확인";
+	         $.ajax({
+	            url : "insertReply",
+	            dataType : "json",
+	            type : "POST",
+	            data : {
+	               "replyContent" : replyContent,
+	               "replySecret" : replySecret,
+	               "depth" : "0",
+	               "parentNo" : "0",
+	               "communityNo" : ${community.communityNo},
+	               "replyWriter" : replyWriter,
+	               "alarmContent" : alarmContent,
+	               "alarmUrl" : alarmUrl,
+	               "alarmMemberNo" : alarmMemberNo
+	               },
+	            success : function(result){
+	               var msg;
+	               $("#replySecret").prop('checked', false );
+	               switch(result){
+	               case 1 : $("#replyContent").val("");
+	                  selectRlist();
+	               var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+	                  /* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
+	                  if(replyWriter != alarmMemberNo){
+	                     socket.send(socketMsg);
+	                     console.log("socketMsg : " + socketMsg);
+	                  }
+	                  break;
+	               case 0 : alert("댓글 등록 실패"); break;
+	               case -1 : alert("댓글 등록 오류 발생"); break;
+	               }
+	            },
+	            error: function(){
+	               console.log("ajax 통신 실패");
+	            }
+	         });
+	      });
+		
+		
 		
 		// 댓글 목록 조회 함수
 		function selectRlist(){
@@ -654,48 +658,58 @@ tbody > tr:last-child{
         	$(this).parent().children("button").not(".cancelBtn").remove();
 		});
 		
-		// 답댓글 등록
-		$(document).on("click","button[id='reReply']",function(){
-			var replyNo = $(this).parent().parent().parent().parent().parent().parent().prev().children("input[name=rNo]").val();
-			var replyWriter = ${loginMember.memberNo};
-			var replyContent = $("#reContent").val();
-			var communityNo = ${community.communityNo};
-			var depth = "1";
-			var replySecret = "N";
-			
-			// 비밀댓글 체크 여부
-			if($("#replySecret").is(":checked")){
-				replySecret = "Y";
-			}
-			
-			$.ajax({
-				url : "insertReReply",
-				type : "POST",
-				data : {"replyNo" : replyNo,
-						"replyWriter" : replyWriter,
-						"replyContent" : replyContent,
-						"communityNo" : communityNo,
-						"depth" : depth,
-						"replySecret" : replySecret},
-				success : function(result){
-					var msg;
-					switch(result){
-					case 1 : selectRlist(); 
-						var socketMsgRR = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
-							console.log("socketMsg : " + socketMsgRR);
-							/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-							socket.send(socketMsgRR);					
-							break;
-					case 0 : alert("답댓글 등록 실패"); break;
-					case -1 : alert("답댓글 등록 오류 발생"); break;
-					}
-				},
-				error : function(){
-					console.log("ajax 통신 실패");
-				}
-			});
-			
-		});
+		
+	      // 답댓글 등록
+	      $(document).on("click","button[id='reReply']",function(){
+	         var replyNo = $(this).parent().parent().parent().parent().parent().parent().prev().children("input[name=rNo]").val();
+	         var replyWriter = ${loginMember.memberNo};
+	         var replyContent = $("#reContent").val();
+	         var communityNo = ${community.communityNo};
+	         var depth = "1";
+	         var replySecret = "N";
+	         
+	         // 비밀댓글 체크 여부
+	         if($("#replySecret").is(":checked")){
+	            replySecret = "Y";
+	         }
+	         var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
+	         var alarmContent = "${community.communityTitle}";
+	         var alarmMemberNo = ${community.communityWriter};
+	         $.ajax({
+	            url : "insertReReply",
+	            type : "POST",
+	            data : {"replyNo" : replyNo,
+	                  "replyWriter" : replyWriter,
+	                  "replyContent" : replyContent,
+	                  "communityNo" : communityNo,
+	                  "depth" : depth,
+	                  "replySecret" : replySecret,
+	                  "alarmContent" : alarmContent,
+	                  "alarmUrl" : alarmUrl,
+	                  "alarmMemberNo" : alarmMemberNo
+	                  },
+	            success : function(result){
+	               var msg;
+	               switch(result){
+	               case 1 : selectRlist(); 
+	                     var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+	                     /* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
+	                     if(replyWriter != alarmMemberNo){
+	                        socket.send(socketMsg);
+	                        console.log("socketMsg : " + socketMsg);
+	                     }            
+	                     break;
+	               case 0 : alert("답댓글 등록 실패"); break;
+	               case -1 : alert("답댓글 등록 오류 발생"); break;
+	               }
+	            },
+	            error : function(){
+	               console.log("ajax 통신 실패");
+	            }
+	         });
+	         
+	      });
+		
 		
 		// 댓글 삭제
 		$(document).on("click","button[name='replyDelete']",function(){
