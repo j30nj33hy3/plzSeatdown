@@ -79,4 +79,12 @@ public class MessageServiceImpl implements MessageService {
 	public int msgCount(Integer no) throws Exception {
 		return messageDAO.msgCount(no);
 	}
+	
+	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateMessage(Integer no) throws Exception {
+		return messageDAO.updateMessage(no);
+	}
+
 }

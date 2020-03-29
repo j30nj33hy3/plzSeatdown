@@ -75,4 +75,11 @@ public class MessageDAO {
 		return sqlSession.selectOne("messageMapper.msgCount", no);
 	}
 
+	
+	
+	public int updateMessage(Integer no) throws Exception {
+		return sqlSession.update("messageMapper.updateMessage", no);
+	}
+
+	
 }

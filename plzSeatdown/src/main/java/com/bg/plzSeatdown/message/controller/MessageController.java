@@ -114,15 +114,19 @@ public class MessageController {
 	public String detailMessage(Model model, Integer no) {
 		try {
 			Message message = messageService.selectMessage(no);
+			int result = 0;
+			if (message != null) {
+				result = messageService.updateMessage(no);
+			}
 			model.addAttribute("message", message);
 			return "message/messageDetail";
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "쪽지창에서 오류 발생");
-			return "common/errorPage";	
+			return "common/errorPage";
 		}
-		
+
 	}
 	
 	@RequestMapping("deleteMessage")
