@@ -115,6 +115,22 @@
 		margin: 15px 0;
 	}
 }
+	#alarmDropdownArea{
+   		background-color: rgba(255, 255, 255, 0.9);
+   	}
+   	#alarmDropdownArea > a{
+   		border-bottom: solid 0.5px #ccc;
+   		font-size:12px;
+   	}
+   	#alarmDropdownArea > a:last-child{
+   		border-bottom: none;
+   	}
+   	#alarmDropdown:hover{
+   		cursor:pointer;
+   	}
+   	#alarmDropdownArea a:hover{
+   		background-color: rgb(255, 255, 255);
+   	}
 </style>
 </head>
 <body>
@@ -152,21 +168,11 @@
 						</div>
 						<span id="intro-msg">${loginMember.memberNickname }님 앉아주세요</span>
 						<div id="iconBtnBox">
-							<a href="${contextPath}/alarm/alarmlist" class="d-md-inline-block" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<a class="d-md-inline-block mr-3" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell" aria-hidden="true" style="color:white;"></i>
-								<span class="badge badge-pill badge-warning">1</span>
+								<!-- <span class="badge badge-pill badge-warning" id="alarmBadge">1</span> -->
 							</a>
-							<div class="dropdown-menu alarm-dropdown mt-3 py-3" aria-labelledby="alarmDropdown">
-								<c:if test="${empty alist}">
-									<p class="dropdown-item text-muted">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>
-								</c:if>
-								<c:if test="${!empty alist}">
-									<c:forEach var="alarm" items="">
-									</c:forEach>
-								</c:if>
-								<a href="" class="dropdown-item text-muted">알람표시</a>
-								<a href="" class="dropdown-item text-muted">됩니다</a>
-								<a href="" class="dropdown-item text-muted">아마도....</a>
+							<div class="dropdown-menu dropdown-menu-right alarm-dropdown mt-2 py-2" aria-labelledby="alarmDropdown" id="alarmDropdownArea">
 							</div>
 							<a id="msgIcon" href="${contextPath}" class="d-md-inline-block"><i class="fas fa-envelope"></i></a>
 							<a id="chatIcon" href="${contextPath}/index2" class="d-md-inline-block"><i class="fas fa-comments"></i></a>
@@ -284,9 +290,8 @@
 	<script>
 	var socket = null;
 	
-	// servlet-context와 매칭됨
 	<c:if test="${!empty loginMember}">
-		var socket = new SockJS('<c:url value="/replyAlarmEcho"/>'); // comm에서 받은거 다시 핸들러로
+		var socket = new SockJS('<c:url value="/replyAlarmEcho"/>');
 	</c:if>
 	
 	// 출력
@@ -298,7 +303,6 @@
 		toastr.options.progressBar = true;
 		toastr.info(data,{timeOut: 5000});
 		toastr.options.newestOnTop = true;
-
 	};
 	
 	socket.onclose = function(evt){
@@ -309,6 +313,36 @@
 		console.log('Errors :' , err);
 	};
 	
+	$('#alarmDropdown').on('click',function(){
+		var $alarmDropdownArea = $('#alarmDropdownArea');
+		$.ajax({
+			url : "${contextPath}/alarm/alarmlist",
+			type : "POST",
+			success : function(alist){
+				$alarmDropdownArea.html("");
+				if(alist == ""){
+					$alarmDropdownArea.append('<p class="text-muted px-1">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>');
+					$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
+				}else{
+					$.each(alist, function(i){
+						$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm">'+alist[i].alarmContent+'</a>');
+						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmUrl+'">');
+						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmNo+'">');
+					});
+					$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted font-weight-bold pt-2">내 알림 전체보기</a>');
+				}
+			},
+			error : function(){
+				console.log("알림목록조회 ajax 호출 실패");
+			}
+		})
+	});
+	
+	$(document).on('click','.updateAlarm', function(){
+		var alarmUrl = $(this).next().val();
+		var alarmNo = $(this).next().next().val();
+		location.href = "/plzSeatdown/alarm/updateAlarm?no="+alarmNo+"&url="+alarmUrl;
+	});
 	</script>
 </body>
 </html>

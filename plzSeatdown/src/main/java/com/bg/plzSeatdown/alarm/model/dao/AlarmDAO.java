@@ -17,4 +17,8 @@ public class AlarmDAO {
 		return sqlSession.selectList("alarmMapper.selectAlarmList", memberNo);
 	}
 
+	public int updateAlarm(Integer no) throws Exception{
+		return sqlSession.update("alarmMapper.updateAlarm", no);
+	}
+
 }
