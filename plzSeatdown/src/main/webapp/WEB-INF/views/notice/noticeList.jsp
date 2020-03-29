@@ -34,7 +34,7 @@
                     <tbody class="commu-body">
                     	<c:if test="${empty list }">
                     		<tr>
-                    			<td colspan="4">존재하는 공지사항이 없습니다.</td>
+                    			<th colspan="4" class="text-muted text-center" style="font-size:13px;">존재하는 공지사항이 없습니다.</th>
                     		</tr>
                     	</c:if>
                     	<c:if test="${!empty list }">

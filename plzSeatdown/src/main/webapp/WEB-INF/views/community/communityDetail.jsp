@@ -194,7 +194,7 @@ tbody > tr:last-child{
                               </tr>
                           </table>
                           <input type="checkbox" class="" id="replySecret">
-                          <label class="time text-muted" for="replySecret" style="font-size:11px;">비밀댓글</label>
+                          <label class="time text-muted" style="font-size:11px;">비밀댓글</label>
                       </div>
                 </div>
             </div>
@@ -573,7 +573,7 @@ tbody > tr:last-child{
             '    </tr>'+
             '</table>'+
             '<input type="checkbox" class="" id="replySecret">'+
-            '<label class="time text-muted" for="replySecret" style="font-size:11px;">비밀댓글</label>'+
+            '<label class="time text-muted" style="font-size:11px;">비밀댓글</label>'+
         	'</div>';
         	var prevP = $(this).parent().parent().children("p");
         	prevP.after(updateArea);
@@ -598,13 +598,20 @@ tbody > tr:last-child{
 		
 		// 댓글 수정
 		$(document).on("click","button[id='updateReply']",function(){
-			var replyContent = $("#updateContent").val();
+			var $ContentVal = $(this).parent().parent().prev().children().children().val().trim();
+			if($ContentVal == ""){
+	            alert("내용을 입력하세요.");
+	            $(this).parent().parent().prev().children().children().focus();
+	            return false;
+	         }
+			var replyContent = $(this).parent().parent().prev().children().children().val();
 			var replyNo = $(this).parent().parent().parent().parent().parent().parent().parent().parent().children("input").val();
 			
 			var replySecret = "N";
+			var $ureplySYN = $(this).parent().parent().parent().parent().parent().next('input');
 			
 			// 비밀댓글 체크 여부
-			if($("#replySecret").is(":checked")){
+			if($ureplySYN.is(":checked")){
 				replySecret = "Y";
 			}
 			
@@ -647,7 +654,7 @@ tbody > tr:last-child{
 	            '    </tr>'+
 	            '</table>'+
 	            '<input type="checkbox" class="" id="replySecret">'+
-	            '<label class="time text-muted" for="replySecret" style="font-size:11px;">비밀댓글</label>'+
+	            '<label class="time text-muted" style="font-size:11px;">비밀댓글</label>'+
 	        	'</div>';
 	        	
 			var prevP = $(this).parent().parent().parent();
@@ -661,15 +668,22 @@ tbody > tr:last-child{
 		
 	      // 답댓글 등록
 	      $(document).on("click","button[id='reReply']",function(){
+	    	var $ContentReVal = $(this).parent().parent().prev().children().children().val().trim();
+				if($ContentReVal == ""){
+		            alert("내용을 입력하세요.");
+		            $(this).parent().parent().prev().children().children().focus();
+		            return false;
+		         }
 	         var replyNo = $(this).parent().parent().parent().parent().parent().parent().prev().children("input[name=rNo]").val();
 	         var replyWriter = ${loginMember.memberNo};
-	         var replyContent = $("#reContent").val();
+	         var replyContent = $(this).parent().parent().prev().children().children().val();
 	         var communityNo = ${community.communityNo};
 	         var depth = "1";
 	         var replySecret = "N";
 	         
+	         var $rreplySYN = $(this).parent().parent().parent().parent().parent().next('input');
 	         // 비밀댓글 체크 여부
-	         if($("#replySecret").is(":checked")){
+	         if($rreplySYN.is(":checked")){
 	            replySecret = "Y";
 	         }
 	         var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";

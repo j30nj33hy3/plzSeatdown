@@ -85,7 +85,7 @@ td{
 .comm_write_wrap {
     clear: both;
     padding: 10px;
-    border-width: 1px;
+    border-width: 0.5px;
     border-style: solid;
     border-color: rgba(139, 139, 139, 0.3);
     background-color: #fff;

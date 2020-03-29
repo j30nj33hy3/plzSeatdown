@@ -40,10 +40,11 @@
 		WHERE ALARM_NO = #{alarmNo}
 	</update>
 	
-	
-	
-	
-	
-	
+	<select id="alarmCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM ALARM
+		WHERE ALARM_STATUS = 'N'
+		AND ALARM_MEMBER_NO = #{memberNo} 
+	</select>
 	
 </mapper>

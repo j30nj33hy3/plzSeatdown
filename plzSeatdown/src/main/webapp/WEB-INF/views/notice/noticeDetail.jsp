@@ -10,15 +10,16 @@
 <%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <title>공지사항</title>
     <style>
-        .list-btn{
+        #list-btn{
             border:solid 1px;
             border-color:rgb(198, 180, 205);
             color:rgb(145, 126, 198);
         }
-        .list-btn:hover{
+        #list-btn:hover{
             border:solid 1px;
             border-color:rgb(198, 180, 205);
             background-color:rgb(145, 126, 198);
+            color:white;
         }
     </style>
 </head>
@@ -42,7 +43,7 @@
     <hr>
 
     <div class="col-md-12 text-center mt-5 pt-5">
-        <a class="btn btn-default list-btn" type="button" href="
+        <a class="btn btn-default list-btn" id="list-btn" type="button" href="
         	<c:url value="list">
         		<c:if test="${!empty param.searchKey}">
         			<c:param name="searchKey" value="${param.searchKey}"/>

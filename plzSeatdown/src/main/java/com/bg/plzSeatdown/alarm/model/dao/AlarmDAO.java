@@ -25,4 +25,8 @@ public class AlarmDAO {
 		return sqlSession.update("alarmMapper.deleteAlarmList",alarmNo);
 	}
 
+	public int alarmCount(int memberNo) throws Exception{
+		return sqlSession.selectOne("alarmMapper.alarmCount", memberNo);
+	}
+
 }
