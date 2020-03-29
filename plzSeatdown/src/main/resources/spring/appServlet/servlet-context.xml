@@ -51,4 +51,4 @@
 		<websocket:sockjs/>
 	</websocket:handlers>
 	<beans:bean id="replyAlarmEchoHandler" class="com.bg.plzSeatdown.alarm.common.ReplyEchoHandler"/>
-</beans:beans>
+ </beans:beans>

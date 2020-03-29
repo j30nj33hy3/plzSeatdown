@@ -348,7 +348,9 @@
 	});
 	</script>
 	<script>
+	
 	   $(function(){
+		   setInterval(function(){
 	       var $msg = $("#msgCount");
 	       no = "${loginMember.memberNo}";
 	       
@@ -368,10 +370,11 @@
 	                },
 	          error : function() {
 	              console.log("쪽지 알람 개수 호출 실패");
-	          	}	               
-	        });
-	   	 }
-     });
+	          		}	               
+	        	});
+	   	 	}
+     	});
+	 },1000);
 	</script>
 </body>
 </html>
