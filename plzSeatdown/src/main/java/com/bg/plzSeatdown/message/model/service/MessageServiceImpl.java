@@ -75,8 +75,8 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.deleteMessage(no);
 	}
 
-	
-	
-
-	
+	@Override
+	public int msgCount(Integer no) throws Exception {
+		return messageDAO.msgCount(no);
+	}
 }

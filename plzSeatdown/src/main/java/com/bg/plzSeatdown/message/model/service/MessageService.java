@@ -30,4 +30,6 @@ public interface MessageService {
 
 	public abstract int deleteMessage(Integer no) throws Exception;
 
+	public abstract int msgCount(Integer no) throws Exception;
+
 }

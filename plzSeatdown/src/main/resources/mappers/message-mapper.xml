@@ -74,4 +74,11 @@
 		WHERE MESSAGE_NO=#{no}
 	</update>
 	
+	<!-- 쪽지 알람 개수 -->
+	<select id="msgCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_MESSAGE
+		WHERE MESSAGE_RECEIVER_NO = #{no}
+		AND MESSAGE_READ = 'N'
+	</select>
+	
 </mapper>
