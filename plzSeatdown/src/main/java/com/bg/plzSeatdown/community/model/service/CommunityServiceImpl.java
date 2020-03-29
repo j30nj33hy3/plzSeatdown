@@ -100,14 +100,6 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Community selectCommunity(Map<String, Object> map) throws Exception {
 		return communityDAO.selectCommunity(map);
-		/*
-		 * if(community!=null) {
-		 * 
-		 * System.out.println(map); Community pn =
-		 * communityDAO.selectPreNextCommunityNo(map); System.out.println(pn);
-		 * community.setPreCommunityNo(pn.getPreCommunityNo());
-		 * community.setNextCommunityNo(pn.getNextCommunityNo()); }
-		 */
 	}
 
 	@Override
@@ -143,8 +135,8 @@ public class CommunityServiceImpl implements CommunityService {
 		// 알림 삽입
 		if(result>0 && reply.getReplyWriter() != alarm.getAlarmMemberNo()) {
 			result = 0;
-			if(alarm.getAlarmContent().length()>=5) {
-				alarmContent = alarm.getAlarmContent().substring(0, 5);				
+			if(alarm.getAlarmContent().length()>=7) {
+				alarmContent = alarm.getAlarmContent().substring(0, 6);				
 			}else {
 				alarmContent = alarm.getAlarmContent();
 			}

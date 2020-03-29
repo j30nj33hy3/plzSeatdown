@@ -12,4 +12,5 @@ public interface AlarmService {
 
 	public abstract int deleteAlarmList(Integer deleteCheck, Integer alarmNo)throws Exception;
 
+	public abstract int alarmCount(int memberNo) throws Exception;
 }

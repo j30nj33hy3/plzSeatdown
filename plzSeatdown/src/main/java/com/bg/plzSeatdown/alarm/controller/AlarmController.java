@@ -85,7 +85,19 @@ public class AlarmController {
 		
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("alarmCount")
+	public int alarmCount(Model model) {
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int alarmCount = 0;
+		try {
+			alarmCount = alarmService.alarmCount(loginMember.getMemberNo());
+		}catch(Exception e) {
+			e.printStackTrace();
+			alarmCount = 0;
+		}
+		return alarmCount;
+	}
 	
 	
 }

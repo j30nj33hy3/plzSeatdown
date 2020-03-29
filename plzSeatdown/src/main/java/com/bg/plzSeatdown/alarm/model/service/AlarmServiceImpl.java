@@ -42,4 +42,8 @@ public class AlarmServiceImpl implements AlarmService {
 
 	}
 	
+	@Override
+	public int alarmCount(int memberNo) throws Exception {
+		return alarmDAO.alarmCount(memberNo);
+	}
 }
