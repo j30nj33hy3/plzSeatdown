@@ -69,6 +69,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.selectMessage(no);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteMessage(Integer no) throws Exception {
+		return messageDAO.deleteMessage(no);
+	}
+
 	
 	
 

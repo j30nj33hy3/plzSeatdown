@@ -7,6 +7,7 @@
 		<result property="messageReceiverNo" column="MESSAGE_RECEIVER_NO"/>
 		<result property="messageContent" column="MESSAGE_CONTENT"/>
 		<result property="messageDate" column="MESSAGE_DT"/>
+		<result property="messageRead" column="MESSAGE_READ"/>
 		<result property="messageStatus" column="MESSAGE_STATUS"/>
 		<result property="senderNickname" column="SENDER_NICKNM"/>
 		<result property="receiverNickname" column="RECEIVER_NICKNM"/>
@@ -18,6 +19,7 @@
    <select id="getListCount" parameterType="string" resultType="_int">
         SELECT COUNT(*) FROM V_MESSAGE
         WHERE RECEIVER_NICKNM = #{nickName}
+       	AND MESSAGE_STATUS='Y'
      ORDER BY MESSAGE_NO DESC
    </select>	
 	<!-- 게시글 목록 조회 -->
@@ -25,6 +27,7 @@
       SELECT *
       FROM V_MESSAGE
       WHERE RECEIVER_NICKNM = #{nickName}
+      AND MESSAGE_STATUS='Y'
       ORDER BY MESSAGE_NO DESC
    </select>
 	
@@ -37,7 +40,7 @@
 	<!-- 쪽지 DB 저장 -->
 	<insert id="insertMessage" parameterType="map">
 		INSERT INTO MESSAGE VALUES
-		(#{messageNo}, #{messageSenderNo}, #{messageReceiverNo}, #{messageContent}, DEFAULT, DEFAULT)
+		(#{messageNo}, #{messageSenderNo}, #{messageReceiverNo}, #{messageContent}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	<!-- 보낸 쪽지 -->
@@ -45,6 +48,7 @@
 	<select id="getListCount2" parameterType="string" resultType="_int">
         SELECT COUNT(*) FROM V_MESSAGE
         WHERE SENDER_NICKNM = #{nickName}
+        AND MESSAGE_STATUS='Y'
      ORDER BY MESSAGE_NO DESC
    </select>
 	
@@ -53,6 +57,7 @@
       SELECT *
       FROM V_MESSAGE
       WHERE SENDER_NICKNM = #{nickName}
+      AND MESSAGE_STATUS='Y'
       ORDER BY MESSAGE_NO DESC
    </select>
    
@@ -63,5 +68,10 @@
    		WHERE MESSAGE_NO=#{no}
 	</select>
    
+	<!-- 쪽지 삭제 -->
+	<update id="deleteMessage" parameterType="_int">
+		UPDATE MESSAGE SET MESSAGE_STATUS='N'
+		WHERE MESSAGE_NO=#{no}
+	</update>
 	
 </mapper>

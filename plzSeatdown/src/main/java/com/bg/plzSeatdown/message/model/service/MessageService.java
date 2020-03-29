@@ -28,4 +28,6 @@ public interface MessageService {
 
 	public abstract Message selectMessage(Integer no) throws Exception;
 
+	public abstract int deleteMessage(Integer no) throws Exception;
+
 }

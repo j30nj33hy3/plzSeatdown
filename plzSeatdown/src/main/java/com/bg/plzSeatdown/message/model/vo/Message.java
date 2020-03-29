@@ -9,6 +9,7 @@ public class Message {
 	private int messageReceiverNo;
 	private String messageContent;
 	private Date messageDate;
+	private String messageRead;
 	private String messageStatus;
 	private String senderNickname;
 	private String receiverNickname;
@@ -17,13 +18,14 @@ public class Message {
 		// TODO Auto-generated constructor stub
 	}
 	public Message(int messageNo, int messageSenderNo, int messageReceiverNo, String messageContent, Date messageDate,
-			String messageStatus, String senderNickname, String receiverNickname) {
+			String messageRead, String messageStatus, String senderNickname, String receiverNickname) {
 		super();
 		this.messageNo = messageNo;
 		this.messageSenderNo = messageSenderNo;
 		this.messageReceiverNo = messageReceiverNo;
 		this.messageContent = messageContent;
 		this.messageDate = messageDate;
+		this.messageRead = messageRead;
 		this.messageStatus = messageStatus;
 		this.senderNickname = senderNickname;
 		this.receiverNickname = receiverNickname;
@@ -58,6 +60,12 @@ public class Message {
 	public void setMessageDate(Date messageDate) {
 		this.messageDate = messageDate;
 	}
+	public String getMessageRead() {
+		return messageRead;
+	}
+	public void setMessageRead(String messageRead) {
+		this.messageRead = messageRead;
+	}
 	public String getMessageStatus() {
 		return messageStatus;
 	}
@@ -80,10 +88,9 @@ public class Message {
 	public String toString() {
 		return "Message [messageNo=" + messageNo + ", messageSenderNo=" + messageSenderNo + ", messageReceiverNo="
 				+ messageReceiverNo + ", messageContent=" + messageContent + ", messageDate=" + messageDate
-				+ ", messageStatus=" + messageStatus + ", senderNickname=" + senderNickname + ", receiverNickname="
-				+ receiverNickname + "]";
+				+ ", messageRead=" + messageRead + ", messageStatus=" + messageStatus + ", senderNickname="
+				+ senderNickname + ", receiverNickname=" + receiverNickname + "]";
 	}
-	
 	
 }
 

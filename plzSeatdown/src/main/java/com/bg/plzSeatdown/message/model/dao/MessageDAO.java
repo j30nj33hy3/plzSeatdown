@@ -67,4 +67,8 @@ public class MessageDAO {
 		return sqlSession.selectOne("messageMapper.selectMessage", no);
 	}
 
+	public int deleteMessage(Integer no) throws Exception {
+		return sqlSession.update("messageMapper.deleteMessage", no);
+	}
+
 }
