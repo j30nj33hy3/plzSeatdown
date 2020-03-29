@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>쪽지함</title>
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/mypage_mycommu.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css" />
+<link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
+<link rel="stylesheet" href="${contextPath}/resources/js/jquery.multicheck.js"/>	
 <style>
 .ellip {
 	margin: 0;
@@ -50,7 +51,12 @@
 						<thead
 							style="padding: 0.5em; font-weight: bold; color: rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 							<tr>
-								<th scope="col" style="border-bottom: 0px;">체크박스 넣기</th>
+								<th scope="col" style="border-bottom: 0px;">
+									<label class="customcheckbox m-b-20">                                                 
+                                      	<input type="checkbox" id="mainCheckbox" />
+                                       	<span class="checkmark"></span>
+                                    </label>
+								</th>
 								<th scope="col" style="border-bottom: 0px;">보낸사람</th>
 								<th scope="col" style="border-bottom: 0px;">내용</th>
 								<!-- <th scope="col" style="border-bottom:0px;">내용</th> -->
@@ -67,7 +73,12 @@
 								<c:forEach var="msg" items="${rList}" varStatus="vs">
 									<tr>
 										<input type="hidden" name="messageNo" value="${msg.messageNo}" />
-										<td style="border-top: 0px; padding-top: 22px;">체크박스 넣기</td>
+										<td style="border-top: 0px; padding-top: 22px;">
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox" />
+                                                <span class="checkmark"></span>
+                                            </label>									
+										</td>
 										<%-- <td style="border-top:0px; padding-top:22px;">${msg.messageNo}</td> --%>
 										<td style="border-top: 0px; padding-top: 22px;">${msg.senderNickname}</td>
 										<td class="msgContent" id="${msg.messageNo}"
