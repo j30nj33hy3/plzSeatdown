@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,7 +174,10 @@
 							</a>
 							<div class="dropdown-menu dropdown-menu-right alarm-dropdown mt-2 py-2" aria-labelledby="alarmDropdown" id="alarmDropdownArea">
 							</div>
-							<a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block"><i class="fas fa-envelope"></i></a>
+							<a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block">
+								<i class="fas fa-envelope"></i>
+								<span id="msgCount" class="badge badge-pill badge-warning" ></span>
+							</a>
 							<a id="chatIcon" href="${contextPath}/index2" class="d-md-inline-block"><i class="fas fa-comments"></i></a>
 						</div>
 						<div id="headBtnArea">
@@ -337,12 +340,38 @@
 			}
 		})
 	});
-	
+
 	$(document).on('click','.updateAlarm', function(){
 		var alarmUrl = $(this).next().val();
 		var alarmNo = $(this).next().next().val();
 		location.href = "/plzSeatdown/alarm/updateAlarm?no="+alarmNo+"&url="+alarmUrl;
 	});
+	</script>
+	<script>
+	   $(function(){
+	       var $msg = $("#msgCount");
+	       no = "${loginMember.memberNo}";
+	       
+		       if(no != 0){
+		          $.ajax({
+	                url : "${contextPath}/message/msgCount",
+	                type : "POST",
+	                data : {"no" : no},
+	                success : function(result) {
+	                	if(result < 1){  
+	                		$msg.removeClass('badge badge-pill badge-warning');
+	                		$msg.text("");
+	                	}else{
+	                		$msg.addClass('badge badge-pill badge-warning');
+	                		$msg.text(result);
+	                	}
+	                },
+	          error : function() {
+	              console.log("쪽지 알람 개수 호출 실패");
+	          	}	               
+	        });
+	   	 }
+     });
 	</script>
 </body>
 </html>

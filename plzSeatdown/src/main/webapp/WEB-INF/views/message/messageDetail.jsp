@@ -189,7 +189,7 @@ sub {
 		</form>
 	</div>
 	<script>
-	
+	// 쪽지 삭제
 	$(function() {
 		$("#deleteBtn").click(function(){
 		var messageNo = ${message.messageNo};
@@ -202,9 +202,6 @@ sub {
 			$(this).parent().css("cursor", "pointer");
 		});	
 	});
-
-
-
 </script>
 </body>
 </html>

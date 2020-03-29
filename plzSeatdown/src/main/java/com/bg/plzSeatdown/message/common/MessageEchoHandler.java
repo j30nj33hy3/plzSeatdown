@@ -13,8 +13,7 @@ import com.bg.plzSeatdown.message.model.dao.MessageDAO;
 public class MessageEchoHandler extends TextWebSocketHandler{
 	
 	@Autowired
-	SqlSessionTemplate sqlsession;
-	private MessageDAO messageDAO;
+	private SqlSessionTemplate sqlSession;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
   @Override
@@ -27,10 +26,6 @@ public class MessageEchoHandler extends TextWebSocketHandler{
   
   @Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
-		  this.logger.info(message.getPayload()); 
-		  session.sendMessage(new TextMessage(messageDAO.countReceiveNote(message.getPayload()))); 
-		  //현재 수신자에게 몇개의 메세지가 와있는지 디비에서 검색함.		
  	}
 }
 
