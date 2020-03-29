@@ -135,7 +135,7 @@
                                     <td style="border-top:0px; padding-top:22px;">${revieweh.reviewCreateDate}</td>
                                     <%-- <td style="border-top:0px; padding-top:22px;">${rimage.reviewImageStatus}</td> --%>
                                     <td style="border-top:0px; padding-top:15px;">
-                                    <a href="review/write?no=${revieweh.reviewNo}" id="filedelete" type="button"  class="btn btn-outline-secondary updatebtn" style="border:0px;">
+                                    <a href="${contextPath}/review/updateForm?no=${revieweh.reviewNo}" id="filedelete" type="button"  class="btn btn-outline-secondary updatebtn" style="border:0px;">
                                     <img src="${contextPath}/resources/images/pen.png" class="edit">
                                     </a></td>
                                 </tr>
@@ -286,7 +286,7 @@
                   console.log(arrimg[index]);
                   
                   $("#title").children("h4").text(arr[index].showTitle);
-                  $("#seatId").children("h5").text(arr[index].seatArea + " " + arr[index].seatFloor + " " + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+                  $("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
                   $("#reviewLegroom").text(arr[index].reviewLegroom).generateStars();
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();

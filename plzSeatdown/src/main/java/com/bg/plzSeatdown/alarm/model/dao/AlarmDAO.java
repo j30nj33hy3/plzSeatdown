@@ -21,4 +21,8 @@ public class AlarmDAO {
 		return sqlSession.update("alarmMapper.updateAlarm", no);
 	}
 
+	public int deleteAlarmList(Integer alarmNo) {
+		return sqlSession.update("alarmMapper.deleteAlarmList",alarmNo);
+	}
+
 }

@@ -10,4 +10,6 @@ public interface AlarmService {
 
 	public abstract int updateAlarm(Integer no) throws Exception;
 
+	public abstract int deleteAlarmList(Integer deleteCheck, Integer alarmNo)throws Exception;
+
 }

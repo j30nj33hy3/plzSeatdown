@@ -450,6 +450,8 @@ public class ReviewController {
 	      
 	      ReviewLike like = new ReviewLike(memberNo, reviewNo);
 	      
+	      System.out.println("alarmUrl" + alarm.getAlarmUrl());
+	      
 	      int statusChange =0;
 	      try {
 	         statusChange = reviewService.updateLike(like, likeStatus, alarm);

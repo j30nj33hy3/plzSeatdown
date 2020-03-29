@@ -25,5 +25,21 @@ public class AlarmServiceImpl implements AlarmService {
 	public int updateAlarm(Integer no) throws Exception {
 		return alarmDAO.updateAlarm(no);
 	}
+	
+	@Transactional
+	@Override
+	public int deleteAlarmList(Integer deleteCheck, Integer alarmNo) throws Exception {
+	
+		int result = 0;
+		
+		if(deleteCheck==1) {
+			result = alarmDAO.deleteAlarmList(alarmNo);
+		}
+		
+		System.out.println("resultimpl " + result);
+		
+		return result;
 
+	}
+	
 }
