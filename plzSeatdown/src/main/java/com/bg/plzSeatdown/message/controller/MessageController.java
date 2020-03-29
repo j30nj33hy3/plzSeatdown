@@ -124,11 +124,34 @@ public class MessageController {
 		
 	}
 	
+	@RequestMapping("deleteMessage")
+	public String deleteMessage(Model model, Integer no, RedirectAttributes rdAttr) {
+		try {
+			int result = -1;
+			result = messageService.deleteMessage(no);
+			String path=null;
+			if(result > 0) {
+				rdAttr.addFlashAttribute("msg", "쪽지를 삭제하였습니다.");
+			} else if (result == 0) {
+				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
+			}
+			return path;
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+		
+	}
+	
 	// 답장 화면으로 이동
 	@RequestMapping("replyForm")
 	public String replyForm() {
 		return "message/messageReplyForm";
 	}
+	
+	
+	
 	
 	
 }
