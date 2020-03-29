@@ -84,61 +84,62 @@
 
 						</div>
 						
-						<%-- 모달 시작 --%>
-		                     <div class="modal fade" id="reviewReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		                         <div class="modal-dialog modal-dialog-centered" role="document">
-		                           <div class="modal-content" style="border:0px;">
-		                             <div class="modal-header" style="background-color:rgb(198, 180, 205);">
-		                               <h5 class="modal-title" id="exampleModalLabel">신고하기</h5>
-		                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                                 <span aria-hidden="true">&times;</span>
-		                               </button>
-		                             </div>
-		                              <form method="post" action="insertReviewReport">
-		                                <div class="modal-body">
-		                                     <div class="form-group">
-		                                       <p>신고사유</p>
-		                                       <div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
-												  <label class="form-check-label" for="exampleRadios1">욕설</label>
-												</div>
-												<div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
-												  <label class="form-check-label" for="exampleRadios2">음란성</label>
-												</div>
-												<div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="3">
-												  <label class="form-check-label" for="exampleRadios3">홍보/불법 정보</label>
-												</div>
-												<div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="4">
-												  <label class="form-check-label" for="exampleRadios4">도배</label>
-												</div>
-												<div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="5">
-												  <label class="form-check-label" for="exampleRadios5">기타</label>
-											   </div>
-		                                       <label for="message-text" class="col-form-label">내용</label>
-		                                       <textarea disabled class="form-control replyContent" id="reportContent" name="reportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
-		                                       <input type="hidden" name="reviewNo" value="">
-		                                       <input type="hidden" name="memberSuspector" value="">
-		                                       <input type="hidden" name="memberReporter" value="${loginMember.memberNo}">
-		                                       <input type="hidden" name="reportCategory" value="">
-		                                     </div>
-		                                </div>
-		                                <div class="modal-footer">
-		                                  <button type="submit" class="btn" onclick="return report();" style="background-color:#FFD938;">신고</button>
-		                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">취소</button>
-		                                </div>
-		                             </form>
-		                           </div>
-		                         </div>
-		                       </div>
-		                  <%-- 모달 끝 --%>
 					</div>
 				</div>
 				
 			</div>
+			
+			<%-- 모달 시작 --%>
+			<div class="modal fade" id="reviewReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content" style="border:0px;">
+						<div class="modal-header" style="background-color:rgb(198, 180, 205);">
+							<h5 class="modal-title" id="exampleModalLabel">신고하기</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form method="post" action="insertReviewReport">
+							<div class="modal-body">
+								<div class="form-group">
+									<p>신고사유</p>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+										<label class="form-check-label" for="exampleRadios1">욕설</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+										<label class="form-check-label" for="exampleRadios2">음란성</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="3">
+										<label class="form-check-label" for="exampleRadios3">홍보/불법 정보</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="4">
+										<label class="form-check-label" for="exampleRadios4">도배</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="5">
+										<label class="form-check-label" for="exampleRadios5">기타</label>
+									</div>
+									<label for="message-text" class="col-form-label">내용</label>
+									<textarea disabled class="form-control replyContent" id="reportContent" name="reportContent" maxlength="300" placeholder="기타 선택시 입력 가능합니다. (최대 300자)" style="resize: none;"></textarea>
+									<input type="hidden" name="reviewNo" value="">
+									<input type="hidden" name="memberSuspector" value="">
+									<input type="hidden" name="memberReporter" value="${loginMember.memberNo}">
+									<input type="hidden" name="reportCategory" value="">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn" onclick="return report();" style="background-color:#FFD938;">신고</button>
+								<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">취소</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<%-- 모달 끝 --%>
 			
 
 			<div class="container container-fluid">
@@ -154,7 +155,7 @@
 				</div>
 				
 
-				<div class="row">
+				<div class="row mb-5">
 					<div class="col-md-9 text-center content" id="seat-status">
 						<div id="seat-level" style="position:relative; margin: auto;">
 							<ul class="list-group-horizontal">

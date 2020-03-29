@@ -1,14 +1,3 @@
-/* 글꼴 적용 */
-@font-face { 
-    font-family: 'Handon3gyeopsal600g'; 
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') 
-    format('woff'); 
-    font-weight: normal; 
-    font-style: normal; }
-
-body{
-    font-family: 'Handon3gyeopsal600g'; 
-}
 
 /* 사이드바(패널) */
 .sidebar{
@@ -106,6 +95,13 @@ body{
     display: inline-block;
     background-color: #917EC6; 
     color: white;
+    width: 70%;
+}
+.move button :hover{
+    display: inline-block;
+    background-color: #917EC6; 
+    color: white;
+    font-size: 20px;
     width: 70%;
 }
 

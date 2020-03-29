@@ -39,7 +39,7 @@
 								<button class="btn btn-default mb-3" type="button">
 									예매 페이지로 이동
 								</button>
-								<button class="btn btn-default" type="button" >
+								<button class="btn btn-default seatPage" type="button" >
 									좌석 리뷰 페이지로 이동
 								</button>
 							</div>
@@ -71,7 +71,6 @@
 				</div>
 				
 				
-				
 				<div class="row mb-5">
 					<div class="col-md-6">
 						<div class="status">
@@ -92,6 +91,8 @@
                 		</form>
 	            	</div>
                 </div>
+                
+                
 				<div class="row">
 					<div class="col-md-12">
 					
@@ -286,6 +287,10 @@
 									$("#img2").prop("src", show.showImg2);
 									$("#img3").prop("src", show.showImg3);
 									$("#img4").prop("src", show.showImg4);
+									
+									$(".seatPage").on("click", function(){
+										location.href="seats?thCode=" + show.thCode ;
+									});
 								}
 							});
 							

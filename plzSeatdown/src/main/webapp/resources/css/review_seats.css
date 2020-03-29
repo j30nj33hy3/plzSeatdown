@@ -18,9 +18,9 @@ a:hover{
 }
 
 /* 라인별 간격 */
-.row{
+.sidebar .row{
     padding: 5px 5px 5px 5px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 /* sidebar 스타일 */
 .sidebar{
@@ -51,6 +51,11 @@ a:hover{
     z-index: 9998;
 }
 /* 끝 */
+
+/* 신고모달창 */
+#reviewReportModal{
+	z-index: 10000;
+}
 
 .card{
     margin: 15px;
