@@ -27,8 +27,8 @@
 	   destroy-method="close">
 	   
 	   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<!-- <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> -->
-	   <property name="url" value="jdbc:oracle:thin:@115.90.212.22:9999:xe"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	   <!-- <property name="url" value="jdbc:oracle:thin:@115.90.212.22:9999:xe"/> -->
 	   <property name="username" value="seat"/>
 	   <property name="password" value="down"/>
 	   <property name="defaultAutoCommit" value="false"/>

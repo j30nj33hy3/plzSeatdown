@@ -16,6 +16,7 @@ import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
 import com.bg.plzSeatdown.qna.model.vo.QnA;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 
 public interface MypageService {
 
@@ -198,6 +199,12 @@ public interface MypageService {
 	public abstract List<Alarm> selectAlarmlist(int memberNo) throws Exception;
 	
 
+	/** 달력 내용 가져오기
+	 * @param memberNo
+	 * @return ticketList
+	 * @throws Exception
+	 */
+	public abstract List<SeatReview> selectTicketList(int memberNo) throws Exception;
 
 
 }

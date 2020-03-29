@@ -32,6 +32,7 @@ import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
 import com.bg.plzSeatdown.qna.model.vo.QnA;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 
 @SessionAttributes({"loginMember","msg","detailUrl"})
 @Controller
@@ -287,39 +288,61 @@ public class MypageController {
 		
 		
 		// 마이티켓 페이지 조회
-			@RequestMapping("myticket")
-			public String myticket(Model model,
-					@RequestParam(value="currentPage",required=false)Integer currentPage) {
+//			@RequestMapping("myticket")
+//			public String myticket(Model model,
+//					@RequestParam(value="currentPage",required=false)Integer currentPage) {
+//				
+//				try {
+//					
+//					int memberNo 
+//					= ((Member)model.getAttribute("loginMember")).getMemberNo();
+//					
+//					int listCount = mypageService.getTicketCount(memberNo);
+//
+//					// 현재 페이지 확인
+//					if(currentPage == null) currentPage = 1;
+//					
+//					// 페이지 정보를 저장
+//					PageInfo pInf = Pagination.getPageInfo(8, 5, currentPage, listCount);
+//					
+//					// 티켓게시글 목록 조회
+//					List<ReviewImageEH> rimgList = mypageService.selectRimgList(pInf, memberNo);
+//					
+//					model.addAttribute("rimgList",rimgList);
+//					model.addAttribute("pInf",pInf);
+//					
+//					return "mypage/myticket";
+//					
+//				}catch(Exception e) {
+//					e.printStackTrace();
+//					model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+//					return "common/errorPage";
+//				}
+//				
+//			}
+		
+		// 마이티켓 페이지 조회
+		@RequestMapping("myticket")
+		public String myticket(Model model) {
+			
+			try {
 				
-				try {
-					
-					int memberNo 
-					= ((Member)model.getAttribute("loginMember")).getMemberNo();
-					
-					int listCount = mypageService.getTicketCount(memberNo);
+				int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
+				
+				int listCount = mypageService.getTicketCount(memberNo);
 
-					// 현재 페이지 확인
-					if(currentPage == null) currentPage = 1;
-					
-					// 페이지 정보를 저장
-					PageInfo pInf = Pagination.getPageInfo(8, 5, currentPage, listCount);
-					
-					// 티켓게시글 목록 조회
-					List<ReviewImageEH> rimgList = mypageService.selectRimgList(pInf, memberNo);
-					
-					model.addAttribute("rimgList",rimgList);
-					model.addAttribute("pInf",pInf);
-					
-					return "mypage/myticket";
-					
-				}catch(Exception e) {
-					e.printStackTrace();
-					model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
-					return "common/errorPage";
-				}
+				List<SeatReview> ticketList = mypageService.selectTicketList(memberNo);
+				model.addAttribute("ticketList",ticketList);
 				
+				return "mypage/myticket";
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+				return "common/errorPage";
 			}
 			
+		}	
 			
 			
 			
