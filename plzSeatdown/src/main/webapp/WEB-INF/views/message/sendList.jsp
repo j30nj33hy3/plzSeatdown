@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>쪽지함</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css"/>
+<link rel="stylesheet" href="${contextPath}/resources/css/multicheck_msg.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/jquery.multicheck.js"/>
 <style>
@@ -20,6 +21,9 @@
    white-space: nowrap;
 }
 
+#checkHead{
+	vertical-align : super;
+}
 
 </style>
 
@@ -51,7 +55,7 @@
 							<table id="list-table" class="table" style="margin-left:20px;">
 								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 								  <tr>
-								  	<th scope="col" style="border-bottom:0px;">  
+								  	<th id="checkHead" scope="col" style="border-bottom:0px;">  
                                          <label class="customcheckbox">
                                              <input type="checkbox" class="listCheckbox" />
                                              <span class="checkmark"></span>
