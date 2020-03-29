@@ -53,7 +53,7 @@
 		                            	</c:if>
 		                            	
 		                            </td>
-		                            <td>${comm.memberNickname}</td>
+		                            <td >${comm.memberNickname}</td>
 		                            <td class="text-center">${comm.communityCount}</td>
 		                            <td>${comm.communityModifyDate}</td>
 	                        	</tr>

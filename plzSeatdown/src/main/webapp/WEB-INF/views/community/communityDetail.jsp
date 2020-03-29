@@ -69,11 +69,40 @@ tbody > tr:last-child{
                 	<c:if test="${!empty community.profilePath}">
                 		<img class="rounded-circle" style="width:20px; height:20px;"src="${contextPath}/resources/profileImages/${community.profilePath}">
                 	</c:if>
-                    <p style="display: inline-block;">${community.memberNickname}</p>
+  <p class="nickname" data-toggle="modal" data-target="#myModal" style="display: inline-block;">${community.memberNickname}</p>
                     <p class="float-right text-muted" style="display: inline-block;">${community.communityModifyDate}</p>
                     <p class="float-right text-muted mr-4" style="display: inline-block;">조회수 &nbsp;${community.communityCount}</p>
                 </div>
                 
+                <c:if test="${loginMember.memberNo != community.communityWriter}">
+                    
+                <!-- 쪽지보내기 Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+    <form method="post" action="${contextPath}/message/insert">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">쪽지 보내기 </h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           받는 사람 : ${community.memberNickname}<br>
+<textarea id="messageContent" name="messageContent" style="border:solid 1px; border-radius:3px; width:450px; height:200px; resize:none;" >
+</textarea>
+		<input type="hidden" name="communityWriter" value="${community.communityWriter}">
+        </div>
+        <div class="modal-footer ">
+           <button type="submit" class="btn okbtn">전송</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        </div>
+      </div>
+          </form>
+      
+    </div>
+  </div>
+</c:if>
                 <div class="my-4 py-5">
                     <p>${community.communityContent}</p>
                 </div>
@@ -101,7 +130,7 @@ tbody > tr:last-child{
                                 <div class="modal-body">
                                      <div class="form-group">
                                        <p>신고사유</p>
-                                       <div class="form-check">
+                                       <div class=ju"form-check">
 										  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
 										  <label class="form-check-label" for="exampleRadios1">욕설</label>
 										</div>
@@ -258,7 +287,6 @@ tbody > tr:last-child{
 			}
 			
 			var replyNo;
-			var replyWriter = ${loginMember.memberNo};
 			var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
 			var alarmContent = "${community.communityTitle}";
 			var alarmMemberNo = ${community.communityWriter};
@@ -268,15 +296,15 @@ tbody > tr:last-child{
 				dataType : "json",
 				type : "POST",
 				data : {
-					"replyContent" : replyContent,
-					"replySecret" : replySecret,
-					"depth" : "0",
-					"parentNo" : "0",
-					"communityNo" : ${community.communityNo},
-					"replyWriter" : replyWriter,
-					"alarmContent" : alarmContent,
-					"alarmUrl" : alarmUrl,
-					"alarmMemberNo" : alarmMemberNo
+					replyContent : replyContent,
+					replySecret : replySecret,
+					depth : "0",
+					parentNo : "0",
+					communityNo : ${community.communityNo},
+					replyWriter : ${loginMember.memberNo},
+					alarmContent : alarmContent,
+					alarmUrl : alarmUrl,
+					alarmMemberNo : alarmMemberNo
 					},
 				success : function(result){
 					var msg;
@@ -284,8 +312,9 @@ tbody > tr:last-child{
 					switch(result){
 					case 1 : $("#replyContent").val("");
 						selectRlist();
-					var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+						var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
 						/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
+
 						if(replyWriter != alarmMemberNo){
 							socket.send(socketMsg);
 							console.log("socketMsg : " + socketMsg);
@@ -370,6 +399,7 @@ tbody > tr:last-child{
 								$divH.append($rUpdate);
 							}
 							
+
 							if(rList[i].replyStatus != 'W'){
 								if(${loginMember.memberNo} == ${community.communityWriter} || ${loginMember.memberGrade == 'A'}){
 									if(rList[i].depth==0) rPrint = 0;
@@ -637,9 +667,7 @@ tbody > tr:last-child{
 			if($("#replySecret").is(":checked")){
 				replySecret = "Y";
 			}
-			var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
-			var alarmContent = "${community.communityTitle}";
-			var alarmMemberNo = ${community.communityWriter};
+			
 			$.ajax({
 				url : "insertReReply",
 				type : "POST",
@@ -648,21 +676,15 @@ tbody > tr:last-child{
 						"replyContent" : replyContent,
 						"communityNo" : communityNo,
 						"depth" : depth,
-						"replySecret" : replySecret,
-						"alarmContent" : alarmContent,
-						"alarmUrl" : alarmUrl,
-						"alarmMemberNo" : alarmMemberNo
-						},
+						"replySecret" : replySecret},
 				success : function(result){
 					var msg;
 					switch(result){
 					case 1 : selectRlist(); 
-							var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+						var socketMsgRR = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
+							console.log("socketMsg : " + socketMsgRR);
 							/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-							if(replyWriter != alarmMemberNo){
-								socket.send(socketMsg);
-								console.log("socketMsg : " + socketMsg);
-							}				
+							socket.send(socketMsgRR);					
 							break;
 					case 0 : alert("답댓글 등록 실패"); break;
 					case -1 : alert("답댓글 등록 오류 발생"); break;
@@ -816,6 +838,8 @@ tbody > tr:last-child{
      		var $reportCategory = $("#replyModal").find("input[name=exampleRadios]:checked").val();
      		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
+     	
+
      </script>
      
 </body>
