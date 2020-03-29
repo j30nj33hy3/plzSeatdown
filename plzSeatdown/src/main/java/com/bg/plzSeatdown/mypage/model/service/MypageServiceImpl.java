@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.FileRename;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
@@ -377,6 +378,19 @@ public class MypageServiceImpl implements MypageService{
 	}
    
    
+	
+	
+	/** 알람 목록 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+		public List<Alarm> selectAlarmlist(int memberNo) throws Exception {
+			return mypageDAO.selectAlarmlist(memberNo);
+		}
+	
+	
    
    
 }

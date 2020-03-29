@@ -627,7 +627,7 @@
                var likeCount = $("#likeCount"+reviewNo);
                var count = "";
                var Id = $(obj).parent().prev().children("span[name=spanId]").html();
-                var alarmUrl = "${contextPath}/review/seats?thCode=${theater.thCode}";
+               var alarmUrl = "/review/seats?thCode=${theater.thCode}";
                var alarmContent = "${theater.thNm}";
                var No = $(obj).parent().prev().children("span[name=spanNo]").html();
                var alarmMemberNo = No;

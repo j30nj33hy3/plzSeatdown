@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
@@ -185,6 +186,16 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract Profile selectProfile(int memberNo) throws Exception;
+
+
+	
+	
+	/** 알람 목록 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<Alarm> selectAlarmlist(int memberNo) throws Exception;
 	
 
 
