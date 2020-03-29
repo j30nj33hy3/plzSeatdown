@@ -57,6 +57,10 @@
 		
 		<!-- 리뷰 작성 정보 -->
 		<typeAlias type="com.bg.plzSeatdown.review.model.vo.ReviewWrite" alias="ReviewWrite"/>
+
+
+		<typeAlias type="com.bg.plzSeatdown.message.model.vo.Message" alias="Message"/>
+
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분  -->
@@ -80,6 +84,8 @@
 		<mapper resource="/mappers/admin-review-report-mapper.xml"/>
 		<mapper resource="/mappers/seat-mapper.xml"/>
 		<mapper resource="/mappers/alarm-mapper.xml"/>
+		<mapper resource="/mappers/message-mapper.xml"/>
+	
 	</mappers>
 
 </configuration>

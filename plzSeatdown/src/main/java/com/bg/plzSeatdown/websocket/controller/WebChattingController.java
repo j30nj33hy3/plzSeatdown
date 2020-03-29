@@ -31,6 +31,7 @@ public class WebChattingController {
 	public String intoChat(Model model){
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
+	
 	try {	
 		Member member = webChattingService.selectNickName(loginMember.getMemberNo());
 		Profile image = webChattingService.selectProfileProp(member.getMemberNo());

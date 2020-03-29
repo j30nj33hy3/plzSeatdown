@@ -174,7 +174,7 @@
 							</a>
 							<div class="dropdown-menu dropdown-menu-right alarm-dropdown mt-2 py-2" aria-labelledby="alarmDropdown" id="alarmDropdownArea">
 							</div>
-							<a id="msgIcon" href="${contextPath}" class="d-md-inline-block"><i class="fas fa-envelope"></i></a>
+							<a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block"><i class="fas fa-envelope"></i></a>
 							<a id="chatIcon" href="${contextPath}/index2" class="d-md-inline-block"><i class="fas fa-comments"></i></a>
 						</div>
 						<div id="headBtnArea">
