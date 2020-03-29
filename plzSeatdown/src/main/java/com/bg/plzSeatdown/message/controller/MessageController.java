@@ -108,15 +108,13 @@ public class MessageController {
 		}
 	}
 	
-	
-	// 쪽지창으로 이동
-	@RequestMapping("detailMessage")
-	public String detailMessage(Model model) {
-		
-		
+	// 쪽지창으로 이동 + 쪽지 조회
+	@RequestMapping("detail")
+	public String detailMessage(Model model, Integer no) {
 		try {
-			
-			
+			Message message = messageService.selectMessage(no);
+			model.addAttribute("message", message);
+			return "message/messageDetail";
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -124,10 +122,13 @@ public class MessageController {
 			return "common/errorPage";	
 		}
 		
-		return "message/detail";
 	}
 	
-
+	// 답장 화면으로 이동
+	@RequestMapping("replyForm")
+	public String replyForm() {
+		return "message/messageReplyForm";
+	}
 	
 	
 }

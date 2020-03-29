@@ -26,4 +26,6 @@ public interface MessageService {
 	
 	public abstract List<Message> selectList2(String nickName, PageInfo pInf) throws Exception;
 
+	public abstract Message selectMessage(Integer no) throws Exception;
+
 }

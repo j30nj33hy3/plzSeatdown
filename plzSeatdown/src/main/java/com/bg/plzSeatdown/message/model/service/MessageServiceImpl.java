@@ -64,6 +64,11 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.selectList2(nickName, pInf);
 	}
 
+	@Override
+	public Message selectMessage(Integer no) throws Exception {
+		return messageDAO.selectMessage(no);
+	}
+
 	
 	
 
