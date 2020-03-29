@@ -63,4 +63,8 @@ public class MessageDAO {
         return sqlSession.selectList("messageMapper.selectList2", nickName, rowBounds);
 	}
 
+	public Message selectMessage(Integer no) throws Exception {
+		return sqlSession.selectOne("messageMapper.selectMessage", no);
+	}
+
 }

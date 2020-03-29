@@ -65,11 +65,14 @@
 								<c:if test="${!empty sList}">
 									<c:forEach var="msg" items="${sList}" varStatus="vs">
 										<tr>
+											<input type="hidden" name="messageNo"
+												value="${msg.messageNo}" />
 											<td style="border-top:0px; padding-top:22px;">체크박스 넣기</td>
 											<%-- <td style="border-top:0px; padding-top:22px;">${msg.messageNo}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${msg.receiverNickname }</td>
 											<td id="msgContent" style="border-top:0px; padding-top:22px;">
-												<p class="ellip" id="ellip1">${msg.messageContent}</p></td>
+												<p class="ellip" id="ellip1"><a href="javascript:openWin();">${msg.messageContent}</a></p>
+										</td>
 
 											<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${msg.messageDate}</td>
@@ -147,19 +150,13 @@
 			</div>			
 		<script>
 		// 쪽지 보기 
-		
-		$(function(){
-			$("#msgContent").click(function(){
-					var messageNo = $(this).parent().children().eq(0).text();
-					// 쿼리스트링을 이용하여 get 방식으로 쪽지 번호를 server로 전달
-					<c:url var="detailUrl" value="detail">
-	                 	<c:param name="currentPage" value="${pInf.currentPage}"/>
-	               	</c:url>
-					location.href="${detailUrl}&no="+messageNo;	
-			}).mouseenter(function(){
-				$(this).css("cursor", "pointer");
-			});
-		});		
+ 		function openWin(){ 
+			var messageNo = $("input[name=messageNo]").val();
+			<c:url var="detailUrl" value="detail">
+				<c:param name="currentPage" value="${pInf.currentPage}"/>
+			</c:url>
+   			window.open("${detailUrl}&no="+ messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
+		};  
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

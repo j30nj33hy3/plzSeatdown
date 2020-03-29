@@ -65,7 +65,7 @@
 							</c:if>
 							<c:if test="${!empty rList}">
 								<c:forEach var="msg" items="${rList}" varStatus="vs">
-									<tr>
+									<tr><form action="javascript:openWin();">
 											<input type="hidden" name="messageNo"
 												value="${msg.messageNo}" />
 										<td style="border-top: 0px; padding-top: 22px;">체크박스 넣기</td>
@@ -73,7 +73,8 @@
 										<td style="border-top: 0px; padding-top: 22px;">${msg.senderNickname}</td>
 										<td class="msgContent"
 											style="border-top: 0px; padding-top: 22px;">
-											<p class="ellip" id="ellip1"><a href="javascript:">${msg.messageContent}</a></p>
+											<p class="ellip" id="ellip1"><a href="javascript:openWin();">${msg.messageContent}</a></p>
+										</form>
 										</td>
 
 										<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
@@ -152,9 +153,15 @@
 	</div>
 	<script>
 		// 쪽지 보기 
-/* 		var newWindow = window.open("about:blank");
-		newWindow.location.href = 'http://www.daum.net';
- */
+ 		function openWin(){ 
+			var messageNo = $("input[name=messageNo]").val();
+			<c:url var="detailUrl" value="detail">
+				<c:param name="currentPage" value="${pInf.currentPage}"/>
+			</c:url>
+   			window.open("${detailUrl}&no="+ messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
+		};  
+
+
 		
 	/* 	$(function() {
 			$(".msgContent").click(function() {
