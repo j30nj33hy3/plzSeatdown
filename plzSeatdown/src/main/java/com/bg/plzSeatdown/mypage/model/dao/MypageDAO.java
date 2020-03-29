@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
@@ -272,6 +273,17 @@ public class MypageDAO {
 	 */
 	public Profile selectProfile(int memberNo) throws Exception {
 		return sqlSession.selectOne("mypageMapper.selectProfile", memberNo);
+	}
+
+
+
+	/** 알람 목록 조회
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Alarm> selectAlarmlist(int memberNo)throws Exception {
+		return sqlSession.selectList("mypageMapper.selectAlarmlist", memberNo);
 	}
    
 	

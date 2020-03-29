@@ -20,6 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bg.plzSeatdown.alarm.model.vo.Alarm;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
@@ -449,8 +450,42 @@ public class MypageController {
 			
 			 
 				 
+			// 마이페이지 알람 조회
 			
-			
+			 // 문의내역 페이지 조회
+			@RequestMapping("alarmSetting") 
+			public String alarmSetting(Model model
+					) { 
+				
+				try {
+					
+					int memberNo 
+					= ((Member)model.getAttribute("loginMember")).getMemberNo();
+					
+			/*
+			 * // 전체 게시글 수 조회 int listCount = mypageService.getAskCount(memberNo);
+			 * 
+			 * // 현재 페이지 확인 if(currentPage == null) currentPage = 1;
+			 * 
+			 * // 페이지 정보를 저장 PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage,
+			 * listCount);
+			 */
+					// 알람 목록 조회
+					List<Alarm> alist = mypageService.selectAlarmlist(memberNo);
+					Alarm alarm = null;
+					
+					
+					model.addAttribute("alist",alist);
+					
+					return "mypage/alarmSetting";
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					model.addAttribute("errorMsg","게시글 목록 조회 과정에서 오류 발생");
+					return "common/errorPage";
+				}
+				
+			}
 		
 		
 		

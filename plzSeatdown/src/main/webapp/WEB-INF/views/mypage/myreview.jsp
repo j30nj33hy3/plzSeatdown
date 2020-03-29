@@ -290,12 +290,20 @@
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
                   $("#reviewLegroom").text(arr[index].reviewLegroom).generateStars();
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
+                  $("#reviewComment").text(arr[index].reviewComment);
+                  
+                /*   if(typeof (seatReviewList[i].reviewComment) == "undefined"){
+						seatReviewList[i].reviewComment = "";
+					} */
                   
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
-                     $("#reviewImage").prop("src", "${contextPath}/resources/reviewImages/"+arrimg[index].reviewImagePath);
+                	  if(typeof (arrimg[index]) == "undefined"){
+                		 $("#reviewImage").prop("src","");  
+                	  }else{
+                    	 $("#reviewImage").prop("src", "${contextPath}/resources/reviewImages/"+arrimg[index].reviewImagePath);
+                	  }
                   }
                   
-                     $("#reviewComment").text(arr[index].reviewComment);
                }
             });
             $(".overlay").on({
