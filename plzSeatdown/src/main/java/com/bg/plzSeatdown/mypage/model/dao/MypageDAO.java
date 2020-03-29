@@ -19,6 +19,7 @@ import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
 import com.bg.plzSeatdown.qna.model.vo.QnA;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 
 @Repository
 public class MypageDAO {
@@ -288,7 +289,14 @@ public class MypageDAO {
    
 	
 	
-	
+	/** 마이티켓 달력버전
+	 * @param memberNo
+	 * @return ticketList
+	 * @throws Exception
+	 */
+	public List<SeatReview> selectTicketList(int memberNo) throws Exception{
+		return sqlSession.selectList("mypageMapper.selectTicketList", memberNo);
+	}
    
    
    

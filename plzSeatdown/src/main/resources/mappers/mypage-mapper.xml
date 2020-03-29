@@ -110,6 +110,15 @@
 		<result property="alarmMemberNo" column="ALARM_MEBMER_NO"/>
 	</resultMap>
 	
+	<!-- 달력용 -->
+	<resultMap type="SeatReview" id="myReviewResultSet">
+      <id property="reviewNo" column="REVIEW_NO"/>
+      <result property="reviewViewDt" column="REVIEW_VIEW_DT"/>   
+      <result property="reviewImgPath" column="REVIEW_IMG_PATH"/>   
+      <result property="reviewWriter" column="REVIEW_WRITER"/>   
+      <result property="thName" column="THEATER_NM"/>   
+      <result property="showTitle" column="SHOW_TITLE"/>   
+   </resultMap>
 	
 	
     
@@ -295,7 +304,18 @@
 	</select>
 	
 	
-	
+	<!-- 마이티켓 달력 -->
+	<select id="selectTicketList" parameterType="_int" resultMap="myReviewResultSet">
+		SELECT R.REVIEW_NO AS REVIEW_NO, REVIEW_VIEW_DT, REVIEW_IMG_PATH, THEATER_NM, SHOW_TITLE
+		FROM REVIEW R
+		JOIN SEAT USING (SEAT_CODE)
+		JOIN THEATER USING (THEATER_CODE)
+		JOIN (SELECT SHOW_TITLE, SHOW_START_DT, SHOW_END_DT, THEATER_CODE FROM SHOW) USING(THEATER_CODE)
+		LEFT JOIN (SELECT REVIEW_NO, REVIEW_IMG_PATH FROM REVIEW_IMAGE WHERE IMG_TYPE=1) RI ON (R.REVIEW_NO = RI.REVIEW_NO)
+		WHERE REVIEW_STATUS = 'Y'
+		AND REVIEW_VIEW_DT BETWEEN SHOW_START_DT AND SHOW_END_DT
+		AND REVIEW_WRITER = #{memberNo}
+	</select>
 	
 	
 	

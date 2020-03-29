@@ -23,6 +23,7 @@ import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewImageEH;
 import com.bg.plzSeatdown.qna.model.vo.QnA;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -313,7 +314,7 @@ public class MypageServiceImpl implements MypageService{
 	public List<ReviewImageEH> selectRimgList(PageInfo pInf, int memberNo) throws Exception {
 		return mypageDAO.selectRimgList(pInf,memberNo);
 	}
-
+   
    
    
    /** 마이 글 게시글 수 조회
@@ -391,6 +392,15 @@ public class MypageServiceImpl implements MypageService{
 		}
 	
 	
-   
+	
+	/** 마이티켓 캘린더용
+	 * @param memberNo
+	 * @return ticketList
+	 * @throws Exception
+	 */
+	@Override
+	public List<SeatReview> selectTicketList(int memberNo) throws Exception {
+		return mypageDAO.selectTicketList(memberNo);
+	}
    
 }
