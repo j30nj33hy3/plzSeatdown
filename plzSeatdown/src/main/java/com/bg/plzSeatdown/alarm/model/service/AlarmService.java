@@ -8,4 +8,6 @@ public interface AlarmService {
 
 	public abstract List<Alarm> selectAlarmList(int memberNo);
 
+	public abstract int updateAlarm(Integer no) throws Exception;
+
 }

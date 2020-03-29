@@ -93,12 +93,7 @@
 	#navbarTogglerDemo01{
       	background: rgb(198, 180, 205);
    	}
-   	.alarm-dropdown{
-   		background-color: rgba(255, 255, 255, 0.8);
-   	}
-   	.alarm-dropdown > a{
-   		border-bottom: solid 0.5px #ccc;
-   	}
+   	
 </style>
 </head>
 <body>

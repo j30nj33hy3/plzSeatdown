@@ -27,4 +27,10 @@
 		            ORDER BY ALARM_NO DESC )
 		<![CDATA[WHERE ROWNUM <= 3]]>
 	</select>
+	
+	<update id="updateAlarm" parameterType="_int">
+		UPDATE ALARM SET
+		ALARM_STATUS = 'Y'
+		WHERE ALARM_NO = #{no}
+	</update>
 </mapper>

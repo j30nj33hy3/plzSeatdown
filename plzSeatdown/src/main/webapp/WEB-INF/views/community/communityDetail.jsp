@@ -259,7 +259,7 @@ tbody > tr:last-child{
 			
 			var replyNo;
 			var replyWriter = ${loginMember.memberNo};
-			var alarmUrl = "${contextPath}/community/datail?no=${community.communityNo}&currentPage=1";
+			var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
 			var alarmContent = "${community.communityTitle}";
 			var alarmMemberNo = ${community.communityWriter};
 			//var socketMsg ="메세지 확인";
@@ -370,12 +370,6 @@ tbody > tr:last-child{
 								$divH.append($rUpdate);
 							}
 							
-							// 댓글 내용
-							// rPrint 0 : 부모댓글 출력
-							// rPrint 1 : 부모댓글 비밀출력
-							// rPrint 2 : 자식댓글 출력
-							// rPrint 3 : 자식댓글 비밀출력
-							// v_rereply : 대댓글 보여줄지 말지 1:보여줌 0:숨김
 							if(rList[i].replyStatus != 'W'){
 								if(${loginMember.memberNo} == ${community.communityWriter} || ${loginMember.memberGrade == 'A'}){
 									if(rList[i].depth==0) rPrint = 0;
@@ -643,7 +637,7 @@ tbody > tr:last-child{
 			if($("#replySecret").is(":checked")){
 				replySecret = "Y";
 			}
-			var alarmUrl = "${contextPath}/community/datail?no=${community.communityNo}&currentPage=1";
+			var alarmUrl = "/community/detail?no=${community.communityNo}&currentPage=1";
 			var alarmContent = "${community.communityTitle}";
 			var alarmMemberNo = ${community.communityWriter};
 			$.ajax({
@@ -663,10 +657,12 @@ tbody > tr:last-child{
 					var msg;
 					switch(result){
 					case 1 : selectRlist(); 
-						var socketMsgRR = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberNickname}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
-							console.log("socketMsg : " + socketMsgRR);
+							var socketMsg = "reply," + "${loginMember.memberNickname}" +","+ "${community.memberId}" + "," + "${community.communityTitle}" + "," + "${community.communityNo}";
 							/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-							socket.send(socketMsgRR);					
+							if(replyWriter != alarmMemberNo){
+								socket.send(socketMsg);
+								console.log("socketMsg : " + socketMsg);
+							}				
 							break;
 					case 0 : alert("답댓글 등록 실패"); break;
 					case -1 : alert("답댓글 등록 오류 발생"); break;

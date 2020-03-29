@@ -205,8 +205,8 @@
             <form method="POST" action="insert" role="form" onsubmit="return validate();">
                 <div>
                 	<input type="hidden" name="writer" value="${loginMember.memberNo}">
-                    <textarea class="form-control" rows="5" id="content" name="qnaContent" placeholder="문의 내용을 입력해주세요"
-                        style="resize: none"></textarea>
+                    <textarea class="form-control" rows="5" id="content" name="qnaContent" placeholder="문의 내용을 입력해주세요(최대 500글자)"
+                        style="resize: none" maxlength="500"></textarea>
                 </div>
                 <div class="float-right pt-3 pb-5">
 	                <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
