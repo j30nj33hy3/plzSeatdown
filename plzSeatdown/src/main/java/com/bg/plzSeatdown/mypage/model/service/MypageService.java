@@ -11,6 +11,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
+import com.bg.plzSeatdown.mypage.model.vo.Like;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
@@ -115,7 +116,7 @@ public interface MypageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract List<ReviewEH> selectRlist(PageInfo pInf, int memberNo)throws Exception;
+	public abstract List<SeatReview> selectRlist(PageInfo pInf, int memberNo)throws Exception;
 
 
 
@@ -205,6 +206,24 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	public abstract List<SeatReview> selectTicketList(int memberNo) throws Exception;
+
+
+	/** 전체 댓글수  조회
+	 * @param memberNo
+	 * @throws Exception
+	 */
+	public abstract int getWriteReply(int memberNo)throws Exception;
+
+
+
+	/** 닉네임 유효성 검사
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract int nicknameDupCheck(String memberNickname)throws Exception;
+
+
 
 
 }
