@@ -96,8 +96,13 @@
 }
 #msgIcon{
    color: #fff;
-   padding: 8px 0px;
-   margin-right: 1em;
+   position:relative;
+}
+
+#msgCount{
+	position:absolute;
+   	top:-7px;
+   	left:15px;
 }
 #loginArea{
    padding: 0;
@@ -182,7 +187,7 @@
 					</a>
                      <div class="dropdown-menu dropdown-menu-right alarm-dropdown mt-2 py-2" aria-labelledby="alarmDropdown" id="alarmDropdownArea">
                      </div>
-                     <a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block">
+                     <a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block mr-4">
                         <i class="fas fa-envelope"></i>
                         <span id="msgCount" class="badge badge-pill badge-warning" ></span>
                      </a>
@@ -300,7 +305,7 @@
    </script>
    <script>
    
-	$(function(){
+ 	$(function(){
 		<c:if test="${!empty loginMember}">
 			$.ajax({
 				url : '${contextPath}/alarm/alarmCount',
@@ -320,7 +325,6 @@
 			});
 		</c:if>
 	});
-
    var socket = null;
    
    <c:if test="${!empty loginMember}">
@@ -396,8 +400,7 @@
    </script>
    <script>
 
-      $(function(){
-         setInterval(function(){
+       $(function(){
           var $msg = $("#msgCount");
           no = "${loginMember.memberNo}";
           
@@ -421,8 +424,7 @@
               });
              }
         });
-    },10000);
-
+ 
    </script>
 </body>
 </html>
