@@ -691,7 +691,6 @@ button:focus{
 	        	'</div>';
 	        	
 			//var prevP = $(this).parent().parent().parent();
-        	//prevP.after(reReplyArea);
         	$("input[value="+replyNo+"]").parent().parent().addClass("commenting");
         	var prevLi = $("input[value="+replyNo+"]").parent();
         	prevLi.after(reReplyArea);
