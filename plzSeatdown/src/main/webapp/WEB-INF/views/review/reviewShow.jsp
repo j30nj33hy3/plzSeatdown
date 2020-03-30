@@ -64,11 +64,11 @@
 			</div>
 			
 
-			<div class="container container-fluid">
+			<div class="container container-fluid my-5">
 				
-				<div class="mt-5 mb-5 pt-3">
-					<h3>공연별</h3>
-				</div>
+				<div class="pb-4">
+		            <h5>공연별</h5>
+		        </div>
 				
 				
 				<div class="row mb-5">
@@ -107,7 +107,7 @@
                     			<c:forEach var="show" items="${list}" varStatus="vs">
 	                    			<div class="col-md-3 mt-3 show" id="${show.showCode}">
 										<img src="${show.posterPath}" style="width: 218px; height: 280px;">
-										<h5>${show.showTitle}</h5>
+										<h6 class="mt-2">${show.showTitle}</h6>
 									</div>
                     			</c:forEach>
                     		</div>
@@ -117,7 +117,7 @@
 				</div>
 
 				<!-- 페이징바 -->
-	            <div class="col-md-12 d-flex justify-content-center">
+	            <div class="col-md-12 d-flex justify-content-center mt-5">
 	                <ul class="pagination pagination-info">
 	                	<c:if test="${pInf.currentPage > 1}">
 		                	<li class="page-item">

@@ -142,6 +142,8 @@ a:hover{
 	display: inline-block;
 	vertical-align: middle;
 	list-style: none;
+	padding: 0;
+	margin-bottom: 0;
 }
 
 #seat-level ul li{

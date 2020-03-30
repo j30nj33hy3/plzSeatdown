@@ -36,7 +36,7 @@
 	<!-- 공연장 상세 정보 삽입 -->
 	<insert id="insertTheater" parameterType="Theater">
 		INSERT INTO THEATER
-		(SELECT PRFPLCCD, TH_NM || TH_FULL_NM AS THEATER_NM, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, SYSDATE 
+		(SELECT PRFPLCCD, TH_NM || ' ' || TH_FULL_NM AS THEATER_NM, #{thPhone}, #{thPage}, #{thAddr}, #{thLat}, #{thLong}, SYSDATE 
 		FROM API_COMMON
 		WHERE SUBSTR(PRFPLCCD, 1, 8) = #{thCode})
 	</insert>

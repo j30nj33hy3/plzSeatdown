@@ -16,18 +16,18 @@
 
 <style>
 	.style1{
-		height: 900px;
+		height: 700px;
 	}
 	.fc-today {
 	    background: #FFF !important;
 	    border: none !important;
 	    border-top: 1px solid #ddd !important;
 	    font-weight: bold;
+	    font-size: 120%;
 	}
-	.fc-today .fc-day-number{
-		background: #FFD938;
-		border-radius: 50%;
-	} 
+	.fancyImg{
+		max-height: auto;
+	}
 </style>
 
 </head>
@@ -172,7 +172,7 @@
 										title: "${r.showTitle}",
 										start: "${r.reviewViewDt}", 
 										imageurl: "${r.reviewImgPath}", 
-										color: "#917EC6",
+										color: "#FF8A9D",
 										textColor:"#FFFFFF"});
 					
 				</c:forEach>
@@ -183,13 +183,13 @@
 					var calendarEl = document.getElementById('calendar');
 					
 					var calendar = new FullCalendar.Calendar(calendarEl, {
-						//locale: "ko",
+						locale: "ko",
 						plugins: [ "dayGrid" ],
 						defaultView: 'dayGridMonth',
 						header: {
-							left: "",
+							left: "today",
 							center: "title",
-							right: "prev,next today",
+							right: "prev,next"
 						},
 						fixedWeekCount: false,
 						columnFormat: {
@@ -206,7 +206,7 @@
 		                    
 		                    if(ticketImg != null) ticketPath = '${contextPath}/resources/reviewImages/' + ticketImg;
 		                	
-		                	var tag2 = '<img style="width:20px;" class="img-responsive" alt="" src="' + ticketPath + '">';
+		                	var tag2 = '<img style="width:15px; height:15px;" class="img-responsive" alt="" src="' + ticketPath + '">&nbsp;';
 		                	
 		                    if(info.event.extendedProps.imageurl) {
 		                    	
@@ -226,7 +226,7 @@
 		                    	html: true,
 		                        placement:'top',
 		                        trigger : 'hover',
-		                        content: theaterNm + "에서 " + showTitle + " 관람<br>"
+		                        content: "<b>" + theaterNm + "</b>에서 <b>" + showTitle + "</b> 관람<br>"
 		                    }).popover('show');
 		                },
 						eventClick: function(info) {
@@ -238,8 +238,6 @@
 		                    
 		                    var ticketPath = null;
 		                    
-		                    console.log(ticketImg);
-		                    
 		                    if(ticketImg != "") {
 		                    	ticketPath = '${contextPath}/resources/reviewImages/' + ticketImg;
 		                    	ticketPath2 = '${contextPath}/resources/reviewImages/200326174956_620616.png';
@@ -247,7 +245,11 @@
 		                    	 $.fancybox({
 		                             'type': 'iframe',
 		                             'href': ticketPath,
-		                             'content': '<img rel="' + showTitle + '" style="width:100%;" class="img-responsive" alt="" src="' + ticketPath + '">'
+		                             //'autoSize' : false,
+		                             'maxWidth' : '500px',
+		                             'maxHeight' : '500px',
+		                             'scrolling' : 'no',
+		                             'content': '<img rel="' + showTitle + '" style="width:100%;" class="img-responsive fancyImg" alt="" src="' + ticketPath + '">'
 		                         })
 		                         
 		                    }
@@ -269,25 +271,10 @@
 						droppable: false
 					});
 					
-					
-					
-					/* $.each(calEvent, function(index, item){
-					  calendar.addEvent( item );
-					 }); */
-					
-					/* <c:forEach var="r" items="${ticketList}">
-					
-						calendar.addEvent({id: "${r.reviewImgPath}",
-											title: "${r.showTitle}",
-											start: "${r.reviewViewDt}", 
-											imageurl: "${r.reviewImgPath}", 
-											color: "#917EC6",
-											textColor:"#FFFFFF"});
-						
-					</c:forEach> */
-					
 					calendar.render();
 			    });
+				
+				
 				
 				/* $(function(){
 					$(".fc-day-grid-event").hover(function(){
@@ -305,14 +292,6 @@
 				
 			
 			</script>
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			<!-- <script>
