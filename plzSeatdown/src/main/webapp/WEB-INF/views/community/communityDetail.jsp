@@ -12,6 +12,10 @@
 tbody > tr:last-child{
 	border-bottom : none;
 }
+button:focus{
+	outline:0 !important;
+	box-shadow:none !important;
+}
 </style>
 <title>게시글 상세</title>
 </head>
