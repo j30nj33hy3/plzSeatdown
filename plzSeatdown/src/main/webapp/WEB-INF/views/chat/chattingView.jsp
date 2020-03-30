@@ -19,7 +19,11 @@ Latest compiled and minified JavaScript
 <title>실시간 채팅</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/chattingView.css"/>
 </head>
-
+<style>
+.alert alert-info{
+	word-break : break-all;
+}
+</style>
 <body>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -43,16 +47,13 @@ Latest compiled and minified JavaScript
 	</div>
 	<!-- 메세지 작성부분 -->
 	<div>
-	<textarea rows="2" cols="75" name='message' id='message'  style="resize: none; font-size:16px;"placeholder="메세지를 입력하세요"></textarea>
+	<textarea rows="2" cols="75" name='message' id='message' style="resize: none; font-size:16px;" placeholder="메세지를 입력하세요"></textarea>
 	<button class='btn btn-primary' id='sendBtn'>
 		<img src="${contextPath}/resources/images/send.jpg" width="50" height="50">
 	</button>
 	</div>
 </div>
 </div>
-
-
-
 <script>
 
 	/* SockJS객체생성 보낼 url경로를 매개변수로 등록 */
@@ -120,7 +121,7 @@ Latest compiled and minified JavaScript
 			if(host==ck_host||(host==0&&ck_host.includes('0:0:')))
 			{
 				var printHTML="<div class='well' style='margin-left: 30%;'>";
-				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px;'>";		
+				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px; word-break:break-all;'>";		
 				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
 				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
@@ -131,7 +132,7 @@ Latest compiled and minified JavaScript
 			else{
 				var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
 				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px;'>";
-				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
+				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message;"</strong><br/>";
 				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";
