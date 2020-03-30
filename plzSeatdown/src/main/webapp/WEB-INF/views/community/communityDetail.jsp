@@ -347,6 +347,7 @@ button:focus{
 				type : "POST",
 				data : {"communityNo":communityNo},
 				dataType : "json",
+				async : false,
 				success : function(rList){
 					//console.log(rList);
 					
@@ -558,6 +559,16 @@ button:focus{
 		// 댓글 수정 입력창
 		$(document).on("click","button[name='replyUpdate']",function(){
 			var replyPrevContent = $(this).parent().parent().children("p").text();
+			var replyNo = $(this).parent().parent().parent().children("input").eq(0).val();
+			if($('.commenting').length>=1 || $('.updating').length>=1){
+				//$(this).parent().parent().children("p").remove();
+				selectRlist();
+				console.log(replyNo);
+				console.log($("input[value="+replyNo+"]"));
+				$('.updating').removeClass('updating');
+			}else{
+				$(this).parent().parent().parent().addClass('updating');
+			}
 			
 			// 수정폼
 			var updateArea = 
@@ -579,20 +590,27 @@ button:focus{
             '<input type="checkbox" class="" id="replySecret">'+
             '<label class="time text-muted" style="font-size:11px;">비밀댓글</label>'+
         	'</div>';
-        	var prevP = $(this).parent().parent().children("p");
+        	//var prevP = $(this).parent().parent().children("p");
+        	$("input[value="+replyNo+"]").parent().parent().addClass("updating");
+        	var prevP = $("input[value="+replyNo+"]").siblings("div").eq(1).children("p");
         	prevP.after(updateArea);
         	
         	// 비밀글체크
-        	var prevSecret = $(this).parent().parent().parent().children("input[name=rSecret]").val();
+        	//var prevSecret = $(this).parent().parent().parent().children("input[name=rSecret]").val();
+        	var prevSecret = $("input[value="+replyNo+"]").next().val();
         	if(prevSecret == 'Y'){
         		$("#replySecret").prop("checked","true");
         	}
         	
-        	$(this).parent().parent().children("p").remove();
+        	//$(this).parent().parent().children("p").remove();
+        	prevP.remove();
         	
         	var updateCancel = '<button class="time rbtn pr-2 float-right cancelBtn" name="cancelBtn" style="font-size:12px;">수정취소</button>';
-        	$(this).parent().append(updateCancel);
-        	$(this).parent().children("button").not(".cancelBtn").remove();
+        	//$(this).parent().append(updateCancel);
+        	//$(this).parent().children("button").not(".cancelBtn").remove();
+        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(updateCancel);
+        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
+        	
 		});
 		
 		// 댓글수정, 답댓글 취소
@@ -641,6 +659,17 @@ button:focus{
 		
 		// 답글 입력창
 		$(document).on("click","button[name='replyReply']",function(){
+			var replyNo = $(this).parent().parent().parent().children("input").eq(0).val();
+			if($('.commenting').length>=1 || $('.updating').length>=1){
+				selectRlist();
+				console.log(replyNo);
+				console.log($("input[value="+replyNo+"]"));
+				$('.commenting').removeClass('commenting');
+			}else{
+				$(this).parent().parent().parent().addClass('commenting');
+			}
+			
+			// 답글폼
 			var reReplyArea = 
 				'<div class="ml-5">'+
 	            '<table class="replyWrite">'+
@@ -661,12 +690,15 @@ button:focus{
 	            '<label class="time text-muted" style="font-size:11px;">비밀댓글</label>'+
 	        	'</div>';
 	        	
-			var prevP = $(this).parent().parent().parent();
-        	prevP.after(reReplyArea);
+			//var prevP = $(this).parent().parent().parent();
+        	//prevP.after(reReplyArea);
+        	$("input[value="+replyNo+"]").parent().parent().addClass("commenting");
+        	var prevLi = $("input[value="+replyNo+"]").parent();
+        	prevLi.after(reReplyArea);
         	
         	var reCancel = '<button class="time rbtn pr-2 float-right cancelBtn" name="cancelBtn" style="font-size:12px;">댓글 취소</button>';
-        	$(this).parent().parent().append(reCancel);
-        	$(this).parent().children("button").not(".cancelBtn").remove();
+        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(reCancel);
+        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
 		});
 		
 		
