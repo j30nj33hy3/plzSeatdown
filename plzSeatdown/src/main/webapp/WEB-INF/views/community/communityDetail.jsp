@@ -130,7 +130,7 @@ tbody > tr:last-child{
                                 <div class="modal-body">
                                      <div class="form-group">
                                        <p>신고사유</p>
-                                       <div class=ju"form-check">
+                                       <div class="form-check">
 										  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
 										  <label class="form-check-label" for="exampleRadios1">욕설</label>
 										</div>
