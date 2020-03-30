@@ -24,7 +24,6 @@
 	href="${contextPath}/resources/css/multicheck.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/noscript.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/admin.css">
-<link rel="stylesheet" href="${contextPath}/resources/css/admin.css">
 </head>
 <body>
 	<c:set var="contextPath"

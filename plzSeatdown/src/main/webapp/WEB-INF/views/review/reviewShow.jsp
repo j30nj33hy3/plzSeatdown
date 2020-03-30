@@ -15,12 +15,13 @@
 	
 	</head>
 	<body class="homepage is-preload">
-		<div id="page-wrapper">
+		
+		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+		
+		<div id="page-wrapper" class="wrapper">
 			
 			<div class="overlay"></div>
-
-			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
 			<!-- sidebar -->
 			<div id="wrap">
@@ -65,165 +66,177 @@
 			
 
 			<div class="container container-fluid my-5">
-				
-				<div class="pb-4">
-		            <h5>공연별</h5>
-		        </div>
-				
-				
-				<div class="row mb-5">
-					<div class="col-md-6">
-						<div class="status">
-							<a id="end" href="<c:url value="show"><c:param name="showStatus" value="공연완료"/></c:url>">공연완료</a>&nbsp;|&nbsp;
-							<a id="now" class="activeShow" href="<c:url value="show"><c:param name="showStatus" value="공연중"/></c:url>">공연중</a>&nbsp;|&nbsp;
-							<a id="due" href="<c:url value="show"><c:param name="showStatus" value="공연예정"/></c:url>">공연예정</a>
-						</div>
-					</div>
-	                <div class="col-md-6 text-right">
-                    	<form>
-							<div class="input-group">
-								<input type="text" class="form-control" name="searchShow" placeholder="공연명을 입력하세요">
-								<input type="hidden" name="showStatus" value="${param.showStatus}"/>
-								<span class="input-group-btn">
-									<button class="btn btn-default" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
-								</span>
-							</div>
-                		</form>
-	            	</div>
-                </div>
-                
-                
+			
 				<div class="row">
-					<div class="col-md-12">
+				
+					<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>	
+				
+					<div class="col-md-10">
 					
-						<c:if test="${empty list }">
-                    		<div class="row" style="justify-content: center;">
-                    			<h5>등록된 공연이 없습니다.</h5>
-                    		</div>
-                    	</c:if>
-                    	
-                    	<c:if test="${!empty list }">
-                    		<div class="row">
-                    			<c:forEach var="show" items="${list}" varStatus="vs">
-	                    			<div class="col-md-3 mt-3 show" id="${show.showCode}">
-										<img src="${show.posterPath}" style="width: 218px; height: 280px;">
-										<h6 class="mt-2">${show.showTitle}</h6>
+						<div class="row mb-5">
+							<div class="col-md-6">
+								<div class="status">
+									<a id="end" href="<c:url value="show"><c:param name="showStatus" value="공연완료"/></c:url>">공연완료</a>&nbsp;|&nbsp;
+									<a id="now" class="activeShow" href="<c:url value="show"><c:param name="showStatus" value="공연중"/></c:url>">공연중</a>&nbsp;|&nbsp;
+									<a id="due" href="<c:url value="show"><c:param name="showStatus" value="공연예정"/></c:url>">공연예정</a>
+								</div>
+							</div>
+			                <div class="col-md-6 text-right">
+		                    	<form>
+									<div class="input-group">
+										<input type="text" class="form-control" name="searchShow" placeholder="공연명을 입력하세요">
+										<input type="hidden" name="showStatus" value="${param.showStatus}"/>
+										<span class="input-group-btn">
+											<button class="btn btn-default" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
+										</span>
 									</div>
-                    			</c:forEach>
-                    		</div>
-                    	</c:if>
-                    	
+		                		</form>
+			            	</div>
+		                </div>
+		                
+		                <div class="row">
+							<div class="col-md-12">
+							
+								<c:if test="${empty list }">
+		                    		<div class="row" style="justify-content: center;">
+		                    			<h5>등록된 공연이 없습니다.</h5>
+		                    		</div>
+		                    	</c:if>
+		                    	
+		                    	<c:if test="${!empty list }">
+		                    		<div class="row">
+		                    			<c:forEach var="show" items="${list}" varStatus="vs">
+			                    			<div class="col-md-3 mt-3 show" id="${show.showCode}">
+												<img src="${show.posterPath}" style="width: 218px; height: 280px;">
+												<h6 class="mt-2">${show.showTitle}</h6>
+											</div>
+		                    			</c:forEach>
+		                    		</div>
+		                    	</c:if>
+		                    	
+							</div>
+						</div>
+						
+						
+						<!-- 페이징바 -->
+			            <div class="row d-flex justify-content-center mt-5">
+			                <ul class="pagination pagination-info">
+			                	<c:if test="${pInf.currentPage > 1}">
+				                	<li class="page-item">
+						                    <a class="page-link" 
+						                    	href=" 
+						                    	<c:url value="show">
+						                    		<c:if test="${!empty param.showStatus }">
+										        		<c:param name="showStatus" value="${param.showStatus}"/>
+										        	</c:if>
+										        	
+										        	<c:if test="${!empty param.searchShow }">
+										        		<c:param name="searchShow" value="${param.searchShow}"/>
+										        	</c:if>
+						                    		<c:param name="currentPage" value="1"/>
+						                    	</c:url>
+					                    	">
+							                    &lt;&lt;
+							                </a>
+						            </li>
+				                    <li class="page-item">
+				                    	<!-- 이전으로 -->
+				                    	<a class="page-link" href=" 
+					                    	<c:url value="show">
+					                    		<c:if test="${!empty param.showStatus }">
+									        		<c:param name="showStatus" value="${param.showStatus}"/>
+									        	</c:if>
+									        	
+									        	<c:if test="${!empty param.searchShow }">
+									        		<c:param name="searchShow" value="${param.searchShow}"/>
+									        	</c:if>
+					                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+					                    	</c:url>
+				                    	">PREV</a>
+				                    </li>
+			                    </c:if>
+			                    
+			                    <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+			                    
+			                    	<c:if test="${p == pInf.currentPage}">
+			                    		<li class="active page-item">
+			                    			<a class="page-link">${p}</a>
+			                    		</li>
+			                    	</c:if>
+			                    	
+			                    	<c:if test="${p != pInf.currentPage}">
+			                    		<li class="page-item">
+			                    			<a class="page-link"
+			                    				href="
+			                    				<c:url value="show">
+			                    					<c:if test="${!empty param.showStatus }">
+									        			<c:param name="showStatus" value="${param.showStatus}"/>
+										        	</c:if>
+										        	
+										        	<c:if test="${!empty param.searchShow }">
+										        		<c:param name="searchShow" value="${param.searchShow}"/>
+										        	</c:if>
+			                    					<c:param name="currentPage" value="${p}"/>
+			                    				</c:url>
+			                    				">${p}
+			                    			</a>
+			                    		</li>
+			                    	</c:if>
+				                    
+			                    </c:forEach>
+			                    
+			                    <!-- 다음 -->
+			                    <c:if test="${pInf.currentPage < pInf.maxPage}">
+			                    	<li class="page-item">
+			                    		<a class="page-link"
+			                    			href="
+			                    			<c:url value="show">
+			                    				<c:if test="${!empty param.showStatus }">
+									        		<c:param name="showStatus" value="${param.showStatus}"/>
+									        	</c:if>
+									        	
+									        	<c:if test="${!empty param.searchShow }">
+									        		<c:param name="searchShow" value="${param.searchShow}"/>
+									        	</c:if>
+					                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+			                    			</c:url>
+			                    			">NEXT</a>
+			                    	</li>
+			                    	
+			                    	<!-- 맨 끝으로(>>) -->
+					                <li class="page-item">
+					                    <a class="page-link" 
+					                    	href=" 
+					                    	<c:url value="show">
+					                    		<c:if test="${!empty param.showStatus }">
+									        		<c:param name="showStatus" value="${param.showStatus}"/>
+									        	</c:if>
+									        	
+									        	<c:if test="${!empty param.searchShow }">
+									        		<c:param name="searchShow" value="${param.searchShow}"/>
+									        	</c:if>
+					                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+					                    	</c:url>
+				                    	">
+						                    &gt;&gt;
+						                </a>
+					                </li>
+			                    </c:if>
+			                </ul>
+			            </div>
+						
+		                
 					</div>
 				</div>
-
-				<!-- 페이징바 -->
-	            <div class="col-md-12 d-flex justify-content-center mt-5">
-	                <ul class="pagination pagination-info">
-	                	<c:if test="${pInf.currentPage > 1}">
-		                	<li class="page-item">
-				                    <a class="page-link" 
-				                    	href=" 
-				                    	<c:url value="show">
-				                    		<c:if test="${!empty param.showStatus }">
-								        		<c:param name="showStatus" value="${param.showStatus}"/>
-								        	</c:if>
-								        	
-								        	<c:if test="${!empty param.searchShow }">
-								        		<c:param name="searchShow" value="${param.searchShow}"/>
-								        	</c:if>
-				                    		<c:param name="currentPage" value="1"/>
-				                    	</c:url>
-			                    	">
-					                    &lt;&lt;
-					                </a>
-				            </li>
-		                    <li class="page-item">
-		                    	<!-- 이전으로 -->
-		                    	<a class="page-link" href=" 
-			                    	<c:url value="show">
-			                    		<c:if test="${!empty param.showStatus }">
-							        		<c:param name="showStatus" value="${param.showStatus}"/>
-							        	</c:if>
-							        	
-							        	<c:if test="${!empty param.searchShow }">
-							        		<c:param name="searchShow" value="${param.searchShow}"/>
-							        	</c:if>
-			                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
-			                    	</c:url>
-		                    	">PREV</a>
-		                    </li>
-	                    </c:if>
-	                    
-	                    <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
-	                    
-	                    	<c:if test="${p == pInf.currentPage}">
-	                    		<li class="active page-item">
-	                    			<a class="page-link">${p}</a>
-	                    		</li>
-	                    	</c:if>
-	                    	
-	                    	<c:if test="${p != pInf.currentPage}">
-	                    		<li class="page-item">
-	                    			<a class="page-link"
-	                    				href="
-	                    				<c:url value="show">
-	                    					<c:if test="${!empty param.showStatus }">
-							        			<c:param name="showStatus" value="${param.showStatus}"/>
-								        	</c:if>
-								        	
-								        	<c:if test="${!empty param.searchShow }">
-								        		<c:param name="searchShow" value="${param.searchShow}"/>
-								        	</c:if>
-	                    					<c:param name="currentPage" value="${p}"/>
-	                    				</c:url>
-	                    				">${p}
-	                    			</a>
-	                    		</li>
-	                    	</c:if>
-		                    
-	                    </c:forEach>
-	                    
-	                    <!-- 다음 -->
-	                    <c:if test="${pInf.currentPage < pInf.maxPage}">
-	                    	<li class="page-item">
-	                    		<a class="page-link"
-	                    			href="
-	                    			<c:url value="show">
-	                    				<c:if test="${!empty param.showStatus }">
-							        		<c:param name="showStatus" value="${param.showStatus}"/>
-							        	</c:if>
-							        	
-							        	<c:if test="${!empty param.searchShow }">
-							        		<c:param name="searchShow" value="${param.searchShow}"/>
-							        	</c:if>
-			                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
-	                    			</c:url>
-	                    			">NEXT</a>
-	                    	</li>
-	                    	
-	                    	<!-- 맨 끝으로(>>) -->
-			                <li class="page-item">
-			                    <a class="page-link" 
-			                    	href=" 
-			                    	<c:url value="show">
-			                    		<c:if test="${!empty param.showStatus }">
-							        		<c:param name="showStatus" value="${param.showStatus}"/>
-							        	</c:if>
-							        	
-							        	<c:if test="${!empty param.searchShow }">
-							        		<c:param name="searchShow" value="${param.searchShow}"/>
-							        	</c:if>
-			                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
-			                    	</c:url>
-		                    	">
-				                    &gt;&gt;
-				                </a>
-			                </li>
-	                    </c:if>
-	                </ul>
-	            </div>
-
+				
 			</div>
+			
+			<!-- 사이드 메뉴 이름 변경 -->
+			<script>
+				$(function(){
+					$("#sideMenu #clickedPage").attr("href","show").html("공연별");
+				});
+			</script>
 			
 			<!-- 선택된 공연 상태에 스타일 추가하는 script -->
 			<script>
@@ -311,10 +324,10 @@
 				});
 			</script>
 
-			<!-- Footer -->
-			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
 		</div>
+		
+		<!-- Footer -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 	</body>
 </html>
