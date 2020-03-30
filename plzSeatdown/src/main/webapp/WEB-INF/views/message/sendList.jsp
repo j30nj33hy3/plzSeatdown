@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>쪽지함</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css"/>
+<link rel="stylesheet" href="${contextPath}/resources/css/multicheck_msg.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/jquery.multicheck.js"/>
 <style>
@@ -27,8 +28,8 @@
 
 #allDel{
 	position : absolute;
-	left: 10px;
-	bottom : 5px;
+	left: 35px;
+	top : -10px;
 }
 
 

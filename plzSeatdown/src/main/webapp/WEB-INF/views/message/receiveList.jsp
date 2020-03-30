@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>쪽지함</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/multicheck_msg.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/jquery.multicheck.js"/>	
 <style>
@@ -20,14 +21,14 @@
 	white-space: nowrap;
 }
 
-#checkHead{
+#checkboxes{
 	vertical-align : super;
 }
 
 #allDel{
 	position : absolute;
-	left: 10px;
-	bottom : 5px;
+	left: 35px;
+	top : -10px;
 }
 
 </style>
@@ -63,7 +64,7 @@
 						<thead
 							style="padding: 0.5em; font-weight: bold; color: rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 							<tr>
-								<th id="checkHead" scope="col" style="border-bottom: 0px;">
+								<th id="checkboxes" scope="col" style="border-bottom: 0px;">
 									<label class="customcheckbox m-b-20">                                                 
                                       	<input type="checkbox" id="mainCheckbox" />
                                        	<span class="checkmark"></span>
@@ -73,6 +74,7 @@
 								<th scope="col" style="border-bottom: 0px;">내용</th>
 								<!-- <th scope="col" style="border-bottom:0px;">내용</th> -->
 								<th scope="col" style="border-bottom: 0px;">날짜</th>
+								<th scope="col" style="border-bottom: 0px;">읽음</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -100,6 +102,7 @@
 
 										<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 										<td style="border-top: 0px; padding-top: 22px;">${msg.messageDate}</td>
+										<td style="border-top: 0px; padding-top: 22px;">${msg.messageRead}</td>
 									</tr>
 								</c:forEach>
 							</c:if>
@@ -114,7 +117,7 @@
 								<li class="page-item">
 									<!-- 맨 처음으로(<<) --> <a class="page-link"
 									href="
-	                    			<c:url value="reply"> 
+	                    			<c:url value="receiveList"> 
 	                    				<c:param name="currentPage" value="1"/>
 	                    			</c:url>
 	                    			">&lt;&lt;</a>
@@ -123,7 +126,7 @@
 								<li class="page-item">
 									<!-- 이전으로(<) --> <a class="page-link"
 									href="
-                   					<c:url value="reply">
+                   					<c:url value="receiveList">
                    					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
                    					</c:url>
                    					">&lt;</a>
@@ -140,7 +143,7 @@
 								<c:if test="${p != pInf.currentPage}">
 									<li class="page-item"><a class="page-link"
 										href="
-	                    					<c:url value="reply">
+	                    					<c:url value="receiveList">
 	                    						<c:param name="currentPage" value="${p}"/>
 	                    					</c:url>
 	                    					">${p}</a>
@@ -151,7 +154,7 @@
 							<c:if test="${pInf.currentPage < pInf.maxPage }">
 								<li class="page-item"><a class="page-link"
 									href="
-	                			    	<c:url value="reply">
+	                			    	<c:url value="receiveList">
 	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                			    	</c:url>
 	                			    ">&gt;</a>
@@ -160,7 +163,7 @@
 								<!-- 맨 끝으로(>>) -->
 								<li class="page-item"><a class="page-link"
 									href="
-	                   			 	<c:url value="reply">
+	                   			 	<c:url value="receiveList">
 	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
 	                   			 	</c:url>
 	                   			 ">&gt;&gt;</a>
@@ -191,7 +194,31 @@
 				<c:url var="detailUrl" value="detail">
 				<c:param name="currentPage" value="${pInf.currentPage}"/>
 				</c:url>
-				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");				
+		        
+				var $msg = $("#msgCount");
+				
+		        no = "${loginMember.memberNo}";		        
+		           if(no != 0){
+		              $.ajax({
+		                 url : "${contextPath}/message/msgCount",
+		                 type : "POST",
+		                 data : {"no" : no},
+		                 success : function(result) { 
+		                	 result = result-1;
+		                    if(result < 1){  
+		                       $msg.removeClass('badge badge-pill badge-warning');
+		                       $msg.text("");
+		                    }else{
+		                       $msg.addClass('badge badge-pill badge-warning');
+		                       $msg.text(result);
+		                    }
+		                 },
+		           error : function() {
+		               console.log("쪽지 알람 개수 호출 실패");
+		                 }                  
+		            });
+		         }
 			});
 		});
 
