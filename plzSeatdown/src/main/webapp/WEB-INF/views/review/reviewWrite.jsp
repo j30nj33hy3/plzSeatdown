@@ -20,10 +20,10 @@
 			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 
-			<div class="container container-fluid">
-				<div class="mt-5 mb-5 pt-3 page-title">
-					<h3>리뷰 작성</h3>
-				</div>
+			<div class="container container-fluid my-5">
+				<div class="pb-4">
+		            <h5>리뷰 작성</h5>
+		        </div>
 
 				<div class="row">
 					<div class="col-md-12">

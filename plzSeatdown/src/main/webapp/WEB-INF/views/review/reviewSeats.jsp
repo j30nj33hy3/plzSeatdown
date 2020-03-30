@@ -142,130 +142,138 @@
 			<%-- 모달 끝 --%>
 			
 
-			<div class="container container-fluid">
+			<div class="container container-fluid my-5">
 				
-				<div class="mt-5 mb-5 pt-3">
-					<h3>좌석 리뷰</h3>
-				</div>
-
-				<div class="row mb-5">
-					<div class="col-md-12">
+				<div class="pb-4">
+		            <h5>좌석 리뷰</h5>
+		        </div>
+		        
+		        <div class="row mb-5">
+					<div class="col-md-12 text-center">
 						${theater.thNm}
-                    </div>
+                   </div>
 				</div>
-				
-
-				<div class="row mb-5">
-					<div class="col-md-9 text-center content" id="seat-status">
-						<div id="seat-level" style="position:relative; margin: auto;">
-							<ul class="list-group-horizontal">
-								<li><div>나쁨</div></li>
-								<li class="ml-2"><div class="sLevel1"></div></li>
-								<li class="ml-2"><div class="sLevel2"></div></li>
-								<li class="ml-2"><div class="sLevel3"></div></li>
-								<li class="ml-2"><div class="sLevel4"></div></li>
-								<li class="ml-2"><div class="sLevel5"></div></li>
-								<li class="ml-2"><div>좋음</div></li>
-							</ul>
-							
-							
-						</div>
-							
-						<!-- 좌석 jsp 영역 시작 -->
-						
-						<!-- 
-							FC000402-02 : 두산아트홀 연강홀
-							FC000031-01 : 블루스퀘어 인터파크홀
-							FC000012-01 : 샤롯데씨어터
-							FC000020-03 : 세종문화회관 M씨어터
-						 -->
-						
-						<c:set var="theaterCode" value="${theater.thCode}" />
-						
-						<c:choose>
-							<c:when test="${theaterCode eq 'FC000402-02'}">
-								<jsp:include page="/WEB-INF/views/review/seat_dusan_y.jsp"/>
-							</c:when>
-							<c:when test="${theaterCode eq 'FC000031-01'}">
-								<jsp:include page="/WEB-INF/views/review/seat_blue_inter.jsp"/>
-								<jsp:include page="/WEB-INF/views/review/seat_blue_inter2.jsp"/>
-							</c:when>
-							<c:when test="${theaterCode eq 'FC000012-01'}">
-								<jsp:include page="/WEB-INF/views/review/seat_lotte.jsp"/>
-							</c:when>
-							<c:when test="${theaterCode eq 'FC000020-03'}">
-								<jsp:include page="/WEB-INF/views/review/seat_sejong_M.jsp"/>
-							</c:when>
-							<c:otherwise>
-								<div>
-									<div id="seats" style="width: 817px; height: 352px;">
-									    <img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">
-									</div>
+		        
+		        <div class="row">
+		        	<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>
+		        	
+		        	<div class="col-10">
+		        	
+						<div class="row mb-5">
+							<div class="col-md-9 text-center content" id="seat-status">
+								<div id="seat-level" style="position:relative; margin: auto;">
+									<ul class="list-group-horizontal">
+										<li><div>나쁨</div></li>
+										<li class="ml-2"><div class="sLevel1"></div></li>
+										<li class="ml-2"><div class="sLevel2"></div></li>
+										<li class="ml-2"><div class="sLevel3"></div></li>
+										<li class="ml-2"><div class="sLevel4"></div></li>
+										<li class="ml-2"><div class="sLevel5"></div></li>
+										<li class="ml-2"><div>좋음</div></li>
+									</ul>
+									
+									
 								</div>
-							</c:otherwise>
-						</c:choose>
-						
-						<!-- 좌석 jsp 영역 종료 -->
-						
-							
-					</div>
-					<div class="col-md-3 showInfo ">
-						<div class="showHeader">상영 중인 공연</div>
-						<c:if test="${empty show}">
-							<div class="text-center mt-3">
-								<img src="${contextPath}/resources/images/no_show.png" style="width: 100%;">
+									
+								<!-- 좌석 jsp 영역 시작 -->
+								
+								<!-- 
+									FC000402-02 : 두산아트홀 연강홀
+									FC000031-01 : 블루스퀘어 인터파크홀
+									FC000012-01 : 샤롯데씨어터
+									FC000020-03 : 세종문화회관 M씨어터
+								 -->
+								
+								<c:set var="theaterCode" value="${theater.thCode}" />
+								
+								<c:choose>
+									<c:when test="${theaterCode eq 'FC000402-02'}">
+										<jsp:include page="/WEB-INF/views/review/seat_dusan_y.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000031-01'}">
+										<jsp:include page="/WEB-INF/views/review/seat_blue_inter.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_blue_inter2.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000012-01'}">
+										<jsp:include page="/WEB-INF/views/review/seat_lotte.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000020-03'}">
+										<jsp:include page="/WEB-INF/views/review/seat_sejong_M.jsp"/>
+									</c:when>
+									<c:otherwise>
+										<div>
+											<div id="seats" style="width: 817px; height: 352px;">
+											    <img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">
+											</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
+								
+								<!-- 좌석 jsp 영역 종료 -->
+								
+									
 							</div>
-						</c:if>
-						<c:if test="${!empty show}">
-							<div class="text-center mt-3">
-								<img src="${show.posterPath}" style="width: 100%;">
+							<div class="col-md-3 showInfo ">
+								<div class="showHeader">상영 중인 공연</div>
+								<c:if test="${empty show}">
+									<div class="text-center mt-3">
+										<img src="${contextPath}/resources/images/no_show.png" style="width: 100%;">
+									</div>
+								</c:if>
+								<c:if test="${!empty show}">
+									<div class="text-center mt-3">
+										<img src="${show.posterPath}" style="width: 100%;">
+									</div>
+									<div class="mt-4">
+										<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
+										<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
+									</div>
+									<div class="move text-center mt-4">
+										<button class="btn btn-default" type="button">
+											예매 페이지로 이동
+										</button>
+									</div>
+		                        </c:if>
 							</div>
-							<div class="mt-4">
-								<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
-								<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
-							</div>
-							<div class="move text-center mt-4">
-								<button class="btn btn-default" type="button">
-									예매 페이지로 이동
-								</button>
-							</div>
-                        </c:if>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-7 theater">
-						<div class="theaterImg text-center">
-							<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
-	                        <c:if test="${!empty theater.thLogoPath}">
-	                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
-	                        </c:if>
-	                        <img src="${src}" style="width:100%;">
 						</div>
-						<div class="theaterInfo">
-							<p id="tName">
-								${theater.thNm}
-							</p>
-							<p id="tPhone">
-								${theater.thPhone}
-							</p>
-							<p id="tHome">
-								<a href=http://www.bluesquare.kr>${theater.thPage}</a>
-							</p>
+						
+						<div class="row">
+							<div class="col-md-7 theater">
+								<div class="theaterImg text-center">
+									<c:set var="src" value="${contextPath}/resources/images/theater_noImage.png"/>
+			                        <c:if test="${!empty theater.thLogoPath}">
+			                        	<c:set var ="src" value="${contextPath}/resources/theaterLogo/${theater.thLogoPath}"/>
+			                        </c:if>
+			                        <img src="${src}" style="width:100%;">
+								</div>
+								<div class="theaterInfo">
+									<p id="tName">
+										${theater.thNm}
+									</p>
+									<p id="tPhone">
+										${theater.thPhone}
+									</p>
+									<p id="tHome">
+										<a href=http://www.bluesquare.kr>${theater.thPage}</a>
+									</p>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="theaterMap" id="map"></div>
+							</div>
+							<input id="hiddenLogin" type="hidden" value="${loginMember}">
 						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="theaterMap" id="map"></div>
-					</div>
-					<input id="hiddenLogin" type="hidden" value="${loginMember}">
-				</div>
-				<form id="reviewWrite" action="writeForm" style="display: none" method="post">
-					<input id="thNm" name="thNm" type="hidden" value=""/>
-					<input id="thCd" name="thCd" type="hidden" value=""/>
-					<input id="viewDt" name="viewDt" type="hidden" value=""/>
-					<input id="seatVal" name="seatVal" type="hidden" value=""/>
-					<input id="showCode" name="showCode" type="hidden" value=""/>
-				</form>
+						<form id="reviewWrite" action="writeForm" style="display: none" method="post">
+							<input id="thNm" name="thNm" type="hidden" value=""/>
+							<input id="thCd" name="thCd" type="hidden" value=""/>
+							<input id="viewDt" name="viewDt" type="hidden" value=""/>
+							<input id="seatVal" name="seatVal" type="hidden" value=""/>
+							<input id="showCode" name="showCode" type="hidden" value=""/>
+						</form>
+						
+		        	</div>
+		        </div>
+		        
 			</div>
 			<!-- 좌석 평점 표시 -->
 			<script>
@@ -330,6 +338,7 @@
 					map : map,
 					position: options.center
 				});
+				
 					
 			</script>
 			
