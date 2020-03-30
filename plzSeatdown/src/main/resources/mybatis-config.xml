@@ -60,6 +60,8 @@
 
 
 		<typeAlias type="com.bg.plzSeatdown.message.model.vo.Message" alias="Message"/>
+		
+		<typeAlias type="com.bg.plzSeatdown.mypage.model.vo.Like" alias="Like"/>
 
 	</typeAliases>
 	
@@ -85,7 +87,6 @@
 		<mapper resource="/mappers/seat-mapper.xml"/>
 		<mapper resource="/mappers/alarm-mapper.xml"/>
 		<mapper resource="/mappers/message-mapper.xml"/>
-	
 	</mappers>
 
 </configuration>

@@ -15,18 +15,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bg.plzSeatdown.alarm.model.vo.Alarm;
+import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.common.Pagination;
 import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.mypage.model.service.MypageService;
+import com.bg.plzSeatdown.mypage.model.vo.Like;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
@@ -194,8 +197,10 @@ public class MypageController {
 					else if(result==0) msg = "탈퇴 실패";
 					else	 	  msg = "현재 비밀번호가 일치하지 않습니다";
 					 
-					//model.addAttribute("msg", msg);
-					rdAttr.addFlashAttribute("msg",msg);
+					System.out.println("result탈퇴 : " + result);
+					
+					model.addAttribute("msg", msg);
+					//rdAttr.addFlashAttribute("msg",msg);
 					return "redirect:/";
 					
 				}catch(Exception e) {
@@ -368,16 +373,14 @@ public class MypageController {
 					PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
 					
 					// 게시글 목록 조회
-					List<ReviewEH> rlist = mypageService.selectRlist(pInf, memberNo);
+					List<SeatReview> rlist = mypageService.selectRlist(pInf, memberNo);
 					
 					List<ReviewImageEH> rimgList = mypageService.selectRimglist(memberNo);
 					
 					
 					Profile profile = mypageService.selectMypageProf(memberNo);
 					
-					
-					System.out.println("rimgList :" + rimgList);
-					
+					System.out.println("rlist :" + rlist);
 					
 					model.addAttribute("list",rlist);
 					model.addAttribute("rimgList",rimgList);
@@ -446,8 +449,9 @@ public class MypageController {
 							= ((Member)model.getAttribute("loginMember")).getMemberNo();
 								
 								// 전체 게시글 수 조회
-								int listCount = mypageService.getWriteCount(memberNo);
+								int listCount = mypageService.getWriteReply(memberNo);
 								
+								System.out.println("listCount:" + listCount);
 								
 								// 현재 페이지 확인
 								if(currentPage == null) currentPage = 1;
@@ -509,8 +513,28 @@ public class MypageController {
 				}
 				
 			}
+			
+			
+			
+			// 닉네임 중복 검사
+			@ResponseBody
+			@RequestMapping("nicknameDupCheck")
+			public String nicknameDupCheck(String memberNickname, Model model) {
+				try {
+					return mypageService.nicknameDupCheck(memberNickname) == 0? true+"" : false+"";
+				}catch (Exception e) {
+					return ExceptionForward.errorPage("닉네임 중복체크", model, e);
+				}
+			}
+			
+			
+			
+			
+			
 		
-		
+			
+			
+	
 		
 
 }

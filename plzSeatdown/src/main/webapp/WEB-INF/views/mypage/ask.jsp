@@ -28,6 +28,7 @@
 								<li><a href="myticket">내 티켓</a></li>
 								<li><a href="mycommu">내 커뮤</a></li>
 								<li><a href="ask">문의 내역</a></li>
+								<li><a href="alarmSetting">알림 설정</a></li>
 							</ul>
 						</div>
 						
@@ -71,7 +72,7 @@
 	                			<li class="page-item">
 	                				<!-- 맨 처음으로(<<) -->
 	                    			<a class="page-link" href="
-	                    			<c:url value="myreview"> 
+	                    			<c:url value="ask"> 
 	                    				<c:param name="currentPage" value="1"/>
 	                    			</c:url>
 	                    			">&lt;&lt;</a>
@@ -80,7 +81,7 @@
 	                			<li class="page-item">
 	                				<!-- 이전으로(<) -->
                    					<a class="page-link" href="
-                   					<c:url value="myreview">
+                   					<c:url value="ask">
                    					<c:param name="currentPage" value="${pInf.currentPage-1}"/>
                    					</c:url>
                    					">PREV</a>
@@ -97,7 +98,7 @@
 	                				<c:if test="${p != pInf.currentPage}">
                 						<li class="page-item">
 	                    					<a class="page-link" href="
-	                    					<c:url value="myreview">
+	                    					<c:url value="ask">
 	                    						<c:param name="currentPage" value="${p}"/>
 	                    					</c:url>
 	                    					">${p}</a>
@@ -108,7 +109,7 @@
 	                			<c:if test="${pInf.currentPage < pInf.maxPage }">
 	                			<li class="page-item">
 	                			    <a class="page-link" href="
-	                			    	<c:url value="myreview">
+	                			    	<c:url value="ask">
 	                			    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 	                			    	</c:url>
 	                			    ">NEXT</a>
@@ -117,7 +118,7 @@
 	               			 <!-- 맨 끝으로(>>) -->
 	              			  <li class="page-item">
 	                   			 <a class="page-link" href="
-	                   			 	<c:url value="myreview">
+	                   			 	<c:url value="ask">
 	                   			 		<c:param name="currentPage" value="${pInf.maxPage}"/>
 	                   			 	</c:url>
 	                   			 ">&gt;&gt;</a>

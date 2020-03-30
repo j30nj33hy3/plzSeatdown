@@ -14,6 +14,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.community.model.vo.Community;
 import com.bg.plzSeatdown.community.model.vo.Reply;
 import com.bg.plzSeatdown.member.model.vo.Member;
+import com.bg.plzSeatdown.mypage.model.vo.Like;
 import com.bg.plzSeatdown.mypage.model.vo.Profile;
 import com.bg.plzSeatdown.mypage.model.vo.QnAEH;
 import com.bg.plzSeatdown.mypage.model.vo.ReviewEH;
@@ -175,7 +176,7 @@ public class MypageDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ReviewEH> selectRlist(PageInfo pInf, int memberNo) throws Exception{
+	public List<SeatReview> selectRlist(PageInfo pInf, int memberNo) throws Exception{
 		int offset = (pInf.getCurrentPage() - 1) *  pInf.getLimit();
 	    RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("mypageMapper.selectRlist", memberNo, rowBounds);
@@ -297,7 +298,29 @@ public class MypageDAO {
 	public List<SeatReview> selectTicketList(int memberNo) throws Exception{
 		return sqlSession.selectList("mypageMapper.selectTicketList", memberNo);
 	}
-   
+
+
+	/** 전체 댓글수  조회
+	 * @param memberNo
+	 * @throws Exception
+	 */
+	public int getWriteReply(int memberNo)throws Exception{
+		return sqlSession.selectOne("mypageMapper.getWriteReply", memberNo);
+	}
+
+
+	
+	/** 닉네임 유효성 검사
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int nicknameDupCheck(String memberNickname) throws Exception{
+		return sqlSession.selectOne("mypageMapper.nicknameDupCheck", memberNickname);
+	}
+
+
+
    
    
    

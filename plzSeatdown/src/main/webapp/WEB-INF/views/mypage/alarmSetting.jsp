@@ -14,7 +14,7 @@
    <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
    
    <!-- Main -->
-         <div class="wrapper style1" style="overflow:auto; height:1000px; scrolle:hidden;">
+         <div class="wrapper style1" style="overflow:auto;">
             <div class="container" >
                <div class="row gtr-200">
                
@@ -43,10 +43,10 @@
                            <div class="container-fluid">
                         <div class="row">
                             <div id="timeline">
-                            
                                 <div class="row timeline-movement timeline-movement-top">
                                     <div class="timeline-badge timeline-future-movement" style="border:0px;">
                                      <span style="color:#FFD938;"><i class="far fa-bell fa-2x" style="margin-top:20px;"></i></span>
+                                     <div style="color:black; font-size:15px; background-color:white;"><b>scroll</b><br><b>plz</b></div>
                                     </div>
                                 </div>
                                 
@@ -101,7 +101,7 @@
                                     <div class="offset-sm-6 col-sm-6  timeline-item">
                                         <div class="row">
                                             <div class="offset-sm-1 col-sm-11">
-                                                <div class="timeline-panel debits  anim animate  fadeInRight">
+                                                <div class="timeline-panel debits  anim animate  fadeInRight"  style="position:relative;">
                                                     <ul class="timeline-panel-ul">
                                                         <div class="lefting-wrap">
                                                             <li class="img-wraping">
@@ -115,10 +115,10 @@
                                                     	  <a href="#" class="updateAlarm">
                                                         	<input type="hidden" value="${alarm.alarmUrl}">
                                                         	<input type="hidden" name="alarmNo" value="${alarm.alarmNo}">
-                                                            <li><span class="causale">${alarm.alarmContent}</span></li>
+                                                            <li style="margin-top:27px;"><span class="causale">${alarm.alarmContent}</span></li>
                                                             <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>${alarm.alarmDate}</small></p> </li>
                                                         </a>
-                                                        	<li style="float:right;">
+                                                        	<li style="position:absolute; top:0px; left:0px;">
                                                         		<button class="filedelete" type="submit" style="background-color:white; border:0px;">
 																	<img src="${contextPath}/resources/images/quit.png" width="20" height="20">
 																</button>

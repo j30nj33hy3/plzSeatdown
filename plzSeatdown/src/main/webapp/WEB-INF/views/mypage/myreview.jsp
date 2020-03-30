@@ -10,8 +10,8 @@
 <style>
             
      #heartimg{
-     		width:30px;
-     		height:30px;
+     		width:45px;
+     		height:45px;
      		
      }       
 </style>
@@ -41,10 +41,10 @@
                                        <c:set var ="src1" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
                                     </c:if>
                               <img class="img-circle profile-photo" src="${src1}" width="50" height="50" style="border-radius: 5em;"/>
-                              <div style="display:inline-block; width:100px;">${loginMember.memberId}</div>
-                           <div class="reviewLikeCount heart" id="likeCount" style="float:right;">
-                           <p  style="display:inline;">like</p>
-                           	<img id="heartimg" src="${contextPath}/resources/images/heart.png"  style="display:inline;">
+                              <div style="display:inline-block; width:100px;" id="reviewNick"></div>
+                           <div class="reviewLikeCount heart" id="likeCount" style="float:right; position: relative;">
+                           	<img id="heartimg" src="${contextPath}/resources/images/like2.png">
+                           <span style="position : absolute; top:15px; right:33px; color:red;"><b id="reviewLike"></b></span>
                            </div>
                            </div>
                            <div class="mb-4 mt-4">
@@ -95,6 +95,7 @@
                         <li><a href="myticket">내 티켓</a></li>
                         <li><a href="mycommu">내 커뮤</a></li>
                         <li><a href="ask">문의 내역</a></li>
+                       <li><a href="alarmSetting">알림 설정</a></li>
                      </ul>
                   </div>
                   
@@ -120,7 +121,7 @@
                            <c:if test="${!empty list}">
                               <c:forEach var="revieweh" items="${list}" varStatus="vs">
                                  <tr class="seats">
-                                    <td style="border-top:0px; padding-top:22px;">${revieweh.reviewNo}</td>
+                                    <td style="border-top:0px; padding-top:22px;" name="reviewNo">${revieweh.reviewNo}</td>
                                     <c:if test="${revieweh.seatFloor == null && revieweh.seatArea != null }">
                                     <td style="border-top:0px; padding-top:22px;">${revieweh.seatArea}구역&nbsp;${revieweh.seatRow}열&nbsp;${revieweh.seatCol}번</td>
                                     </c:if>
@@ -132,7 +133,7 @@
                                     </c:if>
                                     <td style="border-top:0px; padding-top:22px;"><span class="star-prototype" style="display:inline;  background: url(http://i.imgur.com/YsyS5y8.png) 0 -18px repeat-x;">${(revieweh.reviewSight + revieweh.reviewComfort + revieweh.reviewLegroom)/3}</span></td>
                                     <td class="contentwrap" style="border-top:0px; padding-top:22px; height:55px;">${revieweh.showTitle}</td>
-                                    <td style="border-top:0px; padding-top:22px;">${revieweh.reviewCreateDate}</td>
+                                    <td style="border-top:0px; padding-top:22px;">${revieweh.reviewCreateDt}</td>
                                     <%-- <td style="border-top:0px; padding-top:22px;">${rimage.reviewImageStatus}</td> --%>
                                     <td style="border-top:0px; padding-top:15px;">
                                     <a href="${contextPath}/review/updateForm?no=${revieweh.reviewNo}" id="filedelete" type="button"  class="btn btn-outline-secondary updatebtn" style="border:0px;">
@@ -247,13 +248,15 @@
                   reviewComfort : "${r.reviewComfort}",
                   reviewComment : "${r.reviewComment}",
                   reviewLegroom : "${r.reviewLegroom}",
-                  reviewCreateDate : "${r.reviewCreateDate}",
+                  reviewCreateDt : "${r.reviewCreateDt}",
                   seatArea : "${r.seatArea}",
                   seatFloor : "${r.seatFloor}",
                   seatRow : "${r.seatRow}",
                   seatCol : "${r.seatCol}",
                   showTitle : "${r.showTitle}",
-                  reviewWriter : "${r.reviewWriter}"
+                  reviewWriter : "${r.reviewWriter}",
+                  memberNickname : "${r.memberNickname}",
+                  likeCount : "${r.likeCount}"
                }
                
                arr.push(review);
@@ -269,10 +272,25 @@
                arrimg.push(reviewImg);
             </c:forEach>
             
+            var arrlike = new Array();
+            <c:forEach var="rlike" items="${likelist}">
+               var reviewLike = {
+                  memberNo : "${rlike.memberNo}",
+                  reviewNo : "${rlike.reviewNo}"
+               }
+               
+               arrlike.push(reviewLike);
+               
+            </c:forEach>
+            
+           
+            
             $(".seats").on({
                click : function(){
                   
                   var index = $(this).index();
+                  
+                  var indexno = $(this).children("td[name=reviewNo]").text();
                   
                   $(".sidebarpan").addClass("active");
                   
@@ -282,20 +300,18 @@
                   }); // 스크롤 불가능
                   $(".overlay").fadeIn();
                   
-                  console.log(arr[index]);
-                  console.log(arrimg[index]);
-                  
+                  console.log(arr);
+                  console.log(arrimg);
+                 
+                  $("#reviewNick").text(arr[index].memberNickname);
                   $("#title").children("h4").text(arr[index].showTitle);
                   $("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
                   $("#reviewLegroom").text(arr[index].reviewLegroom).generateStars();
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
                   $("#reviewComment").text(arr[index].reviewComment);
-                  
-                /*   if(typeof (seatReviewList[i].reviewComment) == "undefined"){
-						seatReviewList[i].reviewComment = "";
-					} */
-                  
+                  $("#reviewLike").text(arr[index].likeCount);
+           
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
                 	  if(typeof (arrimg[index]) == "undefined"){
                 		 $("#reviewImage").prop("src","");  
@@ -326,6 +342,7 @@
 
       
    </script>
+   
    
    
    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

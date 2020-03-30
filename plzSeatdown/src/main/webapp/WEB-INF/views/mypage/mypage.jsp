@@ -59,11 +59,12 @@
 									<label for="userEmail" class="user">이메일</label>
 									<input type="email" class="form-control" id="userEmail" name="memberEmail" value="${loginMember.memberEmail}" readonly style="border-radius: 1em;">
 								</div>
-								<div class="form-group col-8 mb-0">
+								<div class="form-group col-8 mb-0" style="height:40px;">
 									<label for="userNickname" class="user">닉네임</label>
 									<input type="text" class="form-control" id="userNickname" name="memberNickname" value="${loginMember.memberNickname}" style="border-radius: 1em;">
 									<button id="updatebtn" type="submit" class="btn btn-outline-secondary">수정</button>
 								</div>
+								<div class="form-group col-4 mb-0"><span id="checkNickname" style="font-size: 0.8em">한글, 영어 대·소문자, 숫자 조합 가능</span></div>
 							</form>
 						</div>
 
@@ -109,6 +110,59 @@
            	     $("#file1").val("");
            		 $("#img1").attr("src","${contextPath}/resources/images/user.png");
            	 });
+           	  
+           	  
+           	  
+          // 유효성 검사 결과를 저장할 객체
+         	var signUpCheck = {
+         			"nickname":false
+         	}
+         	
+         	// 실시간 입력 형식 검사
+         	// 정규표현식
+     		$(function(){
+     			
+     			// jQuery 변수 : 변수에 직접적으로 jQuery 메소드를 사용할 수 있음
+     			var $nickname = $("#userNickname");
+     			
+     		// 닉네임  유효성 검사
+    			$nickname.on("input", function(){
+    				var regExp = /^[A-Za-z\d가-힣]{2,10}$/;
+    				if(!regExp.test($nickname.val())){
+                    	$("#checkNickname").text("닉네임 형식이 유효하지 않습니다.").css({"color":"red"});
+                    	signUpCheck.nickname = false;
+                    }else{
+                    	signUpCheck.nickname = true;
+                    	$.ajax({
+                    		url : "nicknameDupCheck",
+                    		data : {memberNickname: $nickname.val() },
+                    		type : "post",
+                    		success : function(result){
+                    			if(result == "true"){
+                    				$("#checkNickname").text("사용 가능한 닉네임 입니다.").css({"color":"green"});
+                    				signUpCheck.nicknameDup = true;
+                    			}else{
+                    				$("#checkNickname").text("사용할 수 없는 닉네임 입니다.").css({"color":"red"});
+                    				signUpCheck.nicknameDup = false;
+                    			}
+                    		},
+                    		
+                    		error : function(e){
+                    			console.log("ajax 통신 실패");
+                    			console.log(e);
+                    		}
+                    	});
+                    	signUpCheck.nicknameDup = true;
+                    	
+                    }
+    			});
+    			
+           	  
+     		});
+           	  
+           	  
+           	  
+           	  
            	  
               </script>
               
