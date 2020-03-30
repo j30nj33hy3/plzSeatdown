@@ -22,7 +22,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 	// 서버에 접속 성공했을때
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception{ // 소켓에 연결될 때
-		System.out.println("afterConnectionEstablished : "+ session);
+		//System.out.println("afterConnectionEstablished : "+ session);
 		sessions.add(session);
 		
 		String senderId = getId(session);
@@ -33,7 +33,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler{
 	private String getId(WebSocketSession session) {
 		Map<String, Object> httpSession = session.getAttributes();
 		Member loginMember = (Member)httpSession.get("loginMember");
-		System.out.println(loginMember);
+		//System.out.println(loginMember);
 		if(loginMember == null) {
 			return session.getId();
 		}else {
