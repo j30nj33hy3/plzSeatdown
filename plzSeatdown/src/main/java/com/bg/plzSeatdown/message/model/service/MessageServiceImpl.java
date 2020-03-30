@@ -116,5 +116,27 @@ public class MessageServiceImpl implements MessageService {
 		return result;
 		
 	}
+	
+	/** 받은 쪽지함 삭제 
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int checkDel(int check) throws Exception{
+		return messageDAO.checkDel(check);
+	}
+	
+	/** 받은 쪽지함 삭제 
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int sendDel(int check) throws Exception {
+		return messageDAO.sendDel(check);
+	}
 
 }
