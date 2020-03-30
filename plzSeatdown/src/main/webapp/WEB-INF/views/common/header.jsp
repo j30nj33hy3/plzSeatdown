@@ -376,14 +376,14 @@
 				$alarmDropdownArea.html("");
 				if(alist == ""){
 					$alarmDropdownArea.append('<p class="text-muted px-1">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>');
-					$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
+					$alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
 				}else{
 					$.each(alist, function(i){
 						$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm">'+alist[i].alarmContent+'</a>');
 						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmUrl+'">');
 						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmNo+'">');
 					});
-					$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted font-weight-bold pt-2">내 알림 전체보기</a>');
+					$alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold pt-2">내 알림 전체보기</a>');
 				}
 			},
 			error : function(){

@@ -8,6 +8,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
+<style>
+button:focus{
+	outline:0 !important;
+	box-shadow:none !important;
+}
+input:focus{
+	outline:0 !important;
+	box-shadow:none !important;
+}
+select:focus{
+	outline:0 !important;
+	box-shadow:none !important;
+}
+</style>
 <title>공지사항</title>
 </head>
 <body>

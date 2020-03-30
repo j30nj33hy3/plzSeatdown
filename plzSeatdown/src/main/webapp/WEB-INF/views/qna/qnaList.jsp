@@ -207,8 +207,9 @@
                 	<input type="hidden" name="writer" value="${loginMember.memberNo}">
                     <textarea class="form-control" rows="5" id="content" name="qnaContent" placeholder="문의 내용을 입력해주세요(최대 500글자)"
                         style="resize: none" maxlength="500"></textarea>
+                    <p><span id="counter" class="text-danger">0</span>/500</p>
                 </div>
-                <div class="float-right pt-3 pb-5">
+                <div class="float-right pb-5">
 	                <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
 	                    <button type="submit" class="btn btn-outline-secondary">문의하기</button>
 	                </c:if>
@@ -234,6 +235,11 @@
 				  } else {
 				    $('#top-btn').fadeOut();
 				  }
+			});
+			
+			$('#content').on('input',function(){
+				var inputLength = $(this).val().length;
+				$("#counter").html(inputLength);
 			});
 		});
 	</script>
