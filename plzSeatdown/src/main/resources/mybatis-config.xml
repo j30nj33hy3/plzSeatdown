@@ -87,6 +87,7 @@
 		<mapper resource="/mappers/seat-mapper.xml"/>
 		<mapper resource="/mappers/alarm-mapper.xml"/>
 		<mapper resource="/mappers/message-mapper.xml"/>
+		<mapper resource="/mappers/main-mapper.xml"/>
 	</mappers>
 
 </configuration>

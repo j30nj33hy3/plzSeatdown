@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mainMapper">
+	<resultMap type="Show" id="showResultSet">
+		<id property="showCode" column="SHOW_CODE"/>
+		<result property="showTitle" column="SHOW_TITLE"/>
+		<result property="startDt" column="SHOW_START_DT"/>
+		<result property="endDt" column="SHOW_END_DT"/>
+		<result property="posterPath" column="SHOW_POSTER_PATH"/>
+		<result property="showStatus" column="SHOW_STATUS"/>
+		<result property="showImg1" column="SHOW_INTRO_IMG1"/>
+		<result property="showImg2" column="SHOW_INTRO_IMG2"/>
+		<result property="showImg3" column="SHOW_INTRO_IMG3"/>
+		<result property="showImg4" column="SHOW_INTRO_IMG4"/>
+		<result property="theaterFullNm" column="THEATER_FULL_NM"/>
+		<result property="thCode" column="THEATER_CODE"/>
+	</resultMap>
+	
+	<select id="selectShowing" resultMap="showResultSet">
+		SELECT * FROM SHOW 
+		WHERE SHOW_STATUS = '공연중'
+	</select>
+	
+	<select id="comingShowing" resultMap="showResultSet">
+		SELECT * FROM SHOW 
+		WHERE SHOW_STATUS = '공연예정'
+	</select>
+</mapper>
