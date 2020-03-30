@@ -659,6 +659,7 @@ button:focus{
 		
 		// 답글 입력창
 		$(document).on("click","button[name='replyReply']",function(){
+			// 번호
 			var replyNo = $(this).parent().parent().parent().children("input").eq(0).val();
 			if($('.commenting').length>=1 || $('.updating').length>=1){
 				selectRlist();
