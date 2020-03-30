@@ -51,4 +51,6 @@
 		<websocket:sockjs/>
 	</websocket:handlers>
 	<beans:bean id="replyAlarmEchoHandler" class="com.bg.plzSeatdown.alarm.common.ReplyEchoHandler"/>
+	
+	<beans:bean id="naverLoginBO" class="com.bg.plzSeatdown.login.common.NaverLoginBO"/>
  </beans:beans>

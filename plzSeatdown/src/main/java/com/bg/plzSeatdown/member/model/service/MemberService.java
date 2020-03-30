@@ -93,4 +93,21 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public abstract Attachment selectProfile(int memberNo) throws Exception;
+
+	
+	/** 카카오 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int kakaoSignUp(Member member) throws Exception;
+
+	/** 네이버 로그인 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int naverSignUp(Member member) throws Exception;
+
+
 }

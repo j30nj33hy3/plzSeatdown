@@ -2,7 +2,6 @@ package com.bg.plzSeatdown.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,15 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +42,8 @@ import com.bg.plzSeatdown.common.FileRename;
 import com.bg.plzSeatdown.member.model.service.MemberService;
 import com.bg.plzSeatdown.member.model.vo.Attachment;
 import com.bg.plzSeatdown.member.model.vo.Member;
-import com.bg.plzSeatdown.mypage.model.vo.Profile;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.Gson;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -154,7 +155,7 @@ public class MemberController {
 	}
 	
 	// 회원 가입 페이지 이동
-	@RequestMapping("signUpForm")
+	@RequestMapping("naverLogin")
 	public String signUpForm() {
 		return "member/signUpForm";
 	}
@@ -538,5 +539,41 @@ public class MemberController {
 		}catch (Exception e) {
 			return ExceptionForward.errorPage("비밀번호 변경", model, e);
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="kakaoLogin", produces="application/json; charset=utf-8")
+	public String kakaoLogin(HttpSession session, 
+			@RequestParam(value="memberId", required=true)String id,
+			@RequestParam(value="memberNickname", required=true)String memberNickname) {
+		String result = "-1";
+		Member member = null;
+		Member loginMember = null;
+		String memberPwd = id;
+		String memberId = "k"+id;
+		try {
+			member = new Member(memberId, memberPwd);
+			loginMember = memberService.loginMember(member);
+			if(loginMember != null) {
+				result = "1";
+				session.setAttribute("loginMember", loginMember);
+			}else {
+				member = new Member(0, memberId, memberPwd, memberNickname);
+				int signUp = memberService.kakaoSignUp(member);
+				if(signUp > 0) {
+					result = "-1";
+					member = new Member(memberId, memberPwd);
+					loginMember = memberService.loginMember(member);
+					if(loginMember != null) {
+						result = "1";
+						session.setAttribute("loginMember", loginMember);
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			result = "-1";
+		}
+		return new Gson().toJson(result);
 	}
 }

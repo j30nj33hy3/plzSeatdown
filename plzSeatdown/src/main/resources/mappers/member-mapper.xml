@@ -120,4 +120,18 @@
 	 	FROM PROFILE
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </select>
+	 
+	 <insert id="kakaoSignUp" parameterType="Member">
+	 	INSERT INTO MEMBER VALUES
+	 	(#{memberNo}, #{memberId}, #{memberPwd}, #{memberNickname},
+	 	#{memberNickname}, '-', 'Y', null, 
+	 	DEFAULT, DEFAULT, 'Y', DEFAULT)
+	 </insert>
+	 
+	 <insert id="naverSignUp" parameterType="Member">
+	 	INSERT INTO MEMBER VALUES
+	 	(#{memberNo}, #{memberId}, #{memberPwd}, #{memberName},
+	 	#{memberNickname}, #{memberEmail}, 'Y', null, 
+	 	DEFAULT, DEFAULT, 'Y', DEFAULT)
+	 </insert>
 </mapper>

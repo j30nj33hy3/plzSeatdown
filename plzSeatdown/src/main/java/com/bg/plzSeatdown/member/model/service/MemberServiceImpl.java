@@ -165,7 +165,49 @@ public class MemberServiceImpl implements MemberService{
 	public Attachment selectProfile(int memberNo) throws Exception {
 		return memberDAO.selectProfile(memberNo);
 	}
-	
-	
+
+	/** 카카오 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int kakaoSignUp(Member member) throws Exception {
+		int result = 0;
+		// 1) 다음 SEQ_MNO 얻어오기
+		int memberNo = memberDAO.selectNextMemberNo();
+		
+		// 2) 회원 등록
+		if(memberNo > 0) {
+			member.setMemberNo(memberNo);
+			// 암호화된 비밀번호를 저장
+			String encPwd = bCryptPasswordEncoder.encode(member.getMemberPwd());
+			member.setMemberPwd(encPwd);
+			result = memberDAO.kakaoSignUp(member);
+		}
+		return result;
+	}
+
+	/** 네이버 로그인 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int naverSignUp(Member member) throws Exception {
+		int result = 0;
+		// 1) 다음 SEQ_MNO 얻어오기
+		int memberNo = memberDAO.selectNextMemberNo();
+		
+		// 2) 회원 등록
+		if(memberNo > 0) {
+			member.setMemberNo(memberNo);
+			// 암호화된 비밀번호를 저장
+			String encPwd = bCryptPasswordEncoder.encode(member.getMemberPwd());
+			member.setMemberPwd(encPwd);
+			result = memberDAO.naverSignUp(member);
+		}
+		return result;
+	}
 
 }

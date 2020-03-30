@@ -100,9 +100,9 @@
 }
 
 #msgCount{
-	position:absolute;
-   	top:-7px;
-   	left:15px;
+   position:absolute;
+      top:-7px;
+      left:15px;
 }
 #loginArea{
    padding: 0;
@@ -120,30 +120,30 @@
       margin: 15px 0;
    }
 }
-	#alarmDropdownArea{
-   		background-color: rgba(255, 255, 255, 0.9);
-   	}
-   	#alarmDropdownArea > a{
-   		border-bottom: solid 0.5px #ccc;
-   		font-size:12px;
-   	}
-   	#alarmDropdownArea > a:last-child{
-   		border-bottom: none;
-   	}
-   	#alarmDropdown:hover{
-   		cursor:pointer;
-   	}
-   	#alarmDropdownArea a:hover{
-   		background-color: rgb(255, 255, 255);
-   	}
-   	#alarmDropdown{
-   		position:relative;
-   	}
-   	#alarmBadge{
-   		position:absolute;
-   		top:-8px;
-   		left:12px;
-   	}
+   #alarmDropdownArea{
+         background-color: rgba(255, 255, 255, 0.9);
+      }
+      #alarmDropdownArea > a{
+         border-bottom: solid 0.5px #ccc;
+         font-size:12px;
+      }
+      #alarmDropdownArea > a:last-child{
+         border-bottom: none;
+      }
+      #alarmDropdown:hover{
+         cursor:pointer;
+      }
+      #alarmDropdownArea a:hover{
+         background-color: rgb(255, 255, 255);
+      }
+      #alarmDropdown{
+         position:relative;
+      }
+      #alarmBadge{
+         position:absolute;
+         top:-8px;
+         left:12px;
+      }
 </style>
 </head>
 <body>
@@ -182,9 +182,9 @@
                   <span id="intro-msg">${loginMember.memberNickname }님 앉아주세요</span>
                   <div id="iconBtnBox">
                      <a class="d-md-inline-block mr-4" id="alarmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-bell" aria-hidden="true" style="color:white;"></i>
-						<span id="alarmBadge"></span>
-					</a>
+                  <i class="fa fa-bell" aria-hidden="true" style="color:white;"></i>
+                  <span id="alarmBadge"></span>
+               </a>
                      <div class="dropdown-menu dropdown-menu-right alarm-dropdown mt-2 py-2" aria-labelledby="alarmDropdown" id="alarmDropdownArea">
                      </div>
                      <a id="msgIcon" href="${contextPath}/message/receiveList" class="d-md-inline-block mr-4">
@@ -244,30 +244,55 @@
                                  href="${contextPath}/member/signUpForm">회원가입</a>
                            </form>
                            <hr>
-                              <a id="kakao-login-btn" style="width: 600px"></a>
-                               <a href="http://developers.kakao.com/logout"></a>
-                               <script type='text/javascript'>
-                                 //<![CDATA[
-                                   // 사용할 앱의 JavaScript 키를 설정해 주세요.
-                                   Kakao.init('44e60f3df8ed94bfd87cb89c72bd86a0');
-                                   // 카카오 로그인 버튼을 생성합니다.
-                                   Kakao.Auth.createLoginButton({
-                                     container: '#kakao-login-btn',
-                                     success: function(authObj) {
-                                       alert(JSON.stringify(authObj));
-                                     },
-                                     fail: function(err) {
-                                        alert(JSON.stringify(err));
-                                     }
-                                   });
-                                 //]]>
-                               </script>
-                               
-                               <!-- 네이버 로그인 창으로 이동 -->
-                               <br>
-                              <div id="naver_id_login" style="text-align:center width: 600px"><a href="${url}">
-                              <img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-                              <br>
+                             <!-- 카카오 로그인 -->
+							<a id="kakao-login-btn"></a>
+							    <a href="http://developers.kakao.com/logout"></a>
+							    <script type="text/javascript">
+							    	Kakao.init('44e60f3df8ed94bfd87cb89c72bd86a0');
+							    	
+							    	//카카오 로그인 버튼 생성
+							    	Kakao.Auth.createLoginButton({
+							    		container: '#kakao-login-btn',
+							    		success: function(authObj){
+							    			Kakao.API.request({
+								    			url:'/v2/user/me',
+								    			success: function(res){
+								    				var id = res.id;
+								    				var nickname = res.properties['nickname'];
+								    				$.ajax({
+								    					url: "member/kakaoLogin",
+														type: "POST",
+														data: {
+															"memberId": id,
+															"memberNickname": nickname
+														},
+														dataType:"json",
+														success:function(result){
+															if(result == "1"){
+																location.href="${contextPath}";
+															}else{
+																alert("로그인 실패");
+															}
+														},
+														error:function(e){
+															console.log("ajax 통신 실패 -2");
+															console.log(e);
+														}
+								    				});
+								    			}
+							    			});
+							    		},
+							    		fail: function(error){
+							    			alert(JSON.stringify(error));
+							    		}
+							    	});
+							    	
+							    </script>
+                             <br>
+                             <!-- 네이버 로그인 창으로 이동 -->
+                             <div id="naver_id_login" style="text-align:center"><a href="login/naverLogin">
+                             <img width="223" src="${contextPath}/resources/images/naver_login_btn.png"/></a></div>
+                             <br>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary"
@@ -305,26 +330,26 @@
    </script>
    <script>
    
- 	$(function(){
-		<c:if test="${!empty loginMember}">
-			$.ajax({
-				url : '${contextPath}/alarm/alarmCount',
-				type : 'POST',
-				success:function(alarmCount){
-					console.log('alarmCount');
-					$('#alarmBadge').removeClass('badge badge-pill badge-warning');
-					$('#alarmBadge').text("");
-					if(alarmCount != 0){
-						$('#alarmBadge').addClass('badge badge-pill badge-warning');
-						$('#alarmBadge').text(alarmCount);
-					}
-				},
-				error:function(){
-					console.log('err');
-				}
-			});
-		</c:if>
-	});
+    $(function(){
+      <c:if test="${!empty loginMember}">
+         $.ajax({
+            url : '${contextPath}/alarm/alarmCount',
+            type : 'POST',
+            success:function(alarmCount){
+               console.log('alarmCount');
+               $('#alarmBadge').removeClass('badge badge-pill badge-warning');
+               $('#alarmBadge').text("");
+               if(alarmCount != 0){
+                  $('#alarmBadge').addClass('badge badge-pill badge-warning');
+                  $('#alarmBadge').text(alarmCount);
+               }
+            },
+            error:function(){
+               console.log('err');
+            }
+         });
+      </c:if>
+   });
    var socket = null;
    
    <c:if test="${!empty loginMember}">
@@ -337,21 +362,21 @@
       console.log("ReceiveMessage : " + data + "\n");
       
       $.ajax({
-			url : '${contextPath}/alarm/alarmCount',
-			type : 'POST',
-			success:function(alarmCount){
-				console.log('alarmCount');
-				$('#alarmBadge').removeClass('badge badge-pill badge-warning');
-				$('#alarmBadge').text("");
-				if(alarmCount != 0){
-					$('#alarmBadge').addClass('badge badge-pill badge-warning');
-					$('#alarmBadge').text(alarmCount);
-				}
-			},
-			error:function(){
-				console.log('err');
-			}
-		});
+         url : '${contextPath}/alarm/alarmCount',
+         type : 'POST',
+         success:function(alarmCount){
+            console.log('alarmCount');
+            $('#alarmBadge').removeClass('badge badge-pill badge-warning');
+            $('#alarmBadge').text("");
+            if(alarmCount != 0){
+               $('#alarmBadge').addClass('badge badge-pill badge-warning');
+               $('#alarmBadge').text(alarmCount);
+            }
+         },
+         error:function(){
+            console.log('err');
+         }
+      });
       
       toastr.options.closeButton = true;
       toastr.options.progressBar = true;
@@ -367,30 +392,30 @@
       console.log('Errors :' , err);
    };
    
-	$('#alarmDropdown').on('click',function(){
-		var $alarmDropdownArea = $('#alarmDropdownArea');
-		$.ajax({
-			url : "${contextPath}/alarm/alarmlist",
-			type : "POST",
-			success : function(alist){
-				$alarmDropdownArea.html("");
-				if(alist == ""){
-					$alarmDropdownArea.append('<p class="text-muted px-1">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>');
-					$alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
-				}else{
-					$.each(alist, function(i){
-						$alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm">'+alist[i].alarmContent+'</a>');
-						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmUrl+'">');
-						$alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmNo+'">');
-					});
-					$alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold pt-2">내 알림 전체보기</a>');
-				}
-			},
-			error : function(){
-				console.log("알림목록조회 ajax 호출 실패");
-			}
-		})
-	});
+   $('#alarmDropdown').on('click',function(){
+      var $alarmDropdownArea = $('#alarmDropdownArea');
+      $.ajax({
+         url : "${contextPath}/alarm/alarmlist",
+         type : "POST",
+         success : function(alist){
+            $alarmDropdownArea.html("");
+            if(alist == ""){
+               $alarmDropdownArea.append('<p class="text-muted px-1">받은 알림이 없습니다.<br>전체 알림은 마이페이지에서 확인 가능합니다.</p>');
+               $alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
+            }else{
+               $.each(alist, function(i){
+                  $alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm">'+alist[i].alarmContent+'</a>');
+                  $alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmUrl+'">');
+                  $alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmNo+'">');
+               });
+               $alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold pt-2">내 알림 전체보기</a>');
+            }
+         },
+         error : function(){
+            console.log("알림목록조회 ajax 호출 실패");
+         }
+      })
+   });
 
    $(document).on('click','.updateAlarm', function(){
       var alarmUrl = $(this).next().val();
