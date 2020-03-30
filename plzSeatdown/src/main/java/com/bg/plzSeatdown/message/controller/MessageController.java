@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -69,7 +70,7 @@ public class MessageController {
             int listCount = messageService.getListCount(nickName);
             if(currentPage == null) currentPage = 1;
 
-            PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+            PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
             List<Message> rList = messageService.selectList(nickName, pInf);
 
             model.addAttribute("rList", rList);
@@ -95,7 +96,7 @@ public class MessageController {
 		try {
 			int listCount = messageService.getListCount2(nickName);
 			if(currentPage == null) currentPage = 1;
-			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+			PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
 			List<Message> sList = messageService.selectList2(nickName, pInf);
 			
 			model.addAttribute("sList", sList);
@@ -213,5 +214,45 @@ public class MessageController {
 		}
 	}
 	
+	// 받은 쪽지함 쪽지 삭제 
+	@RequestMapping(value = "checkDel", method = RequestMethod.POST) 
+	public String checkDel(@RequestParam("checkRow") int[] checkRow, Model model) throws Exception { 
+		// 삭제할 사용자 ID마다 반복해서 사용자 삭제 
+		int result = 0;
+		for (int check : checkRow) { 
+			//System.out.println("체크박스 삭제" + check); 
+			result = messageService.checkDel(check); 
+			
+			if(result == 0) break;
+		} 
+		
+		if(result > 0) {
+			return "redirect:/message/receiveList";
+		}else {
+			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
+			return "redirect:/message/receiveList";
+		}
+	}
+	
+	// 보낸 쪽지함 쪽지 삭제 
+	@RequestMapping(value = "sendDel", method = RequestMethod.POST) 
+	public String sendDel(@RequestParam("checkRow") int[] checkRow, Model model) throws Exception { 
+		// 삭제할 사용자 ID마다 반복해서 사용자 삭제 
+		int result = 0;
+		for (int check : checkRow) { 
+			//System.out.println("체크박스 삭제" + check); 
+			result = messageService.sendDel(check); 
+			
+			if(result == 0) break;
+		} 
+		
+		if(result > 0) {
+			return "redirect:/message/sendList";
+		}else {
+			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
+			
+			return "redirect:/message/sendList";
+		}
+	}	
 	
 }
