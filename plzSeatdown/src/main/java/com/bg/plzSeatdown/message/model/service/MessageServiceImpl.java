@@ -87,4 +87,34 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.updateMessage(no);
 	}
 
+	@Override
+	public Message selectSendMessage(Integer no) throws Exception {
+		return messageDAO.selectSendMessage(no);
+	}
+
+	@Override
+	public Message selectReplyForm(Integer no) throws Exception {
+		return messageDAO.selectReplyForm(no);
+	}
+
+	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int sendReply(Message message) throws Exception {
+		int result = 0;
+		int messageNo = messageDAO.selectNextNo();
+		if(messageNo > 0) {
+			
+			message.setMessageContent(message.getMessageContent().replace("\r\n", "<br>"));
+			message.setMessageNo(messageNo);
+
+			result = messageDAO.insertMessage2(message);
+			
+			if(result > 0) result = messageNo;
+			else		throw new Exception();
+		}
+		return result;
+		
+	}
+
 }

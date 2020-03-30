@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <style>
 @font-face {
 	font-family: 'Handon3gyeopsal300g';
@@ -27,6 +26,7 @@ body {
 }
 
 #chatting {
+	padding:15px;
 	background-color: white;
 	overflow: scroll;
 	width: 470px;
@@ -144,73 +144,61 @@ sub {
 	outline: none !important;
 	box-shadow: none;
 }
-
-#messageReply {
-	width: 100%;
-	border: none;
-	resize: none;
-}
 </style>
-<title>쪽지 보내기</title>
+<title>보낸 쪽지 확인</title>
 
 <meta charset="UTF-8">
 </head>
 
 
 <body>
-	<div id="chatbox" class='form-group'>
-		<div id="chattop">
-			<img id="chatlogo" src="${contextPath}/resources/images/logo.png"
-				width="150" height="50">
-			<c:if test="${!empty message}">
-				<div style="float: right; margin: 10px 5px 0 0;">
-					<jsp:useBean id="now" class="java.util.Date" />
-					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-					<c:out value="${today}" />
-					<br> 받는 사람 : ${message.senderNickname }
-				</div>
-			</c:if>
 
-			<!-- 대화내용이 출력되는 부분 -->
-			<form action="sendReply" method="post">
-				<input type="hidden" name="senderNo"
-					value="${message.messageSenderNo }"> <input type="hidden"
-					name="receiverNo" value="${message.messageReceiverNo }">
-
-				<div id="chatting">
-					<div id='sessionuserid'>
-						<p
-							style="text-align: inherit; padding: 3px; color: black; font-size: 24px;">
-							<textarea id="messageReply" name="messageReply" rows="10">
-</textarea>
-						</p>
+	<c:if test="${!empty message}">
+		<div id="chatgroup" style="width: 490; height: 590;">
+			<div id="chatbox" class='form-group'>
+				<div id="chattop">
+					<img id="chatlogo" src="${contextPath}/resources/images/logo.png"
+						width="150" height="50">
+					<div style="float: right; margin: 10px 5px 0 0;">${message.messageDate}<br>
+						받는사람 : ${message.receiverNickname}
 					</div>
-					<br>
 
-					<div class='panel panel-default'>
-						<div id='chatdata' class='panel-body'></div>
-					</div>
-				</div>
-				<div class="buttonArea">
-					<button
-						class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
-						id="replyBtn" type="submit">전송</button>
-					<a
-						class="btn btn-primary btn-sm d-md-inline-block headBtn btn btn-sm deleteBtn"
-						type="button" href="javascript:history.go(-1);">취소</a>
-				</div>
-			</form>
-			<script>
-				$(function() {
-					$("#replyBtn").click(function() {
-						window.opener.location.reload();
-						window.close();
-						location.replace("receiveList.jsp");
-					}).mouseenter(function() {
-						$(this).parent().css("cursor", "pointer");
-					});
+					<!-- 대화내용이 출력되는 부분 -->
+					<div id="chatting">
+						<div id='sessionuserid'>
+							<p style="text-align: inherit; padding:3px; color: black; font-size: 28px;">
+								${message.messageContent}
+	</c:if>
 
-				});
-			</script>
+	</p>
+	</div>
+	<br>
+
+	<div class='panel panel-default'>
+		<div id='chatdata' class='panel-body'></div>
+	</div>
+	</div>
+	<div class="buttonArea">
+		<form action="replyForm">
+			<button
+				class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
+				type="submit">삭제하기</button>
+		</form>
+	</div>
+	<script>
+	// 쪽지 삭제
+	$(function() {
+		$("#deleteBtn").click(function(){
+		var messageNo = ${message.messageNo};
+			if(confirm("쪽지를 삭제하시겠습니까?")){
+				location.href = "deleteMessage?no="+messageNo;
+				window.opener.location.reload();
+				window.close();
+			}
+		}).mouseenter(function(){
+			$(this).parent().css("cursor", "pointer");
+		});	
+	});
+</script>
 </body>
 </html>

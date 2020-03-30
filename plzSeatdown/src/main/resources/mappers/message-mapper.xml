@@ -91,6 +91,25 @@
          WHERE MESSAGE_NO=#{no}
       </update>
    
+      <!-- 보낸 쪽지 상세보기 -->
+   <select id="selectSendMessage" parameterType="_int" resultMap="messageResultSet">
+         SELECT *
+         FROM V_MESSAGE
+         WHERE MESSAGE_NO=#{no}
+         AND MESSAGE_SEND_STATUS='Y'
+   </select>
    
+	<!-- 쪽지 보내기 창에 넣을 정보 -->
+	<select id="selectReplyForm" parameterType="_int" resultMap="messageResultSet">
+		SELECT * 
+		FROM V_MESSAGE
+		WHERE MESSAGE_NO = #{no}
+	</select>
+   
+   <!-- 쪽지 답장 보내기 -->
+   <insert id="insertMessage2" parameterType="map">
+      INSERT INTO MESSAGE VALUES
+      (#{messageNo}, #{messageReceiverNo}, #{messageSenderNo}, #{messageContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+   </insert>
    
 </mapper>

@@ -40,7 +40,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 	
-	<!-- Main -->
+<!-- Main -->
 			<div class="wrapper style1">
 				<div class="container">
 					<div class="row gtr-200">
@@ -56,15 +56,14 @@
 						
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<div class="mb-2 ml-2">
-							<button id="allDel" class="btn btn-outline-secondary">삭제</button>
 							<span class="mr-2"></span>
 							<span></span>
 							</div>
 						
 							<table id="list-table" class="table" style="margin-left:20px;">
-								<thead style="padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
+								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 								  <tr>
-								  	<th id="checkHead" scope="col" style="border-bottom:0px;">  
+								  	<th scope="col" style="border-bottom:0px;">  
                                          <label class="customcheckbox">
                                              <input type="checkbox" class="listCheckbox" />
                                              <span class="checkmark"></span>
@@ -95,9 +94,11 @@
 											</td>
 											<%-- <td style="border-top:0px; padding-top:22px;">${msg.messageNo}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${msg.receiverNickname }</td>
-											<td id="msgContent" style="border-top:0px; padding-top:22px;">
-												<p class="ellip" id="ellip1"><a href="javascript:openWin();">${msg.messageContent}</a></p>
+											<td class="msgContent" id="${msg.messageNo}"
+											style="border-top: 0px; padding-top: 22px;">
+											<p class="ellip" id="ellip1">${msg.messageContent}</p>
 										</td>
+
 
 											<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${msg.messageDate}</td>
@@ -106,8 +107,6 @@
 								</c:if>
 								</tbody>
 							  </table>
-
-
 							   <!-- 페이징바 -->
            					 <div class="col-md-12 d-flex justify-content-center">
 	         				   <ul class="pagination pagination-info">
@@ -175,14 +174,16 @@
 			</div>			
 		<script>
 		// 쪽지 보기 
- 		function openWin(){ 
-			var messageNo = $("input[name=messageNo]").val();
-			<c:url var="detailUrl" value="detail">
+ 		$(function() {
+			$(".msgContent").click(function() {
+				var messageNo = $(this).prop("id");
+				<c:url var="detailUrl" value="sendDetail">
 				<c:param name="currentPage" value="${pInf.currentPage}"/>
-			</c:url>
-   			window.open("${detailUrl}&no="+ messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no" );  
-		};  
-	</script>
+				</c:url>
+				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+			});
+		});  
+		</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
