@@ -155,7 +155,7 @@ public class MemberController {
 	}
 	
 	// 회원 가입 페이지 이동
-	@RequestMapping("naverLogin")
+	@RequestMapping("signUpForm")
 	public String signUpForm() {
 		return "member/signUpForm";
 	}
