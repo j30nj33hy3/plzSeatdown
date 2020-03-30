@@ -277,42 +277,88 @@
 			</div>
 			<!-- 좌석 평점 표시 -->
 			<script>
-				<c:forEach var="r" items="${rating}">
-					var val = "${r.seatValue}";
-					var rating = "${r.rating}";
-					$.each($(".s13"), function(index, item){
-						if($(item).attr("value") == val){
-							$(item).removeClass("s13");
-							$(item).removeClass("s2");
-							$(item).removeClass("s3");
-							$(item).removeClass("s0");
-							$(item).removeClass("s5");
-							$(item).removeClass("s7");
-						}
-						if(rating == 1){
-							$(item).addClass("s2");
-						}
-						if(rating == 2){
-							$(item).addClass("s3");
-						}
-						if(rating == 3){
-							$(item).addClass("s0");
-						}
-						if(rating == 4){
-							$(item).addClass("s5");
-						}
-						if(rating == 5){
-							$(item).addClass("s7");
-						}
-						if($(item).attr("value") != val){
-							$(item).removeClass("s2");
-							$(item).removeClass("s3");
-							$(item).removeClass("s0");
-							$(item).removeClass("s5");
-							$(item).removeClass("s7");
-						}
+				rating();
+				function rating(){
+					<c:forEach var="r" items="${rating}">
+						var val = "${r.seatValue}";
+						var rating = "${r.rating}";
+						$.each($(".s13"), function(index, item){
+							if($(item).attr("value") == val){
+								$(item).removeClass("s13");
+								$(item).removeClass("s2");
+								$(item).removeClass("s3");
+								$(item).removeClass("s0");
+								$(item).removeClass("s5");
+								$(item).removeClass("s7");
+							}
+							if(rating == 1){
+								$(item).addClass("s2");
+							}
+							if(rating == 2){
+								$(item).addClass("s3");
+							}
+							if(rating == 3){
+								$(item).addClass("s0");
+							}
+							if(rating == 4){
+								$(item).addClass("s5");
+							}
+							if(rating == 5){
+								$(item).addClass("s7");
+							}
+							if($(item).attr("value") != val){
+								$(item).removeClass("s2");
+								$(item).removeClass("s3");
+								$(item).removeClass("s0");
+								$(item).removeClass("s5");
+								$(item).removeClass("s7");
+							}
+						});
+					 </c:forEach>
+				}
+				
+				$(function(){
+					$(".sLevel1").hover(function(){
+						$("div[name='tk']").not("div[class='s2']").each(function(){
+							$(this).removeClass();
+							$(this).addClass("s13");
+						});
+					},function(){
+						rating();
 					});
-				 </c:forEach>
+					$(".sLevel2").hover(function(){
+						$("div[name='tk']").not("div[class='s3']").each(function(){
+							$(this).removeClass();
+							$(this).addClass("s13");
+						});
+					},function(){
+						rating();
+					});
+					$(".sLevel3").hover(function(){
+						$("div[name='tk']").not("div[class='s0']").each(function(){
+							$(this).removeClass();
+							$(this).addClass("s13");
+						});
+					},function(){
+						rating();
+					});
+					$(".sLevel4").hover(function(){
+						$("div[name='tk']").not("div[class='s5']").each(function(){
+							$(this).removeClass();
+							$(this).addClass("s13");
+						});
+					},function(){
+						rating();
+					});
+					$(".sLevel5").hover(function(){
+						$("div[name='tk']").not("div[class='s7']").each(function(){
+							$(this).removeClass();
+							$(this).addClass("s13");
+						});
+					},function(){
+						rating();
+					});
+				});
 			</script>
 			
 			<!-- 카카오맵 script -->
