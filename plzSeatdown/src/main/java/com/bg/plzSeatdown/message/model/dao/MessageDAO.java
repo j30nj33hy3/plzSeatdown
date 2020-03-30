@@ -81,5 +81,34 @@ public class MessageDAO {
 		return sqlSession.update("messageMapper.updateMessage", no);
 	}
 
+	public Message selectSendMessage(Integer no) throws Exception {
+		return sqlSession.selectOne("messageMapper.selectSendMessage", no);
+	}
+
+	public Message selectReplyForm(Integer no) throws Exception {
+		return sqlSession.selectOne("messageMapper.selectReplyForm", no);
+	}
+
+	public int insertMessage2(Message message) {
+		return sqlSession.insert("messageMapper.insertMessage2", message);
+	}
+
+	/** 받은 쪽지함 삭제 DAO
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	public int checkDel(int check) throws Exception{
+		return sqlSession.update("messageMapper.checkDel",check);
+	}
 	
+	/** 보낸 쪽지함 삭제 DAO
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	public int sendDel(int check) throws Exception{
+		return sqlSession.update("messageMapper.sendDel", check);
+	}
+
 }

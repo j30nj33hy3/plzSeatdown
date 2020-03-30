@@ -34,4 +34,25 @@ public interface MessageService {
 
 	public abstract int updateMessage(Integer no) throws Exception;
 
+	public abstract Message selectSendMessage(Integer no) throws Exception;
+
+	public abstract Message selectReplyForm(Integer no) throws Exception;
+
+	public abstract int sendReply(Message message) throws Exception;
+	
+	/** 받은 쪽지함 삭제 
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int checkDel(int check) throws Exception;
+
+	/** 보낸 쪽지함 삭제 
+	 * @param check
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int sendDel(int check) throws Exception;
+
+
 }

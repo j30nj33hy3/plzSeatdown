@@ -37,7 +37,6 @@
 <body class="homepage is-preload">
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/nav.jsp" />
-
 	<!-- Main -->
 	<div class="wrapper style1">
 		<div class="container">
@@ -56,19 +55,18 @@
 
 				<div class="col-10 col-12-mobile imp-mobile" id="content">
 					<div class="mb-2 ml-2">
-					<button id="allDel" class="btn btn-outline-secondary">삭제</button>
 						<span class="mr-2"></span> <span></span>
 					</div>
-
+					<form action="checkDel" method="post" onsubmit="return checkDelete();">
 					<table id="list-table" class="table" style="margin-left: 20px;">
 						<thead
 							style="padding: 0.5em; font-weight: bold; color: rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 							<tr>
 								<th id="checkboxes" scope="col" style="border-bottom: 0px;">
-									<label class="customcheckbox m-b-20">                                                 
-                                      	<input type="checkbox" id="mainCheckbox" />
-                                       	<span class="checkmark"></span>
-                                    </label>
+									<label class="customcheckbox m-b-20"> 
+										<input type="checkbox" id="mainCheckbox" onclick="checkAll();" /> 
+										<span class="checkmark"></span>
+								</label>
 								</th>
 								<th scope="col" style="border-bottom: 0px;">보낸사람</th>
 								<th scope="col" style="border-bottom: 0px;">내용</th>
@@ -86,12 +84,11 @@
 							<c:if test="${!empty rList}">
 								<c:forEach var="msg" items="${rList}" varStatus="vs">
 									<tr>
-										<input type="hidden" name="messageNo" value="${msg.messageNo}" />
 										<td style="border-top: 0px; padding-top: 22px;">
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox" />
-                                                <span class="checkmark"></span>
-                                            </label>									
+										<label class="customcheckbox"> 
+											<input type="checkbox" class="listCheckbox" name="checkRow" value="${msg.messageNo}"/> 
+											<span class="checkmark"></span>
+										</label>
 										</td>
 										<%-- <td style="border-top:0px; padding-top:22px;">${msg.messageNo}</td> --%>
 										<td style="border-top: 0px; padding-top: 22px;">${msg.senderNickname}</td>
@@ -102,12 +99,20 @@
 
 										<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 										<td style="border-top: 0px; padding-top: 22px;">${msg.messageDate}</td>
-										<td style="border-top: 0px; padding-top: 22px;">${msg.messageRead}</td>
+										<c:set var="test" value="${msg.messageRead}"/>
+										<c:if test="${test == 'N'}">
+											<td style="border-top: 0px; padding-top: 22px;"><b>읽지않음</b></td>	
+										</c:if>	
+										<c:if test="${test=='Y'}">
+											<td style="border-top: 0px; padding-top: 22px;">읽음</td>
+										</c:if>			
 									</tr>
 								</c:forEach>
 							</c:if>
 						</tbody>
 					</table>
+					<button type="submit" id="allDel" class="btn btn-outline-secondary">삭제</button>
+					</form>
 
 
 					<!-- 페이징바 -->
@@ -196,7 +201,10 @@
 				</c:url>
 				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");				
 		        
+				$(this).next().next().html("읽음");
+				
 				var $msg = $("#msgCount");
+				
 				
 		        no = "${loginMember.memberNo}";		        
 		           if(no != 0){
@@ -235,6 +243,23 @@
 				$(this).css("cursor", "pointer");
 			});
 		}); */
+	</script>
+	<script>
+		// 체크박스 전체선택 선택해제
+		function checkAll() {
+			if ($("#mainCheckbox").is(':checked')) {
+				$("input[name=checkRow]").prop("checked", true);
+			} else {
+				$("input[name=checkRow]").prop("checked", false);
+			}
+		}
+		
+		function checkDelete(){
+		    if($("input:checkbox[class=listCheckbox]:checked").length == 0){
+		    	alert("삭제할 쪽지를 선택해주세요.");
+				return false;
+		     }
+		};
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
