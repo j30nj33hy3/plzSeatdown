@@ -124,4 +124,24 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectProfile", memberNo);
 	}
 
+	/** 카카오 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public int kakaoSignUp(Member member) throws Exception{
+		return sqlSession.insert("memberMapper.kakaoSignUp", member);
+	}
+
+	/** 네이버 가입 Service
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	public int naverSignUp(Member member) throws Exception{
+		return sqlSession.insert("memberMapper.naverSignUp", member);
+	}
+	
+	
+
 }

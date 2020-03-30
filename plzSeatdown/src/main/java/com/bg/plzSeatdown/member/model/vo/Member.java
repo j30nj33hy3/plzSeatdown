@@ -33,7 +33,13 @@ public class Member {
 		this.memberName = memberName;
 		this.memberEmail = memberEmail;
 	}
-
+	public Member(int memberNo, String memberId, String memberPwd, String memberNickname) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberNickname = memberNickname;
+	}
 	public Member(int memberNo, String memberId, String memberName, String memberNickname, String profilePath) {
 		super();
 		this.memberNo = memberNo;
@@ -41,6 +47,15 @@ public class Member {
 		this.memberName = memberName;
 		this.memberNickname = memberNickname;
 		this.profilePath = profilePath;
+	}
+
+	public Member(String memberId, String memberPwd, String memberName, String memberNickname, String memberEmail) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberNickname = memberNickname;
+		this.memberEmail = memberEmail;
 	}
 
 	public Member(String memberId, String memberPwd, String memberName, String memberNickname, String memberEmail,
