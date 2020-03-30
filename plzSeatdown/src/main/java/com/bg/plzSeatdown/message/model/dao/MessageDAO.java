@@ -111,4 +111,8 @@ public class MessageDAO {
 		return sqlSession.update("messageMapper.sendDel", check);
 	}
 
+	public int sendDelMsg(Integer no) throws Exception{
+		return sqlSession.update("messageMapper.sendDelMsg", no);
+	}
+
 }
