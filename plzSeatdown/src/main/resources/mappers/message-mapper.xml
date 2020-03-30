@@ -4,15 +4,18 @@
 	<resultMap type="Message" id="messageResultSet">
 		<id property="messageNo" column="MESSAGE_NO" />
 		<result property="messageSenderNo" column="MESSAGE_SENDER_NO" />
-		<result property="messageReceiverNo" column="MESSAGE_RECEIVER_NO" />
+		<result property="messageReceiverNo"
+			column="MESSAGE_RECEIVER_NO" />
 		<result property="messageContent" column="MESSAGE_CONTENT" />
 		<result property="messageDate" column="MESSAGE_DT" />
 		<result property="messageRead" column="MESSAGE_READ" />
 		<result property="senderNickname" column="SENDER_NICKNM" />
 		<result property="receiverNickname" column="RECEIVER_NICKNM" />
 		<result property="messageRead" column="MESSAGE_READ" />
-		<result property="messageReceiveStatus" column="MESSAGE_RECEIVE_STATUS" />
-		<result property="messageSendStatus" column="MESSAGE_SEND_STATUS" />
+		<result property="messageReceiveStatus"
+			column="MESSAGE_RECEIVE_STATUS" />
+		<result property="messageSendStatus"
+			column="MESSAGE_SEND_STATUS" />
 	</resultMap>
 
 
@@ -21,7 +24,8 @@
 	<select id="getListCount" parameterType="string"
 		resultType="_int">
 		SELECT COUNT(*) FROM V_MESSAGE
-		WHERE RECEIVER_NICKNM = #{nickName}
+		WHERE RECEIVER_NICKNM =
+		#{nickName}
 		AND MESSAGE_RECEIVE_STATUS='Y'
 		ORDER BY MESSAGE_NO DESC
 	</select>
@@ -44,8 +48,10 @@
 
 	<!-- 쪽지 DB 저장 -->
 	<insert id="insertMessage" parameterType="map">
-		INSERT INTO MESSAGE VALUES
-		(#{messageNo}, #{messageSenderNo}, #{messageReceiverNo}, #{messageContent}, DEFAULT,
+		INSERT INTO MESSAGE
+		VALUES
+		(#{messageNo}, #{messageSenderNo}, #{messageReceiverNo},
+		#{messageContent}, DEFAULT,
 		DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 
@@ -54,7 +60,8 @@
 	<select id="getListCount2" parameterType="string"
 		resultType="_int">
 		SELECT COUNT(*) FROM V_MESSAGE
-		WHERE SENDER_NICKNM = #{nickName}
+		WHERE SENDER_NICKNM =
+		#{nickName}
 		AND MESSAGE_SEND_STATUS='Y'
 		ORDER BY MESSAGE_NO DESC
 	</select>
@@ -65,7 +72,8 @@
 		SELECT *
 		FROM V_MESSAGE
 		WHERE SENDER_NICKNM = #{nickName}
-		AND MESSAGE_SEND_STATUS='Y'
+		AND
+		MESSAGE_SEND_STATUS='Y'
 		ORDER BY MESSAGE_NO DESC
 	</select>
 
@@ -77,32 +85,67 @@
 		WHERE MESSAGE_NO=#{no}
 	</select>
 
+	<!-- 쪽지 읽음 상태로 변경 -->
+	<update id="updateMessage" parameterType="_int">
+		UPDATE MESSAGE SET MESSAGE_READ='Y'
+		WHERE MESSAGE_NO=#{no}
+	</update>
+
 	<!-- 받은 사람 쪽지 삭제 -->
 	<update id="deleteMessage" parameterType="_int">
-		UPDATE MESSAGE SET MESSAGE_RECEIVE_STATUS='N'
+		UPDATE MESSAGE SET
+		MESSAGE_RECEIVE_STATUS='N'
 		WHERE MESSAGE_NO=#{no}
 	</update>
 
 	<!-- 쪽지 알람 개수 -->
 	<select id="msgCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM V_MESSAGE
+		SELECT
+		COUNT(*) FROM V_MESSAGE
 		WHERE MESSAGE_RECEIVER_NO = #{no}
-		AND MESSAGE_READ = 'N'
+		AND
+		MESSAGE_READ = 'N'
 		AND MESSAGE_RECEIVE_STATUS = 'Y'
 	</select>
 
+	
+	<!-- 보낸 메세지 어쩌구..몰라 -->
+	<select id="selectSendMessage" parameterType="_int" resultMap="messageResultSet">
+		SELECT * FROM V_MESSAGE
+		WHERE MESSAGE_NO=#{no}
+	</select>
+
+	<!-- 답장 페이지 갈 때 정보 가져오기 -->
+	<select id="selectReplyForm" parameterType="_int" resultMap="messageResultSet">
+		SELECT * FROM V_MESSAGE
+		WHERE MESSAGE_NO=#{no}
+	</select>
+
+	<!-- 답장 DB 저장 -->
+	<insert id="insertMessage2" parameterType="map">
+		INSERT INTO MESSAGE VALUES
+		(#{messageNo} ,  #{messageReceiverNo}, #{messageSenderNo},#{messageContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
 	<!-- 받은 쪽지함 체크박스 삭제 -->
 	<update id="checkDel" parameterType="_int">
-		UPDATE MESSAGE SET MESSAGE_RECEIVE_STATUS = 'N'
+		UPDATE MESSAGE SET
+		MESSAGE_RECEIVE_STATUS = 'N'
 		WHERE MESSAGE_NO = #{no}
 	</update>
-	
+
 	<!-- 보낸 쪽지함 체크박스 삭제 -->
 	<update id="sendDel" parameterType="_int">
-		UPDATE MESSAGE SET MESSAGE_SEND_STATUS = 'N'
+		UPDATE MESSAGE SET
+		MESSAGE_SEND_STATUS = 'N'
 		WHERE MESSAGE_NO = #{no}
 	</update>
 
-
+	<!-- 메세지 삭제하기 -->
+	<update id="sendDelMsg" parameterType="_int">
+		UPDATE MESSAGE
+		SET MESSAGE_SEND_STATUS='N'
+		WHERE MESSAGE_NO=#{no}
+	</update>
 
 </mapper>

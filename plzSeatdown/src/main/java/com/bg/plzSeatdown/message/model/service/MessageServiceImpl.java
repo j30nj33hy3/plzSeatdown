@@ -139,4 +139,9 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.sendDel(check);
 	}
 
+	@Override
+	public int sendDelMsg(Integer no) throws Exception {
+		return messageDAO.sendDelMsg(no);
+	}
+
 }

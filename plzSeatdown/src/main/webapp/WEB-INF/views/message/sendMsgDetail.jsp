@@ -26,7 +26,7 @@ body {
 }
 
 #chatting {
-	padding:15px;
+	padding: 15px;
 	background-color: white;
 	overflow: scroll;
 	width: 470px;
@@ -154,51 +154,56 @@ sub {
 <body>
 
 	<c:if test="${!empty message}">
-		<div id="chatgroup" style="width: 490; height: 590;">
-			<div id="chatbox" class='form-group'>
-				<div id="chattop">
-					<img id="chatlogo" src="${contextPath}/resources/images/logo.png"
-						width="150" height="50">
-					<div style="float: right; margin: 10px 5px 0 0;">${message.messageDate}<br>
-						받는사람 : ${message.receiverNickname}
+		<form action="sendDelMsg?no=${message.messageNo }" method="post">
+			<div id="chatgroup" style="width: 490; height: 590;">
+				<div id="chatbox" class='form-group'>
+					<div id="chattop">
+						<img id="chatlogo" src="${contextPath}/resources/images/logo.png"
+							width="150" height="50">
+						<div style="float: right; margin: 10px 5px 0 0;">${message.messageDate}<br>
+							받는사람 : ${message.receiverNickname}
+						</div>
+
+						<!-- 대화내용이 출력되는 부분 -->
+						<div id="chatting">
+							<div id='sessionuserid'>
+								<p
+									style="text-align: inherit; padding: 3px; color: black; font-size: 28px;">
+									${message.messageContent}</p>
+							</div>
+							<br>
+
+							<div class='panel panel-default'>
+								<div id='chatdata' class='panel-body'></div>
+							</div>
+						</div>
+						<div class="buttonArea">
+							<button
+								class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
+								id="deleteBtn" type="submit">삭제하기</button>
+						</div>
 					</div>
-
-					<!-- 대화내용이 출력되는 부분 -->
-					<div id="chatting">
-						<div id='sessionuserid'>
-							<p style="text-align: inherit; padding:3px; color: black; font-size: 28px;">
-								${message.messageContent}
-	</c:if>
-
-	</p>
-	</div>
-	<br>
-
-	<div class='panel panel-default'>
-		<div id='chatdata' class='panel-body'></div>
-	</div>
-	</div>
-	<div class="buttonArea">
-		<form action="replyForm">
-			<button
-				class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
-				type="submit">삭제하기</button>
+				</div>
+			</div>
 		</form>
-	</div>
+	</c:if>
 	<script>
-	// 쪽지 삭제
-	$(function() {
-		$("#deleteBtn").click(function(){
-		var messageNo = ${message.messageNo};
-			if(confirm("쪽지를 삭제하시겠습니까?")){
-				location.href = "deleteMessage?no="+messageNo;
-				window.opener.location.reload();
-				window.close();
-			}
-		}).mouseenter(function(){
-			$(this).parent().css("cursor", "pointer");
-		});	
-	});
-</script>
+		// 쪽지 삭제
+		$(function() {
+			$("#deleteBtn").click(function() {
+				var messageNo = ${message.messageNo};
+				
+				if (confirm("쪽지를 삭제하시겠습니까?")) {
+					location.href = "deleteMessage?no=" + messageNo;
+					window.opener.location.reload();
+					window.close();
+				} else{
+					return false;
+				}
+			}).mouseenter(function() {
+				$(this).parent().css("cursor", "pointer");
+			});
+		});
+	</script>
 </body>
 </html>

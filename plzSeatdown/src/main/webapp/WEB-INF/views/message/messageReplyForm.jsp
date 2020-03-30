@@ -150,6 +150,16 @@ sub {
 	border: none;
 	resize: none;
 }
+
+textarea:focus {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+input:focus {
+  outline: none;
+}
 </style>
 <title>쪽지 보내기</title>
 
@@ -201,6 +211,7 @@ sub {
 				</div>
 			</form>
 			<script>
+			
 				$(function() {
 					$("#replyBtn").click(function() {
 						window.opener.location.reload();

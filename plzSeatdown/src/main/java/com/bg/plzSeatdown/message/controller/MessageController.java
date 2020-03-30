@@ -129,6 +129,7 @@ public class MessageController {
 		}
 	}
 	
+	// 받은 메세지 상세 화면에서 삭제
 	@RequestMapping("deleteMessage")
 	public String deleteMessage(Model model, Integer no, RedirectAttributes rdAttr) {
 		try {
@@ -183,7 +184,6 @@ public class MessageController {
 			Message message = messageService.selectSendMessage(no);
 			model.addAttribute("message", message);
 			return "message/sendMsgDetail";
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "쪽지창에서 오류 발생");
@@ -254,5 +254,27 @@ public class MessageController {
 			return "redirect:/message/sendList";
 		}
 	}	
+	
+	// 보낸메세지 상세조회 화면에서 삭제하기 
+	@RequestMapping("sendDelMsg")
+	public String sendDelMsg(Model model, Integer no, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴
+		try {
+			int result = -1;
+			result = messageService.sendDelMsg(no);
+			if(result > 0) {
+				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
+				return "redirect:"+beforeUrl;
+			} else {
+				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
+				return "sendDetail.jsp";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
+	
 	
 }

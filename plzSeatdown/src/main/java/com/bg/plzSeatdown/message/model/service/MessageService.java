@@ -54,5 +54,7 @@ public interface MessageService {
 	 */
 	public abstract int sendDel(int check) throws Exception;
 
+	public abstract int sendDelMsg(Integer no) throws Exception;
+
 
 }
