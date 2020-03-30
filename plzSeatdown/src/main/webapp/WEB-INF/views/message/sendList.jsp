@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/jquery.multicheck.js"/>
 <style>
+
 .ellip{
    margin: 0;
    margin: auto;
@@ -18,6 +19,16 @@
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
+}
+
+#checkHead{
+	vertical-align : super;
+}
+
+#allDel{
+	position : absolute;
+	left: 10px;
+	bottom : 5px;
 }
 
 
@@ -44,14 +55,15 @@
 						
 						<div class="col-10 col-12-mobile imp-mobile" id="content">
 							<div class="mb-2 ml-2">
+							<button id="allDel" class="btn btn-outline-secondary">삭제</button>
 							<span class="mr-2"></span>
 							<span></span>
 							</div>
 						
 							<table id="list-table" class="table" style="margin-left:20px;">
-								<thead style="   padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
+								<thead style="padding : 0.5em; font-weight: bold; color:rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 								  <tr>
-								  	<th scope="col" style="border-bottom:0px;">  
+								  	<th id="checkHead" scope="col" style="border-bottom:0px;">  
                                          <label class="customcheckbox">
                                              <input type="checkbox" class="listCheckbox" />
                                              <span class="checkmark"></span>

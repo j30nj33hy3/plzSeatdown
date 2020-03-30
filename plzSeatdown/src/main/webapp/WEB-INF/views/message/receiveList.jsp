@@ -19,6 +19,17 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+#checkHead{
+	vertical-align : super;
+}
+
+#allDel{
+	position : absolute;
+	left: 10px;
+	bottom : 5px;
+}
+
 </style>
 
 </head>
@@ -44,6 +55,7 @@
 
 				<div class="col-10 col-12-mobile imp-mobile" id="content">
 					<div class="mb-2 ml-2">
+					<button id="allDel" class="btn btn-outline-secondary">삭제</button>
 						<span class="mr-2"></span> <span></span>
 					</div>
 
@@ -51,7 +63,7 @@
 						<thead
 							style="padding: 0.5em; font-weight: bold; color: rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 							<tr>
-								<th scope="col" style="border-bottom: 0px;">
+								<th id="checkHead" scope="col" style="border-bottom: 0px;">
 									<label class="customcheckbox m-b-20">                                                 
                                       	<input type="checkbox" id="mainCheckbox" />
                                        	<span class="checkmark"></span>
