@@ -34,4 +34,10 @@ public interface MessageService {
 
 	public abstract int updateMessage(Integer no) throws Exception;
 
+	public abstract Message selectSendMessage(Integer no) throws Exception;
+
+	public abstract Message selectReplyForm(Integer no) throws Exception;
+
+	public abstract int sendReply(Message message) throws Exception;
+
 }

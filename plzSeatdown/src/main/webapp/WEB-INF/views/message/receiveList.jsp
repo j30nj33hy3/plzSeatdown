@@ -37,7 +37,6 @@
 <body class="homepage is-preload">
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/nav.jsp" />
-
 	<!-- Main -->
 	<div class="wrapper style1">
 		<div class="container">
@@ -56,7 +55,6 @@
 
 				<div class="col-10 col-12-mobile imp-mobile" id="content">
 					<div class="mb-2 ml-2">
-					<button id="allDel" class="btn btn-outline-secondary">삭제</button>
 						<span class="mr-2"></span> <span></span>
 					</div>
 
@@ -64,7 +62,7 @@
 						<thead
 							style="padding: 0.5em; font-weight: bold; color: rgb(163, 99, 189); border-color: rgb(198, 180, 205); border-bottom: 0px;">
 							<tr>
-								<th id="checkboxes" scope="col" style="border-bottom: 0px;">
+								<th scope="col" style="border-bottom: 0px;">
 									<label class="customcheckbox m-b-20">                                                 
                                       	<input type="checkbox" id="mainCheckbox" />
                                        	<span class="checkmark"></span>
@@ -74,7 +72,6 @@
 								<th scope="col" style="border-bottom: 0px;">내용</th>
 								<!-- <th scope="col" style="border-bottom:0px;">내용</th> -->
 								<th scope="col" style="border-bottom: 0px;">날짜</th>
-								<th scope="col" style="border-bottom: 0px;">읽음</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -102,7 +99,6 @@
 
 										<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 										<td style="border-top: 0px; padding-top: 22px;">${msg.messageDate}</td>
-										<td style="border-top: 0px; padding-top: 22px;">${msg.messageRead}</td>
 									</tr>
 								</c:forEach>
 							</c:if>

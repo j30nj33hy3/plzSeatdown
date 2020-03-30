@@ -126,7 +126,6 @@ public class MessageController {
 			model.addAttribute("errorMsg", "쪽지창에서 오류 발생");
 			return "common/errorPage";
 		}
-
 	}
 	
 	@RequestMapping("deleteMessage")
@@ -146,26 +145,73 @@ public class MessageController {
 			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
 			return "common/errorPage";
 		}
-		
 	}
 	
 	// 답장 화면으로 이동
 	@RequestMapping("replyForm")
-	public String replyForm() {
-		return "message/messageReplyForm";
+	public String replyForm(Model model, Integer no) {
+		try {
+			Message message = messageService.selectReplyForm(no);
+			model.addAttribute("message", message);
+			return "message/messageReplyForm";
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "오류 발생");
+			return "common/errorPage";
+		}
 	}
 	
+	// 안읽은 메세지 수 세기
 	@ResponseBody
 	@RequestMapping("msgCount")
 	public int msgCount(Model model, Integer no) {
 		int result = 0; 		
 		try {
 			result = messageService.msgCount(no);
-		
 		}catch(Exception e) {			
 			e.printStackTrace();
 			result = -1;
 		}			
 		return result;
-	}	
+	}
+	
+	// 보낸 메세지 상세보기
+	@RequestMapping("sendDetail")
+	public String sendDetail(Model model, Integer no) {
+		try {
+			Message message = messageService.selectSendMessage(no);
+			model.addAttribute("message", message);
+			return "message/sendMsgDetail";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "쪽지창에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("sendReply")
+	public String sendReply(Model model, Message message, int senderNo, int receiverNo, String messageReply, HttpServletRequest request, RedirectAttributes rdAttr) {
+		message.setMessageSenderNo(senderNo);
+		message.setMessageReceiverNo(receiverNo);
+		message.setMessageContent(messageReply);
+		String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴
+
+		try {
+			int result = messageService.sendReply(message); 			
+			if(result > 0 ) {
+				model.addAttribute("msg", "답장을 전송했습니다.");
+				return "redirect:"+beforeUrl;
+			} else {
+				rdAttr.addFlashAttribute("msg", "쪽지 전송 실패 실패");
+				return "redirect:"+beforeUrl;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "쪽지 답장 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
+	
+	
 }

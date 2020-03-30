@@ -81,5 +81,17 @@ public class MessageDAO {
 		return sqlSession.update("messageMapper.updateMessage", no);
 	}
 
+	public Message selectSendMessage(Integer no) throws Exception {
+		return sqlSession.selectOne("messageMapper.selectSendMessage", no);
+	}
+
+	public Message selectReplyForm(Integer no) throws Exception {
+		return sqlSession.selectOne("messageMapper.selectReplyForm", no);
+	}
+
+	public int insertMessage2(Message message) {
+		return sqlSession.insert("messageMapper.insertMessage2", message);
+	}
+
 	
 }

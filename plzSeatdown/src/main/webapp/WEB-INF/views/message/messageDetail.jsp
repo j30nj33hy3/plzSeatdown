@@ -145,7 +145,7 @@ sub {
 	box-shadow: none;
 }
 </style>
-<title>쪽지 확인</title>
+<title>받은 쪽지 확인</title>
 
 <meta charset="UTF-8">
 </head>
@@ -154,6 +154,8 @@ sub {
 <body>
 
 	<c:if test="${!empty message}">
+	<form action="replyForm?no=${message.messageNo}" method="post">
+	
 		<div id="chatgroup" style="width: 490; height: 590;">
 			<div id="chatbox" class='form-group'>
 				<div id="chattop">
@@ -168,7 +170,6 @@ sub {
 						<div id='sessionuserid'>
 							<p style="text-align: inherit; padding:3px; color: black; font-size: 28px;">
 								${message.messageContent}
-	</c:if>
 
 	</p>
 	</div>
@@ -179,15 +180,15 @@ sub {
 	</div>
 	</div>
 	<div class="buttonArea">
-		<form action="replyForm">
-			<button
+				<button
 				class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
 				type="submit">답장하기</button>
 			<button
 				class="btn btn-primary btn-sm d-md-inline-block headBtn btn btn-sm deleteBtn" id="deleteBtn"
 				type="button">삭제하기</button>
-		</form>
 	</div>
+		</form>
+	</c:if>
 	<script>
 	// 쪽지 삭제
 	$(function() {
@@ -201,6 +202,7 @@ sub {
 		}).mouseenter(function(){
 			$(this).parent().css("cursor", "pointer");
 		});	
+		
 	});
 </script>
 </body>
