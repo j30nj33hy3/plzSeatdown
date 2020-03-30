@@ -61,12 +61,12 @@
 	</head>
 	<body class="homepage is-preload">
 		
-		<div id="page-wrapper">
+		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+		
+		<div id="page-wrapper" class="wrapper">
 		
 			<div class="overlay"></div>
-
-			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 			
 			<!-- sidebar -->
 			<div id="wrap">
@@ -144,20 +144,16 @@
 
 			<div class="container container-fluid my-5">
 				
-				<div class="pb-4">
-		            <h5>좌석 리뷰</h5>
-		        </div>
-		        
-		        <div class="row mb-5">
-					<div class="col-md-12 text-center">
-						${theater.thNm}
-                   </div>
-				</div>
-		        
 		        <div class="row">
 		        	<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>
 		        	
 		        	<div class="col-10">
+		        	
+		        		<div class="row mb-5">
+							<div class="col-md-12 text-center">
+								${theater.thNm}
+		                   </div>
+						</div>
 		        	
 						<div class="row mb-5">
 							<div class="col-md-9 text-center content" id="seat-status">
@@ -226,10 +222,10 @@
 									</div>
 									<div class="mt-4">
 										<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
-										<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
+										<div id="showDate" class="text-center" style="font-size: 14px;">${show.startDt} ~ ${show.endDt}</div>
 									</div>
 									<div class="move text-center mt-4">
-										<button class="btn btn-default" type="button">
+										<button class="btn btn-default" id="moveBtn" type="button">
 											예매 페이지로 이동
 										</button>
 									</div>
@@ -254,7 +250,7 @@
 										${theater.thPhone}
 									</p>
 									<p id="tHome">
-										<a href=http://www.bluesquare.kr>${theater.thPage}</a>
+										<a href="${theater.thPage}">${theater.thPage}</a>
 									</p>
 								</div>
 							</div>
@@ -275,90 +271,52 @@
 		        </div>
 		        
 			</div>
+			
+			<!-- 사이드 메뉴 이름 변경 -->
+			<script>
+				$(function(){
+					$("#sideMenu #clickedPage").attr("href","").html("좌석 리뷰");
+				});
+			</script>
+			
 			<!-- 좌석 평점 표시 -->
 			<script>
-				rating();
-				function rating(){
-					<c:forEach var="r" items="${rating}">
-						var val = "${r.seatValue}";
-						var rating = "${r.rating}";
-						$.each($(".s13"), function(index, item){
-							if($(item).attr("value") == val){
-								$(item).removeClass("s13");
-								$(item).removeClass("s2");
-								$(item).removeClass("s3");
-								$(item).removeClass("s0");
-								$(item).removeClass("s5");
-								$(item).removeClass("s7");
-							}
-							if(rating == 1){
-								$(item).addClass("s2");
-							}
-							if(rating == 2){
-								$(item).addClass("s3");
-							}
-							if(rating == 3){
-								$(item).addClass("s0");
-							}
-							if(rating == 4){
-								$(item).addClass("s5");
-							}
-							if(rating == 5){
-								$(item).addClass("s7");
-							}
-							if($(item).attr("value") != val){
-								$(item).removeClass("s2");
-								$(item).removeClass("s3");
-								$(item).removeClass("s0");
-								$(item).removeClass("s5");
-								$(item).removeClass("s7");
-							}
-						});
-					 </c:forEach>
-				}
-				
-				$(function(){
-					$(".sLevel1").hover(function(){
-						$("div[name='tk']").not("div[class='s2']").each(function(){
-							$(this).removeClass();
-							$(this).addClass("s13");
-						});
-					},function(){
-						rating();
+				<c:forEach var="r" items="${rating}">
+					var val = "${r.seatValue}";
+					var rating = "${r.rating}";
+					$.each($(".s13"), function(index, item){
+						if($(item).attr("value") == val){
+							$(item).removeClass("s13");
+							$(item).removeClass("s2");
+							$(item).removeClass("s3");
+							$(item).removeClass("s0");
+							$(item).removeClass("s5");
+							$(item).removeClass("s7");
+						}
+						if(rating == 1){
+							$(item).addClass("s2");
+						}
+						if(rating == 2){
+							$(item).addClass("s3");
+						}
+						if(rating == 3){
+							$(item).addClass("s0");
+						}
+						if(rating == 4){
+							$(item).addClass("s5");
+						}
+						if(rating == 5){
+							$(item).addClass("s7");
+						}
+						if($(item).attr("value") != val){
+							$(item).removeClass("s2");
+							$(item).removeClass("s3");
+							$(item).removeClass("s0");
+							$(item).removeClass("s5");
+							$(item).removeClass("s7");
+						}
 					});
-					$(".sLevel2").hover(function(){
-						$("div[name='tk']").not("div[class='s3']").each(function(){
-							$(this).removeClass();
-							$(this).addClass("s13");
-						});
-					},function(){
-						rating();
-					});
-					$(".sLevel3").hover(function(){
-						$("div[name='tk']").not("div[class='s0']").each(function(){
-							$(this).removeClass();
-							$(this).addClass("s13");
-						});
-					},function(){
-						rating();
-					});
-					$(".sLevel4").hover(function(){
-						$("div[name='tk']").not("div[class='s5']").each(function(){
-							$(this).removeClass();
-							$(this).addClass("s13");
-						});
-					},function(){
-						rating();
-					});
-					$(".sLevel5").hover(function(){
-						$("div[name='tk']").not("div[class='s7']").each(function(){
-							$(this).removeClass();
-							$(this).addClass("s13");
-						});
-					},function(){
-						rating();
-					});
-				});
+				 </c:forEach>
 			</script>
 			
 			<!-- 카카오맵 script -->

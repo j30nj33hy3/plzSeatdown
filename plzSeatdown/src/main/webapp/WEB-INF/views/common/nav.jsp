@@ -104,15 +104,15 @@
 		<div class="collapse navbar-collapse px-5 mx-5" id="navbarTogglerDemo01">
 			<ul class="container-fluid navbar-nav d-flex flex-colum flex-md-row justify-content-around">
 			<li class="nav-item"><a href="${contextPath}/notice/list" class="nav-link d-md-inline-block">Notice</a></li>
-			<li class="nav-item dropdown">
-				<a href="#" class="nav-link d-md-inline-block" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Review</a>
-				<div class="dropdown-menu mt-3 py-3" aria-labelledby="navbarDropdown">
+			<li class="nav-item">
+				<a href="${contextPath}/review/theater" class="nav-link d-md-inline-block" >Review</a>
+				<%-- <div class="dropdown-menu mt-3 py-3" aria-labelledby="navbarDropdown">
 					<a href="${contextPath}/review/theater" class="dropdown-item">공연장별</a>
 					<a href="${contextPath}/review/show" class="dropdown-item">공연별</a>
 					<c:if test="${! empty sessionScope.loginMember}">
 					<a href="${contextPath}/review/writeForm" class="dropdown-item">리뷰 작성</a>
 					</c:if>
-				</div>
+				</div> --%>
 			</li>
 			<li class="nav-item"><a href="${contextPath}/community/list" class="nav-link d-md-inline-block">Community</a></li>
 			<li class="nav-item"><a href="${contextPath}/qna/list" class="nav-link d-md-inline-block">Q&A</a></li>
@@ -140,7 +140,7 @@
 		}
 		
 		//Review 메뉴 호버 이벤트
-	    $(function () {
+	    /* $(function () {
 	      $(".subMenu>li").on({
 	        mouseenter: function () {
 	          $(this).find("ul").stop().slideDown(300);
@@ -149,7 +149,7 @@
 	          $(this).find("ul").stop().slideUp(300);
 	        }
 	      });
-	    });
+	    }); */
 	</script>
 </body>
 </html>

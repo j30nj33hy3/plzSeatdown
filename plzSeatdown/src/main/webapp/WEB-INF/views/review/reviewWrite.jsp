@@ -15,18 +15,21 @@
 		</style>
 	</head>
 	<body class="homepage is-preload">
-		<div id="page-wrapper">
-
-			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+		
+		<div id="page-wrapper" class="wrapper">
 
 			<div class="container container-fluid my-5">
-				<div class="pb-4">
-		            <h5>리뷰 작성</h5>
-		        </div>
 
 				<div class="row">
-					<div class="col-md-12">
+				
+					<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>
+					
+					<div class="col-md-1">
+					</div>
+					
+					<div class="col-md-9">
 						<form role="form" action="write" enctype="multipart/form-data" method="POST" onsubmit="return validate();">
 							<div class="form-group form-inline mb-7">
 								<label for="showDate">관람일</label>
@@ -203,6 +206,13 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- 사이드 메뉴 이름 변경 -->
+			<script>
+				$(function(){
+					$("#sideMenu #clickedPage").attr("href","writeForm").html("리뷰 작성");
+				});
+			</script>
 
 			<script>
 				var reviewCheck = {
@@ -624,10 +634,12 @@
 				
 			</script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			
+			</div>
+			
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-			</div>
 			
 	</body>
 </html>

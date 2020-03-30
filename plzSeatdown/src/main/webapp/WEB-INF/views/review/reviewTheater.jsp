@@ -13,7 +13,7 @@
 		.ellip{
 		   margin: 0;
 		   margin: auto;
-		   width: 100px;
+		   width: 100%;
 		   height: 1.5em;
 		   overflow: hidden;
 		   text-overflow: ellipsis;
@@ -26,33 +26,33 @@
 	
 	</head>
 	<!-- <body class="homepage is-preload" data-spy="scroll" data-target="initScroll" data-offset="1"> -->
-	<body>
-		<!-- <div id="page-wrapper"> -->
-
-			<jsp:include page="../common/header.jsp"/>
-			<jsp:include page="../common/nav.jsp"/>
+	<body class="homepage is-preload">
+		
+		<jsp:include page="../common/header.jsp"/>
+		<jsp:include page="../common/nav.jsp"/>
+			
+		<div id="page-wrapper" class="wrapper">
 
 			<div class="container container-fluid my-5">
-				<div class="pb-4">
-		            <h5>공연장별</h5>
-		        </div>
-				<div class="row mb-5">
-					<div class="col-md-6">
-					</div>
-                    <div class="col-md-6 text-right">
-                    	<form>
-							<div class="input-group">
-								<input type="text" class="form-control" name="searchTheater" placeholder="공연장명을 입력하세요">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
-								</span>
-							</div>
-						</form>
-                    </div>
-				</div>
+				
 				<div class="row">
 					<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>
 					<div class="col-md-10">
+					
+						<div class="row mb-5">
+							<div class="col-md-6">
+							</div>
+		                    <div class="col-md-6 text-right">
+		                    	<form>
+									<div class="input-group">
+										<input type="text" class="form-control" name="searchTheater" placeholder="공연장명을 입력하세요">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="button" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
+										</span>
+									</div>
+								</form>
+		                    </div>
+						</div>
 					
 						<div class="row">
 							<c:if test="${empty list }">
@@ -74,9 +74,9 @@
 							                        <img id="${theater.thCode}Img" class="card-img-top" src="${src}" style="width: 100%; height: 100%;">
 	                    						</div>
 	                    						<div class="card-block mt-2 ml-3 mr-3 mb-2">
-	                    							<span class="card-title ellip">
+	                    							<p class="card-title ellip">
 	                    								${theater.thNm}
-	                    							</span>
+	                    							</p>
 	                    						</div>
 	                    					</div>
 	                    				</div>
@@ -180,10 +180,11 @@
 				
 			</div>
 
-			<!-- Footer -->
-			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-		<!-- </div> -->
+		 </div>
+		 
+		<!-- Footer -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		
 		<!-- 페이지 이동 후에도 검색 결과가 검색창 input 태그에 표시되도록 하는 script -->
 		<script>

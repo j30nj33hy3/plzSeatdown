@@ -14,7 +14,7 @@
 		<ul>
 			<li><a href="theater">공연장별</a></li>
 			<li><a href="show">공연별</a></li>
-			<li><a href="write">리뷰 작성</a></li>
+			<li><a href="writeForm">리뷰 작성</a></li>
 		</ul>
 	</div>
 		
