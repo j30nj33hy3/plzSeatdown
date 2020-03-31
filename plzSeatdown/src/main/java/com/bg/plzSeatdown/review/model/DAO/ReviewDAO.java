@@ -204,12 +204,12 @@ public class ReviewDAO {
 	}
 
 	/** 공연장별 좌석 리뷰 조회용 DAO
-	 * @param thCode
+	 * @param sr
 	 * @return rList
 	 * @throws Exception
 	 */
-	public List<SeatReview> selectReviewList(String thCode) throws Exception{
-		return sqlSession.selectList("reviewMapper.selectReviewList", thCode);
+	public List<SeatReview> selectReviewList(SeatReview sr) throws Exception{
+		return sqlSession.selectList("reviewMapper.selectReviewList", sr);
 	}
 
 	/** 좌석별 모든 리뷰 조회용 DAO

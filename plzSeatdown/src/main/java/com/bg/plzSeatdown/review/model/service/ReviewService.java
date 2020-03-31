@@ -146,11 +146,11 @@ public interface ReviewService {
 	int insertReview(Review review, List<ReviewImage> files) throws Exception;
 
 	/** 공연장별 좌석 리뷰 조회용 Service
-	 * @param thCode
+	 * @param sr
 	 * @return rList
 	 * @throws Exception
 	 */
-	List<SeatReview> selectReviewList(String thCode) throws Exception;
+	List<SeatReview> selectReviewList(SeatReview sr) throws Exception;
 
 	/** 좌석별 모든 리뷰 조회용 Service
 	 * @param review
