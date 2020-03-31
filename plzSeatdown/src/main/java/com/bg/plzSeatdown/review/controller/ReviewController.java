@@ -90,7 +90,9 @@ public class ReviewController {
 
 		try {
 			
-			if(showStatus == null) showStatus = "공연중";
+			//if(showStatus == null) showStatus = "전체";
+			
+			System.out.println(showStatus);
 			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("showStatus", showStatus);
@@ -109,6 +111,9 @@ public class ReviewController {
 			// 공연 목록 조회
 			//List<Show> list = reviewService.selectList(searchValue, pInf);
 			List<Show> list = reviewService.selectShowList(map, pInf);
+			
+			System.out.println(list.size());
+			System.out.println(pInf);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);

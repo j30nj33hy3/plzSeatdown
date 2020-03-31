@@ -119,22 +119,30 @@
 	<select id="getShowCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM SHOW
-		WHERE SHOW_STATUS = #{showStatus}
-		<if test="searchShow != null">
+		<where>
+			<if test="showStatus != null">
+				AND SHOW_STATUS = #{showStatus}
+			</if>	
+			<if test="searchShow != null">
 			<bind name="sv" value="'%' + searchShow + '%'"/>
-			AND SHOW_TITLE LIKE #{sv}
-		</if>
+				AND SHOW_TITLE LIKE #{sv}
+			</if>	
+		</where>
 	</select>
 	
 	<!-- 공연 목록 조회 -->
 	<select id="selectShowList" parameterType="map" resultMap="showResultSet">
 		SELECT SHOW_CODE, SHOW_TITLE, SHOW_POSTER_PATH
 		FROM SHOW
-		WHERE SHOW_STATUS = #{showStatus}
-		<if test="searchShow != null">
+		<where>
+			<if test="showStatus != null">
+				AND SHOW_STATUS = #{showStatus}
+			</if>	
+			<if test="searchShow != null">
 			<bind name="sv" value="'%' + searchShow + '%'"/>
-			AND SHOW_TITLE LIKE #{sv}
-		</if>
+				AND SHOW_TITLE LIKE #{sv}
+			</if>	
+		</where>
 	</select>
 	
 	<!-- 공연 상세 조회 -->

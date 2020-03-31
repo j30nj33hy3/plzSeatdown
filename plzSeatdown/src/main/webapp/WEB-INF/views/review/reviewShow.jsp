@@ -37,9 +37,6 @@
 								<div id="theaterNm" class="text-center"></div>
 							</div>
 							<div class="move text-center">
-								<button class="btn btn-default mb-3" type="button">
-									예매 페이지로 이동
-								</button>
 								<button class="btn btn-default seatPage" type="button" >
 									좌석 리뷰 페이지로 이동
 								</button>
@@ -70,14 +67,15 @@
 				<div class="row">
 				
 					<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>	
-				
+					
 					<div class="col-md-10">
 					
 						<div class="row mb-5">
 							<div class="col-md-6">
 								<div class="status">
+									<a id="all" class="activeShow" href="<c:url value="show"/>">전체</a>&nbsp;|&nbsp;
 									<a id="end" href="<c:url value="show"><c:param name="showStatus" value="공연완료"/></c:url>">공연완료</a>&nbsp;|&nbsp;
-									<a id="now" class="activeShow" href="<c:url value="show"><c:param name="showStatus" value="공연중"/></c:url>">공연중</a>&nbsp;|&nbsp;
+									<a id="now" href="<c:url value="show"><c:param name="showStatus" value="공연중"/></c:url>">공연중</a>&nbsp;|&nbsp;
 									<a id="due" href="<c:url value="show"><c:param name="showStatus" value="공연예정"/></c:url>">공연예정</a>
 								</div>
 							</div>
@@ -85,7 +83,9 @@
 		                    	<form>
 									<div class="input-group">
 										<input type="text" class="form-control" name="searchShow" placeholder="공연명을 입력하세요">
-										<input type="hidden" name="showStatus" value="${param.showStatus}"/>
+										<c:if test="${!empty param.showStatus }">
+											<input type="hidden" name="showStatus" value="${param.showStatus}"/>
+										</c:if>
 										<span class="input-group-btn">
 											<button class="btn btn-default" style="background-color: #917EC6; color: white;"><i class="fas fa-search"></i></button>
 										</span>
@@ -107,7 +107,7 @@
 		                    		<div class="row">
 		                    			<c:forEach var="show" items="${list}" varStatus="vs">
 			                    			<div class="col-md-3 mt-3 show" id="${show.showCode}">
-												<img src="${show.posterPath}" style="width: 218px; height: 280px;">
+												<img src="${show.posterPath}" style="width: 180px; height: 250px;">
 												<h6 class="mt-2">${show.showTitle}</h6>
 											</div>
 		                    			</c:forEach>
@@ -126,7 +126,7 @@
 						                    <a class="page-link" 
 						                    	href=" 
 						                    	<c:url value="show">
-						                    		<c:if test="${!empty param.showStatus }">
+						                    		<c:if test="${param.showStatus }">
 										        		<c:param name="showStatus" value="${param.showStatus}"/>
 										        	</c:if>
 										        	
@@ -143,7 +143,7 @@
 				                    	<!-- 이전으로 -->
 				                    	<a class="page-link" href=" 
 					                    	<c:url value="show">
-					                    		<c:if test="${!empty param.showStatus }">
+					                    		<c:if test="${param.showStatus }">
 									        		<c:param name="showStatus" value="${param.showStatus}"/>
 									        	</c:if>
 									        	
@@ -169,7 +169,7 @@
 			                    			<a class="page-link"
 			                    				href="
 			                    				<c:url value="show">
-			                    					<c:if test="${!empty param.showStatus }">
+			                    					<c:if test="${ param.showStatus }">
 									        			<c:param name="showStatus" value="${param.showStatus}"/>
 										        	</c:if>
 										        	
@@ -191,7 +191,7 @@
 			                    		<a class="page-link"
 			                    			href="
 			                    			<c:url value="show">
-			                    				<c:if test="${!empty param.showStatus }">
+			                    				<c:if test="${ param.showStatus }">
 									        		<c:param name="showStatus" value="${param.showStatus}"/>
 									        	</c:if>
 									        	
@@ -208,7 +208,7 @@
 					                    <a class="page-link" 
 					                    	href=" 
 					                    	<c:url value="show">
-					                    		<c:if test="${!empty param.showStatus }">
+					                    		<c:if test="${ param.showStatus }">
 									        		<c:param name="showStatus" value="${param.showStatus}"/>
 									        	</c:if>
 									        	
@@ -241,22 +241,33 @@
 			<!-- 선택된 공연 상태에 스타일 추가하는 script -->
 			<script>
 				$(function(){
+					
 					var showStatus = "${param.showStatus}";
 					
-					if(showStatus == "null" || showStatus == "공연중"){
+					if(showStatus == ""){
 						
+						$("#all").addClass("activeShow");
+						$("#end").removeClass("activeShow");
+						$("#now").removeClass("activeShow");
+						$("#due").removeClass("activeShow");
+						
+					}else if(showStatus == "공연중"){
+						
+						$("#all").removeClass("activeShow");
 						$("#end").removeClass("activeShow");
 						$("#now").addClass("activeShow");
 						$("#due").removeClass("activeShow");
 						
 					}else if(showStatus == "공연완료"){
 						
+						$("#all").removeClass("activeShow");
 						$("#end").addClass("activeShow");
 						$("#now").removeClass("activeShow");
 						$("#due").removeClass("activeShow");
 						
 					}else if(showStatus == "공연예정"){
 						
+						$("#all").removeClass("activeShow");
 						$("#end").removeClass("activeShow");
 						$("#now").removeClass("activeShow");
 						$("#due").addClass("activeShow");

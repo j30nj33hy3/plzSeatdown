@@ -228,11 +228,6 @@
 										<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
 										<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
 									</div>
-									<div class="move text-center mt-4">
-										<button class="btn btn-default" type="button">
-											예매 페이지로 이동
-										</button>
-									</div>
 		                        </c:if>
 							</div>
 						</div>
@@ -254,7 +249,7 @@
 										${theater.thPhone}
 									</p>
 									<p id="tHome">
-										<a href=http://www.bluesquare.kr>${theater.thPage}</a>
+										<a href=${theater.thPage}>${theater.thPage}</a>
 									</p>
 								</div>
 							</div>

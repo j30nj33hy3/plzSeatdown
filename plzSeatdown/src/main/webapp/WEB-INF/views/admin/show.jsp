@@ -96,7 +96,7 @@
                     	<c:if test="${!empty list }">
                     		<div class="row">
                     			<c:forEach var="show" items="${list}" varStatus="vs">
-                    				<div class="col-md-3">
+                    				<div class="col-md-2">
 	                    				<div class="card">
 		                                    <img class="card-img-top" src="${show.posterPath }" style=" height:320px;" />
 		                                    <div class="card-block mt-3 ml-3 mr-3">

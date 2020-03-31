@@ -106,7 +106,7 @@
                     								${theater.thNm}
                     							</h5>
                     							<p class="text-right">
-		                                            <button id="delete?thCode=${theater.thCode}" class="btn btn-primary deleteBtn">로고 삭제</button> 
+		                                            <button id="${theater.thCode}" class="btn btn-primary deleteBtn">로고 삭제</button> 
 		                                            <a class="btn btn-primary" href="thDetail?thCode=${theater.thCode}&thNm=${theater.thNm}">좌석 관리</a> 
 		                                        </p>
                     						</div>
@@ -257,7 +257,7 @@
 							// 파일이 변경되면 ajax 실행
 							$("#"+fileId+"File").change(function () {
 								
-								console.log($(this).prop("id"));
+								//console.log($(this).prop("id"));
 								
 								var form = $("#"+fileId+"Form")[0];
 								
@@ -302,7 +302,9 @@
            	  
            	  		$(".deleteBtn").click(function(){
            	  			
-           	  			theaterCode = $(this).prop("id").substring(6); // 공연장 코드 추출해서 저장
+           	  			theaterCode = $(this).prop("id"); // 공연장 코드 추출해서 저장
+
+						//console.log($(this).prop("id"));
            	  			
 						$.ajax({
 							url : "deleteLogo",

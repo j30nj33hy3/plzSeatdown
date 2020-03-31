@@ -46,7 +46,7 @@ public class AdminShowController {
 			
 			
 			// 페이지 정보 저장
-			PageInfo pInf = Pagination.getPageInfo(8, 5, currentPage, showCount);
+			PageInfo pInf = Pagination.getPageInfo(12, 5, currentPage, showCount);
 			
 			// 공연 목록 조회
 			List<Show> list = adminShowService.selectList(searchValue, pInf);
