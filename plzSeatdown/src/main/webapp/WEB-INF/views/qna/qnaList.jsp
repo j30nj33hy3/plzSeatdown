@@ -60,7 +60,7 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
-                        고객 센터로 문의 바랍니다.
+                       로그인 후 고객 센터로 문의 바랍니다.
                     </div>
                 </div>
             </div>
@@ -94,8 +94,8 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                     <div class="card-body">
-                        저희 사이트는 KOPIS 공연예술 통합전산망 www.kopis.or.kr 데이터를 이용하고 있으며
-                        잘못된 정보는 고객센터로 문의하면 확인 후 수정하겠습니다.
+                        plzSeatdown 사이트는 KOPIS 공연예술 통합전산망 www.kopis.or.kr 데이터를 이용하고 있습니다.
+                        잘못된 정보는 고객센터로 문의주시면 확인 후 수정하겠습니다.
                     </div>
                 </div>
             </div>
@@ -112,13 +112,7 @@
                 </div>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
+                        모든 공연장 좌석 배치도는 공연마다 달라질 수 있습니다. 
                     </div>
                 </div>
             </div>
@@ -135,13 +129,7 @@
                 </div>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
+                        리뷰 당사자는 리뷰 수정하기 버튼을 통해 이미지 수정이 가능하며, 아닌 회원은 문의 혹은 신고버튼을 이용할 수 있습니다.
                     </div>
                 </div>
             </div>
@@ -158,13 +146,7 @@
                 </div>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
+                        회원간의 티켓 거래는 가능하나 모든 거래의 책임은 거래 당사자에게 있습니다. plzSeatdown 사이트는 거래에 대해 책임을 지지 않습니다.
                     </div>
                 </div>
             </div>
@@ -181,13 +163,7 @@
                 </div>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
+                        건전한 서비스 이용을 위해 불량이용자의 경우 적발 즉시 고객님께 사전 경고없이 아이디의 사용이 중지되거나 삭제될 수 있습니다.
                     </div>
                 </div>
             </div>
@@ -202,6 +178,10 @@
                 <h4 class="font-weight-bold" style="color:#917EC6;">고객 센터</h4>
                 <h5 class="text-muted">Service Center</h5>
             </div>
+            <c:if test="${empty loginMember}">
+            	<p class="text-center text-muted">로그인 후 문의 가능합니다.</p>
+            </c:if>
+            <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
             <form method="POST" action="insert" role="form" onsubmit="return validate();">
                 <div>
                 	<input type="hidden" name="writer" value="${loginMember.memberNo}">
@@ -210,11 +190,12 @@
                     <p><span id="counter" class="text-danger">0</span>/500</p>
                 </div>
                 <div class="float-right pb-5">
-	                <c:if test="${!empty loginMember && loginMember.memberStatus == 'Y'}">
+	                
 	                    <button type="submit" class="btn btn-outline-secondary">문의하기</button>
-	                </c:if>
+	                
                 </div>
             </form>
+            </c:if>
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
