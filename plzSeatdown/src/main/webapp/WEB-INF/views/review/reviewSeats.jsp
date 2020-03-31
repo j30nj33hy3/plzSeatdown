@@ -26,6 +26,10 @@
 	        .star{
 	        	color : #FFD938;
 	        }
+	        .nstar{
+	        	color : #FFD938;
+	        	font-size: 0.7em;
+	        }
 	        .profile{
 	        	font-size : 18px !important;
 	        }
@@ -209,9 +213,7 @@
 									</c:otherwise>
 								</c:choose>
 								
-								<!-- 좌석 jsp 영역 종료 -->
 								
-									
 							</div>
 							<div class="col-md-3 showInfo ">
 								<div class="showHeader">상영 중인 공연</div>
@@ -227,6 +229,11 @@
 									<div class="mt-4">
 										<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
 										<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
+									</div>
+									<div class="move text-center mt-4">
+										<button class="btn btn-default" type="button">
+											예매 페이지로 이동
+										</button>
 									</div>
 		                        </c:if>
 							</div>
@@ -249,7 +256,7 @@
 										${theater.thPhone}
 									</p>
 									<p id="tHome">
-										<a href=${theater.thPage}>${theater.thPage}</a>
+										<a href=http://www.bluesquare.kr>${theater.thPage}</a>
 									</p>
 								</div>
 							</div>
@@ -268,7 +275,137 @@
 						
 		        	</div>
 		        </div>
-		        
+		        <!-- 좌석 jsp 영역 종료 -->
+				<br>
+				<!-- 최신 리뷰 -->
+				<div class="row d-flex justify-content-between">
+				<c:forEach var="n" items="${nReview}">
+				<div class="card" style="width: 340px">    
+		             <div class="card-content"> 
+		                <div class="row profile">    
+		                    <div class="col">
+		                    <c:set var="src" value="${contextPath}/resources/images/user.png"></c:set>
+		                    <c:if test="${! empty n.profilePath }">
+		                    	<c:set var="src" value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
+		                    </c:if> 
+		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important">   
+		                       <span style="display:none;" name="spanId">${n.memberId }</span>   
+		                        <span style="display:none;" name="spanNo">${n.reviewWriter }</span>   
+		                        <span>${n.memberNickname}</span>    
+		                    </div>   
+		                   <div class="col text-right">
+		                   <c:choose>
+			                   <c:when test="${!empty loginMember && loginMember.memberNo ne n.reviewWriter }">
+			                   		<span class="reviewLike heart" id="${n.reviewNo}" value="${n.likeStatus}">
+			                   		<c:choose>
+			                   			<c:when test="${n.likeStatus == 1}">
+			                   				<i class="fas fa-heart" style="display: none;"></i>
+			                   			</c:when>
+			                   			<c:otherwise>
+			                   				<i class="far fa-heart" style="display: none;"></i>
+			                   			</c:otherwise>
+			                   		</c:choose>
+			                   		</span>
+			                   		<c:choose>
+			                   			<c:when test="${n.likeStatus == 1}">
+			                   				<div class="reviewLike heart" style="background-position:-2800px 0;" 
+			                   				id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+			                   			</c:when>
+			                   			<c:otherwise>
+			                   				<div class="reviewLike heart" style="background-position:0 0;" 
+			                   				id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+			                   			</c:otherwise>
+			                   		</c:choose>
+			                   </c:when>
+			                   <c:otherwise>
+			                   		<div class="reviewLike heart"></div>
+			                   </c:otherwise>
+		                   </c:choose>
+		                       <div class="reviewLikeCount" id="likeCount ${n.reviewNo}">${n.likeCount }</div>    
+		                     </div>    
+		                </div>    
+		                <div> ${n.seatFloor}층 ${n.seatArea}구역 ${n.seatRow}열 ${n.seatCol}번호    </div>    
+		               
+		                <div class="row starValue mb-4 mt-4">   
+		                   <div class="col text-center">   
+		                      <span>시야</span>
+		                      <span class="nstar" style="display: block;">
+		                      <c:forEach var="i" begin="0" end="4" step="1">
+		                      	<c:choose>
+		                      		<c:when test="${i < n.reviewSight }">
+		                      			<i class="fas fa-star"></i>
+		                      		</c:when>
+		                      		<c:otherwise>
+		                      			<i class="far fa-star"></i>
+		                      		</c:otherwise>
+		                      	</c:choose>
+		                      </c:forEach>
+		                      </span>    
+		                   </div>   
+		                  
+		                   <div class="col text-center">   
+		                      <span>간격</span>    
+		                      <c:set var="nLegroom" value="${n.reviewLegroom}"/>
+		                      <span class="nstar" style="display: block;">
+		                      <c:forEach var="i" begin="0" end="4" step="1">
+		                      	<c:choose>
+		                      		<c:when test="${i < n.reviewLegroom }">
+		                      			<i class="fas fa-star"></i>
+		                      		</c:when>
+		                      		<c:otherwise>
+		                      			<i class="far fa-star"></i>
+		                      		</c:otherwise>
+		                      	</c:choose>
+		                      </c:forEach>
+		                      </span>    
+		                   </div>   
+		                  
+		                   <div class="col text-center">   
+		                      <span>편안함</span>
+		                      <c:set var="nComfort" value="${n.reviewComfort}"/>
+		                      <span class="nstar" style="display: block;">
+		                      <c:forEach var="i" begin="0" end="4" step="1">
+		                      	<c:choose>
+		                      		<c:when test="${i < n.reviewComfort }">
+		                      			<i class="fas fa-star"></i>
+		                      		</c:when>
+		                      		<c:otherwise>
+		                      			<i class="far fa-star"></i>
+		                      		</c:otherwise>
+		                      	</c:choose>
+		                      </c:forEach>
+		                      </span>    
+		                   </div>   
+		                </div>
+
+		              
+		                <div class="reviewCont">
+		                <c:set var="rImg" value="default_review.png"/>
+		                <c:if test="${!empty n.reviewImgPath}">
+		                	<c:set var="rImg" value="${n.reviewImgPath}"/>
+		                </c:if>
+		                   <img class="img-responsive" src="${contextPath}/resources/reviewImages/${rImg}"/>
+		                	
+		                   <div class="mt-4 mb-4 nCont">${n.reviewComment}</div>
+		                   <div style="width:310px;">
+		                   ${n.reviewViewDt}일 관람
+		                   <c:choose>
+			                   <c:when test="${loginMember.memberNo eq n.reviewWriter}">
+		                   			 <a class="float-right text-muted deleteBtn mr-2 ml-2" href="delete?no=${n.reviewNo }"><i class="far fa-trash-alt"></i></a>
+		                   			 <a class="float-right text-muted updateBtn mr-2 ml-2" href="updateForm?no=${n.reviewNo }"><i class="far fa-edit"></i></a>
+			                   </c:when>
+			                   <c:when test="${empty loginMember }"></c:when>
+			                   <c:otherwise>
+			                   		<button data-toggle="modal" data-target="#reviewReportModal" class="btn float-right text-muted reportBtn" onclick="test(this);" 
+    									name="${n.reviewNo }" value="${n.reviewWriter}">신고</button>
+			                   </c:otherwise>
+		                   </c:choose>
+		                   </div>
+		                </div>     
+		             </div>   
+		          </div>
+				</c:forEach>
+				</div>
 			</div>
 			<!-- 좌석 평점 표시 -->
 			<script>

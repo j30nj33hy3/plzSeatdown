@@ -132,6 +132,16 @@ a:hover{
     height: 250px;
 }
 
+.nCont{
+	margin: 0;
+	margin: auto;
+	width: 300px;
+	height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 #seat-level{
 	justify-content: center;
 	align-items: center;
