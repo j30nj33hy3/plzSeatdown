@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/reviewCommon.css" />
 </head>
 <body>
-	<div class="col-2 col-12-mobile" id="sideMenu" style="width: 200px;">
+	<div class="col-md-2" id="sideMenu" style="width: 200px;">
 		<h4><a id="clickedPage" href=""></a></h4>
 		<ul>
 			<li><a href="theater">공연장별</a></li>
