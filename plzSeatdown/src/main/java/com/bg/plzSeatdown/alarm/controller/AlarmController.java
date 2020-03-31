@@ -37,7 +37,7 @@ public class AlarmController {
 	
 	@RequestMapping("updateAlarm")
 	public String updateAlarm(Integer no, String url, Model model, HttpServletRequest request) {
-		System.out.println("no: "+ no);
+		//System.out.println("no: "+ no);
 		String detailUrl = request.getHeader("referer");
 		try {
 			int result = alarmService.updateAlarm(no);
@@ -56,7 +56,7 @@ public class AlarmController {
 	@RequestMapping("deleteCheck")
 	public String deleteCheck(Integer deleteCheck, Integer alarmNo, Model model, RedirectAttributes rdAttr,HttpServletRequest request) {
 		
-		String detailUrl = request.getHeader("referer");
+		String beforeUrl = request.getHeader("referer");
 		
 		try {
 			
@@ -72,10 +72,10 @@ public class AlarmController {
 			else if(result==0) msg = "알람 삭제 실패";
 			else	 	  msg = "알람 오류 발생";
 			
-			System.out.println("resultcon " + result);
+			//System.out.println("resultcon " + result);
 			
 			rdAttr.addFlashAttribute("msg",msg);
-			return "redirect:"+detailUrl;
+			return "redirect:"+beforeUrl;
 			
 		}catch(Exception e) {
 			e.printStackTrace();

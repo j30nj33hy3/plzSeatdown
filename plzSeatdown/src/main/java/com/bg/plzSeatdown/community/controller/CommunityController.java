@@ -133,7 +133,7 @@ public class CommunityController {
 				model.addAttribute("pInf", pInf);
 				return "community/communityDetail";
 			}else {
-				rdAttr.addFlashAttribute("msg", "글 상세 조회 실패");
+				rdAttr.addFlashAttribute("msg", "해당 글은 삭제되었거나 조회할 수 없는 글입니다.");
 				return "redirect:"+beforeUrl;
 			}
 		}catch(Exception e) {
