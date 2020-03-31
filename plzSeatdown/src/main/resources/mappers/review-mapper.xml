@@ -269,9 +269,9 @@
 	</insert>
 	
 	<!-- 공연장별 좌석 리뷰 조회 -->
-	<select id="selectReviewList" parameterType="string" resultMap="seatReviewResultSet">
+	<select id="selectReviewList" parameterType="SeatReview" resultMap="seatReviewResultSet">
 		SELECT *
-		FROM(SELECT *
+		FROM( SELECT (SELECT COUNT(*) FROM REVIEW_LIKE RL WHERE V_REVIEW.REVIEW_NO = RL.REVIEW_NO AND RL.MEMBER_NO = #{likeStatus}) AS LIKE_STATUS, V_REVIEW.*
 			FROM V_REVIEW
 			WHERE THEATER_CODE = #{thCode}
 			ORDER BY REVIEW_NO DESC)

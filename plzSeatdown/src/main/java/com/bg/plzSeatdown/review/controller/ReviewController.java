@@ -148,11 +148,19 @@ public class ReviewController {
 		
 		try {
 			
+			// Session에서 회원번호 얻어오기
+			Member loginMember = (Member)model.getAttribute("loginMember");
+			int memberNo = loginMember.getMemberNo();
+			
 			Theater theater = reviewService.selectTheaterDetail(thCode);
 			Show nowShow = reviewService.selectNowShow(thCode);
 			List<SeatReview> rating = reviewService.selectRatingList(thCode);
 			List<Seat> sList = reviewService.selectSeatList(thCode);
-			List<SeatReview> nReview = reviewService.selectReviewList(thCode);
+			
+			SeatReview sr = new SeatReview();
+			sr.setThCode(thCode);
+			sr.setLikeStatus(memberNo);
+			List<SeatReview> nReview = reviewService.selectReviewList(sr);
 			
 			model.addAttribute("nReview", nReview);
 			model.addAttribute("rating", rating);

@@ -296,7 +296,7 @@
 		                   <div class="col text-right">
 		                   <c:choose>
 			                   <c:when test="${!empty loginMember && loginMember.memberNo ne n.reviewWriter }">
-			                   		<span class="reviewLike heart" id="${n.reviewNo}" value="${n.likeStatus}">
+			                   		<%-- <span class="reviewLike heart" id="${n.reviewNo}" value="${n.likeStatus}">
 			                   		<c:choose>
 			                   			<c:when test="${n.likeStatus == 1}">
 			                   				<i class="fas fa-heart" style="display: none;"></i>
@@ -305,7 +305,7 @@
 			                   				<i class="far fa-heart" style="display: none;"></i>
 			                   			</c:otherwise>
 			                   		</c:choose>
-			                   		</span>
+			                   		</span> --%>
 			                   		<c:choose>
 			                   			<c:when test="${n.likeStatus == 1}">
 			                   				<div class="reviewLike heart" style="background-position:-2800px 0;" 
@@ -321,7 +321,7 @@
 			                   		<div class="reviewLike heart"></div>
 			                   </c:otherwise>
 		                   </c:choose>
-		                       <div class="reviewLikeCount" id="likeCount ${n.reviewNo}">${n.likeCount }</div>    
+		                       <div class="reviewLikeCount" id="likeCount${n.reviewNo}">${n.likeCount }</div>    
 		                     </div>    
 		                </div>    
 		                <div> ${n.seatFloor}층 ${n.seatArea}구역 ${n.seatRow}열 ${n.seatCol}번호    </div>    
@@ -638,9 +638,9 @@
 													}
 													
 													// 좋아요 여부
-													var likeStatus ="";
-													if(seatReviewList[i].likeStatus == 1) likeStatus = '<i class="fas fa-heart"></i>';
-													else likeStatus = '<i class="far fa-heart"></i>';
+													//var likeStatus ="";
+													//if(seatReviewList[i].likeStatus == 1) likeStatus = '<i class="fas fa-heart"></i>';
+													//else likeStatus = '<i class="far fa-heart"></i>';
 													
 													// 좋아요 버튼
 													var likeBtn = "";
