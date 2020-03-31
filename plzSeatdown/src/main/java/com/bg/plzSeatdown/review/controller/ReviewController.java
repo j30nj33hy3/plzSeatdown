@@ -152,9 +152,9 @@ public class ReviewController {
 			Show nowShow = reviewService.selectNowShow(thCode);
 			List<SeatReview> rating = reviewService.selectRatingList(thCode);
 			List<Seat> sList = reviewService.selectSeatList(thCode);
-			//List<SeatReview> rList = reviewService.selectReviewList(thCode);
+			List<SeatReview> nReview = reviewService.selectReviewList(thCode);
 			
-			
+			model.addAttribute("nReview", nReview);
 			model.addAttribute("rating", rating);
 			model.addAttribute("theater", theater);
 			model.addAttribute("show", nowShow);

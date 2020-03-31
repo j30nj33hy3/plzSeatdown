@@ -271,8 +271,11 @@
 	<!-- 공연장별 좌석 리뷰 조회 -->
 	<select id="selectReviewList" parameterType="string" resultMap="seatReviewResultSet">
 		SELECT *
-		FROM V_REVIEW
-		WHERE THEATER_CODE = #{thCode}
+		FROM(SELECT *
+			FROM V_REVIEW
+			WHERE THEATER_CODE = #{thCode}
+			ORDER BY REVIEW_NO DESC)
+		<![CDATA[WHERE ROWNUM <= 3]]>
 	</select>
 	
 	<!-- 좌석별 모든 리뷰 조회 -->
