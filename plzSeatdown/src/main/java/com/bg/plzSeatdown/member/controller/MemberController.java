@@ -550,7 +550,7 @@ public class MemberController {
 		Member member = null;
 		Member loginMember = null;
 		String memberPwd = id;
-		String memberId = "k"+id;
+		String memberId = "_k"+id;
 		try {
 			member = new Member(memberId, memberPwd);
 			loginMember = memberService.loginMember(member);
