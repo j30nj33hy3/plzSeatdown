@@ -107,7 +107,6 @@ public class AdminNoticeController {
 	public String insertNotice(AdminNotice adminNotice, Model model, RedirectAttributes rdAttr) {
 
 		Member loginMember = (Member) model.getAttribute("loginMember");
-		System.out.println(loginMember);
 
 		adminNotice.setNoticeWriter(loginMember.getMemberNo());
 

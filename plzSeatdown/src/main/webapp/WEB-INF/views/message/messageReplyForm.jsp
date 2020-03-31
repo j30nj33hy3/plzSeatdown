@@ -177,7 +177,7 @@ input:focus {
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 					<c:out value="${today}" />
-					<br> 받는 사람 : ${message.senderNickname }
+					<br> 받는사람 : ${message.senderNickname }
 				</div>
 			</c:if>
 

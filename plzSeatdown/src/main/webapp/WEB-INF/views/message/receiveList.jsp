@@ -47,7 +47,7 @@
 						<a href="#">쪽지함</a>
 					</h4>
 					<ul>
-						<li><a href="${contextPath}/message/receiveList">받은 쪽지</a></li>
+						<B><li><a href="${contextPath}/message/receiveList">받은 쪽지</a></li></B>
 						<li><a href="${contextPath}/message/sendList">보낸 쪽지</a></li>
 					</ul>
 				</div>
@@ -227,6 +227,7 @@
 		                 }                  
 		            });
 		         }
+		        setTimeout("history.go(0);", 3000);
 			});
 		});
 
