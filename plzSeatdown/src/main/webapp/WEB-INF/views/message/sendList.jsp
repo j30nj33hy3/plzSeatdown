@@ -48,7 +48,7 @@
 						<h4><a href="#">쪽지함</a></h4>
 							<ul>
 								<li><a href="${contextPath}/message/receiveList">받은 쪽지</a></li>
-								<li><a href="${contextPath}/message/sendList">보낸 쪽지</a></li>
+								<B> <li><a href="${contextPath}/message/sendList">보낸 쪽지</a></li></B>
 							</ul>
 						</div>
 						

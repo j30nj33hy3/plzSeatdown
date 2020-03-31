@@ -30,6 +30,7 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 
+	// 쪽지보내기(커뮤니티 화면에서)
 	@RequestMapping("insert")
 	public String insertMessage(Model model, RedirectAttributes rdAttr, String messageContent, int communityWriter, Message message, HttpServletRequest request) {
 		String beforeUrl = request.getHeader("referer");
@@ -59,6 +60,7 @@ public class MessageController {
 		}
 	}
 	
+	// 받은 쪽지함 조회
 	@RequestMapping("receiveList")
     public String receiveList(Model model, Member member,
     @RequestParam(value="currentPage", required=false) Integer currentPage) {
@@ -85,7 +87,7 @@ public class MessageController {
     }
 	
 	
-
+	// 보낸 쪽지함 조회
 	@RequestMapping("sendList")
 	public String sendList(Model model,
 	@RequestParam(value="currentPage", required=false) Integer currentPage) {
@@ -128,18 +130,21 @@ public class MessageController {
 			return "common/errorPage";
 		}
 	}
-	
+
 	// 받은 메세지 상세 화면에서 삭제
 	@RequestMapping("deleteMessage")
-	public String deleteMessage(Model model, Integer no, RedirectAttributes rdAttr) {
+	public String deleteMessage(Model model, Integer no, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String beforeUrl = request.getHeader("referer");
 		try {
 			int result = -1;
 			result = messageService.deleteMessage(no);
 			String path=null;
 			if(result > 0) {
-				rdAttr.addFlashAttribute("msg", "쪽지를 삭제하였습니다.");
+				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
+				return "redirect:"+beforeUrl;
 			} else if (result == 0) {
 				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
+				return "receiveDetail.jsp";
 			}
 			return path;
 		}catch(Exception e) {
@@ -191,6 +196,7 @@ public class MessageController {
 		}
 	}
 	
+	// 답장하기
 	@RequestMapping("sendReply")
 	public String sendReply(Model model, Message message, int senderNo, int receiverNo, String messageReply, HttpServletRequest request, RedirectAttributes rdAttr) {
 		message.setMessageSenderNo(senderNo);

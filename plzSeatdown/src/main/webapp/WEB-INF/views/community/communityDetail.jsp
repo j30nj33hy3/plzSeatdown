@@ -903,7 +903,24 @@ button:focus{
      		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
      	
+		$(function() {
+			$("#replyBtn").click(function() {
+				window.opener.location.reload();
+				window.close();
+				location.replace("receiveList.jsp");
+			}).mouseenter(function() {
+				$(this).parent().css("cursor", "pointer");
+			});
 
+		});
+     	$(".nickname").mouseenter(function(){
+     			$(this).css("cursor","pointer");	
+   		});
+     		
+     		
+     		
+     		
+     	
      </script>
      
 </body>

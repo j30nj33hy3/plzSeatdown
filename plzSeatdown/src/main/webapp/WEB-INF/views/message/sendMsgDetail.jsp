@@ -197,6 +197,7 @@ sub {
 					location.href = "deleteMessage?no=" + messageNo;
 					window.opener.location.reload();
 					window.close();
+					setTimeout("history.go(0);", 3000);
 				} else{
 					return false;
 				}

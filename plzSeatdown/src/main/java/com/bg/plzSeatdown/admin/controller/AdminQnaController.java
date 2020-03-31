@@ -76,7 +76,7 @@ public class AdminQnaController {
 	// QnA 상세 조회
 	@RequestMapping("detail")
 	public ModelAndView selectQna(ModelAndView mv, @RequestParam(value = "no", required = false) Integer no) {
-//		System.out.println(no);
+//		`.out.println(no);
 		try {
 			AdminQna qna = adminQnaService.selectQna(no);
 			if (qna != null) {
@@ -109,8 +109,8 @@ public class AdminQnaController {
 			String setfrom = "khblackgang@gmail.com";
 			String tomail = qna.getMemberEmail();
 			String title = "[PleaseSeatDown] 고객님의 문의에 대한 답변입니다.";
-			String content =  "\r\n" + adminQnaService.selectQna(no).getQnaContent() +  "\r\n\r\n" + "안녕하세요 PleaseSeatDown 사이트를 이용해주셔서 감사합니다." + "\r\n" +
-			"문의하신 내용에 대해 답변 드립니다." + "\r\n" + adminQnaService.selectAnswer(no) + "\r\n" +"앞으로도 PleaseSeatDown에 많은 관심 부탁드립니다.";
+			String content =  "고객님께서 문의하신 내역입니다. \r\n\r\n \"" + adminQnaService.selectQna(no).getQnaContent() +  "\"\r\n\r\n" + "--------------------------------------------------------------------------------" + "\r\n\r\n" + "안녕하세요 PleaseSeatDown 사이트를 이용해주셔서 감사합니다." + "\r\n" +
+			"문의하신 내용에 대해 답변 드립니다." + "\r\n\r\n\"" + adminQnaService.selectAnswer(no) + "\"\r\n\r\n" +"앞으로도 PleaseSeatDown에 많은 관심 부탁드립니다.";
 			
 			String msg = null;
 			String url = null;
