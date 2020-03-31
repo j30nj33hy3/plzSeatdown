@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,8 +45,11 @@
 						<h4><a href="mypage">내 티켓</a></h4>
 							<ul>
 								<li><a href="mypage">프로필</a></li>
-								<li><a href="changePwd">비밀번호 변경</a></li>
-								<li><a href="secession">회원 탈퇴</a></li>
+								<c:set var="snslogin" value="${loginMember.memberId }"/>
+                        		<c:if test="${!fn:startsWith(snslogin,'_')}">
+									<li><a href="changePwd">비밀번호 변경</a></li>
+									<li><a href="secession">회원 탈퇴</a></li>
+                        		</c:if>
 								<li><a href="myreview">내 리뷰</a></li>
 								<li><a href="myticket">내 티켓</a></li>
 								<li><a href="mycommu">내 커뮤</a></li>

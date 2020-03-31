@@ -67,7 +67,7 @@ public class LoginController {
 		Member member = null;
 		Member loginMember = null;
 		String memberPwd = id;
-		String memberId = "n"+id;
+		String memberId = "_n"+id;
 		try {
 			member = new Member(memberId, memberPwd);
 			loginMember = memberService.loginMember(member);
