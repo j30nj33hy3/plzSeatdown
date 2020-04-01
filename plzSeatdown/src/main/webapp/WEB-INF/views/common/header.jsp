@@ -404,7 +404,7 @@
                $alarmDropdownArea.append('<a href="${contextPath}/mypage/alarmSetting" class="dropdown-item text-muted font-weight-bold">내 알림 전체보기</a>');
             }else{
                $.each(alist, function(i){
-                  $alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm">'+alist[i].alarmContent+'</a>');
+                  $alarmDropdownArea.append('<a href="#" class="dropdown-item text-muted updateAlarm2">'+alist[i].alarmContent+'</a>');
                   $alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmUrl+'">');
                   $alarmDropdownArea.append('<input type="hidden" value="'+alist[i].alarmNo+'">');
                });
@@ -417,7 +417,7 @@
       })
    });
 
-   $(document).on('click','.updateAlarm', function(){
+   $(document).on('click','.updateAlarm2', function(){
       var alarmUrl = $(this).next().val();
       var alarmNo = $(this).next().next().val();
       location.href = "/plzSeatdown/alarm/updateAlarm?no="+alarmNo+"&url="+alarmUrl;
