@@ -71,7 +71,7 @@
 								<h4 class="card-title"></h4>
 								<!-- Create the editor container -->
 								
-								<form name="notice_update" action="update?no=${adminNotice.noticeNo}" method="post">
+								<form name="notice_update" action="update?no=${adminNotice.noticeNo}" method="post" onsubmit="return validate();">
 									<!-- <label class="input-group-addon mr-3">제목</label> -->
 									<input type="text" class="form-control" id="noticeTitle"
 										name="noticeTitle" value="${adminNotice.noticeTitle }" maxlength="33" size="70"> <br>
@@ -122,6 +122,22 @@
 		    $("#summernote").summernote('code', '${adminNotice.noticeContent }');
 		    
 		});
+		
+		// 유효성 검사
+		function validate(){
+			if($("#summernote").val().trim().length == 0){
+				alert("내용을 입력해 주세요.");
+				$("#summernote").focus();
+				return false;
+			}
+			
+			if($("#noticeTitle").val().trim().length == 0){
+				alert("제목을 입력해 주세요.");
+				$("#noticeTtle").focus();
+				return false;
+			}
+		}
+
 		</script>
 		<script src="${contextPath}/resources/js/admin/mask.init.js"></script>
 		<script src="${contextPath}/resources/js/admin/select2.full.min.js"></script>

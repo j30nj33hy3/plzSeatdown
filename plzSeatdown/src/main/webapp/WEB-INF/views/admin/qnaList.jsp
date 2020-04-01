@@ -236,11 +236,6 @@
 				<c:param name="currentPage" value="${pInf.currentPage}" />
 				</c:url>
 				
-				<c:if test="${qnaStatus} ==D'">
-					alert("삭제된 문의입니다.");
-				
-				</c:if>
-				
 				location.href="${detailUrl}&no="+qnaNo;
 			
             }).mouseenter(function(){
