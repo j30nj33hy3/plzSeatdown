@@ -17,7 +17,7 @@ button:focus{
 	box-shadow:none !important;
 }
 </style>
-<title>게시글 상세</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body id="page-top">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>

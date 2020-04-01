@@ -22,7 +22,7 @@ select:focus{
 	box-shadow:none !important;
 }
 </style>
-<title>커뮤니티 게시판 글 등록</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body>
     <jsp:include page="../common/header.jsp"/>

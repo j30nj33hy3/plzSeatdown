@@ -23,7 +23,7 @@ select:focus{
 	box-shadow:none !important;
 }
 </style>
-<title>커뮤니티 게시판</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body>
 

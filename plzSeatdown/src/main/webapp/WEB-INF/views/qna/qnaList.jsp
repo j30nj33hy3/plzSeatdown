@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${contextPath}/resources/css/boardcss.css" />
 
-<title>QNA</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body id="page-top">
 <jsp:include page="../common/header.jsp"/>

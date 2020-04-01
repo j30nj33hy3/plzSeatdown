@@ -28,7 +28,7 @@
         color:#555;
     }
 </style>
-<title>Insert title here</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body>
     <jsp:include page="../common/header.jsp"/>
