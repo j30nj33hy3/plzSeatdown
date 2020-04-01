@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자페이지 - 회원 상세 보기</title>
+<title>PLEASE SEATDOWN</title>
 
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/member_detail.css" />

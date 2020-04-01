@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쪽지함</title>
+<title>PLEASE SEATDOWN</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/multicheck_msg.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>
@@ -223,11 +223,11 @@
 		               console.log("쪽지 알람 개수 호출 실패");
 		                 }                  
 		            });
-		         }
 		           	window.opener.location.reload();
 					window.close();
 		        	setTimeout("history.go(0);", 1500);
 					//location.replace("receiveList.jsp");
+		         }
 			}).mouseenter(function(){
      			$(this).css("cursor","pointer");	
    			});

@@ -145,7 +145,7 @@ sub {
 	box-shadow: none;
 }
 </style>
-<title>받은 쪽지 확인</title>
+<title>PLEASE SEATDOWN</title>
 
 <meta charset="UTF-8">
 </head>
