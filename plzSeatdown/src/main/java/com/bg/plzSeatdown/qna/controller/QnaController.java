@@ -41,7 +41,7 @@ public class QnaController {
 			String msg = null;
 			String path = null;
 			if(result>0) {
-				msg = "문의가 등록되었습니다.";
+				msg = "문의가 등록되었습니다. 등록하신 문의는 마이페이지에서 확인가능합니다.";
 			}else {
 				msg = "문의 등록 실패";
 			}
