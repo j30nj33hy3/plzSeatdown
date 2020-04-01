@@ -243,7 +243,7 @@
 									</c:when>
 									<c:otherwise>
 										<div>
-											<div id="seats" style="width: 817px; height: 352px;">
+											<div id="seats" style="width: 682px; height: 352px;">
 											    <img src="${contextPath}/resources/images/no_seat.png" style="width: 100%;">
 											</div>
 										</div>
@@ -254,7 +254,7 @@
 							</div>
 							<div class="col-md-3 showInfo ">
 								<!-- <div class="showHeader">상영 중인 공연</div> -->
-								<div class="showHeader"><img src="${contextPath}/resources/images/showing.png" style="width: 100%;"></div>
+								<div class="showHeader"><img src="${contextPath}/resources/images/showing2.png" style="width: 100%;"></div>
 								<c:if test="${empty show}">
 									<div class="text-center mt-3">
 										<img src="${contextPath}/resources/images/no_show.png" style="width: 100%;">
@@ -900,10 +900,9 @@
             
            </script>
 	     	
-			<!-- Footer -->
-			<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
 		</div>
 
+		<!-- Footer -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</body>
 </html>
