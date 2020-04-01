@@ -93,7 +93,7 @@ button:focus{
         </div>
         <div class="modal-body">
            받는 사람 : ${community.memberNickname}<br>
-<textarea id="messageContent" name="messageContent" style="border:solid 1px; border-radius:3px; width:450px; height:200px; resize:none;" >
+<textarea id="messageContent" name="messageContent" style="border:solid 1px; border-radius:3px; width:450px; height:200px; resize:none;" required>
 </textarea>
 		<input type="hidden" name="communityWriter" value="${community.communityWriter}">
         </div>

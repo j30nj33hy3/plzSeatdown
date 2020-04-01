@@ -49,7 +49,7 @@
 						<h5 style="color: dimgray;">문의내역</h5>
 						<hr>
 						<form name="question" action="update?no=${qna.qnaNo}"
-							method="post">
+							method="post" onsubmit="return validate();">
 							<textarea id="question-detail" rows="7"
 								style="background-color: lightgray; color: gray;" disabled>
 ${qna.qnaContent}
@@ -99,7 +99,13 @@ ${qna.qnaAnswer }
 	<!-- ============================================================== -->
 
 	<script>
-		
+		function validate(){
+			if ($("#answer-detail").val().trim().length == 0) {
+				alert("내용을 입력해 주세요.");
+				$("#answer-detail").focus();
+				return false;
+			};
+		};
 	</script>
 
 

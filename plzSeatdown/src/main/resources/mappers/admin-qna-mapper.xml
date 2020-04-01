@@ -51,7 +51,7 @@
 			<if test="searchValue != null">
 			<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				<choose>
-					<when test="searchKey == 'title'">
+					<when test="searchKey == 'id'">
 						AND MEMBER_ID LIKE #{sv}
 					</when>
 					<when test="searchKey == 'content'">

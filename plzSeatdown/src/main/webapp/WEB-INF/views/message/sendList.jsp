@@ -184,7 +184,9 @@
 			window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");
 
 			
-		});
+		}).mouseenter(function(){
+     			$(this).css("cursor","pointer");	
+   		});;
 	});  
 	</script>
 
