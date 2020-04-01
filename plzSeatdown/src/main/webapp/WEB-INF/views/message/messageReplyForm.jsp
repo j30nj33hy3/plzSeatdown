@@ -221,7 +221,8 @@ input:focus {
 						$("#messageReply").focus();
 						return false;
 					} else {
-						//window.opener.location.reload();
+						opener.location.reload();
+						window.close();
 						window.close();
 						location.replace("receiveList.jsp");
 						mouseenter(function() {
