@@ -9,6 +9,8 @@
 
 body{
     font-family: 'Handon3gyeopsal300g', '삼겹살체 300g';
+      overflow-x: hidden;
+    overflow-y: auto;
 }  
 
 #nav ul>li{

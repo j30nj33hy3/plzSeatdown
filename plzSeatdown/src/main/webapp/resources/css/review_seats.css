@@ -9,6 +9,11 @@ body{
     font-family: 'Handon3gyeopsal600g'; 
 }
 
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 /* a태그 */
 a{
     color: black;

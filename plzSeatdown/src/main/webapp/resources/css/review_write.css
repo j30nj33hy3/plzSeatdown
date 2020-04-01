@@ -7,6 +7,8 @@
 
 body{
     font-family: 'Handon3gyeopsal600g'; 
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 label{

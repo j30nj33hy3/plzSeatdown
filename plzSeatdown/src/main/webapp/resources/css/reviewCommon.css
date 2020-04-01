@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .wrapper{
     background: #fff;
     margin: 0 0 2em 0;
