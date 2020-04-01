@@ -293,6 +293,16 @@
 						click : function(){
 							showCode = $(this).prop("id");
 							
+							$("#showPoster").prop("src", "");
+							$("#showTitle").html("");
+							$("#startDt").html("");
+							$("#endDt").html("");
+							$("#theaterNm").html("");
+							$("#img1").prop("src", "");
+							$("#img2").prop("src", "");
+							$("#img3").prop("src", "");
+							$("#img4").prop("src", "");
+							
 							$.ajax({
 								url : "selectShowDetail",
 								type : "GET",
