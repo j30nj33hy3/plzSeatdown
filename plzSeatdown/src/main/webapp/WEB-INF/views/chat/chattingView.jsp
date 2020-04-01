@@ -16,7 +16,7 @@ Optional theme
 Latest compiled and minified JavaScript
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 <meta charset="UTF-8">
-<title>실시간 채팅</title>
+<title>PLEASE SEATDOWN</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/chattingView.css"/>
 </head>
 <style>

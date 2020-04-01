@@ -7,7 +7,7 @@
 <!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buttercake@3.0.0/dist/css/butterCake.min.css"> -->
   <link rel="stylesheet" href="${contextPath}/resources/css/chat.css" />
 <meta charset="UTF-8">
-<title>PleaseSeatDown</title>
+<title>PLEASE SEATDOWN</title>
 <style>
 #entranceForm{
 	max-width : 400px;
@@ -25,17 +25,21 @@
 	<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<!-- FORM -->
 		<div id="entranceForm"class="w-100 mx-auto px-2">
-		<div class="accordion py-3" id="accordionExample">
+      <div class="accordion py-3" id="accordionExample">
             <div class="card mb-3">
                 <div class="cheader account py-2 pr-1" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <h2 class="mb-0 d-flex justify-content-between">
-                        <a class="btn btn-link collapsed" type="button"> Q. 채팅방 이용규정이 따로있나요?</a>
+                        <a class="btn btn-link collapsed" type="button"> 
+                        <b>Q. 채팅방 이용규정이 따로있나요?</b>
+                        </a>
                         <i class="fas fa-angle-down" style="color:#DBC9FF;"></i>
                     </h2>
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                    알아서 잘 이용하세요
+        1. 상대방에게 폭언 또는 욕설 시 제재를 받을 수 있 &nbsp;&nbsp;&nbsp;습니다. 매너있는 채팅 부탁드려요.<br>
+      2. 타인에게 아이디 및 연락처를 노출하지 말아주세 &nbsp;&nbsp;&nbsp;요. 여러분의 개인정보는 소중합니다.<br>
+      3. 채팅창에 홍보성 글 작성 시 제재를 받을 수 있습 &nbsp;&nbsp;&nbsp;니다.<br>                    
                     </div>
                 </div>
             </div>
@@ -44,14 +48,14 @@
                 data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     <h2 class="mb-0 d-flex justify-content-between">
                         <a class="btn btn-link collapsed" type="button" >
-                            Q. 채팅 입장은 어떻게하나요?
+                            <b>Q. 채팅방은 만들 수 없나요?</b>
                         </a>
                         <i class="fas fa-angle-down" style="color:#C1B7E8;"></i>
                     </h2>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
-                        입장버튼 누르면 입장됩니다.
+                    현재 서비스 개발중이며 빠른 시일내로 도입할 수&nbsp;&nbsp;&nbsp; 있도록 노력하겠습니다.   
                     </div>
                 </div>
             </div>
@@ -60,14 +64,14 @@
                 data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     <h2 class="mb-0 d-flex justify-content-between">
                         <a class="btn btn-link collapsed" type="button" >
-                            Q. 채팅에서 신고는 어떻게하나요?
+                            <b>Q. 채팅에서 신고는 어떻게하나요?</b>
                         </a>
                         <i class="fas fa-angle-down" style="color:#A88FCF;"></i>
                     </h2>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        문제가 되는 부분 캡쳐해서 메일로 보내주세요.
+                        문제가 되는 부분 캡쳐해서 관리자 메일로 전송해&nbsp;&nbsp;&nbsp; 주시면 처리하겠습니다.
                     </div>
                 </div>
             </div>
@@ -83,7 +87,7 @@
 				            		<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
 				            		<input type="hidden" name="profile"  value="${contextPath}/resources/profileImages/${profile.profilePath}">
 				            </c:if>
-				            <img class="img-circle" src="${src}" style="width : 150px;">
+				            <img class="img-circle" src="${src}" style="width : 150px; border-radius: 5em;">
 						</div><br>
 						<!-- 닉네임 -->
 						<div class="form-group">
