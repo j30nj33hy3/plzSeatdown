@@ -112,9 +112,6 @@ public class SeatController {
 	            		area = floor[1].split("블럭");
 	            		row = area[1].split("열");
 	            		col = row[1].split("번")[0];
-	            	}else if(floor[1].contains("BOX")){
-	            		row = floor[1].split("열");
-	            		col = row[1].split("번")[0];
 	            	}
 	            	
 	            	seat = new Seat(
