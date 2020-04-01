@@ -79,12 +79,9 @@ public class MypageServiceImpl implements MypageService {
 
 		if (!image.getOriginalFilename().equals("")) {
 
-			System.out.println("image :" + image);
-			System.out.println("image.getOriginalFilename() :" + image.getOriginalFilename());
 
 			String changeFileName = FileRename.rename(image.getOriginalFilename());
 
-			System.out.println("changeFileName:" + changeFileName);
 
 			// 이미지 기존에 O -> update 진행
 			if (file != null) { // 이미지가 비어있지 않다면

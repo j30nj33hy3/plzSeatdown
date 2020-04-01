@@ -197,7 +197,6 @@ public class MypageController {
 					else if(result==0) msg = "탈퇴 실패";
 					else	 	  msg = "현재 비밀번호가 일치하지 않습니다";
 					 
-					System.out.println("result탈퇴 : " + result);
 					
 					model.addAttribute("msg", msg);
 					//rdAttr.addFlashAttribute("msg",msg);
@@ -380,7 +379,6 @@ public class MypageController {
 					
 					Profile profile = mypageService.selectMypageProf(memberNo);
 					
-					System.out.println("rlist :" + rlist);
 					
 					model.addAttribute("list",rlist);
 					model.addAttribute("rimgList",rimgList);
@@ -451,7 +449,6 @@ public class MypageController {
 								// 전체 게시글 수 조회
 								int listCount = mypageService.getWriteReply(memberNo);
 								
-								System.out.println("listCount:" + listCount);
 								
 								// 현재 페이지 확인
 								if(currentPage == null) currentPage = 1;
