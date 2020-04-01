@@ -134,6 +134,7 @@ sub {
 .otherBtn:focus, .otherBtn:active {
 	outline: none !important;
 	box-shadow: none;
+	
 }
 
 .deleteBtn:hover {
@@ -152,13 +153,15 @@ sub {
 }
 
 textarea:focus {
-  outline: none;
+	outline: none;
 }
+
 button:focus {
-  outline: none;
+	outline: none;
 }
+
 input:focus {
-  outline: none;
+	outline: none;
 }
 </style>
 <title>쪽지 보내기</title>
@@ -182,7 +185,7 @@ input:focus {
 			</c:if>
 
 			<!-- 대화내용이 출력되는 부분 -->
-			<form action="sendReply" method="post">
+			<form action="sendReply" method="post" onsubmit="return validate();">
 				<input type="hidden" name="senderNo"
 					value="${message.messageSenderNo }"> <input type="hidden"
 					name="receiverNo" value="${message.messageReceiverNo }">
@@ -211,17 +214,20 @@ input:focus {
 				</div>
 			</form>
 			<script>
-			
-				$(function() {
-					$("#replyBtn").click(function() {
+				function validate() {
+					if ($("#messageReply").val().trim().length == 0) {
+						alert("내용을 입력해 주세요.");
+						$("#messageReply").focus();
+						return false;
+					} else {
 						window.opener.location.reload();
 						window.close();
 						location.replace("receiveList.jsp");
-					}).mouseenter(function() {
-						$(this).parent().css("cursor", "pointer");
-					});
-
-				});
+						mouseenter(function() {
+							$(this).parent().css("cursor", "pointer");
+						});
+					}
+				};
 			</script>
 </body>
 </html>

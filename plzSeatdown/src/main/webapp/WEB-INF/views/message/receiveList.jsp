@@ -200,12 +200,9 @@
 				<c:param name="currentPage" value="${pInf.currentPage}"/>
 				</c:url>
 				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");				
-		        
+
 				$(this).next().next().html("읽음");
-				
 				var $msg = $("#msgCount");
-				
-				
 		        no = "${loginMember.memberNo}";		        
 		           if(no != 0){
 		              $.ajax({
@@ -227,8 +224,13 @@
 		                 }                  
 		            });
 		         }
-		        setTimeout("history.go(0);", 3000);
-			});
+		           	window.opener.location.reload();
+					window.close();
+		        	setTimeout("history.go(0);", 1500);
+					//location.replace("receiveList.jsp");
+			}).mouseenter(function(){
+     			$(this).css("cursor","pointer");	
+   			});
 		});
 
 		

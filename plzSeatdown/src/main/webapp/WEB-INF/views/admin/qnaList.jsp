@@ -224,7 +224,8 @@
         $(function () {
             $(".qnaTitle").click(function(){
                 var qnaNo = $(this).parent().children().eq(0).text();
-				console.log(qnaNo);
+                var qnaStatus = $(this).parent().children().eq(7).text();
+				console.log(qnaStatus);
                 <c:url var="detailUrl" value="detail">
 				<c:if test="${!empty param.searchKey}">
 					<c:param name="searchKey" value="${param.searchKey}"/>
@@ -234,8 +235,15 @@
 				</c:if>
 				<c:param name="currentPage" value="${pInf.currentPage}" />
 				</c:url>
+				
+				<c:if test="${qnaStatus} ==D'">
+					alert("삭제된 문의입니다.");
+				
+				</c:if>
+				
 				location.href="${detailUrl}&no="+qnaNo;
-			}).mouseenter(function(){
+			
+            }).mouseenter(function(){
 				$(this).css("cursor", "pointer");
 			});	
 		});
