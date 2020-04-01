@@ -223,9 +223,9 @@
 		               console.log("쪽지 알람 개수 호출 실패");
 		                 }                  
 		            });
-		           	window.opener.location.reload();
-					window.close();
-		        	setTimeout("history.go(0);", 1500);
+		           	//window.opener.location.reload();
+					//window.close();
+		        	//setTimeout("history.go(0);", 1500);
 					//location.replace("receiveList.jsp");
 		         }
 			}).mouseenter(function(){

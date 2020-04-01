@@ -20,6 +20,7 @@ import com.bg.plzSeatdown.common.vo.PageInfo;
 import com.bg.plzSeatdown.member.model.vo.Member;
 import com.bg.plzSeatdown.message.model.service.MessageService;
 import com.bg.plzSeatdown.message.model.vo.Message;
+import com.google.gson.Gson;
 
 @RequestMapping("/message/*")
 @SessionAttributes({"loginMember", "msg"})
@@ -132,21 +133,21 @@ public class MessageController {
 	}
 
 	// 받은 메세지 상세 화면에서 삭제
+	@ResponseBody
 	@RequestMapping("deleteMessage")
 	public String deleteMessage(Model model, Integer no, RedirectAttributes rdAttr, HttpServletRequest request) {
-		String beforeUrl = request.getHeader("referer");
 		try {
 			int result = -1;
 			result = messageService.deleteMessage(no);
-			String path=null;
-			if(result > 0) {
+			/*if(result > 0) {
 				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
 				return "redirect:receiveList";
 			} else if (result == 0) {
 				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
 				return "receiveDetail.jsp";
 			}
-			return path;
+			return path;*/
+			return result+"";
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");
@@ -197,22 +198,27 @@ public class MessageController {
 	}
 	
 	// 답장하기
-	@RequestMapping("sendReply")
-	public String sendReply(Model model, Message message, int senderNo, int receiverNo, String messageReply, HttpServletRequest request, RedirectAttributes rdAttr) {
+	@ResponseBody
+	@RequestMapping(value="sendReply")
+	public String sendReply(Model model, Message message, int senderNo, int receiverNo, String messageReply) {
 		message.setMessageSenderNo(senderNo);
 		message.setMessageReceiverNo(receiverNo);
 		message.setMessageContent(messageReply);
-		String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴
+		//String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴
 
 		try {
-			int result = messageService.sendReply(message); 			
-			if(result > 0 ) {
+			int result = -1;
+			result = messageService.sendReply(message); 
+			System.out.println(result);
+			/*if(result > 0 ) {
 				model.addAttribute("msg", "답장을 전송했습니다.");
 				return "redirect:"+beforeUrl+beforeUrl;
 			} else {
 				rdAttr.addFlashAttribute("msg", "쪽지 전송 실패 실패");
 				return "redirect:"+beforeUrl;
-			}
+			}*/
+			
+			return result+"";
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "쪽지 답장 과정에서 오류 발생");
@@ -262,19 +268,21 @@ public class MessageController {
 	}	
 	
 	// 보낸메세지 상세조회 화면에서 삭제하기 
+	@ResponseBody
 	@RequestMapping("sendDelMsg")
 	public String sendDelMsg(Model model, Integer no, RedirectAttributes rdAttr, HttpServletRequest request) {
-		String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴
 		try {
 			int result = -1;
 			result = messageService.sendDelMsg(no);
-			if(result > 0) {
+			/*if(result > 0) {
 				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
 				return "redirect:/message/sendList";
 			} else {
 				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
 				return "sendDetail.jsp";
-			}
+			}*/
+			
+			return result + "";
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "쪽지 삭제 과정에서 오류 발생");

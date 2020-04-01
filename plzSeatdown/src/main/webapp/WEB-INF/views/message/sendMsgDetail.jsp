@@ -194,13 +194,26 @@ sub {
 				var messageNo = ${message.messageNo};
 				
 				if (confirm("쪽지를 삭제하시겠습니까?")) {
-					location.href = "deleteMessage?no=" + messageNo;
+					/* location.href = "deleteMessage?no=" + messageNo;
 					window.opener.location.reload();
 					window.close();
-					setTimeout("history.go(0);", 3000);
-				} else{
-					return false;
-				}
+					setTimeout("history.go(0);", 3000); */
+					$.ajax({
+						 url : "sendDelMsg",
+						 data : {"no":messageNo},
+						 async:false,
+						 success : function(result){
+							 if(result > 0){
+								 alert("쪽지를 삭제하였습니다.");
+								 window.close();
+								 window.opener.location.reload();
+							 }else{
+								 alert("삭제 실패");
+							 }
+						 }
+					 });
+					
+				} 
 			}).mouseenter(function() {
 				$(this).parent().css("cursor", "pointer");
 			});
