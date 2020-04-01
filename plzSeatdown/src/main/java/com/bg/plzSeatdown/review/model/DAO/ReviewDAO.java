@@ -347,6 +347,16 @@ public class ReviewDAO {
 		return sqlSession.update("reviewMapper.deleteFiles", ri);
 	}
 
+	
+	/** 공연 조회 Service
+	 * @param review
+	 * @return show
+	 * @throws Exception
+	 */
+	public Show selectShow(SeatReview review) throws Exception {
+		return sqlSession.selectOne("reviewMapper.selectShow", review);
+	}
+
 
 	
 

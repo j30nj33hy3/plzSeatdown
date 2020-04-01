@@ -91,14 +91,26 @@ public class SeatController {
 	            Node nNode = nList.item(temp);
 	            Element ele = (Element)nNode;
 	            
-	            if(idtime == 1088176 || idtime == 1088680 || 
-	            		idtime == 1089520 || idtime == 1089516 ||
-	            		idtime == 1088683 || idtime == 980586 || idtime == 1084506) {
+	            if(idtime == 1088176 || idtime == 1088680 || idtime == 1089516 ||
+	            		idtime == 1088683 || idtime == 1084506) {
 	            	//Seat seat = new Seat(seatValue, seatFloor, seatArea, seatRow, seatCol, theaterCode)
 	            	String tooltip = getTagValue("Tooltip", ele);
+	            	System.out.println(tooltip);
 	            	String[] floor = tooltip.split("층");
-	            	String[] area = floor[1].split("구역");
-	            	String[] row = area[1].split("열");
+	            	String[] area = null;
+	            	String[] temp1 = null;
+	            	String[] row = null;
+	            	if(floor[1].contains("구역")) {
+	            		area = floor[1].split("구역");
+	            		row = area[1].split("열");
+	            	}else if(floor[1].contains("블록")){
+	            		area = floor[1].split("블록");
+	            		row = area[1].split("열");
+	            	}else if(floor[1].contains("BOX")){
+	            		temp1 = floor[1].split(" ");
+	            		area = temp1[0].split("BOX");
+	            		row = temp1[1].split("열");
+	            	}
 	            	String col = row[1].split("번")[0];
 	            	
 	            	seat = new Seat(

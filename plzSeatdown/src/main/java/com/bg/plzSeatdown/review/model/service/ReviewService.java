@@ -225,7 +225,12 @@ public interface ReviewService {
 	 */
 	Seat selectSeat(ReviewWrite rWrite) throws Exception;
 
-
+	/** 공연 조회 Service
+	 * @param review
+	 * @return show
+	 * @throws Exception
+	 */
+	Show selectShow(SeatReview review) throws Exception;
 
 
 }

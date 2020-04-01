@@ -503,5 +503,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.selectSeat(rWrite);
 	}
 
+	/** 공연 조회 Service
+	 * @param review
+	 * @return show
+	 * @throws Exception
+	 */
+	@Override
+	public Show selectShow(SeatReview review) throws Exception {
+		return reviewDAO.selectShow(review);
+	}
+	
 	
 }
