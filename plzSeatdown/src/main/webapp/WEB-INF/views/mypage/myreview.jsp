@@ -69,7 +69,7 @@
                                     </c:if> --%> 
                               <img class="img-responsive" src="" id="reviewImage"/>
                               <div class="sub-heading mt-4 mb-4">
-                                 <p id="reviewComment"> </p>
+                                 <pre id="reviewComment"></pre>
                               </div>
                         </div>
                      </div>
@@ -148,6 +148,7 @@
                            </c:if>
                         </tbody>
                        </table>
+                       
 
                         <!-- 페이징바 -->
                            <div class="col-md-12 d-flex justify-content-center">
@@ -241,6 +242,7 @@
          });
          
       
+      
          // sidebar pannel 기능
          
          $(function(){
@@ -266,6 +268,7 @@
                arr.push(review);
             </c:forEach>
             
+           
             
             var arrimg = new Array();
             <c:forEach var="rimg" items="${rimgList}">
@@ -276,18 +279,7 @@
                arrimg.push(reviewImg);
             </c:forEach>
             
-            var arrlike = new Array();
-            <c:forEach var="rlike" items="${likelist}">
-               var reviewLike = {
-                  memberNo : "${rlike.memberNo}",
-                  reviewNo : "${rlike.reviewNo}"
-               }
-               
-               arrlike.push(reviewLike);
-               
-            </c:forEach>
             
-           
             
             $(".seats").on({
                click : function(){
@@ -295,6 +287,7 @@
                   var index = $(this).index();
                   
                   var indexno = $(this).children("td[name=reviewNo]").text();
+                  
                   
                   $(".sidebarpan").addClass("active");
                   
@@ -319,9 +312,12 @@
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
                   $("#reviewLegroom").text(arr[index].reviewLegroom).generateStars();
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
-                  $("#reviewComment").text(arr[index].reviewComment);
                   $("#reviewLike").text(arr[index].likeCount);
-           
+                  $("#reviewComment").html(arr[index].reviewComment);
+                  
+                  
+               
+                  
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
                 	  if(typeof (arrimg[index]) == "undefined"){
                 		 $("#reviewImage").prop("src","");  
@@ -329,6 +325,7 @@
                     	 $("#reviewImage").prop("src", "${contextPath}/resources/reviewImages/"+arrimg[index].reviewImagePath);
                 	  }
                   }
+                  
                   
                }
             });
@@ -341,6 +338,7 @@
             });
          });
          
+        
          
          // 별점 기능
          $.fn.generateStars = function() {

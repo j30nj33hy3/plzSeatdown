@@ -372,15 +372,24 @@ public class MypageController {
 					PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
 					
 					// 게시글 목록 조회
-					List<SeatReview> rlist = mypageService.selectRlist(pInf, memberNo);
+					List<SeatReview> list = mypageService.selectRlist(pInf, memberNo);
 					
 					List<ReviewImageEH> rimgList = mypageService.selectRimglist(memberNo);
 					
+			/*
+			 * int i = 0;
+			 * 
+			 * for(i=0; i<list.size(); i++) { if(list.get(i).getReviewComment() != null) {
+			 * list.get(i).setReviewComment(list.get(i).getReviewComment().replace("<br>",
+			 * "\r\n")); } }
+			 */
+			 
 					
+					System.out.println("list :" + list );
+	
 					Profile profile = mypageService.selectMypageProf(memberNo);
 					
-					
-					model.addAttribute("list",rlist);
+					model.addAttribute("list",list);
 					model.addAttribute("rimgList",rimgList);
 					model.addAttribute("profile",profile);
 					model.addAttribute("pInf",pInf);
