@@ -456,14 +456,12 @@ public class ReviewController {
 	   @RequestMapping("updateLike")
 	   public int updateLike(Model model, Integer reviewNo, Integer likeStatus, Alarm alarm) {
 	      
-	      System.out.println("alarm :" + alarm.getAlarmContent());
 	      // Session에서 회원번호 얻어오기
 	      Member loginMember = (Member)model.getAttribute("loginMember");
 	      int memberNo = loginMember.getMemberNo();
 	      
 	      ReviewLike like = new ReviewLike(memberNo, reviewNo);
 	      
-	      System.out.println("alarmUrl" + alarm.getAlarmUrl());
 	      
 	      int statusChange =0;
 	      try {
@@ -479,6 +477,7 @@ public class ReviewController {
 	   
 	      return statusChange;
 	   }
+	
 	
 		// 리뷰 수정 화면 전환
 		@RequestMapping("updateForm")

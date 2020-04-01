@@ -229,7 +229,8 @@
    <!-- QNA 게시글수 조회용  -->
    <select id="getAskCount" parameterType="_int"  resultType="_int"> 
    	 SELECT COUNT(*) FROM QNA
-     WHERE QNA_WRITER = #{memberId} 
+     WHERE QNA_WRITER = #{memberId}
+     AND QNA_STATUS= 'Y' OR  QNA_STATUS= 'N'
    </select>
    
    
@@ -238,6 +239,7 @@
       SELECT QNA_NO, QNA_CONTENT, QNA_CREATE_DT, QNA_STATUS
       FROM QNA
       WHERE QNA_WRITER = #{memberNO} 
+      AND QNA_STATUS= 'Y' OR  QNA_STATUS= 'N'
    </select>
    
    <!-- QNA 상세조회용  -->
@@ -270,7 +272,7 @@
 	<select id="selectRimglist" parameterType="_int" resultMap="ReviewImageEHResultSet">
 		SELECT * FROM V_RIMGEH
    		WHERE REVIEW_WRITER = #{memberNO} 
-   		AND IMG_TYPE=0
+   		AND IMG_TYPE=0 AND REVIEW_IMG_STATUS='Y'
 	</select>
 	
 	
@@ -316,14 +318,14 @@
 	<!-- 마이글 전체 조회 -->
 	<select id="selectClist" parameterType="_int" resultMap="communityResultSet">
 		SELECT * FROM COMMUNITY
-		WHERE COMM_WRITER = #{memberNo} 
+		WHERE COMM_WRITER = #{memberNo} AND COMM_STATUS='Y'
 	</select>
 	
 	
 	<!-- 마이 커뮤 댓글 조회 -->
 	<select id="selectReplist" parameterType="_int" resultMap="replyResultSet">
 		SELECT * FROM V_REPLY
-   		WHERE REPLY_WRITER = #{memberNO} 
+   		WHERE REPLY_WRITER = #{memberNO} AND REPLY_STATUS='Y'
 	</select> 
 	
 	<!--  -->

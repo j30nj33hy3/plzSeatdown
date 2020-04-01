@@ -304,12 +304,18 @@
                   }); // 스크롤 불가능
                   $(".overlay").fadeIn();
                   
-                  console.log(arr);
-                  console.log(arrimg);
                  
                   $("#reviewNick").text(arr[index].memberNickname);
                   $("#title").children("h4").text(arr[index].showTitle);
-                  $("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+                  if("${revieweh.seatFloor}" != null && "${revieweh.seatArea}" != null){
+                  	$("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+                  }
+                  else if("${revieweh.seatFloor}" == null && "${revieweh.seatArea}" != null){
+                		$("#seatId").children("h5").text(arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+                  }
+                  else if("${revieweh.seatFloor}" != null && "${revieweh.seatArea}" == null){
+                	  $("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
+                  }
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
                   $("#reviewLegroom").text(arr[index].reviewLegroom).generateStars();
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
