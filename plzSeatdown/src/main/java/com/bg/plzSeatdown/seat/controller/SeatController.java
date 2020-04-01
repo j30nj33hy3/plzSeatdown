@@ -95,23 +95,27 @@ public class SeatController {
 	            		idtime == 1088683 || idtime == 1084506) {
 	            	//Seat seat = new Seat(seatValue, seatFloor, seatArea, seatRow, seatCol, theaterCode)
 	            	String tooltip = getTagValue("Tooltip", ele);
-	            	System.out.println(tooltip);
 	            	String[] floor = tooltip.split("층");
 	            	String[] area = null;
 	            	String[] temp1 = null;
 	            	String[] row = null;
+	            	String col = null;
 	            	if(floor[1].contains("구역")) {
 	            		area = floor[1].split("구역");
 	            		row = area[1].split("열");
+	            		col = row[1].split("번")[0];
 	            	}else if(floor[1].contains("블록")){
 	            		area = floor[1].split("블록");
 	            		row = area[1].split("열");
+	            		col = row[1].split("번")[0];
+	            	}else if(floor[1].contains("블럭")){
+	            		area = floor[1].split("블럭");
+	            		row = area[1].split("열");
+	            		col = row[1].split("번")[0];
 	            	}else if(floor[1].contains("BOX")){
-	            		temp1 = floor[1].split(" ");
-	            		area = temp1[0].split("BOX");
-	            		row = temp1[1].split("열");
+	            		row = floor[1].split("열");
+	            		col = row[1].split("번")[0];
 	            	}
-	            	String col = row[1].split("번")[0];
 	            	
 	            	seat = new Seat(
 	            			Integer.parseInt(getTagValue("Id", ele)),
