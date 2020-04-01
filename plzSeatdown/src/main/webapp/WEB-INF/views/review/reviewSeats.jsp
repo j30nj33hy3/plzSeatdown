@@ -50,7 +50,7 @@
                 background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
                 /* background-position: 0 0; */
                 cursor: pointer;
-                /* animation: fave-heart 1s steps(28); */
+                animation: fave-heart 0.4s steps(28);
             }
             @keyframes fave-heart {
                 0% {
@@ -886,67 +886,85 @@
 	     	</script>
 	     	
 	     	<!-- 리뷰 좋아요 -->
-           <script>
+			<script>
            
-            function reviewLike(obj){
-               
-               var likeStatus = $(obj).attr("value");
-               var reviewNo = $(obj).attr("id");
-               var likeCount = $("#likeCount"+reviewNo);
-               var count = "";
-               var Id = $(obj).parent().prev().children("span[name=spanId]").html();
-               var alarmUrl = "/review/seats?thCode=${theater.thCode}";
-               var alarmContent = "${theater.thNm}";
-               var No = $(obj).parent().prev().children("span[name=spanNo]").html();
-               var alarmMemberNo = No;
-               console.log(Id);
-               console.log(alarmUrl);
-               console.log(alarmContent);
-               console.log(alarmMemberNo);
-               
-               $.ajax({
-                  url : "updateLike",
-                  type : "POST",
-                  data : {
-                        "reviewNo" : reviewNo, 
-                        "likeStatus" : likeStatus,
-                        "alarmContent" : alarmContent,
-                        "alarmUrl" : alarmUrl,
-                        "alarmMemberNo" : alarmMemberNo
-                     },
-                  success : function(status){
-                     
-                     var statusChange = "";
-                     
-                     if(status == 1){
-                        $(obj).attr("value", 1).css({"background-position" : "-2800px 0", "transition" : "background 1s steps(28)"});
-                        //statusChange = '<i class="fas fa-heart"></i>';
-                        count = Number(likeCount.text()) + 1;
-                        // 웹소켓
-                        console.log(socketMsg);
-                        
-                        var socketMsg = "like" + "," + Id + "," +"${theater.thNm}" + "," + "${theater.thCode}";
-                              console.log("socketMsg : " + socketMsg);   
-                              socket.send(socketMsg);
-                              
-                     }else if(status == -1){
-                        $(obj).attr("value", 0).css({"background-position" : "0 0", "transition" : "background 1s steps(28)"});
-                        //statusChange = '<i class="far fa-heart"></i>';
-                        count = Number(likeCount.text()) - 1;
-                     }else if(status == 0){
-                        console.log("좋아요 ajax 실패");
-                     }
-                     
-                     //$(obj).html(statusChange);
-                     likeCount.html(count);
-                  }
-               });
-            }
+				// 중복 방지 불가
+				var click = true;
+	           
+				function reviewLike(obj){
+	            	
+					//console.log("11111111111 : " + click);
+	               
+					if(click){
+						var likeStatus = $(obj).attr("value");
+						var reviewNo = $(obj).attr("id");
+						var likeCount = $("#likeCount"+reviewNo);
+						var count = "";
+						var Id = $(obj).parent().prev().children("span[name=spanId]").html();
+						var alarmUrl = "/review/seats?thCode=${theater.thCode}";
+						var alarmContent = "${theater.thNm}";
+						var No = $(obj).parent().prev().children("span[name=spanNo]").html();
+						var alarmMemberNo = No;
+						//console.log(Id);
+						//console.log(alarmUrl);
+						//console.log(alarmContent);
+						//console.log(alarmMemberNo);
+		               
+						$.ajax({
+							url : "updateLike",
+							type : "POST",
+							data : {
+									"reviewNo" : reviewNo, 
+									"likeStatus" : likeStatus,
+									"alarmContent" : alarmContent,
+									"alarmUrl" : alarmUrl,
+									"alarmMemberNo" : alarmMemberNo
+							},
+							success : function(rl){
+								
+								status = rl.memberNo; // memberNo에 status 저장함
+								count = rl.reviewNo; // reviewNo에 likeCount 저장함
+		                     
+								var statusChange = "";
+		                     
+								if(status == 1){
+									
+									$(obj).attr("value", 1).css({"background-position" : "-2800px 0", "transition" : "background 0.4s steps(28)"});
+									//statusChange = '<i class="fas fa-heart"></i>';
+									//count = Number(likeCount.text()) + 1;
+									// 웹소켓
+									console.log(socketMsg);
+		                        
+									var socketMsg = "like" + "," + Id + "," +"${theater.thNm}" + "," + "${theater.thCode}";
+									console.log("socketMsg : " + socketMsg);   
+									socket.send(socketMsg);
+		                              
+								}else if(status == -1){
+			                        $(obj).attr("value", 0).css({"background-position" : "0 0", "transition" : "background 0.4s steps(28)"});
+			                        //statusChange = '<i class="far fa-heart"></i>';
+			                        //count = Number(likeCount.text()) - 1;
+								}else if(status == 0){
+									console.log("좋아요 ajax 실패");
+								}
+		                     
+								//$(obj).html(statusChange);
+								likeCount.html(count);
+								
+								click = false;
+								//console.log("222222222222222 : " + click);
+		                     
+								setTimeout(function(){
+									click = true;
+									//console.log("333333333333333333 : " + click);
+								}, 500);
+							}
+						});
+					}
+				}
             
-           </script>
-	     	
+			</script>
 		</div>
-
+	     	
 		<!-- Footer -->
 		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</body>

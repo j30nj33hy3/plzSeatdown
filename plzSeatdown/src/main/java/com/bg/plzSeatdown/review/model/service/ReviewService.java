@@ -232,5 +232,12 @@ public interface ReviewService {
 	 */
 	Show selectShow(SeatReview review) throws Exception;
 
+	/** 좋아요 개수 조회용 Service
+	 * @param reviewNo
+	 * @return likeCount
+	 * @throws Exception
+	 */
+	int getLikeCount(Integer reviewNo) throws Exception;
+
 
 }

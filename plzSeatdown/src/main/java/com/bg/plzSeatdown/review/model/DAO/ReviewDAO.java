@@ -357,6 +357,15 @@ public class ReviewDAO {
 		return sqlSession.selectOne("reviewMapper.selectShow", review);
 	}
 
+	/** 좋아요 개수 조회용 DAO
+	 * @param reviewNo
+	 * @return likeCount
+	 * @throws Exception
+	 */
+	public int getLikeCount(Integer reviewNo) throws Exception{
+		return sqlSession.selectOne("reviewMapper.getLikeCount", reviewNo);
+	}
+
 
 	
 

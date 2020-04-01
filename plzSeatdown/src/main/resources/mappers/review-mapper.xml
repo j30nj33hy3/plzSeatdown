@@ -389,4 +389,10 @@
 		WHERE THEATER_CODE = #{thCode}
 		AND #{reviewViewDt} BETWEEN SHOW_START_DT AND SHOW_END_DT
 	</select>
+	
+	<select id="getLikeCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW_LIKE
+		WHERE REVIEW_NO = #{reviewNo}
+	</select>
 </mapper>
