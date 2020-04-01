@@ -338,6 +338,15 @@ public class ReviewDAO {
 		return sqlSession.selectOne("reviewMapper.selectSeat", rWrite);
 	}
 
+	/** 리뷰 이미지 DB상태 변경 DAO
+	 * @param ri
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteFiles(ReviewImage ri) throws Exception{
+		return sqlSession.update("reviewMapper.deleteFiles", ri);
+	}
+
 
 	
 

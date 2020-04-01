@@ -376,4 +376,10 @@
 		WHERE SEAT_VALUE = #{seatVal}
 		AND THEATER_CODE = #{thCd}
 	</select>
+	
+	<update id="deleteFiles" parameterType="ReviewImage">
+		UPDATE REVIEW_IMAGE
+		SET REVIEW_IMG_STATUS = 'N'
+		WHERE REVIEW_IMG_NO = #{reviewImageNo}
+	</update>
 </mapper>

@@ -470,10 +470,12 @@ public class ReviewServiceImpl implements ReviewService{
 		List<ReviewImage> files = reviewDAO.selectFiles(reviewNo);
 		if(files != null) {
 			for(ReviewImage ri : files) {
+				result = reviewDAO.deleteFiles(ri);
 				File deleteFile = new File(savePath+"/"+ri.getReviewImagePath());
 				deleteFile.delete();
 			}
 		}
+		result = 0;
 		result = reviewDAO.deleteReview(reviewNo);
 		if(result == 0) {
 			throw new Exception("리뷰 삭제 과정에서 오류 발생");
