@@ -72,7 +72,7 @@
 							<div class="card-body">
 								<h4 class="card-title"></h4>
 								<!-- Create the editor container -->
-								<form name="notice_insert" action="insertNotice	" method="post">
+								<form name="notice_insert" action="insertNotice	" method="post" onsubmit="return validate();">
 									<!-- <label class="input-group-addon mr-3">제목</label> -->
 									<input type="text" class="form-control" id="noticeTitle"
 										name="noticeTitle" maxlength="33" size="70"> <br>
@@ -121,6 +121,24 @@
 
 				});
 			});
+			
+			
+			
+			// 유효성 검사
+			function validate(){
+				if($("#summernote").val().trim().length == 0){
+					alert("내용을 입력해 주세요.");
+					$("#summernote").focus();
+					return false;
+				}
+				
+				if($("#noticeTitle").val().trim().length == 0){
+					alert("제목을 입력해 주세요.");
+					$("#noticeTitle").focus();
+					return false;
+				}
+			}
+
 		</script>
 		<script src="${contextPath}/resources/js/admin/noticeInsertForm.js"></script>
  		<script src="${contextPath}/resources/js/admin/jquery.inputmask.bundle.min.js"></script> 
