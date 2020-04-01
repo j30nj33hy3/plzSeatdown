@@ -188,7 +188,6 @@ public class ReviewController {
 			List<Theater> tList = reviewService.selectTList();
 			if(rWrite.getSeatVal() != 0) {
 				Show show = null;
-				System.out.println(rWrite);
 				if(!rWrite.getShowCode().equals("")) {
 					show = reviewService.selectShowDetail(rWrite.getShowCode());
 					rWrite.setShowTitle(show.getShowTitle());
@@ -350,7 +349,6 @@ public class ReviewController {
 			@RequestParam(value="thName", required=false)String thName,
 			@RequestParam(value="seatFile", required=false)MultipartFile seatImg,
 			@RequestParam(value="ticketFile", required=false)MultipartFile ticketImg) {
-		System.out.println(review);
 		
 		// Session에서 회원번호 얻어오기
 		Member loginMember = (Member)model.getAttribute("loginMember");
