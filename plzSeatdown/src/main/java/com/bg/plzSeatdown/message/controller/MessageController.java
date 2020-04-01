@@ -141,7 +141,7 @@ public class MessageController {
 			String path=null;
 			if(result > 0) {
 				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
-				return "redirect:"+beforeUrl;
+				return "redirect:receiveList";
 			} else if (result == 0) {
 				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
 				return "receiveDetail.jsp";
@@ -208,7 +208,7 @@ public class MessageController {
 			int result = messageService.sendReply(message); 			
 			if(result > 0 ) {
 				model.addAttribute("msg", "답장을 전송했습니다.");
-				return "redirect:"+beforeUrl;
+				return "redirect:"+beforeUrl+beforeUrl;
 			} else {
 				rdAttr.addFlashAttribute("msg", "쪽지 전송 실패 실패");
 				return "redirect:"+beforeUrl;
@@ -270,7 +270,7 @@ public class MessageController {
 			result = messageService.sendDelMsg(no);
 			if(result > 0) {
 				model.addAttribute("msg", "쪽지를 삭제하였습니다.");
-				return "redirect:"+beforeUrl;
+				return "redirect:/message/sendList";
 			} else {
 				model.addAttribute("msg", "쪽지를 삭제하는데 실패하였습니다.");
 				return "sendDetail.jsp";

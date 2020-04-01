@@ -221,13 +221,12 @@ input:focus {
 						$("#messageReply").focus();
 						return false;
 					} else {
-						opener.location.reload();
-						window.close();
+						window.opener.location.reload();
 						window.close();
 						location.replace("receiveList.jsp");
-						mouseenter(function() {
+						/* mouseenter(function() {
 							$(this).parent().css("cursor", "pointer");
-						});
+						}); */
 					}
 				};
 			</script>
