@@ -214,13 +214,14 @@ input:focus {
 				</div>
 			</form>
 			<script>
+				
 				function validate() {
 					if ($("#messageReply").val().trim().length == 0) {
 						alert("내용을 입력해 주세요.");
 						$("#messageReply").focus();
 						return false;
 					} else {
-						window.opener.location.reload();
+						//window.opener.location.reload();
 						window.close();
 						location.replace("receiveList.jsp");
 						mouseenter(function() {

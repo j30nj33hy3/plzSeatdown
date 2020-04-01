@@ -50,6 +50,7 @@
 						<hr>
 						<form name="question" action="update?no=${qna.qnaNo}"
 							method="post" onsubmit="return validate();">
+
 							<textarea id="question-detail" rows="7"
 								style="background-color: lightgray; color: gray;" disabled>
 ${qna.qnaContent}
@@ -57,8 +58,8 @@ ${qna.qnaContent}
 							<br> <br> <br>
 							<h5 style="color: dimgray;">답변</h5>
 							<hr>
-							<c:if test="${!empty qna.qnaAnswer}">
-<textarea id="answer-detail" name="answer" rows="7">
+							<c:if test="${!empty qna.qnaAnswer && qna.qnaStatus != 'D'}">
+								<textarea id="answer-detail" name="answer" rows="7">
 ${qna.qnaAnswer }
 </textarea>
 
@@ -71,20 +72,37 @@ ${qna.qnaAnswer }
 										id="list-btn" type="button">목록</a>
 								</div>
 							</c:if>
-							<c:if test="${empty qna.qnaAnswer}">
-								
-<textarea id="answer-detail" name="answer" rows="7" placeholder="답변을 등록해주세요.">
+							<c:choose>
+								<c:when test="${qna.qnaStatus == 'D' }">
+									<textarea id="answer-detail" name="answer" rows="7"
+										style="background-color: lightgray; color: gray;" disabled>
+삭제된 문의글입니다.
 </textarea>
-								<br>
-								<br>
-								<br>
-								<div style="text-align: center;">
-									<button class="form-control btn btn-primary" id="submit-btn"
-										type="submit">등록</button>
-									<a href="list" class="form-control btn btn-primary"
-										id="reset-btn" type="button">취소</a>
-								</div>
-							</c:if>
+									<br>
+									<br>
+									<br>
+									<div style="text-align: center;">
+										<a href="list" class="form-control btn btn-primary"
+											id="list-btn" type="button">목록</a>
+									</div>
+
+								</c:when>
+								<c:when test="${empty qna.qnaAnswer}">
+
+									<textarea id="answer-detail" name="answer" rows="7"
+										placeholder="답변을 등록해주세요.">
+</textarea>
+									<br>
+									<br>
+									<br>
+									<div style="text-align: center;">
+										<button class="form-control btn btn-primary" id="submit-btn"
+											type="submit">등록</button>
+										<a href="list" class="form-control btn btn-primary"
+											id="reset-btn" type="button">취소</a>
+									</div>
+								</c:when>
+							</c:choose>
 						</form>
 					</div>
 				</div>
@@ -99,12 +117,13 @@ ${qna.qnaAnswer }
 	<!-- ============================================================== -->
 
 	<script>
-		function validate(){
+		function validate() {
 			if ($("#answer-detail").val().trim().length == 0) {
 				alert("내용을 입력해 주세요.");
 				$("#answer-detail").focus();
 				return false;
-			};
+			}
+			;
 		};
 	</script>
 

@@ -75,8 +75,7 @@ public class AdminQnaController {
 
 	// QnA 상세 조회
 	@RequestMapping("detail")
-	public ModelAndView selectQna(ModelAndView mv, @RequestParam(value = "no", required = false) Integer no) {
-//		`.out.println(no);
+	public ModelAndView selectQna(ModelAndView mv, String qnaStatus, @RequestParam(value = "no", required = false) Integer no) {
 		try {
 			AdminQna qna = adminQnaService.selectQna(no);
 			if (qna != null) {

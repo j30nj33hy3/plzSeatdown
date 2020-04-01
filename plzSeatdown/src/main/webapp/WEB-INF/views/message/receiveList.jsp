@@ -199,7 +199,7 @@
 				<c:url var="detailUrl" value="detail">
 				<c:param name="currentPage" value="${pInf.currentPage}"/>
 				</c:url>
-				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=500, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no");				
+				window.open("${detailUrl}&no=" + messageNo, "쪽지 확인하기", "width=488, height=582, toolbar=no, menubar=no, scrollbars=no, resizable=no");				
 
 				$(this).next().next().html("읽음");
 				var $msg = $("#msgCount");
