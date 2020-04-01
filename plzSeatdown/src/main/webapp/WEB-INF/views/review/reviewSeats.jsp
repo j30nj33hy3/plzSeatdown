@@ -148,10 +148,6 @@
 
 			<div class="container container-fluid my-5">
 				
-				<div class="pb-4">
-		            <h5>좌석 리뷰</h5>
-		        </div>
-		        
 		        <div class="row mb-5">
 					<div class="col-md-12 text-center">
 						${theater.thNm}
@@ -216,7 +212,8 @@
 								
 							</div>
 							<div class="col-md-3 showInfo ">
-								<div class="showHeader">상영 중인 공연</div>
+								<!-- <div class="showHeader">상영 중인 공연</div> -->
+								<div class="showHeader"><img src="${contextPath}/resources/images/showing.png" style="width: 100%;"></div>
 								<c:if test="${empty show}">
 									<div class="text-center mt-3">
 										<img src="${contextPath}/resources/images/no_show.png" style="width: 100%;">
@@ -229,11 +226,6 @@
 									<div class="mt-4">
 										<div id="showTitle" class="text-center mt-3">${show.showTitle}</div>
 										<div id="showDate" class="text-center">${show.startDt} ~ ${show.endDt}</div>
-									</div>
-									<div class="move text-center mt-4">
-										<button class="btn btn-default" type="button">
-											예매 페이지로 이동
-										</button>
 									</div>
 		                        </c:if>
 							</div>
@@ -308,12 +300,10 @@
 			                   		</span> --%>
 			                   		<c:choose>
 			                   			<c:when test="${n.likeStatus == 1}">
-			                   				<div class="reviewLike heart" style="background-position:-2800px 0;" 
-			                   				id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+			                   				<div class="reviewLike heart" style="background-position:-2800px 0;" id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
 			                   			</c:when>
 			                   			<c:otherwise>
-			                   				<div class="reviewLike heart" style="background-position:0 0;" 
-			                   				id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+			                   				<div class="reviewLike heart" style="background-position:0 0;" id="${n.reviewNo}" value="${n.likeStatus}" onclick="reviewLike(this);"></div>
 			                   			</c:otherwise>
 			                   		</c:choose>
 			                   </c:when>
@@ -407,6 +397,14 @@
 				</c:forEach>
 				</div>
 			</div>
+			
+			<!-- 사이드 메뉴 이름 변경 -->
+			<script>
+				$(function(){
+					$("#sideMenu #clickedPage").attr("href","seats?thCode='${theater.thCode}'").html("좌석 리뷰");
+				});
+			</script>
+			
 			<!-- 좌석 평점 표시 -->
 			<script>
 				rating();

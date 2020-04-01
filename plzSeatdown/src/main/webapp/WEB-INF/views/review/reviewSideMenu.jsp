@@ -13,8 +13,8 @@
 	<div class="col-md-2" id="sideMenu" style="width: 200px;">
 		<h4><a id="clickedPage" href=""></a></h4>
 		<ul>
-			<li><a href="theater">공연장별</a></li>
-			<li><a href="show">공연별</a></li>
+			<li><a href="theater">공연장 검색</a></li>
+			<li><a href="show">공연 검색</a></li>
 			<c:if test="${! empty sessionScope.loginMember}">
 				<li><a href="writeForm">리뷰 작성</a></li>
 			</c:if>

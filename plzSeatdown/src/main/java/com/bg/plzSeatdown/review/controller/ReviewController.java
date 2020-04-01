@@ -150,7 +150,10 @@ public class ReviewController {
 			
 			// Session에서 회원번호 얻어오기
 			Member loginMember = (Member)model.getAttribute("loginMember");
-			int memberNo = loginMember.getMemberNo();
+			int memberNo = 0;
+			
+			if(loginMember == null) memberNo = 0;
+			else memberNo = loginMember.getMemberNo();
 			
 			Theater theater = reviewService.selectTheaterDetail(thCode);
 			Show nowShow = reviewService.selectNowShow(thCode);

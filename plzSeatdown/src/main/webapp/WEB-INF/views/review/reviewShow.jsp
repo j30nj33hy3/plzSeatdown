@@ -234,7 +234,7 @@
 			<!-- 사이드 메뉴 이름 변경 -->
 			<script>
 				$(function(){
-					$("#sideMenu #clickedPage").attr("href","show").html("공연별");
+					$("#sideMenu #clickedPage").attr("href","show").html("공연 검색");
 				});
 			</script>
 			
