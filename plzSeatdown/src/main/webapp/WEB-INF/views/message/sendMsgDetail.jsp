@@ -168,7 +168,7 @@ sub {
 						<div id="chatting">
 							<div id='sessionuserid'>
 								<p
-									style="text-align: inherit; padding: 3px; color: black; font-size: 28px;">
+									style="text-align: inherit; padding: 3px; color: black; font-size: 28px; word-break:break-all;">
 									${message.messageContent}</p>
 							</div>
 							<br>
