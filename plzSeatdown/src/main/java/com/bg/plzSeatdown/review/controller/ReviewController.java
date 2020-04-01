@@ -454,7 +454,7 @@ public class ReviewController {
 	// 리뷰 좋아요
 	   @ResponseBody
 	   @RequestMapping("updateLike")
-	   public int updateLike(Model model, Integer reviewNo, Integer likeStatus, Alarm alarm) {
+	   public ReviewLike updateLike(Model model, Integer reviewNo, Integer likeStatus, Alarm alarm) {
 	      
 	      // Session에서 회원번호 얻어오기
 	      Member loginMember = (Member)model.getAttribute("loginMember");
@@ -462,10 +462,12 @@ public class ReviewController {
 	      
 	      ReviewLike like = new ReviewLike(memberNo, reviewNo);
 	      
-	      
 	      int statusChange =0;
+	      int likeCount = 0;
 	      try {
 	         statusChange = reviewService.updateLike(like, likeStatus, alarm);
+	         likeCount = reviewService.getLikeCount(reviewNo);
+	         
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	         statusChange =1;
@@ -474,8 +476,10 @@ public class ReviewController {
 	      // statusChange == -1   좋아요 O -> 좋아요 X
 	      // statusChange == 1   좋아요 X -> 좋아요 O
 	      // statusChange == 0   좋아요 작동 실패
+	      
+	      ReviewLike rl = new ReviewLike(statusChange, likeCount);
 	   
-	      return statusChange;
+	      return rl;
 	   }
 	
 	

@@ -512,6 +512,16 @@ public class ReviewServiceImpl implements ReviewService{
 	public Show selectShow(SeatReview review) throws Exception {
 		return reviewDAO.selectShow(review);
 	}
+
+	/** 좋아요 개수 조회용 Service
+	 * @param reviewNo
+	 * @return likeCount
+	 * @throws Exception
+	 */
+	@Override
+	public int getLikeCount(Integer reviewNo) throws Exception {
+		return reviewDAO.getLikeCount(reviewNo);
+	}
 	
 	
 }
