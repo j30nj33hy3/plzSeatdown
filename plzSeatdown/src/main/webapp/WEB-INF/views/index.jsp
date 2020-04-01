@@ -21,8 +21,14 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
-<title>PleaseSeatDown</title>
+<title>PLEASE SEATDOWN</title>
 <style>
+
+body{
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
 #sec {
   width: 100%;
   height: 650px;
@@ -200,7 +206,9 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------- -->
 		<div id="page-wrapper">
-			<div class="mt-5 pt-3 ml-5 pl-5"><p class="ml-5 pl-5" style="font-size : 30px;">상영중인 공연</p></div>
+			<div class="mt-5 pt-3 ml-5 pl-5" style="text-align : center;">
+				<img src="${contextPath}/resources/images/showing.png">
+			</div>
 			<!-- Carousel -->
 			<section class="carousel">
 				<div class="reel">
