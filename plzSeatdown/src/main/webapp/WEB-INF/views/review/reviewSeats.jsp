@@ -64,14 +64,14 @@
 		
 	</head>
 	<body class="homepage is-preload">
-		
-		<div id="page-wrapper">
-		
-			<div class="overlay"></div>
+	
+		<div class="overlay"></div>
 
-			<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-			<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
-			
+		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
+		
+		<div id="page-wrapper" class="wrapper">
+		
 			<!-- sidebar -->
 			<div id="wrap">
 				<div class="sidebar">
@@ -148,12 +148,12 @@
 
 			<div class="container container-fluid my-5">
 				
-		        <div class="row mb-5">
+		        <%-- <div class="row mb-5">
 					<div class="col-md-12 text-center">
 						${theater.thNm}
                    </div>
 				</div>
-		        
+		         --%>
 		        <div class="row">
 		        	<jsp:include page="/WEB-INF/views/review/reviewSideMenu.jsp"/>
 		        	
@@ -161,6 +161,9 @@
 		        	
 						<div class="row mb-5">
 							<div class="col-md-9 text-center content" id="seat-status">
+								<div class="thName text-center">
+									${theater.thNm}
+			                   </div>
 								<div id="seat-level" style="position:relative; margin: auto;">
 									<ul class="list-group-horizontal">
 										<li><div>나쁨</div></li>

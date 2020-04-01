@@ -9,20 +9,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${contextPath}/resources/css/review_show.css" />
 	
-		<style>
-			
-		</style>
-	
 	</head>
 	<body class="homepage is-preload">
-		
+	
+		<div class="overlay"></div>
+			
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 		
 		<div id="page-wrapper" class="wrapper">
 			
-			<div class="overlay"></div>
-
 			<!-- sidebar -->
 			<div id="wrap">
 				<div class="sidebar">
