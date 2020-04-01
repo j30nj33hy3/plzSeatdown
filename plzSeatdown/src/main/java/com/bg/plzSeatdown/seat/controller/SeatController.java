@@ -100,11 +100,7 @@ public class SeatController {
 	            	String[] temp1 = null;
 	            	String[] row = null;
 	            	String col = null;
-	            	if(floor[1].contains("구역")) {
-	            		area = floor[1].split("구역");
-	            		row = area[1].split("열");
-	            		col = row[1].split("번")[0];
-	            	}else if(floor[1].contains("블록")){
+	            	if(floor[1].contains("블록")){
 	            		area = floor[1].split("블록");
 	            		row = area[1].split("열");
 	            		col = row[1].split("번")[0];
@@ -112,7 +108,11 @@ public class SeatController {
 	            		area = floor[1].split("블럭");
 	            		row = area[1].split("열");
 	            		col = row[1].split("번")[0];
-	            	}
+	            	}else {
+	            		area = floor[1].split("구역");
+	            		row = area[1].split("열");
+	            		col = row[1].split("번")[0];
+	            	} 
 	            	
 	            	seat = new Seat(
 	            			Integer.parseInt(getTagValue("Id", ele)),
