@@ -62,7 +62,7 @@
 	                    	</c:if>
 	                    	
 	                    	<c:if test="${!empty list }">
-	                    		<div class="row">
+	                    		<!-- <div class="row"> -->
 	                    			<c:forEach var="theater" items="${list}" varStatus="vs">
 	                    				<div class="col-md-4 mb-3">
 		                   					<div class="card" onclick="location.href='seats?thCode=${theater.thCode }'">
@@ -81,7 +81,7 @@
 	                    					</div>
 	                    				</div>
 	                    			</c:forEach>
-	                    		</div>
+	                    		<!-- </div> -->
 	                    	</c:if>
 						</div>
 						
