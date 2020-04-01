@@ -186,9 +186,8 @@ input:focus {
 
 			<!-- 대화내용이 출력되는 부분 -->
 			<form action="sendReply" method="post" onsubmit="return validate();">
-				<input type="hidden" name="senderNo"
-					value="${message.messageSenderNo }"> <input type="hidden"
-					name="receiverNo" value="${message.messageReceiverNo }">
+				<input type="hidden" name="senderNo" value="${message.messageSenderNo }"> 
+				<input type="hidden" name="receiverNo" value="${message.messageReceiverNo }">
 
 				<div id="chatting">
 					<div id='sessionuserid'>
@@ -207,7 +206,7 @@ input:focus {
 				<div class="buttonArea">
 					<button
 						class="btn btn-primary btn-sm d-md-inline-block headBtn otherBtn replyBtn"
-						id="replyBtn" type="submit">전송</button>
+						id="replyBtn" type="button">전송</button>
 					<a
 						class="btn btn-primary btn-sm d-md-inline-block headBtn btn btn-sm deleteBtn"
 						type="button" href="javascript:history.go(-1);">취소</a>
@@ -215,20 +214,41 @@ input:focus {
 			</form>
 			<script>
 				
-				function validate() {
-					if ($("#messageReply").val().trim().length == 0) {
+				//function validate() {
+				$("#replyBtn").on("click",function(){
+						if ($("#messageReply").val().trim().length == 0) {
 						alert("내용을 입력해 주세요.");
 						$("#messageReply").focus();
-						return false;
-					} else {
-						window.opener.location.reload();
+						//return false;
+					} 
+					else {
+						/* window.opener.location.reload();
 						window.close();
-						location.replace("receiveList.jsp");
+						location.replace("receiveList.jsp"); */
 						/* mouseenter(function() {
 							$(this).parent().css("cursor", "pointer");
 						}); */
+						$.ajax({
+							 url : "sendReply",
+							 data : {"senderNo" : "${message.messageSenderNo }", 
+								 	"receiverNo" : "${message.messageReceiverNo }", 
+								 	"messageReply" : $("#messageReply").val()}, 
+						 	 async : false,
+							 success : function(result){
+							    if(result > 0){
+									 alert("쪽지를 전송하였습니다.");
+									 window.close();
+									 
+								 }else{
+									 alert("전송 실패");
+									 
+								 }
+							 },
+							 error : function(){console.log("오류");}
+						 })
 					}
-				};
+				});
+				//};
 			</script>
 </body>
 </html>
