@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -59,6 +60,21 @@
                     background-position: -2800px 0;
                 }
             }
+            .ellip{
+				display: -webkit-box;
+			  -webkit-line-clamp: 5;
+			  -webkit-box-orient: vertical;
+			   margin: 0;
+			   margin: auto;
+			   width: 100%;
+			   height: 1.5em;
+			   overflow: hidden;
+			   text-overflow: ellipsis;
+			   white-space: nowrap;
+			}
+			#showDate{
+				font-size: 14px;
+			}
 		
     	</style>
 		
@@ -161,8 +177,8 @@
 		        	
 						<div class="row mb-5">
 							<div class="col-md-9 text-center content" id="seat-status">
-								<div class="thName text-center">
-									${theater.thNm}
+								<div class="thName text-center mb-3">
+									<b>${theater.thNm}</b>
 			                   </div>
 								<div id="seat-level" style="position:relative; margin: auto;">
 									<ul class="list-group-horizontal">
@@ -206,11 +222,11 @@
 									<c:when test="${theaterCode eq 'FC000001-02'}">
 										<jsp:include page="/WEB-INF/views/review/seat_recital.jsp"/>
 									</c:when>
-									<c:when test="${theaterCode eq 'FC000020-01'}">
+									<%-- <c:when test="${theaterCode eq 'FC000020-01'}">
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big1.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big2.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big3.jsp"/>
-									</c:when>
+									</c:when> --%>
 									<c:when test="${theaterCode eq 'FC001528-02'}">
 										<jsp:include page="/WEB-INF/views/review/seat_dreamart_2.jsp"/>
 									</c:when>
@@ -355,7 +371,23 @@
 		                       <div class="reviewLikeCount" id="likeCount${n.reviewNo}">${n.likeCount }</div>    
 		                     </div>    
 		                </div>    
-		                <div> ${n.seatFloor}층 ${n.seatArea}구역 ${n.seatRow}열 ${n.seatCol}번호    </div>    
+		                <c:set var="floor" value="${n.seatFloor}층"/>
+		                <c:if test="${empty n.seatFloor}">
+		                	<c:set var="floor" value=""/>
+		                </c:if>
+		                <c:set var="area" value="${n.seatArea}구역"/>
+		                <c:if test="${empty n.seatArea}">
+		                	<c:set var="area" value=""/>
+		                </c:if>
+		                <c:set var="row" value="${n.seatRow}열"/>
+		                <c:if test="${empty n.seatRow}">
+		                	<c:set var="row" value=""/>
+		                </c:if>
+		                <c:set var="col" value="${n.seatCol}번호"/>
+		                <c:if test="${empty n.seatCol}">
+		                	<c:set var="col" value=""/>
+		                </c:if>
+		                <div> ${floor} ${area} ${row} ${col} </div>    
 		               
 		                <div class="row starValue mb-4 mt-4">   
 		                   <div class="col text-center">   
@@ -415,11 +447,12 @@
 		                <c:if test="${!empty n.reviewImgPath}">
 		                	<c:set var="rImg" value="${n.reviewImgPath}"/>
 		                </c:if>
-		                   <img class="img-responsive" src="${contextPath}/resources/reviewImages/${rImg}"/>
+		                   <img class="img-responsive" style="height:244px; width:100%;" src="${contextPath}/resources/reviewImages/${rImg}"/>
 		                	
-		                   <div class="mt-4 mb-4 nCont">${n.reviewComment}</div>
+		                   <div class="mt-4 nCont"><p class="ellip">${n.reviewComment}</p></div>
 		                   <div style="width:310px;">
-		                   ${n.reviewViewDt}일 관람
+		                   <c:set var="viewDt" value="${fn:split(n.reviewViewDt,'-')}"/>
+		                   ${viewDt[0]}년 ${viewDt[1]}월 ${viewDt[2]}일 관람
 		                   <c:choose>
 			                   <c:when test="${loginMember.memberNo eq n.reviewWriter}">
 		                   			 <a class="float-right text-muted deleteBtn mr-2 ml-2" href="delete?no=${n.reviewNo }"><i class="far fa-trash-alt"></i></a>
@@ -567,10 +600,10 @@
 					var seatRow = "";
 					var seatCol = "";
 					
-					if("${seat.seatFloor}" != null) seatFloor = "${seat.seatFloor}" + "층 ";
-					if("${seat.seatArea}" != null) seatArea = "${seat.seatArea}" + "구역 ";
-					if("${seat.seatRow}" != null) seatRow = "${seat.seatRow}" + "열 ";
-					if("${seat.seatCol}" != null) seatCol = "${seat.seatCol}" + "번 ";
+					if("${seat.seatFloor}" != "") seatFloor = "${seat.seatFloor}" + "층 ";
+					if("${seat.seatArea}" != "") seatArea = "${seat.seatArea}" + "구역 ";
+					if("${seat.seatRow}" != "") seatRow = "${seat.seatRow}" + "열 ";
+					if("${seat.seatCol}" != "") seatCol = "${seat.seatCol}" + "번 ";
 					
 					$.each($("#seats div[name='tk']"), function(index, item){
 						if($(item).attr("value") == seatValue){
