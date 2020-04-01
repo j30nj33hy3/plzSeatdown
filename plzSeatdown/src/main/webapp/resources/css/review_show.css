@@ -1,4 +1,7 @@
-
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 /* 사이드바(패널) */
 .sidebar{
     position:fixed;

@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /*----------- 커뮤니티 게시판 --------------*/
 /* -- 커뮤 목록 -- */
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 th{
     text-align: center;
 }

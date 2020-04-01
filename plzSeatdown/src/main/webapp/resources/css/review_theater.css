@@ -8,7 +8,12 @@
 
 body{
     font-family: 'Handon3gyeopsal600g'; 
+    overflow-x: hidden;
+    overflow-y: auto;
 }
+
+
+
 
 /* 검색 버튼 */
 #searchBtn{

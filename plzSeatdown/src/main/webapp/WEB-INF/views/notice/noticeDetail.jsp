@@ -10,6 +10,10 @@
 <%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
 <title>PLEASE SEATDOWN</title>
     <style>
+    body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
         #list-btn{
             border:solid 1px;
             border-color:rgb(198, 180, 205);
