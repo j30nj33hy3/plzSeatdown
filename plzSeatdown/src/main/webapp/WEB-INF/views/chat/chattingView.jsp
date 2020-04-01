@@ -63,7 +63,7 @@ Latest compiled and minified JavaScript
 	var today=null;
 	$(function(){
 		$("#sendBtn").click(function(){
-			console.log("send message.....");
+			//console.log("send message.....");
 			/* 채팅창에 작성한 메세지 전송 */
 			sendMessage();
 			/* 전송 후 작성창 초기화 */
@@ -99,7 +99,7 @@ Latest compiled and minified JavaScript
 		//전송된 데이터 출력해보기
 		for(var i=0;i<strArray.length;i++)
 		{
-			console.log('str['+i+'] :' + strArray[i]);	 		
+			//console.log('str['+i+'] :' + strArray[i]);	 		
 		}
 		if(strArray.length>1)
 		{
@@ -110,13 +110,13 @@ Latest compiled and minified JavaScript
 			today=new Date();
 			printDate=today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 			
-			console.log(today);
+			//console.log(today);
 			var ck_host='${host}';
 	
-			console.log(sessionId);
-			console.log(message);
-			console.log('host : '+host);
-			console.log('ck_host : '+ck_host);
+			//console.log(sessionId);
+			//console.log(message);
+			//console.log('host : '+host);
+			//console.log('ck_host : '+ck_host);
 			/* 서버에서 데이터를 전송할경우 분기 처리 */
 			if(host==ck_host||(host==0&&ck_host.includes('0:0:')))
 			{
@@ -130,9 +130,9 @@ Latest compiled and minified JavaScript
 				$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 			}
 			else{
-				var printHTML="<div class='well'  style='margin-left: -5%;margin-right:30%;'>";
-				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px;'>";
-				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message;"</strong><br/>";
+				var printHTML="<div class='well' style='margin-right:30%;'>";
+				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px; word-break:break-all;'>";
+				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
 				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";
@@ -147,9 +147,8 @@ Latest compiled and minified JavaScript
 			printDate=today.getFullYear()+"/"+today.getMonth()+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 			message=strArray[0];
 			var printHTML="<div class='well'  style='margin-left30%:'>";
-			printHTML+="<div class='alert alert-danger'>";
-			printHTML+="<sub>"+printDate+"</sub><br/>";
-			printHTML+="<strong>[서버관리자] : "+message+"</strong>";
+			printHTML+="<div class='alert alert-danger' style='text-align:center'>";
+			printHTML+="<strong>"+message+"</strong>";
 			printHTML+="</div>";
 			printHTML+="</div>";
 			$('#chatdata').append(printHTML);							
