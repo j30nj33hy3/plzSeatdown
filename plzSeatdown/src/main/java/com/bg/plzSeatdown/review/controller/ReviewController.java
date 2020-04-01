@@ -92,8 +92,6 @@ public class ReviewController {
 			
 			//if(showStatus == null) showStatus = "전체";
 			
-			System.out.println(showStatus);
-			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("showStatus", showStatus);
 			map.put("searchShow", searchShow);
@@ -111,9 +109,6 @@ public class ReviewController {
 			// 공연 목록 조회
 			//List<Show> list = reviewService.selectList(searchValue, pInf);
 			List<Show> list = reviewService.selectShowList(map, pInf);
-			
-			System.out.println(list.size());
-			System.out.println(pInf);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pInf", pInf);
@@ -192,8 +187,12 @@ public class ReviewController {
 			String view = null;
 			List<Theater> tList = reviewService.selectTList();
 			if(rWrite.getSeatVal() != 0) {
-				Show show = reviewService.selectShowDetail(rWrite.getShowCode());
-				rWrite.setShowTitle(show.getShowTitle());
+				Show show = null;
+				System.out.println(rWrite);
+				if(!rWrite.getShowCode().equals("")) {
+					show = reviewService.selectShowDetail(rWrite.getShowCode());
+					rWrite.setShowTitle(show.getShowTitle());
+				}
 				Seat seat = reviewService.selectSeat(rWrite);
 				if(seat != null) {
 					rWrite.setSeatFloor(seat.getSeatFloor());
@@ -499,6 +498,7 @@ public class ReviewController {
 				List<String> aList = null;
 				List<String> rList = null;
 				List<String> cList = null;
+				Show show = null;
 				if(tList != null) {
 					// 1) 리뷰 상세 조회
 					review = reviewService.selectReview(no);
@@ -510,7 +510,8 @@ public class ReviewController {
 						if(!files.isEmpty()) {
 							model.addAttribute("files", files);
 						}
-							
+						// 공연 조회
+						show = reviewService.selectShow(review);
 						// 해당 공연장의 층, 구역, 열, 번호 목록 호출
 						String thCode = review.getThCode();
 						String seatFloor = review.getSeatFloor();
@@ -530,6 +531,7 @@ public class ReviewController {
 						cList = reviewService.selectCList(seat);
 					}
 				}
+				model.addAttribute("show", show);
 				model.addAttribute("tList", tList);
 				model.addAttribute("fList", fList);
 				model.addAttribute("aList", aList);

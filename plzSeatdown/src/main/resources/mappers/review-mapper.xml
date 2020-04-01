@@ -382,4 +382,11 @@
 		SET REVIEW_IMG_STATUS = 'N'
 		WHERE REVIEW_IMG_NO = #{reviewImageNo}
 	</update>
+	
+	<select id="selectShow" parameterType="SeatReview" resultMap="showResultSet">
+		SELECT *
+		FROM SHOW
+		WHERE THEATER_CODE = #{thCode}
+		AND #{reviewViewDt} BETWEEN SHOW_START_DT AND SHOW_END_DT
+	</select>
 </mapper>

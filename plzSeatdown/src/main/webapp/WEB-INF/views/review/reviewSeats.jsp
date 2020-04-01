@@ -203,6 +203,44 @@
 									<c:when test="${theaterCode eq 'FC000020-03'}">
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_M.jsp"/>
 									</c:when>
+									<c:when test="${theaterCode eq 'FC000001-02'}">
+										<jsp:include page="/WEB-INF/views/review/seat_recital.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000020-01'}">
+										<jsp:include page="/WEB-INF/views/review/seat_sejong_big1.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_sejong_big2.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_sejong_big3.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC001528-02'}">
+										<jsp:include page="/WEB-INF/views/review/seat_dreamart_2.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000001-01'}">
+										<jsp:include page="/WEB-INF/views/review/seat_cj_towol.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000001-03'}">
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_0.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_1.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_2.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_3.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_4.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_5.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_6.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000001-05'}">
+										<jsp:include page="/WEB-INF/views/review/seat_chamber.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000833-02'}">
+										<jsp:include page="/WEB-INF/views/review/seat_artone2.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000001-06'}">
+										<jsp:include page="/WEB-INF/views/review/seat-opera.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat-opera2.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat-opera3.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat-opera4.jsp"/>
+									</c:when>
+									<c:when test="${theaterCode eq 'FC000020-02'}">
+										<jsp:include page="/WEB-INF/views/review/seat_sejong_chamber.jsp"/>
+									</c:when>
 									<c:otherwise>
 										<div>
 											<div id="seats" style="width: 817px; height: 352px;">
