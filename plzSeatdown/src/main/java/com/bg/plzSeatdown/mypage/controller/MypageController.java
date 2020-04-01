@@ -384,8 +384,6 @@ public class MypageController {
 			 * "\r\n")); } }
 			 */
 			 
-					
-					System.out.println("list :" + list );
 	
 					Profile profile = mypageService.selectMypageProf(memberNo);
 					

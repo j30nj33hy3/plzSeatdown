@@ -51,15 +51,15 @@
                            <div class="mb-4 mt-4">
                               <div style="display: inline-block; width: 100px; font-weight: bold;">
                                  <span>시야</span>
-                                 <span style="display: block;" class="star-prototype" id="reviewSight"> </span>
+                                 <span style="display: block; background: url(http://i.imgur.com/YsyS5y8.png) 0 -50px repeat-x;" class="star-prototype" id="reviewSight"> </span>
                               </div>
                               <div style="display: inline-block;  width: 100px; font-weight: bold;">
                                  <span>간격</span>
-                                 <span style="display: block;" class="star-prototype" id="reviewLegroom"> </span>
+                                 <span style="display: block; background: url(http://i.imgur.com/YsyS5y8.png) 0 -50px repeat-x;" class="star-prototype" id="reviewLegroom"> </span>
                               </div>
-                              <div style="display: inline-block;  width: 100px; font-weight: bold;">
+                              <div style="display: inline-block; width: 100px; font-weight: bold;">
                                  <span>편안함</span>
-                                 <span style="display: block;" class="star-prototype" id="reviewComfort"> </span>
+                                 <span style="display: block; background: url(http://i.imgur.com/YsyS5y8.png) 0 -50px repeat-x;" class="star-prototype" id="reviewComfort"> </span>
                               </div>
                            </div>
                            <%--    <c:if test="${revieweh.reviewWriter == loginMember.memberNo}">
@@ -110,7 +110,7 @@
                              <th scope="col" style="border-bottom:0px;">번호</th>
                            <th scope="col" style="border-bottom:0px;">장소(좌석)</th>
                            <th scope="col" style="border-bottom:0px;">좌석 별점</th>
-                           <th scope="col" style="border-bottom:0px;">공연</th>
+                           <th scope="col" style="border-bottom:0px;">공연장</th>
                            <th scope="col" style="border-bottom:0px;">날짜</th>
                            <!-- <th scope="col" style="border-bottom:0px;">사진</th> -->
                            <th scope="col" style="border-bottom:0px;"></th>
@@ -136,7 +136,7 @@
                                     <td style="border-top:0px; padding-top:22px;">${revieweh.seatFloor}층&nbsp;${revieweh.seatArea}구역&nbsp;${revieweh.seatRow}열&nbsp;${revieweh.seatCol}번</td>
                                     </c:if>
                                     <td style="border-top:0px; padding-top:22px;"><span class="star-prototype" style="display:inline;  background: url(http://i.imgur.com/YsyS5y8.png) 0 -18px repeat-x;">${(revieweh.reviewSight + revieweh.reviewComfort + revieweh.reviewLegroom)/3}</span></td>
-                                    <td class="contentwrap" style="border-top:0px; padding-top:22px; height:55px;">${revieweh.showTitle}</td>
+                                    <td class="contentwrap" style="border-top:0px; padding-top:22px; height:55px;">${revieweh.thName}</td>
                                     <td style="border-top:0px; padding-top:22px;">${revieweh.reviewCreateDt}</td>
                                     <%-- <td style="border-top:0px; padding-top:22px;">${rimage.reviewImageStatus}</td> --%>
                                     <td style="border-top:0px; padding-top:15px;">
@@ -259,7 +259,7 @@
                   seatFloor : "${r.seatFloor}",
                   seatRow : "${r.seatRow}",
                   seatCol : "${r.seatCol}",
-                  showTitle : "${r.showTitle}",
+                  thName : "${r.thName}",
                   reviewWriter : "${r.reviewWriter}",
                   memberNickname : "${r.memberNickname}",
                   likeCount : "${r.likeCount}"
@@ -268,7 +268,7 @@
                arr.push(review);
             </c:forEach>
             
-           
+           	
             
             var arrimg = new Array();
             <c:forEach var="rimg" items="${rimgList}">
@@ -299,14 +299,14 @@
                   
                  
                   $("#reviewNick").text(arr[index].memberNickname);
-                  $("#title").children("h4").text(arr[index].showTitle);
-                  if("${revieweh.seatFloor}" != null && "${revieweh.seatArea}" != null){
+                  $("#title").children("h4").text(arr[index].thName);
+                  if(arr[index].seatFloor != "" && arr[index].seatArea != ""){
                   	$("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
                   }
-                  else if("${revieweh.seatFloor}" == null && "${revieweh.seatArea}" != null){
+                  else if(arr[index].seatFloor == ""  && arr[index].seatArea != ""){
                 		$("#seatId").children("h5").text(arr[index].seatArea + "구역" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
                   }
-                  else if("${revieweh.seatFloor}" != null && "${revieweh.seatArea}" == null){
+                  else if(arr[index].seatFloor != "" && arr[index].seatArea == ""){
                 	  $("#seatId").children("h5").text(arr[index].seatFloor + "층" + arr[index].seatRow + "열  " + arr[index].seatCol + "번에 대한 리뷰");
                   }
                   $("#reviewSight").text(arr[index].reviewSight).generateStars();
@@ -314,9 +314,6 @@
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
                   $("#reviewLike").text(arr[index].likeCount);
                   $("#reviewComment").html(arr[index].reviewComment);
-                  
-                  
-               
                   
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
                 	  if(typeof (arrimg[index]) == "undefined"){
