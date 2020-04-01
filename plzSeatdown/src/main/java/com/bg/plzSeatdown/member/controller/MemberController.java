@@ -552,9 +552,8 @@ public class MemberController {
 		String memberPwd = id;
 		String memberId = "_k"+id;
 		try {
-			member = new Member(memberId, memberPwd);
-			loginMember = memberService.loginMember(member);
-			if(loginMember != null) {
+			int count = memberService.idDupCheck(memberId);
+			if(count > 0) {
 				result = "1";
 				session.setAttribute("loginMember", loginMember);
 			}else {

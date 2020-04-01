@@ -91,21 +91,9 @@ public class SeatController {
 	            Node nNode = nList.item(temp);
 	            Element ele = (Element)nNode;
 	            
-	            if(idtime == 1087181 || idtime == 1077682) {
-	            	// 구역이 없는 경우
-	            	String tooltip = getTagValue("Tooltip", ele);
-	            	String[] floor = tooltip.split("층");
-	            	String[] row = floor[1].split("열");
-	            	String col = row[1].split("번")[0];
-	            	
-	            	seat = new Seat(Integer.parseInt(getTagValue("Id", ele)),
-	            		floor[0].trim(), row[0].trim(), col.trim(), thCode);
-	            	
-	            	result = seatService.insertSeat2(seat);
-	            	if(result < 1) {
-	            		throw new Exception();
-	            	}
-	            }else {
+	            if(idtime == 1088176 || idtime == 1088680 || 
+	            		idtime == 1089520 || idtime == 1089516 ||
+	            		idtime == 1088683 || idtime == 980586) {
 	            	//Seat seat = new Seat(seatValue, seatFloor, seatArea, seatRow, seatCol, theaterCode)
 	            	String tooltip = getTagValue("Tooltip", ele);
 	            	String[] floor = tooltip.split("층");
@@ -119,6 +107,20 @@ public class SeatController {
 	            			col.trim(), thCode);
 	            	
 	            	result = seatService.insertSeat(seat);
+	            	if(result < 1) {
+	            		throw new Exception();
+	            	}
+	            }else {
+	            	// 구역이 없는 경우
+	            	String tooltip = getTagValue("Tooltip", ele);
+	            	String[] floor = tooltip.split("층");
+	            	String[] row = floor[1].split("열");
+	            	String col = row[1].split("번")[0];
+	            	
+	            	seat = new Seat(Integer.parseInt(getTagValue("Id", ele)),
+	            		floor[0].trim(), row[0].trim(), col.trim(), thCode);
+	            	
+	            	result = seatService.insertSeat2(seat);
 	            	if(result < 1) {
 	            		throw new Exception();
 	            	}
