@@ -222,11 +222,11 @@
 									<c:when test="${theaterCode eq 'FC000001-02'}">
 										<jsp:include page="/WEB-INF/views/review/seat_recital.jsp"/>
 									</c:when>
-									<%-- <c:when test="${theaterCode eq 'FC000020-01'}">
+									<c:when test="${theaterCode eq 'FC000020-01'}">
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big1.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big2.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_sejong_big3.jsp"/>
-									</c:when> --%>
+									</c:when>
 									<c:when test="${theaterCode eq 'FC001528-02'}">
 										<jsp:include page="/WEB-INF/views/review/seat_dreamart_2.jsp"/>
 									</c:when>
@@ -633,7 +633,19 @@
 								var loginMemberNo = "${loginMember.memberNo}"
 									
 									seatValue = $(this).attr("value");
-									
+									var thNm = "${theater.thNm}";
+									var thCd = "${theater.thCode}";
+									var showCode = "${show.showCode}";
+									var today = new Date();
+									var dd = String(today.getDate()).padStart(2, '0');
+									var mm = String(today.getMonth() + 1).padStart(2, '0');
+									var yyyy = today.getFullYear();
+									var seatVal = seatValue;
+									today = yyyy+mm+dd;
+								
+									var writingBtn = "<a class='float-right text-muted mr-2 ml-2' href='writeForm?thNm="+thNm+
+											"&thCd="+thCd+"&showCode="+showCode+"&viewDt="+today+"&seatVal="+seatVal+"');'><i class='fas fa-pencil-alt'></i></a>";
+									$("#title").prepend(writingBtn);
 									$.ajax({
 										url : "selectAllReview",
 										type : "POST",
