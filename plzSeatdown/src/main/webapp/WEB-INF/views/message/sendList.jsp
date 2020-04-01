@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>쪽지함</title>
+<title>PLEASE SEATDOWN</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage_mycommu.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/multicheck_msg.css"/>
 <link rel="stylesheet" href="${contextPath}/resources/js/datatable-checkbox-init.js"/>

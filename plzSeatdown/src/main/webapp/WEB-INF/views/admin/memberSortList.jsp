@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자페이지 - 회원 목록</title>
+<title>PLEASE SEATDOWN</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/memberList.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/admin.css" />

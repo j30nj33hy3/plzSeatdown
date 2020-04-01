@@ -164,7 +164,7 @@ input:focus {
 	outline: none;
 }
 </style>
-<title>쪽지 보내기</title>
+<title>PLEASE SEATDOWN</title>
 
 <meta charset="UTF-8">
 </head>

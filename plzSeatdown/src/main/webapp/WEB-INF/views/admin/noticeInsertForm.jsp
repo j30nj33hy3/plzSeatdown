@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자게시판 - 공지사항 등록</title>
+<title>PLEASE SEATDOWN</title>
 
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/notice_insert.css" />

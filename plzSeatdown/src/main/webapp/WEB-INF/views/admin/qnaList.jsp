@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자게시판 - 회원 문의 목록</title>
+<title>PLEASE SEATDOWN</title>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/qnaList.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/admin.css" />
