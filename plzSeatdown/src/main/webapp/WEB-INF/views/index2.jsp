@@ -82,11 +82,19 @@
 					<div class="card-body">
 						<!-- 프로필 -->
 						<div id="profile" class="avatar-icon text-center">
-							<c:set var="src" value="${contextPath}/resources/images/user.png"/>
-				            	<c:if test="${profile.memberNo == member.memberNo}">
-				            		<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
-				            		<input type="hidden" name="profile"  value="${contextPath}/resources/profileImages/${profile.profilePath}">
+				            <%-- <c:if test="${empty profile}">
+				            	<c:set var="src" value="${contextPath}/resources/images/user.png"/>
+			            	</c:if>
+			            	<c:if test="${!empty profile}">
+				            	<c:set var ="src" value="${contextPath}/resources/profileImages/${profile.profilePath}"/>
+				            </c:if> --%>
+				            <c:if test="${!empty member.profilePath}">
+				            	<c:set var ="src" value="${contextPath}/resources/profileImages/${member.profilePath}"/>
 				            </c:if>
+				            <c:if test="${empty member.profilePath}">
+				            	<c:set var="src" value="${contextPath}/resources/images/user.png"/>
+				            </c:if>
+				            <input type="hidden" name="profile" value="${src}">
 				            <img class="img-circle" src="${src}" style="width : 150px; border-radius: 5em;">
 						</div><br>
 						<!-- 닉네임 -->
@@ -102,6 +110,8 @@
 				</div>
 			</form>
 		</div><br><br>
+		
+		
 	<script src="https://cdn.jsdelivr.net/npm/buttercake@3.0.0/dist/js/butterCake.min.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
