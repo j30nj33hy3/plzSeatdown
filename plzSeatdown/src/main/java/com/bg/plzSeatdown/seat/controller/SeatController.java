@@ -93,7 +93,7 @@ public class SeatController {
 	            
 	            if(idtime == 1088176 || idtime == 1088680 || 
 	            		idtime == 1089520 || idtime == 1089516 ||
-	            		idtime == 1088683 || idtime == 980586) {
+	            		idtime == 1088683 || idtime == 980586 || idtime == 1084506) {
 	            	//Seat seat = new Seat(seatValue, seatFloor, seatArea, seatRow, seatCol, theaterCode)
 	            	String tooltip = getTagValue("Tooltip", ele);
 	            	String[] floor = tooltip.split("층");
