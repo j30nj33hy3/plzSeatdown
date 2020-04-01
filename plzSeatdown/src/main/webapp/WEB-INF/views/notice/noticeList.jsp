@@ -22,7 +22,7 @@ select:focus{
 	box-shadow:none !important;
 }
 </style>
-<title>공지사항</title>
+<title>PLEASE SEATDOWN</title>
 </head>
 <body>
     <!-- <div id="page-wrapper"> -->

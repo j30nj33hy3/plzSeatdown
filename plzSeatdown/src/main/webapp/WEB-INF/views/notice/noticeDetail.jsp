@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <%-- <link rel="stylesheet" href="${contextPath}/resources/css/main.css" /> --%>
-<title>공지사항</title>
+<title>PLEASE SEATDOWN</title>
     <style>
         #list-btn{
             border:solid 1px;
