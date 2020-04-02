@@ -340,7 +340,7 @@
 		                    <c:if test="${! empty n.profilePath }">
 		                    	<c:set var="src" value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
 		                    </c:if> 
-		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important">   
+		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important; border-radius: 5em;">   
 		                       <span style="display:none;" name="spanId">${n.memberId }</span>   
 		                        <span style="display:none;" name="spanNo">${n.reviewWriter }</span>   
 		                        <span>${n.memberNickname}</span>    
@@ -633,7 +633,7 @@
 							
 							if($(this).attr("class") != "s13"){
 								
-								var loginMemberNo = "${loginMember.memberNo}"
+								var loginMemberNo = "${loginMember.memberNo}";
 									
 									seatValue = $(this).attr("value");
 									var thNm = "${theater.thNm}";
@@ -752,7 +752,7 @@
 				                                       
 				                                          '<div class="row profile">' + 
 				                                          	 '<div class="col">' + 
-					                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
+					                                             '<img class="img-circle profile-photo" src="' + profileImg + '" style="border-radius: 5em;">' +
 					                                             '<span style="display:none;" name="spanId">'+ seatReviewList[i].memberId +'</span>' +
 			                                                      '<span style="display:none;" name="spanNo">'+ seatReviewList[i].reviewWriter +'</span>' +
 			                                                      '<span>' + seatReviewList[i].memberNickname + '</span>' + 
@@ -924,6 +924,7 @@
 									"alarmMemberNo" : alarmMemberNo
 							},
 							success : function(rl){
+								
 								status = rl.memberNo; // memberNo에 status 저장함
 								count = rl.reviewNo; // reviewNo에 likeCount 저장함
 		                     
