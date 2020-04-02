@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,8 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
 	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Oswald:500" rel="stylesheet">
+<link rel="stylesheet" href="${contextPath}/resources/css/main.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/review_seats.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <meta charset="UTF-8">
@@ -22,158 +25,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
 <title>PLEASE SEATDOWN</title>
-<style>
-
-body{
-	overflow-x:hidden;
-	overflow-y:auto;
-}
-
-#sec {
-  width: 100%;
-  height: 650px;
-}
-
-.swiper-container {
-  width: 100%;
-  height: 100%;
-}
-
-.slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-  overflow: hidden;
-}
-.slide-image {
-  position: absolute;
-  top: -200px;
-  left: -200px;
-  width: calc(100% + 400px);
-  height: calc(100% + 400px);
-  background-size: cover;
-}
-.slide-title {
-  font-size: 4rem;
-  line-height: 1;
-  max-width: 50%;
-  white-space: normal;
-  word-break: break-word;
-  color: #FFF;
-  z-index: 100;
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  font-weight: normal;
-}
-@media (min-width: 45em) {
-  .slide-title {
-    font-size: 7vw;
-    max-width: none;
-  }
-}
-.slide-title span {
-  white-space: pre;
-  display: inline-block;
-  opacity: 0;
-}
-
-.slideshow {
-  position: relative;
-}
-.slideshow-pagination {
-  position: absolute;
-  bottom: 5rem;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  transition: .3s opacity;
-  z-index: 10;
-}
-.slideshow-pagination-item {
-  display: flex;
-  align-items: center;
-}
-.slideshow-pagination-item .pagination-number {
-  opacity: 0.5;
-}
-.slideshow-pagination-item:hover, .slideshow-pagination-item:focus {
-  cursor: pointer;
-}
-.slideshow-pagination-item:last-of-type .pagination-separator {
-  width: 0;
-}
-.slideshow-pagination-item.active .pagination-number {
-  opacity: 1;
-}
-.slideshow-pagination-item.active .pagination-separator {
-  width: 10vw;
-}
-.slideshow-navigation-button {
-  position: absolute;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 5rem;
-  z-index: 1000;
-  transition: all .3s ease;
-  color: #FFF;
-}
-
-.slideshow-navigation-button:hover, .slideshow-navigation-button:focus {
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.slideshow-navigation-button.prev {
-  left: 0;
-}
-
-.slideshow-navigation-button.next {
-  right: 0;
-}
-
-.pagination-number {
-  font-size: 1.8rem;
-  color: #FFF;
-  font-family: 'Oswald', sans-serif;
-  padding: 0 0.5rem;
-}
-
-.pagination-separator {
-  display: none;
-  position: relative;
-  width: 40px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.25);
-  transition: all .3s ease;
-}
-
-@media (min-width: 45em) {
-  .pagination-separator {
-    display: block;
-  }
-  
-}
-.pagination-separator-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #FFFFFF;
-  transform-origin: 0 0;
-}
-
-</style>
 </head>
 <body class="homepage is-preload">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -205,31 +56,181 @@ body{
 </section>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------- -->
-		<div id="page-wrapper">
-			<div class="mt-5 pt-3 ml-5 pl-5" style="text-align : center;">
-				<img src="${contextPath}/resources/images/showing.png">
-			</div>
-			<!-- Carousel -->
-			<section class="carousel">
-				<div class="reel">
-					<c:if test="${!empty showList}">
-						<c:forEach var="show" items="${showList}" varStatus="vs">
-							<article>
-								<a href="review/seats?thCode=${show.thCode}" class="image featured"><img style="width:218px; height: 280px;"src="${show.posterPath}" alt="" /></a>
-							</article>
-						</c:forEach>
-					</c:if>
-				</div>
-			</section>
-			<!--카드 시작-->
-			<div class="container mb-5">
-				<div class="row">
-					
-				</div>
-			</div>
-			<!-- 카드 끝 -->	
+	<div id="page-wrapper">
+		<div class="mt-5 pt-3 ml-5 pl-5" style="text-align: center;">
+			<img src="${contextPath}/resources/images/showing3.PNG"
+				style="height: 30px;">
 		</div>
-	
+		<!-- Carousel -->
+		<section class="carousel">
+			<div class="reel">
+				<c:if test="${!empty showList}">
+					<c:forEach var="show" items="${showList}" varStatus="vs">
+						<article>
+							<a href="review/seats?thCode=${show.thCode}"
+								class="image featured"><img
+								style="width: 218px; height: 280px;" src="${show.posterPath}"
+								alt="" /></a>
+						</article>
+					</c:forEach>
+				</c:if>
+			</div>
+		</section>
+		<!--카드 시작-->
+		<div class="container mb-5">
+			<div class="row"></div>
+		</div>
+		<!-- 카드 끝 -->
+		<div class="mt-5 pt-3 ml-5 pl-5" style="text-align: center;">
+			<img src="${contextPath}/resources/images/recent_review.PNG"
+				style="height: 37px; left: 5px;">
+		</div><br><br>
+		<!-- 최신 리뷰 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="row container-col-md-4 d-flex justify-content-between">
+						<c:forEach var="n" items="${nReview}">
+							<div class="card" style="width: 340px;">
+								<div class="card-content">
+									<div class="row profile">
+										<div class="col">
+											<c:set var="src"
+												value="${contextPath}/resources/images/user.png"></c:set>
+											<c:if test="${! empty n.profilePath }">
+												<c:set var="src"
+													value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
+											</c:if>
+											<img class="img-circle profile-photo" src="${src}"
+												style="width: 30px !important"> <span
+												style="display: none;" name="spanId">${n.memberId }</span> <span
+												style="display: none;" name="spanNo">${n.reviewWriter }</span>
+											<span>${n.memberNickname}</span>
+										</div>
+										<div class="col text-right">
+											<c:choose>
+												<c:when
+													test="${!empty loginMember && loginMember.memberNo ne n.reviewWriter }">
+													<c:choose>
+														<c:when test="${n.likeStatus == 1}">
+															<div class="reviewLike heart"
+																style="background-position: -2800px 0;"
+																id="${n.reviewNo}" value="${n.likeStatus}"
+																onclick="reviewLike(this);"></div>
+														</c:when>
+														<c:otherwise>
+															<div class="reviewLike heart"
+																style="background-position: 0 0;" id="${n.reviewNo}"
+																value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<div class="reviewLike heart"></div>
+												</c:otherwise>
+											</c:choose>
+											<div class="reviewLikeCount" id="likeCount${n.reviewNo}">${n.likeCount }</div>
+										</div>
+									</div>
+									<div style="text-align: center;">${n.thName}</div>
+									<c:set var="floor" value="${n.seatFloor}층" />
+									<c:if test="${empty n.seatFloor}">
+										<c:set var="floor" value="" />
+									</c:if>
+									<c:set var="area" value="${n.seatArea}구역" />
+									<c:if test="${empty n.seatArea}">
+										<c:set var="area" value="" />
+									</c:if>
+									<c:set var="row" value="${n.seatRow}열" />
+									<c:if test="${empty n.seatRow}">
+										<c:set var="row" value="" />
+									</c:if>
+									<c:set var="col" value="${n.seatCol}번호" />
+									<c:if test="${empty n.seatCol}">
+										<c:set var="col" value="" />
+									</c:if>
+									<div style="text-align: center;">${floor} ${area} ${row}
+										${col}</div>
+
+									<div class="row starValue mb-4 mt-4">
+										<div class="col text-center">
+											<span>시야</span> <span class="nstar" style="display: block;">
+												<c:forEach var="i" begin="0" end="4" step="1">
+													<c:choose>
+														<c:when test="${i < n.reviewSight }">
+															<i class="fas fa-star"></i>
+														</c:when>
+														<c:otherwise>
+															<i class="far fa-star"></i>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</span>
+										</div>
+
+										<div class="col text-center">
+											<span>간격</span>
+											<c:set var="nLegroom" value="${n.reviewLegroom}" />
+											<span class="nstar" style="display: block;"> <c:forEach
+													var="i" begin="0" end="4" step="1">
+													<c:choose>
+														<c:when test="${i < n.reviewLegroom }">
+															<i class="fas fa-star"></i>
+														</c:when>
+														<c:otherwise>
+															<i class="far fa-star"></i>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</span>
+										</div>
+
+										<div class="col text-center">
+											<span>편안함</span>
+											<c:set var="nComfort" value="${n.reviewComfort}" />
+											<span class="nstar" style="display: block;"> <c:forEach
+													var="i" begin="0" end="4" step="1">
+													<c:choose>
+														<c:when test="${i < n.reviewComfort }">
+															<i class="fas fa-star"></i>
+														</c:when>
+														<c:otherwise>
+															<i class="far fa-star"></i>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</span>
+										</div>
+									</div>
+
+
+									<div class="reviewCont">
+										<c:set var="rImg" value="default_review.png" />
+										<c:if test="${!empty n.reviewImgPath}">
+											<c:set var="rImg" value="${n.reviewImgPath}" />
+										</c:if>
+										<img id="${n.thCode}" class="img-responsive move"
+											style="height: 244px; width: 100%;"
+											src="${contextPath}/resources/reviewImages/${rImg}"
+											onclick="location.href='review/seats?thCode=${n.thCode}'" />
+
+										<div class="mt-4 mb-3 nCont">${n.reviewComment}</div>
+										<div style="width: 310px;">
+											<c:set var="viewDt" value="${fn:split(n.reviewViewDt,'-')}" />
+											${viewDt[0]}년 ${viewDt[1]}월 ${viewDt[2]}일 관람
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+	</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.dropotron.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.scrolly.min.js"></script>
@@ -399,7 +400,7 @@ body{
       this.DOM.activePaginationItem = paginationEl.querySelector('.slideshow-pagination-item.active');
       this.DOM.activePaginationItemLoader = this.DOM.activePaginationItem.querySelector('.pagination-separator-loader');
       
-      console.log(swiper.pagination);
+      //console.log(swiper.pagination);
       // console.log(swiper.activeIndex);
       
       // Reset and animate
@@ -415,7 +416,81 @@ body{
 }
 
 const slideshow = new Slideshow(document.querySelector('.slideshow'));
-
+</script>
+<!-- 리뷰 좋아요 -->
+<script>       
+	function reviewLike(obj){
+		
+		// 중복 방지 불가
+		var click = true;
+          	
+		//console.log("11111111111 : " + click);
+             
+		if(click){
+			var likeStatus = $(obj).attr("value");
+			var reviewNo = $(obj).attr("id");
+			var likeCount = $("#likeCount"+reviewNo);
+			var count = "";
+			var Id = $(obj).parent().prev().children("span[name=spanId]").html();
+			var alarmUrl = "/review/seats?thCode=${theater.thCode}";
+			var alarmContent = "${theater.thNm}";
+			var No = $(obj).parent().prev().children("span[name=spanNo]").html();
+			var alarmMemberNo = No;
+			//console.log(Id);
+			//console.log(alarmUrl);
+			//console.log(alarmContent);
+			//console.log(alarmMemberNo);
+              
+			$.ajax({
+				url : "review/updateLike",
+				type : "POST",
+				data : {
+						"reviewNo" : reviewNo, 
+						"likeStatus" : likeStatus,
+						"alarmContent" : alarmContent,
+						"alarmUrl" : alarmUrl,
+						"alarmMemberNo" : alarmMemberNo
+				},
+				success : function(rl){
+					status = rl.memberNo; // memberNo에 status 저장함
+					count = rl.reviewNo; // reviewNo에 likeCount 저장함
+                    
+					var statusChange = "";
+                    
+					if(status == 1){
+						
+						$(obj).attr("value", 1).css({"background-position" : "-2800px 0", "transition" : "background 0.4s steps(28)"});
+						//statusChange = '<i class="fas fa-heart"></i>';
+						//count = Number(likeCount.text()) + 1;
+						// 웹소켓
+						//console.log(socketMsg);
+                       
+						var socketMsg = "like" + "," + Id + "," +"${theater.thNm}" + "," + "${theater.thCode}";
+						//console.log("socketMsg : " + socketMsg);   
+						socket.send(socketMsg);
+                             
+					}else if(status == -1){
+                        $(obj).attr("value", 0).css({"background-position" : "0 0", "transition" : "background 0.4s steps(28)"});
+                        //statusChange = '<i class="far fa-heart"></i>';
+                        //count = Number(likeCount.text()) - 1;
+					}else if(status == 0){
+						console.log("좋아요 ajax 실패");
+					}
+                    
+					//$(obj).html(statusChange);
+					likeCount.html(count);
+					
+					click = false;
+					//console.log("222222222222222 : " + click);
+                    
+					setTimeout(function(){
+						click = true;
+						//console.log("333333333333333333 : " + click);
+					}, 500);
+				}
+			});
+		}
+	}
 </script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
