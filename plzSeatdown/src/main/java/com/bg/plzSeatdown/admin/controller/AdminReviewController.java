@@ -68,12 +68,12 @@ public class AdminReviewController {
 			int result = adminReviewService.deleteReview(no);
 			
 			if(result > 0) {
-				model.addAttribute("no", no);
-				model.addAttribute("msg", "리뷰를 삭제했습니다.");
-				return "admin/review/list";
+				//model.addAttribute("no", no);
+				//model.addAttribute("msg", "리뷰를 삭제했습니다.");
+				return "redirect:/admin/review/list";
 			}else {
-				model.addAttribute("msg", "리뷰 삭제 실패");
-				return "admin/review/list";
+				//model.addAttribute("msg", "리뷰 삭제 실패");
+				return "redirect:/admin/review/list";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

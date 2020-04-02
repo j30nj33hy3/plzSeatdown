@@ -26,8 +26,7 @@ public class AdminCommController {
 	public String commList(Model model, 
 			@RequestParam(value="currentPage", required=false) Integer currentPage, 
 			@RequestParam(value="searchKey", required=false) String searchKey,
-			@RequestParam(value="searchValue", required=false) String searchValue,
-			@RequestParam(value="searchCategory", required=false) String searchCategory
+			@RequestParam(value="searchValue", required=false) String searchValue
 			){
 		try {
 			Map<String, String> map = null;
@@ -35,8 +34,7 @@ public class AdminCommController {
 				map = new HashMap<String, String>();
 				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);
-				map.put("searchCategory", searchCategory);
-			}
+			}			
 			
 		// 전체 게시글 수 조회
 		int listCount = adminCommService.getListCount(map);
@@ -56,7 +54,7 @@ public class AdminCommController {
 		model.addAttribute("list", list);
 		model.addAttribute("pInf", pInf);
 		//model.addAttribute("iList", iList);
-		
+				
 		return "admin/community/communityList";
 			
 		}catch(Exception e) {
@@ -72,12 +70,12 @@ public class AdminCommController {
 			int result = adminCommService.deleteComm(no);
 						
 			if(result > 0) {
-				model.addAttribute("no", no);
-				model.addAttribute("msg", "게시글을 삭제했습니다.");
-				return "admin/community/list";
+				//model.addAttribute("no", no);
+				//model.addAttribute("msg", "게시글을 삭제했습니다.");
+				return "redirect:/admin/community/list";
 			}else {
-				model.addAttribute("msg", "게시글 삭제 실패");
-				return "admin/community/list";
+				//model.addAttribute("msg", "게시글 삭제 실패");
+				return "redirect:/admin/community/list";
 			}
 			
 		}catch(Exception e) {

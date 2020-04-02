@@ -31,7 +31,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		System.out.println(session.getAttributes().get("nickName"));
 		
 		for (WebSocketSession sss : sessionList) {
-			sss.sendMessage(new TextMessage(session.getId() + " | " + message.getPayload()+"|"+session.getRemoteAddress()+"|"+session.getAttributes().get("nickName")));
+			sss.sendMessage(new TextMessage(session.getId() + "|" + message.getPayload()+"|"+session.getRemoteAddress()+"|"+session.getAttributes().get("nickName")));
 		}
 		// super.handleTextMessage(session, message);
 	}
