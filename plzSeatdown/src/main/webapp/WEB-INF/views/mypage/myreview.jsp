@@ -273,7 +273,7 @@
             var arrimg = new Array();
             <c:forEach var="rimg" items="${rimgList}">
                var reviewImg = {
-                  reviewImagePath : "${rimg.reviewImagePath}"
+            		 reviewImgPath : "${rimg.reviewImgPath}"
                }
                
                arrimg.push(reviewImg);
@@ -315,13 +315,13 @@
                   $("#reviewLike").text(arr[index].likeCount);
                   $("#reviewComment").html(arr[index].reviewComment);
                   
-                  console.log(arrimg[index]);
+                  console.log(arrimg[index].reviewImgPath);
                   
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
-                	  if(typeof (arrimg[index]) == "undefined"){
+                	  if(arrimg[index].reviewImgPath == ""){
                 		 $("#reviewImage").prop("src","");  
                 	  }else{
-                    	 $("#reviewImage").prop("src", "${contextPath}/resources/reviewImages/"+arrimg[index].reviewImagePath);
+                    	 $("#reviewImage").prop("src", "${contextPath}/resources/reviewImages/"+arrimg[index].reviewImgPath);
                 	  }
                   }
                   
