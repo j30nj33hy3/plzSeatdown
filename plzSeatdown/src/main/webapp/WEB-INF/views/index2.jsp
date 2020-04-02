@@ -37,9 +37,9 @@
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-        1. 상대방에게 폭언 또는 욕설 시 제재를 받을 수 있 &nbsp;&nbsp;&nbsp;습니다. 매너있는 채팅 부탁드려요.<br>
-      2. 타인에게 아이디 및 연락처를 노출하지 말아주세 &nbsp;&nbsp;&nbsp;요. 여러분의 개인정보는 소중합니다.<br>
-      3. 채팅창에 홍보성 글 작성 시 제재를 받을 수 있습 &nbsp;&nbsp;&nbsp;니다.<br>                    
+        1. 상대방에게 폭언 또는 욕설 시 제재를 받을 수 있습니다. 매너있는 채팅 부탁드려요.<br><br>
+        2. 타인에게 아이디 및 연락처를 노출하지 말아주세요. 여러분의 개인정보는 소중합니다.<br><br>
+        3. 채팅창에 홍보성 글 작성 시 제재를 받을 수 있습니다.<br><br>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
-                    현재 서비스 개발중이며 빠른 시일내로 도입할 수&nbsp;&nbsp;&nbsp; 있도록 노력하겠습니다.   
+                    현재 서비스 개발중이며 빠른 시일내로 도입할 수 있도록 노력하겠습니다.   
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        문제가 되는 부분 캡쳐해서 관리자 메일로 전송해&nbsp;&nbsp;&nbsp; 주시면 처리하겠습니다.
+                        문제가 되는 부분 캡쳐해서 관리자 메일로 전송해주시면 처리하겠습니다.
                     </div>
                 </div>
             </div>
