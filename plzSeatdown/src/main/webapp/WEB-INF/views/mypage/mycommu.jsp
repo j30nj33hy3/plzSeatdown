@@ -71,7 +71,7 @@
 									<c:forEach var="community" items="${clist}" varStatus="vs">
 										<tr>
 											<td style="border-top:0px; padding-top:22px;">${community.communityNo}</td>
-											<td style="border-top:0px; padding-top:22px;">${community.communityTitle}</td>
+											<td class="contentwrap" style="border-top:0px; padding-top:22px; ">${community.communityTitle}</td>
 											<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${community.communityModifyDate}</td>
 											<td style="border-top:0px; padding-top:15px;">
