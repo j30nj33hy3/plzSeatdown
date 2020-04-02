@@ -73,7 +73,7 @@ button:focus{
                 	<c:if test="${!empty community.profilePath}">
                 		<img class="rounded-circle" style="width:20px; height:20px;"src="${contextPath}/resources/profileImages/${community.profilePath}">
                 	</c:if>
-  <p class="nickname" data-toggle="modal" data-target="#myModal" style="display: inline-block;">${community.memberNickname}</p>
+  <p class="nickname" id="nickname" data-toggle="modal" data-target="#myModal" style="display: inline-block;">${community.memberNickname}</p>
                     <p class="float-right text-muted" style="display: inline-block;">${community.communityModifyDate}</p>
                     <p class="float-right text-muted mr-4" style="display: inline-block;">조회수 &nbsp;${community.communityCount}</p>
                 </div>
@@ -107,6 +107,43 @@ button:focus{
     </div>
   </div>
 </c:if>
+
+
+
+			<%-- <c:set var="replyWriterNo" value="1"/>
+			<c:if test="${loginMember.memberNo != replyWriterNo}"> --%>
+                     
+                <!-- 댓글 쪽지보내기 Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+    <form method="post" action="${contextPath}/message/insert">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">쪽지 보내기 </h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           받는 사람 : <span id="replyNickname"></span><br>
+<textarea id="messageContent" name="messageContent" style="border:solid 1px; border-radius:3px; width:450px; height:200px; resize:none;" required>
+</textarea>
+		<input type="hidden" name="communityWriter" id="replyWriter">
+        </div>
+        <div class="modal-footer ">
+           <button type="submit" class="btn okbtn">전송</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        </div>
+      </div>
+          </form>
+      
+    </div>
+  </div>
+<%-- </c:if> --%>
+
+
+
+
                 <div class="my-4 py-5">
                     <p>${community.communityContent}</p>
                 </div>
@@ -376,7 +413,9 @@ button:focus{
 							var $divB = $("<div>").prop("class", "comment-body");
 							var $divB2 = $("<div>").addClass(['comment-body','comment-body-r']);
 							var $divH = $("<div>").prop("class","comment-heading");
-							var $rWriter = $("<h4>").prop("class","user").html(rList[i].memberNickname);
+							//var $rWriter = $("<h4>").prop("class","user").html(rList[i].memberNickname);
+							//var $rWriter = $("<h4>").prop("class","user").attr("data-toggle", "modal").attr("data-target", "#myModal2").prop("id", rList[i].replyWriter).html(rList[i].memberNickname);
+							var $rWriter = $("<h4>").prop("class","user").attr("data-toggle", "modal").attr("data-target", "#myModal2").prop("id", rList[i].replyWriter).html(rList[i].memberNickname);
 							var $rDate = $("<h5>").prop("class","time").html(rList[i].replyModifyDate);
 							var $rDelete = $("<button>").addClass(['time', 'rbtn', 'pr-2','float-right']).prop("name","replyDelete").html("삭제");
 							var $rReport = $("<button data-toggle='modal' data-target='#replyModal'>").addClass(['time', 'rbtn', 'pr-2','float-right']).prop("name","replyReport").html("신고");
@@ -858,6 +897,7 @@ button:focus{
      <%-- 댓글 신고 모달 끝  --%>
      
      <script>
+     		
 	     $(function(){
 			$(window).scroll(function(){
 				  if ($(this).scrollTop()>100){
@@ -913,12 +953,30 @@ button:focus{
 			});
 
 		});
-     	$(".nickname").mouseenter(function(){
-     			$(this).css("cursor","pointer");	
-   		});
-     		
-     		
-     		
+  		$(function(){
+	    	$(".nickname").mouseenter(function(){
+	   			$(this).css("cursor", "pointer");	
+	   		});
+  		});
+
+		$(function(){
+			$(".user").click(function(){
+				var loginMemberNo ="${loginMember.memberNo}";
+				var replyWriterNo = $(this).prop("id");
+				if(loginMemberNo != replyWriterNo) {
+					$("#replyNickname").html("");
+					$("#replyNickname").append($(this).text());
+					$("#replyWriter").prop("value", replyWriterNo);
+				} else {
+					$(this).removeAttr("data-toggle");
+				}
+			}).mouseenter(function(){
+				$(this).css("cursor", "pointer");
+			});
+		}); 
+		
+		
+		
      		
      	
      </script>
