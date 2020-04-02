@@ -269,10 +269,10 @@
 	
 	
 	<!-- 마이 리뷰 그림들 조회 -->
-	<select id="selectRimglist" parameterType="_int" resultMap="ReviewImageEHResultSet">
-		SELECT * FROM V_RIMGEH
-   		WHERE REVIEW_WRITER = #{memberNO} 
-   		AND IMG_TYPE=0 AND REVIEW_IMG_STATUS='Y'
+	<select id="selectRimglist" parameterType="_int" resultMap="seatReviewResultSet">
+		SELECT * FROM V_REVIEW
+   		WHERE REVIEW_WRITER = #{memberNO}
+   		ORDER BY REVIEW_NO DESC
 	</select>
 	
 	
