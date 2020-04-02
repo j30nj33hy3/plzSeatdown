@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 
 @Repository
@@ -20,6 +21,10 @@ public class MainDAO {
 
 	public List<Show> comingShowing() throws Exception{
 		return sqlSession.selectList("mainMapper.comingShowing");
+	}
+
+	public List<SeatReview> selectNlist(int memberNo) throws Exception{
+		return sqlSession.selectList("mainMapper.selectNlist", memberNo);
 	}
 
 }

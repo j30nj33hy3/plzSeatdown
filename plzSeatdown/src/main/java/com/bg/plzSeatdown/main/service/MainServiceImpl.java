@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bg.plzSeatdown.main.model.dao.MainDAO;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 
 @Service
@@ -31,6 +32,17 @@ public class MainServiceImpl implements MainService{
 	public List<Show> comingShowing() throws Exception {
 		return mainDAO.comingShowing();
 	}
+
+	/** 최신 리뷰 불러오기 서비스
+	 * @return list
+	 * @throws Exception
+	 */
+	@Override
+	public List<SeatReview> selectNlist(int memberNo) throws Exception {
+		return mainDAO.selectNlist(memberNo);
+	}
+	
+	
 	
 	
 	

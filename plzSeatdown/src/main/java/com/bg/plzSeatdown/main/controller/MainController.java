@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bg.plzSeatdown.common.ExceptionForward;
 import com.bg.plzSeatdown.main.service.MainService;
+import com.bg.plzSeatdown.member.model.vo.Member;
+import com.bg.plzSeatdown.review.model.vo.SeatReview;
 import com.bg.plzSeatdown.review.model.vo.Show;
 
 @Controller
@@ -23,7 +25,16 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String selectShowing(Model model){
 		List<Show> showList = null;		
-		List<Show> comingList=null;
+		List<Show> comingList = null;
+		List<SeatReview> nList = null;
+		
+		// Session에서 회원번호 얻어오기
+	      Member loginMember = (Member)model.getAttribute("loginMember");
+	      int memberNo = 0;
+	      
+	      if(loginMember == null) memberNo = 0;
+	      else 					memberNo = loginMember.getMemberNo();
+	      
 		try {
 			showList = mainService.selectShowing();
 			//System.out.println(showList);
@@ -31,6 +42,10 @@ public class MainController {
 			//return showList;				
 			comingList = mainService.comingShowing();
 			model.addAttribute("comingList", comingList);
+			
+			nList = mainService.selectNlist(memberNo);
+			model.addAttribute("nReview", nList);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			ExceptionForward.errorPage("메인 화면 출력 오류", model, e);

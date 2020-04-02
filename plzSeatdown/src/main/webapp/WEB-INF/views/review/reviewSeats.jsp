@@ -924,7 +924,6 @@
 									"alarmMemberNo" : alarmMemberNo
 							},
 							success : function(rl){
-								
 								status = rl.memberNo; // memberNo에 status 저장함
 								count = rl.reviewNo; // reviewNo에 likeCount 저장함
 		                     
