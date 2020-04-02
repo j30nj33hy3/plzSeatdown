@@ -50,7 +50,7 @@
                 background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
                 /* background-position: 0 0; */
                 cursor: pointer;
-                animation: fave-heart 0.4s steps(28);
+                /* animation: fave-heart 0.4s steps(28); */
             }
             @keyframes fave-heart {
                 0% {
@@ -340,7 +340,7 @@
 		                    <c:if test="${! empty n.profilePath }">
 		                    	<c:set var="src" value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
 		                    </c:if> 
-		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important">   
+		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important; height: 30px; border-radius: 5em;">   
 		                       <span style="display:none;" name="spanId">${n.memberId }</span>   
 		                        <span style="display:none;" name="spanNo">${n.reviewWriter }</span>   
 		                        <span>${n.memberNickname}</span>    
@@ -740,7 +740,7 @@
 														else likeBtn = '<div class="reviewLike heart" style="background-position:0 0;" id="' + seatReviewList[i].reviewNo + '" value="' + seatReviewList[i].likeStatus + '" onclick="reviewLike(this);"></div>';
 													}else{
 														//likeBtn = '<span class="reviewLike heart">' + likeStatus + '</span>';
-														likeBtn = '<div class="reviewLike heart"></div>';
+														likeBtn = '<div class="reviewLike heart" style="background-position:0 0;"></div>';
 													}
 													
 													
@@ -753,7 +753,7 @@
 				                                       
 				                                          '<div class="row profile">' + 
 				                                          	 '<div class="col">' + 
-					                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
+					                                             '<img class="img-circle profile-photo" src="' + profileImg + '" style="border-radius: 5em; width: 30px !important; height:30px;">' +
 					                                             '<span style="display:none;" name="spanId">'+ seatReviewList[i].memberId +'</span>' +
 			                                                      '<span style="display:none;" name="spanNo">'+ seatReviewList[i].reviewWriter +'</span>' +
 			                                                      '<span>' + seatReviewList[i].memberNickname + '</span>' + 
@@ -891,11 +891,13 @@
 	     	
 	     	<!-- 리뷰 좋아요 -->
 			<script>
+			
+			// 중복 방지 불가
+			var click = true;
            
 				function reviewLike(obj){
 					
-					// 중복 방지 불가
-					var click = true;
+					
 	            	
 					//console.log("11111111111 : " + click);
 	               
