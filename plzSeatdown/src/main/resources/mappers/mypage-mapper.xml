@@ -239,7 +239,7 @@
       SELECT QNA_NO, QNA_CONTENT, QNA_CREATE_DT, QNA_STATUS
       FROM QNA
       WHERE QNA_WRITER = #{memberNO} 
-      AND QNA_STATUS= 'Y' OR  QNA_STATUS= 'N'
+      AND (QNA_STATUS= 'Y' OR  QNA_STATUS= 'N')
    </select>
    
    <!-- QNA 상세조회용  -->
