@@ -29,13 +29,7 @@
 					<when test="searchKey == 'title'">
 						AND COMM_TITLE LIKE #{sv}
 					</when>
-					<when test="searchKey == 'content'">
-						AND COMM_CONTENT LIKE #{sv}
-					</when>
 				</choose>
-				<if test="searchCategory != ''">
-					AND CATEGORY_CD = #{searchCategory}
-				</if>
 			</if>
 		</where>
 		ORDER BY COMM_NO DESC
@@ -59,13 +53,7 @@
 					<when test="searchKey == 'title'">
 						AND COMM_TITLE LIKE #{sv}
 					</when>
-					<when test="searchKey == 'content'">
-						AND COMM_CONTENT LIKE #{sv}
-					</when>
 				</choose>
-				<if test="searchCategory != ''">
-					AND CATEGORY_CD = #{searchCategory}
-				</if>
 			</if>		
 		</where>
 		ORDER BY COMM_NO DESC

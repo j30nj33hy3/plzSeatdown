@@ -106,7 +106,7 @@
 											<td>${review.memberNickname}</td>
 											<td>${review.reviewCreateDate}</td>
 											<td>${review.reviewStatus}</td>
-											<td><a class=trash onclick="location.href='${contextPath}/admin/review/delete?no=${review.reviewNo}'">
+											<td><a class=trash id ='${review.reviewNo}' <%-- onclick="location.href='${contextPath}/admin/review/delete?no=${review.reviewNo}'" --%>>
 											<i class="fas fa-trash-alt"></i></a></td>
 										</tr>
 									</c:forEach>
@@ -254,18 +254,24 @@
     </script>
 	<!-- 리뷰 삭제 확인 창 -->
 	<script>
-        $(document).ready(function(){
-        $(".trash").click(function(){
-            var result = confirm('해당 리뷰를 삭제하시겠습니까?');
-    
-            if(result){
-            location.replace('list');
-            // 확인 버튼을 누르면 'admin/review/list'페이지로 이동
-            }else{
-            // 취소
-            }
-        })
-        });
+	    $(document).ready(function(){
+	        $(".trash").click(function(){	        	
+	        	var id = $(this).prop("id");
+	    		var status = $(this).parent().parent().children().eq(4).text();
+	    		
+	    		console.log(status);
+	            
+	            if(status == 'Y') {
+	            	var result = confirm('해당 글을 삭제하시겠습니까?');
+	            	
+	            	if(result){
+	            		location.href='${contextPath}/admin/review/delete?no='+id;
+	            	}
+	            }else if(status == 'N'){           	
+	    			alert("이미 처리된 게시글입니다.");
+	            }	  
+	        });
+	    });
     </script>
 </body>
 </html>

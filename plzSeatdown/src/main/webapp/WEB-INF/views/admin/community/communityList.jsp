@@ -122,8 +122,8 @@
 				                            <td>${comm.memberNickname}</td>
 				                            <td>${comm.communityModifyDate}</td>
 				                            <td>${comm.communityStatus}</td>
-											<td><a class=trash 
-											onclick="location.href='${contextPath}/admin/community/delete?no=${comm.communityNo}'"><i class="fas fa-trash-alt"></i></a></td>
+											<td><a class=trash id='${comm.communityNo}'
+											<%-- onclick="location.href='${contextPath}/admin/community/delete?no=${comm.communityNo}'" --%>><i class="fas fa-trash-alt"></i></a></td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -233,7 +233,6 @@
 							<option value="id">닉네임</option>
 							<option value="commNo">글 번호</option>
 							<option value="title">제목</option>
-							<option value="content">내용</option>
 						</select> <input type="text" id=searchInput name="searchValue"
 							class="form-control" placeholder="검색어를 입력해주세요.">
 						<button id=searchBtn class="form-control btn btn-primary">검색</button>
@@ -288,17 +287,21 @@
 	<!-- 커뮤니티 삭제 확인 창 -->
 	<script>
         $(document).ready(function(){
-        $(".trash").click(function(){
-            var result = confirm('해당 글을 삭제하시겠습니까?');
-    
-            if(result){
-            location.replace('list');
-            // 확인 버튼을 누르면 'admin/community/list'페이지로 이동
-            }else{
-            // 취소
-            }
-        })
-        });
+	        $(".trash").click(function(){	        	
+	        	var id = $(this).prop("id");
+	    		var status = $(this).parent().parent().children().eq(5).text();
+	            
+	            if(status == 'Y') {
+	            	var result = confirm('해당 글을 삭제하시겠습니까?');
+	            	
+	            	if(result){
+		            	location.href='${contextPath}/admin/community/delete?no='+id;
+	            	}
+	            }else if(status == 'N'){           	
+	    			alert("이미 처리된 게시글입니다.");
+	            }	  
+	        });
+	    });
     </script>
 </body>
 </html>

@@ -85,7 +85,8 @@ Latest compiled and minified JavaScript
 	});
 	function sendMessage(){
 		/* 맵핑된 핸들러 객체의 handleTextMessage매소드가 실행 */
-		sock.send($("#message").val());
+		sock.send($("#message").val()+"|${profile}");
+		console.log($("#message").val()+"|${profile}");
 	
 	};
 	function onMessage(evt){
@@ -105,8 +106,9 @@ Latest compiled and minified JavaScript
 		{
 			sessionId=strArray[0];
 			message=strArray[1];
-			host=strArray[2].substr(1,strArray[2].indexOf(":")-1);
-			nickName=strArray[3];
+			profile=strArray[2];
+			host=strArray[3].substr(1,strArray[3].indexOf(":")-1);
+			nickName=strArray[4];
 			today=new Date();
 			printDate=today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
 			
@@ -122,7 +124,7 @@ Latest compiled and minified JavaScript
 			{
 				var printHTML="<div class='well' style='margin-left: 30%;'>";
 				printHTML+="<div class='alert alert-info' style='background-color:rgb(255,217,110); border:0px; word-break:break-all;'>";		
-				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
+				printHTML+="<strong>"+"<img src='"+profile+"' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
 				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";
@@ -132,7 +134,7 @@ Latest compiled and minified JavaScript
 			else{
 				var printHTML="<div class='well' style='margin-right:30%;'>";
 				printHTML+="<div class='alert alert-warning' style='background-color:rgb(255,217,110); border:0px; word-break:break-all;'>";
-				printHTML+="<strong>"+"<img src='${profile}' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
+				printHTML+="<strong>"+"<img src='"+profile+"' id='img'>"+" "+" "+" "+nickName+" : "+message+"</strong><br/>";
 				printHTML+="<sub>"+printDate+"</sub>";
 				printHTML+="</div>";
 				printHTML+="</div>";

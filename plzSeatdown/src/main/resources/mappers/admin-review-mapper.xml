@@ -29,7 +29,7 @@
 						AND REVIEW_NO LIKE #{sv}
 					</when>
 					<when test="searchKey == 'content'">
-						AND REIVEW_COMMENT LIKE #{sv}
+						AND REVIEW_COMMENT LIKE #{sv}
 					</when>
 				</choose>
 			</if>

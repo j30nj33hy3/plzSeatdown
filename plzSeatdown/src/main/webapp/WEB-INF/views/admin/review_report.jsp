@@ -251,8 +251,8 @@
 					            	location.replace('list');
 					        	}
 					        })
-					           */  
-				        });
+					           
+				        });*/
 					  </script>
 				</div>
 			</div>
