@@ -340,6 +340,7 @@ public class MypageServiceImpl implements MypageService {
 	 */
 	@Override
 	public List<ReviewImageEH> selectRimglist(List<SeatReview> list) throws Exception {
+		
 		return mypageDAO.selectRimglist(list);
 	}
 
