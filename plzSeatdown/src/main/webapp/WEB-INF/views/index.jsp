@@ -102,10 +102,9 @@
 												<c:set var="src"
 													value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
 											</c:if>
-											<img class="img-circle profile-photo" src="${src}"
-												style="width: 30px !important"> <span
-												style="display: none;" name="spanId">${n.memberId }</span> <span
-												style="display: none;" name="spanNo">${n.reviewWriter }</span>
+											<img class="img-circle profile-photo" src="${src}" style="width: 30px !important; height:30px !important; border-radius: 5em;"> 
+											<span style="display: none;" name="spanId">${n.memberId }</span> 
+											<span style="display: none;" name="spanNo">${n.reviewWriter }</span>
 											<span>${n.memberNickname}</span>
 										</div>
 										<div class="col text-right">
@@ -146,7 +145,7 @@
 									<c:if test="${empty n.seatRow}">
 										<c:set var="row" value="" />
 									</c:if>
-									<c:set var="col" value="${n.seatCol}번호" />
+									<c:set var="col" value="${n.seatCol}번" />
 									<c:if test="${empty n.seatCol}">
 										<c:set var="col" value="" />
 									</c:if>
