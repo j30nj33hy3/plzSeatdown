@@ -198,10 +198,12 @@ public interface ReviewService {
 	 * @param seatImg
 	 * @param ticketImg
 	 * @param savePath
+	 * @param tDeleteCount 
+	 * @param sDeleteCount 
 	 * @return result
 	 * @throws Exception
 	 */
-	int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath) throws Exception;
+	int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath, int sCount, int tCount) throws Exception;
 
 	/** 리뷰 삭제용 Service
 	 * @param reviewNo

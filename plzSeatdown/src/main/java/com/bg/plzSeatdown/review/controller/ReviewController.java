@@ -556,15 +556,17 @@ public class ReviewController {
 				RedirectAttributes rdAttr, HttpServletRequest request,
 				@RequestParam(value="thName", required=false)String thName,
 				@RequestParam(value="seatFile", required=false)MultipartFile seatImg,
-				@RequestParam(value="ticketFile", required=false)MultipartFile ticketImg) {
+				@RequestParam(value="ticketFile", required=false)MultipartFile ticketImg,
+				String sDeleteCount, String tDeleteCount) {
 			review.setReviewNo(no);
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			String savePath = root + "/reviewImages";
-				
+			int sCount = Integer.parseInt(sDeleteCount);
+			int tCount = Integer.parseInt(tDeleteCount);
 			File folder = new File(savePath);
 			if(!folder.exists()) folder.mkdir();
 			try {
-				int result = reviewService.updateReview(review, seatImg, ticketImg, savePath);
+				int result = reviewService.updateReview(review, seatImg, ticketImg, savePath, sCount, tCount);
 				String msg = null;
 				if(result > 0) msg = "리뷰 수정 성공";
 				else		   msg = "리뷰 수정 실패";

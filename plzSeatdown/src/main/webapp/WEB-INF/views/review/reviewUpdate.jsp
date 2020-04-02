@@ -172,7 +172,8 @@
 								<input type="file" id="seatFile" name="seatFile" onchange="LoadSeat(this)"> 
 								<input type="file" id="ticketFile" name="ticketFile" onchange="LoadTicket(this)"> 
 							</div>
-							
+							<input type="hidden" id="sDeleteCount" name="sDeleteCount" value="0"/>
+							<input type="hidden" id="tDeleteCount" name="tDeleteCount" value="0"/>
 							<div class="form-group text-center pt-20">
 								<a id="cancelBtn" href="${header.referer}" class="btn btn-primary">
 									취소
@@ -185,7 +186,6 @@
 					</div>
 				</div>
 			</div>
-
 			<script>
 				var reviewCheck = {
 					"seatFloor":false,
@@ -276,10 +276,12 @@
 				$("#deleteImg").click(function(){
 					$("#seatImg").attr("src","${contextPath}/resources/reviewImages/default_review2.png");
 					$("#seatFile").val("");
+					$("#sDeleteCount").val("1");
 				});
 				$("#deleteImg2").click(function(){
 					$("#ticketImg").attr("src","${contextPath}/resources/reviewImages/default_review2.png");
 					$("#ticketFile").val("");
+					$("#tDeleteCount").val("1");
 				});
 				
 				// 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수

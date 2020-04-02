@@ -371,8 +371,17 @@ public class ReviewDAO {
 	 * @return result
 	 * @throws Exception
 	 */
-	public int deleteImg(int reviewImageNo) throws Exception{
-		return sqlSession.update("reviewMapper.deleteImg", reviewImageNo);
+	public int deleteSeatImg(int reviewImageNo) throws Exception{
+		return sqlSession.delete("reviewMapper.deleteSeatImg", reviewImageNo);
+	}
+
+	/** 기존 좌석 이미지 삭제
+	 * @param reviewImageNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteTicketImg(int reviewImageNo) throws Exception{
+		return sqlSession.delete("reviewMapper.deleteTicketImg", reviewImageNo);
 	}
 
 
