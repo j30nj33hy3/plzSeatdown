@@ -374,7 +374,7 @@ public class MypageController {
 					// 게시글 목록 조회
 					List<SeatReview> list = mypageService.selectRlist(pInf, memberNo);
 					
-					List<ReviewImageEH> rimgList = mypageService.selectRimglist(memberNo);
+					List<ReviewImageEH> rimgList = mypageService.selectRimglist(list);
 					
 			/*
 			 * int i = 0;

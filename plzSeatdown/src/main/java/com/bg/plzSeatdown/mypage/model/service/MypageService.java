@@ -162,11 +162,11 @@ public interface MypageService {
 
 
 	/** 마이리뷰 그림들 조회
-	 * @param memberNo
+	 * @param list
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract List<ReviewImageEH> selectRimglist(int memberNo)throws Exception;
+	public abstract List<ReviewImageEH> selectRimglist(List<SeatReview> list)throws Exception;
 
 
 

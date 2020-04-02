@@ -269,9 +269,12 @@
 	
 	
 	<!-- 마이 리뷰 그림들 조회 -->
-	<select id="selectRimglist" parameterType="_int" resultMap="seatReviewResultSet">
+	<select id="selectRimglist" parameterType="list" resultMap="seatReviewResultSet">
 		SELECT * FROM V_REVIEW
-   		WHERE REVIEW_WRITER = #{memberNO}
+   		WHERE REVIEW_NO IN
+   		<foreach item="review" collection="list" open="(" separator="," close=")">
+   			#{review.reviewNo}
+   		</foreach>
    		ORDER BY REVIEW_NO DESC
 	</select>
 	

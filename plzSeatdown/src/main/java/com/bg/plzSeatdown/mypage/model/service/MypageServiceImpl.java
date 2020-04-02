@@ -339,8 +339,8 @@ public class MypageServiceImpl implements MypageService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<ReviewImageEH> selectRimglist(int memberNo) throws Exception {
-		return mypageDAO.selectRimglist(memberNo);
+	public List<ReviewImageEH> selectRimglist(List<SeatReview> list) throws Exception {
+		return mypageDAO.selectRimglist(list);
 	}
 
 	/**
