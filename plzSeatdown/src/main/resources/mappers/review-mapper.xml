@@ -396,9 +396,9 @@
 		WHERE REVIEW_NO = #{reviewNo}
 	</select>
 	
-	<update id="deleteImg" parameterType="_int">
+	<delete id="deleteImg" parameterType="_int">
 	 	DELETE
 		FROM REVIEW_IMAGE
 		WHERE REVIEW_IMG_NO = #{reviewImgNo} 
-	</update>
+	</delete>
 </mapper>

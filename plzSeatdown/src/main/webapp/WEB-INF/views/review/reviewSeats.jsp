@@ -101,8 +101,8 @@
 						<!-- <div id="seatId" class="mb-5">
 							<h5>A구역 4열 8번에 대한 리뷰</h5>
 						</div> -->
+						<a id='writingBtn' class='text-muted mr-2 ml-2' style='font-size:1.5em; position:fixed; top: 40px; right: 50px;' href=''><i class='fas fa-pencil-alt'></i></a>
 						<div id="review">
-							
 							
 
 						</div>
@@ -340,7 +340,7 @@
 		                    <c:if test="${! empty n.profilePath }">
 		                    	<c:set var="src" value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
 		                    </c:if> 
-		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important; border-radius: 5em;">   
+		                       <img class="img-circle profile-photo" src="${src}" style="width: 30px !important">   
 		                       <span style="display:none;" name="spanId">${n.memberId }</span>   
 		                        <span style="display:none;" name="spanNo">${n.reviewWriter }</span>   
 		                        <span>${n.memberNickname}</span>    
@@ -630,11 +630,6 @@
 					$("#seats div[name='tk']").on({
 						
 						click : function(){
-							
-							if($(this).attr("class") != "s13"){
-								
-								var loginMemberNo = "${loginMember.memberNo}";
-									
 									seatValue = $(this).attr("value");
 									var thNm = "${theater.thNm}";
 									var thCd = "${theater.thCode}";
@@ -646,9 +641,15 @@
 									var seatVal = seatValue;
 									today = yyyy+mm+dd;
 								
-									var writingBtn = "<a class='float-right text-muted mr-2 ml-2' style='font-size:1.5em;' href='writeForm?thNm="+thNm+
-											"&thCd="+thCd+"&showCode="+showCode+"&viewDt="+today+"&seatVal="+seatVal+"');'><i class='fas fa-pencil-alt'></i></a>";
-									$("#title").prepend(writingBtn);
+									var writehref = "writeForm?thNm="+thNm+
+											"&thCd="+thCd+"&showCode="+showCode+"&viewDt="+today+"&seatVal="+seatVal;
+									$("#writingBtn").attr('href', writehref); // 리뷰 작성
+									
+							
+							if($(this).attr("class") != "s13"){
+								
+								var loginMemberNo = "${loginMember.memberNo}"
+									
 									$.ajax({
 										url : "selectAllReview",
 										type : "POST",
@@ -752,7 +753,7 @@
 				                                       
 				                                          '<div class="row profile">' + 
 				                                          	 '<div class="col">' + 
-					                                             '<img class="img-circle profile-photo" src="' + profileImg + '" style="border-radius: 5em;">' +
+					                                             '<img class="img-circle profile-photo" src="' + profileImg + '">' +
 					                                             '<span style="display:none;" name="spanId">'+ seatReviewList[i].memberId +'</span>' +
 			                                                      '<span style="display:none;" name="spanNo">'+ seatReviewList[i].reviewWriter +'</span>' +
 			                                                      '<span>' + seatReviewList[i].memberNickname + '</span>' + 
@@ -924,7 +925,6 @@
 									"alarmMemberNo" : alarmMemberNo
 							},
 							success : function(rl){
-								
 								status = rl.memberNo; // memberNo에 status 저장함
 								count = rl.reviewNo; // reviewNo에 likeCount 저장함
 		                     
