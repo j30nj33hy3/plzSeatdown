@@ -60,17 +60,20 @@
                     background-position: -2800px 0;
                 }
             }
-            .ellip{
-				display: -webkit-box;
-			  -webkit-line-clamp: 5;
-			  -webkit-box-orient: vertical;
-			   margin: 0;
-			   margin: auto;
-			   width: 100%;
-			   height: 1.5em;
-			   overflow: hidden;
-			   text-overflow: ellipsis;
-			   white-space: nowrap;
+            .nCont{
+            	display: inline-block;
+            	width: 100%;
+            	/* white-space: nowrap; */
+            	overflow: hidden;
+            	text-overflow: ellipsis;
+            	white-space: normal; 
+            	line-height: 1.2;
+            	height: 3.6em;
+            	text-align: left; 
+            	word-wrap: break-word; 
+            	display: -webkit-box; 
+            	-webkit-line-clamp: 3; 
+            	-webkit-box-orient: vertical;
 			}
 			#showDate{
 				font-size: 14px;
@@ -449,7 +452,7 @@
 		                </c:if>
 		                   <img class="img-responsive" style="height:244px; width:100%;" src="${contextPath}/resources/reviewImages/${rImg}"/>
 		                	
-		                   <div class="mt-4 nCont"><p class="ellip">${n.reviewComment}</p></div>
+		                   <div class="mt-4 mb-4 nCont"><p class="ellip">${n.reviewComment}</p></div>
 		                   <div style="width:310px;">
 		                   <c:set var="viewDt" value="${fn:split(n.reviewViewDt,'-')}"/>
 		                   ${viewDt[0]}년 ${viewDt[1]}월 ${viewDt[2]}일 관람
@@ -888,10 +891,10 @@
 	     	<!-- 리뷰 좋아요 -->
 			<script>
            
-				// 중복 방지 불가
-				var click = true;
-	           
 				function reviewLike(obj){
+					
+					// 중복 방지 불가
+					var click = true;
 	            	
 					//console.log("11111111111 : " + click);
 	               
