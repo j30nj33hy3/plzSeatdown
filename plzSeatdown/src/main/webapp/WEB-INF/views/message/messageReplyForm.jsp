@@ -193,7 +193,7 @@ input:focus {
 					<div id='sessionuserid'>
 						<p
 							style="text-align: inherit; padding: 3px; color: black; font-size: 24px;">
-							<textarea id="messageReply" name="messageReply" rows="10">
+							<textarea id="messageReply" name="messageReply" rows="10" maxLength="150">
 </textarea>
 						</p>
 					</div>
