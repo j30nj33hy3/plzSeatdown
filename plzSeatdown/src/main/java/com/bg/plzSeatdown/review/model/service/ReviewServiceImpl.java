@@ -345,7 +345,7 @@ public class ReviewServiceImpl implements ReviewService{
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath)
+	public int updateReview(Review review, MultipartFile seatImg, MultipartFile ticketImg, String savePath, int sCount, int tCount)
 			throws Exception {
 		// 기존 리뷰 이미지 정보 조회
 		List<ReviewImage> files = reviewDAO.selectFiles(review.getReviewNo());
@@ -361,7 +361,6 @@ public class ReviewServiceImpl implements ReviewService{
 				beforeTicket = ri;
 			}
 		}
-		
 		// 새롭게 삽입할 파일 목록
 		List<ReviewImage> insertList = new ArrayList<ReviewImage>();
 		// 기존 행을 수정할 파일 목록
@@ -389,8 +388,8 @@ public class ReviewServiceImpl implements ReviewService{
 				insertList.add(file);
 			}
 		}else {
-			if(beforeSeat != null) {
-				int deleteSeat = reviewDAO.deleteImg(beforeSeat.getReviewImageNo());
+			if(beforeSeat != null && sCount > 0) {
+				int deleteSeat = reviewDAO.deleteSeatImg(beforeSeat.getReviewImageNo());
 				if(deleteSeat > 0) {
 					File deleteFile = new File(savePath+"/"+beforeSeat.getReviewImagePath());
 					deleteFile.delete();
@@ -416,8 +415,8 @@ public class ReviewServiceImpl implements ReviewService{
 				insertList.add(file);
 			}
 		}else {
-			if(beforeTicket != null) {
-				int deleteTicket = reviewDAO.deleteImg(beforeTicket.getReviewImageNo());
+			if(beforeTicket != null && tCount > 0) {
+				int deleteTicket = reviewDAO.deleteTicketImg(beforeTicket.getReviewImageNo());
 				if(deleteTicket > 0) {
 					File deleteFile = new File(savePath+"/"+beforeTicket.getReviewImagePath());
 					deleteFile.delete();

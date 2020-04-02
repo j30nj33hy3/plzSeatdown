@@ -396,9 +396,16 @@
 		WHERE REVIEW_NO = #{reviewNo}
 	</select>
 	
-	<delete id="deleteImg" parameterType="_int">
+	<delete id="deleteSeatImg" parameterType="_int">
 	 	DELETE
 		FROM REVIEW_IMAGE
-		WHERE REVIEW_IMG_NO = #{reviewImgNo} 
+		WHERE REVIEW_IMG_NO = #{reviewImgNo}
+		AND IMG_TYPE = 0
+	</delete>
+	<delete id="deleteTicketImg" parameterType="_int">
+	 	DELETE
+		FROM REVIEW_IMAGE
+		WHERE REVIEW_IMG_NO = #{reviewImgNo}
+		AND IMG_TYPE = 1
 	</delete>
 </mapper>
