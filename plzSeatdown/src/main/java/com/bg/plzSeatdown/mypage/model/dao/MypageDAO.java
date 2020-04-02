@@ -246,8 +246,8 @@ public class MypageDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ReviewImageEH> selectRimglist(int memberNo)throws Exception {
-		return sqlSession.selectList("mypageMapper.selectRimglist", memberNo);
+	public List<ReviewImageEH> selectRimglist(List<SeatReview> list)throws Exception {
+		return sqlSession.selectList("mypageMapper.selectRimglist", list);
 	}
 
 
