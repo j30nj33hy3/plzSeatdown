@@ -602,8 +602,8 @@ button:focus{
 			if($('.commenting').length>=1 || $('.updating').length>=1){
 				//$(this).parent().parent().children("p").remove();
 				selectRlist();
-				console.log(replyNo);
-				console.log($("input[value="+replyNo+"]"));
+				//console.log(replyNo);
+				//console.log($("input[value="+replyNo+"]"));
 				$('.updating').removeClass('updating');
 			}else{
 				$(this).parent().parent().parent().addClass('updating');
@@ -630,13 +630,13 @@ button:focus{
             '<label class="time text-muted" style="font-size:11px;">비밀댓글</label>'+
         	'</div>';
         	//var prevP = $(this).parent().parent().children("p");
-        	$("input[value="+replyNo+"]").parent().parent().addClass("updating");
-        	var prevP = $("input[value="+replyNo+"]").siblings("div").eq(1).children("p");
+        	$("input[name='rNo'][value="+replyNo+"]").parent().addClass("updating");
+        	var prevP = $("input[name='rNo'][value="+replyNo+"]").siblings("div").eq(1).children("p");
         	prevP.after(updateArea);
         	
         	// 비밀글체크
         	//var prevSecret = $(this).parent().parent().parent().children("input[name=rSecret]").val();
-        	var prevSecret = $("input[value="+replyNo+"]").next().val();
+        	var prevSecret = $("input[name='rNo'][value="+replyNo+"]").next().val();
         	if(prevSecret == 'Y'){
         		$("#replySecret").prop("checked","true");
         	}
@@ -647,9 +647,8 @@ button:focus{
         	var updateCancel = '<button class="time rbtn pr-2 float-right cancelBtn" name="cancelBtn" style="font-size:12px;">수정취소</button>';
         	//$(this).parent().append(updateCancel);
         	//$(this).parent().children("button").not(".cancelBtn").remove();
-        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(updateCancel);
-        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
-        	
+        	$("input[name='rNo'][value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(updateCancel);
+        	$("input[name='rNo'][value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
 		});
 		
 		// 댓글수정, 답댓글 취소
@@ -702,11 +701,12 @@ button:focus{
 			var replyNo = $(this).parent().parent().parent().children("input").eq(0).val();
 			if($('.commenting').length>=1 || $('.updating').length>=1){
 				selectRlist();
-				console.log(replyNo);
-				console.log($("input[value="+replyNo+"]"));
+				//console.log(replyNo);
+				//console.log($("input[value="+replyNo+"]"));
 				$('.commenting').removeClass('commenting');
 			}else{
 				$(this).parent().parent().parent().addClass('commenting');
+				//console.log(replyNo);
 			}
 			
 			// 답글폼
@@ -731,13 +731,14 @@ button:focus{
 	        	'</div>';
 	        	
 			//var prevP = $(this).parent().parent().parent();
-        	$("input[value="+replyNo+"]").parent().parent().addClass("commenting");
-        	var prevLi = $("input[value="+replyNo+"]").parent();
+			console.log($("input[name='rNo'][value="+replyNo+"]"));
+        	$("input[name='rNo'][value="+replyNo+"]").parent().addClass("commenting");
+        	var prevLi = $("input[name='rNo'][value="+replyNo+"]").parent();
         	prevLi.after(reReplyArea);
         	
         	var reCancel = '<button class="time rbtn pr-2 float-right cancelBtn" name="cancelBtn" style="font-size:12px;">댓글 취소</button>';
-        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(reCancel);
-        	$("input[value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
+        	$("input[name='rNo'][value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).append(reCancel);
+        	$("input[name='rNo'][value="+replyNo+"]").siblings("div").eq(1).children("div").eq(0).children("button").not(".cancelBtn").remove();
 		});
 		
 		
@@ -943,16 +944,6 @@ button:focus{
      		$("#replyModal").find("input[name=reportCategory]").val($reportCategory);
      	}
      	
-		$(function() {
-			$("#replyBtn").click(function() {
-				window.opener.location.reload();
-				window.close();
-				location.replace("receiveList.jsp");
-			}).mouseenter(function() {
-				$(this).parent().css("cursor", "pointer");
-			});
-
-		});
   		$(function(){
 	    	$(".nickname").mouseenter(function(){
 	   			$(this).css("cursor", "pointer");	
@@ -974,9 +965,6 @@ button:focus{
 				$(this).css("cursor", "pointer");
 			});
 		}); 
-		
-		
-		
      		
      	
      </script>
