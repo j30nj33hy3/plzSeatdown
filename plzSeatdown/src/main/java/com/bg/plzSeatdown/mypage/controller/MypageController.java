@@ -374,7 +374,11 @@ public class MypageController {
 					// 게시글 목록 조회
 					List<SeatReview> list = mypageService.selectRlist(pInf, memberNo);
 					
-					List<ReviewImageEH> rimgList = mypageService.selectRimglist(list);
+					if(!list.isEmpty()) { // 비어있거나 널이 아닐떄
+						List<ReviewImageEH> rimgList = mypageService.selectRimglist(list);
+						model.addAttribute("rimgList",rimgList);
+					}
+					
 					
 			/*
 			 * int i = 0;
@@ -388,7 +392,6 @@ public class MypageController {
 					Profile profile = mypageService.selectMypageProf(memberNo);
 					
 					model.addAttribute("list",list);
-					model.addAttribute("rimgList",rimgList);
 					model.addAttribute("profile",profile);
 					model.addAttribute("pInf",pInf);
 					
