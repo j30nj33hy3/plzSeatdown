@@ -51,7 +51,7 @@
 								</c:if>
 							</div>
 							<div class="form-group form-inline mb-7">
-								<label for="showList">공연</label>
+								<label for="showList">공연(선택)</label>
 								<select id="showList" name="showCode">
 									<c:choose>
 										<c:when test="${!empty rWrite}">
@@ -171,20 +171,27 @@
 								<textarea id="reviewComment" name="reviewComment"></textarea>
 							</div>
 							
-							<div class="form-group form-inline mb-7">
-								<label for="exampleInputFile">
-									좌석 사진(선택)
-								</label>
-								<div class="Img">
+							<div class="form-row mb-4">
+								<div class="col-md-3">
+									<label for="exampleInputFile">
+										좌석 사진(선택)
+									</label>
+									<a id="deleteImg" style="color:#fff" class="btn btn-sm btn-warning"><i class="far fa-trash-alt"></i> 삭제</a>
+								</div>
+								
+								<div class="Img" style="border: 1px solid #aaa">
 									<img id="seatImg">
 								</div>
 							</div>
 
-							<div class="form-group form-inline mb-7">
-								<label for="exampleInputFile">
-									티켓 사진(선택)
-								</label>
-								<div class="Img">
+							<div class="form-row mb-4">
+								<div class="col-md-3">
+									<label for="exampleInputFile">
+										티켓 사진(선택)
+									</label>
+									<a id="deleteImg2" style="color:#fff" class="btn btn-sm btn-warning"><i class="far fa-trash-alt"></i> 삭제</a>
+								</div>
+								<div class="Img" style="border: 1px solid #aaa">
 									<img id="ticketImg">
 								</div>
 							</div>
@@ -300,6 +307,15 @@
 						reader.readAsDataURL(value.files[0]);
 					}
 				}
+				
+				$("#deleteImg").click(function(){
+					$("#seatImg").attr("src","${contextPath}/resources/reviewImages/default_review2.png");
+					$("#seatFile").val("");
+				});
+				$("#deleteImg2").click(function(){
+					$("#ticketImg").attr("src","${contextPath}/resources/reviewImages/default_review2.png");
+					$("#ticketFile").val("");
+				});
 					
 				// 이미지 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function () {
