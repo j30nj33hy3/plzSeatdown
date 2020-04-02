@@ -643,7 +643,7 @@
 									var seatVal = seatValue;
 									today = yyyy+mm+dd;
 								
-									var writingBtn = "<a class='float-right text-muted mr-2 ml-2' href='writeForm?thNm="+thNm+
+									var writingBtn = "<a class='float-right text-muted mr-2 ml-2' style='font-size:1.5em;' href='writeForm?thNm="+thNm+
 											"&thCd="+thCd+"&showCode="+showCode+"&viewDt="+today+"&seatVal="+seatVal+"');'><i class='fas fa-pencil-alt'></i></a>";
 									$("#title").prepend(writingBtn);
 									$.ajax({

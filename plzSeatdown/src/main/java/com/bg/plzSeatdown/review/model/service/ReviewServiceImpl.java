@@ -388,6 +388,15 @@ public class ReviewServiceImpl implements ReviewService{
 				file.setReviewNo(review.getReviewNo());
 				insertList.add(file);
 			}
+		}else {
+			if(beforeSeat != null) {
+				int deleteSeat = reviewDAO.deleteImg(beforeSeat.getReviewImageNo());
+				if(deleteSeat > 0) {
+					File deleteFile = new File(savePath+"/"+beforeSeat.getReviewImagePath());
+					deleteFile.delete();
+				}
+				
+			}
 		}
 
 		// 새롭게 등록된 티켓 사진 확인
@@ -405,6 +414,15 @@ public class ReviewServiceImpl implements ReviewService{
 				file.setImageType(1);
 				file.setReviewNo(review.getReviewNo());
 				insertList.add(file);
+			}
+		}else {
+			if(beforeTicket != null) {
+				int deleteTicket = reviewDAO.deleteImg(beforeTicket.getReviewImageNo());
+				if(deleteTicket > 0) {
+					File deleteFile = new File(savePath+"/"+beforeTicket.getReviewImagePath());
+					deleteFile.delete();
+				}
+				
 			}
 		}
 		
