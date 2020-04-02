@@ -27,7 +27,7 @@
             <div class="sidebarpan">
                <div class="showContent pl-3 pr-10">
                      <div id="title" class="mb-4">
-                     <h4> </h4>
+                     <h4 style="font-weight:bold;"> </h4>
                   </div>
                   <div id="seatId" class="mb-5">
                      <h5> </h5>
@@ -43,9 +43,9 @@
                                     </c:if>
                               <img class="img-circle profile-photo" src="${src1}" width="50" height="50" style="border-radius: 5em;"/>
                               <div style="display:inline-block; width:100px;" id="reviewNick"></div>
-                           <div class="reviewLikeCount heart" id="likeCount" style="float:right; position: relative;">
-                           	<img id="heartimg" src="${contextPath}/resources/images/like2.png">
-                           <span style="position : absolute; top:15px; right:33px; color:red;"><b id="reviewLike"></b></span>
+                           <div class="reviewLikeCount" id="likeCount" style="display:inline-block; float:right;">
+                           	<img id="heartimg" src="${contextPath}/resources/images/like2.png" style="position: relative;">
+                           <span style="position : absolute; top:27px; right:46px; color:red;"><b id="reviewLike"></b></span>
                            </div>
                            </div>
                            <div class="mb-4 mt-4">
@@ -314,6 +314,8 @@
                   $("#reviewComfort").text(arr[index].reviewComfort).generateStars();
                   $("#reviewLike").text(arr[index].likeCount);
                   $("#reviewComment").html(arr[index].reviewComment);
+                  
+                  console.log(arrimg[index]);
                   
                   if(arr[index].reviewWriter == "${loginMember.memberNo}"){
                 	  if(typeof (arrimg[index]) == "undefined"){

@@ -71,7 +71,7 @@
 									<c:forEach var="reply" items="${replist}" varStatus="vs">
 										<tr>
 											<td style="border-top:0px; padding-top:22px;">${reply.communityNo}</td>
-											<td style="border-top:0px; padding-top:22px;">${reply.replyContent}</td>
+											<td class="contentwrap" style="border-top:0px; padding-top:22px;">${reply.replyContent}</td>
 											<%-- <td class="contentwrap" style="border-top:0px;  height:40px; padding-top:17px;">${community.communityContent}</td> --%>
 											<td style="border-top:0px; padding-top:22px;">${reply.replyModifyDate}</td>
 											<td style="border-top:0px; padding-top:15px;">

@@ -15,7 +15,7 @@
    <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
    
    <!-- Main -->
-         <div class="wrapper style1" style="overflow:auto;">
+         <div class="wrapper style1" style="overflow:auto; ">
             <div class="container" >
                <div class="row gtr-200">
                
@@ -39,9 +39,9 @@
                   
                   <div class="col-10 col-12-mobile imp-mobile" id="content" >
                   
-                   <c:if test="${empty alist}">
+                 <%--   <c:if test="${empty alist}">
                                  <div class="col-10 col-12-mobile imp-mobile" id="content" style="text-align:center;">받은 알림이 없습니다.</div>
-                           </c:if>   
+                           </c:if>    --%>
                           
                            
                            <div class="container-fluid">
@@ -172,7 +172,7 @@
          var $element = $(this);
          var element_height = $element.outerHeight();
          var element_top_position = $element.offset().top;
-         var element_bottom_position = (element_top_position + element_height)*50;
+         var element_bottom_position = (element_top_position + element_height);
          
          //check to see if this current container is within viewport
          if ((element_bottom_position >= window_top_position) &&
