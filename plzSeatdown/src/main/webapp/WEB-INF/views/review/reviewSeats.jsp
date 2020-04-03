@@ -239,11 +239,11 @@
 									<c:when test="${theaterCode eq 'FC000001-03'}">
 										<jsp:include page="/WEB-INF/views/review/seat_concerthall_0.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_concerthall_1.jsp"/>
-										<jsp:include page="/WEB-INF/views/review/seat_concerthall_2.jsp"/>
+								<%-- 		<jsp:include page="/WEB-INF/views/review/seat_concerthall_2.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_concerthall_3.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_concerthall_4.jsp"/>
 										<jsp:include page="/WEB-INF/views/review/seat_concerthall_5.jsp"/>
-										<jsp:include page="/WEB-INF/views/review/seat_concerthall_6.jsp"/>
+										<jsp:include page="/WEB-INF/views/review/seat_concerthall_6.jsp"/> --%>
 									</c:when>
 									<c:when test="${theaterCode eq 'FC000001-05'}">
 										<jsp:include page="/WEB-INF/views/review/seat_chamber.jsp"/>
@@ -386,7 +386,7 @@
 		                <c:if test="${empty n.seatRow}">
 		                	<c:set var="row" value=""/>
 		                </c:if>
-		                <c:set var="col" value="${n.seatCol}번호"/>
+		                <c:set var="col" value="${n.seatCol}번"/>
 		                <c:if test="${empty n.seatCol}">
 		                	<c:set var="col" value=""/>
 		                </c:if>

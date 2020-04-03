@@ -123,7 +123,7 @@
 			                        </div>
 			                        <!-- 전화번호1 -->
 			                        <div class="col-md-3">
-			                            <select class="custom-select" id="phone1" name="phone1" required>
+			                            <select class="custom-select" id="phone1" name="phone1" >
 			                                <option>010</option>
 			                                <option>011</option>
 			                                <option>016</option>
@@ -134,12 +134,12 @@
                         
 			                        <!-- 전화번호2 -->
 			                        <div class="col-md-3">
-			                            <input type="number" class="form-control phone" id="phone2"  maxlength="4" name="phone2" required>
+			                            <input type="number" class="form-control phone" id="phone2"  maxlength="4" name="phone2" >
 			                        </div>
 			                        
 			                        <!-- 전화번호3 -->
 			                        <div class="col-md-3">
-			                            <input type="number" class="form-control phone" id="phone3"  maxlength="4" name="phone3" required>
+			                            <input type="number" class="form-control phone" id="phone3"  maxlength="4" name="phone3" >
 			                        </div>
 			                    </div>
 			                    <div>
@@ -363,7 +363,7 @@
                 				signUpCheck.emailDup = true;
                 			}else{
                 				$("#checkEmail").text("사용할 수 없는 이메일 계정입니다.").css("color","red");
-                				signUpCheck.emailDup = /*false*/true;
+                				signUpCheck.emailDup = false;
                 			}
                 		},
                 		

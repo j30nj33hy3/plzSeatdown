@@ -67,26 +67,25 @@
 				<c:if test="${!empty showList}">
 					<c:forEach var="show" items="${showList}" varStatus="vs">
 						<article>
-							<a href="review/seats?thCode=${show.thCode}"
-								class="image featured"><img
-								style="width: 218px; height: 280px;" src="${show.posterPath}"
-								alt="" /></a>
+							<a href="review/seats?thCode=${show.thCode}" class="image featured"><img style="width: 218px; height: 280px;" src="${show.posterPath}" alt="" /></a>
 						</article>
 					</c:forEach>
 				</c:if>
 			</div>
 		</section>
+		
 		<!--카드 시작-->
-		<div class="container mb-5">
+<!-- 		<div class="container mb-5">
 			<div class="row"></div>
-		</div>
+		</div> -->
 		<!-- 카드 끝 -->
 		<div class="mt-5 pt-3 ml-5 pl-5" style="text-align: center;">
 			<img src="${contextPath}/resources/images/recent_review.PNG"
 				style="height: 37px; left: 5px;">
 		</div><br><br>
+		
 		<!-- 최신 리뷰 -->
-		<div class="container-fluid">
+			<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
@@ -226,9 +225,148 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<div class="col-md-2"></div>
+		
+		<!-- 수정하려고했으나 실패  -->
+<%--  		<section class="carousel">
+ 			<div class="reel">
+				<div class="container d-flex justify-content-between">
+					<c:if test="${!empty showList}">
+							<c:forEach var="n" items="${nReview}">
+								<div class="card" style="width: 340px;">
+									<div class="card-content">
+										<div class="row profile">
+											<div class="col">
+												<c:set var="src"
+													value="${contextPath}/resources/images/user.png"></c:set>
+												<c:if test="${! empty n.profilePath }">
+													<c:set var="src"
+														value="${contextPath}/resources/profileImages/${n.profilePath}"></c:set>
+												</c:if>
+												<img class="img-circle profile-photo" src="${src}" style="width: 30px !important; height:30px !important; border-radius: 5em;"> 
+												<span style="display: none;" name="spanId">${n.memberId }</span> 
+												<span style="display: none;" name="spanNo">${n.reviewWriter }</span>
+												<span>${n.memberNickname}</span>
+											</div>
+											<div class="col text-right">
+												<c:choose>
+													<c:when
+														test="${!empty loginMember && loginMember.memberNo ne n.reviewWriter }">
+														<c:choose>
+															<c:when test="${n.likeStatus == 1}">
+																<div class="reviewLike heart"
+																	style="background-position: -2800px 0;"
+																	id="${n.reviewNo}" value="${n.likeStatus}"
+																	onclick="reviewLike(this);"></div>
+															</c:when>
+															<c:otherwise>
+																<div class="reviewLike heart"
+																	style="background-position: 0 0;" id="${n.reviewNo}"
+																	value="${n.likeStatus}" onclick="reviewLike(this);"></div>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<div class="reviewLike heart"></div>
+													</c:otherwise>
+												</c:choose>
+												<div class="reviewLikeCount" id="likeCount${n.reviewNo}">${n.likeCount }</div>
+											</div>
+										</div>
+										<div style="text-align: center;">${n.thName}</div>
+										<c:set var="floor" value="${n.seatFloor}층" />
+										<c:if test="${empty n.seatFloor}">
+											<c:set var="floor" value="" />
+										</c:if>
+										<c:set var="area" value="${n.seatArea}구역" />
+										<c:if test="${empty n.seatArea}">
+											<c:set var="area" value="" />
+										</c:if>
+										<c:set var="row" value="${n.seatRow}열" />
+										<c:if test="${empty n.seatRow}">
+											<c:set var="row" value="" />
+										</c:if>
+										<c:set var="col" value="${n.seatCol}번" />
+										<c:if test="${empty n.seatCol}">
+											<c:set var="col" value="" />
+										</c:if>
+										<div style="text-align: center;">${floor} ${area} ${row}
+											${col}</div>
+	
+										<div class="row starValue mb-4 mt-4">
+											<div class="col text-center">
+												<span>시야</span> <span class="nstar" style="display: block;">
+													<c:forEach var="i" begin="0" end="4" step="1">
+														<c:choose>
+															<c:when test="${i < n.reviewSight }">
+																<i class="fas fa-star"></i>
+															</c:when>
+															<c:otherwise>
+																<i class="far fa-star"></i>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</span>
+											</div>
+	
+											<div class="col text-center">
+												<span>간격</span>
+												<c:set var="nLegroom" value="${n.reviewLegroom}" />
+												<span class="nstar" style="display: block;"> <c:forEach
+														var="i" begin="0" end="4" step="1">
+														<c:choose>
+															<c:when test="${i < n.reviewLegroom }">
+																<i class="fas fa-star"></i>
+															</c:when>
+															<c:otherwise>
+																<i class="far fa-star"></i>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</span>
+											</div>
+	
+											<div class="col text-center">
+												<span>편안함</span>
+												<c:set var="nComfort" value="${n.reviewComfort}" />
+												<span class="nstar" style="display: block;"> <c:forEach
+														var="i" begin="0" end="4" step="1">
+														<c:choose>
+															<c:when test="${i < n.reviewComfort }">
+																<i class="fas fa-star"></i>
+															</c:when>
+															<c:otherwise>
+																<i class="far fa-star"></i>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</span>
+											</div>
+										</div>		
+										<div class="reviewCont">
+											<c:set var="rImg" value="default_review.png" />
+											<c:if test="${!empty n.reviewImgPath}">
+												<c:set var="rImg" value="${n.reviewImgPath}" />
+											</c:if>
+											<img id="${n.thCode}" class="img-responsive move"
+												style="height: 244px; width: 100%;"
+												src="${contextPath}/resources/reviewImages/${rImg}"
+												onclick="location.href='review/seats?thCode=${n.thCode}'" />
+	
+											<div class="mt-4 mb-3 nCont">${n.reviewComment}</div>
+											<div style="width: 310px;">
+												<c:set var="viewDt" value="${fn:split(n.reviewViewDt,'-')}" />
+												${viewDt[0]}년 ${viewDt[1]}월 ${viewDt[2]}일 관람
+											</div>
+										</div>
+									</div>
+								</div>
+						</c:forEach>
+					</c:if>
+				</div>
+			</div>
+		</section> --%>						
 	</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery.dropotron.min.js"></script>
