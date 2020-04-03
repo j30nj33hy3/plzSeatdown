@@ -350,7 +350,7 @@
 	
 	
 	<!-- 마이티켓 달력 -->
-	<!-- <select id="selectTicketList" parameterType="_int" resultMap="myReviewResultSet">
+	<select id="selectTicketList" parameterType="_int" resultMap="myReviewResultSet">
 		SELECT R.REVIEW_NO AS REVIEW_NO, REVIEW_VIEW_DT, REVIEW_IMG_PATH, THEATER_NM, SHOW_TITLE
 		FROM REVIEW R
 		JOIN SEAT USING (SEAT_CODE)
@@ -360,9 +360,9 @@
 		WHERE REVIEW_STATUS = 'Y'
 		AND REVIEW_VIEW_DT BETWEEN SHOW_START_DT AND SHOW_END_DT
 		AND REVIEW_WRITER = #{memberNo}
-	</select> -->
+	</select>
 	
-	<select id="selectTicketList" parameterType="_int" resultMap="myReviewResultSet">
+	<!-- <select id="selectTicketList" parameterType="_int" resultMap="myReviewResultSet">
 	SELECT REVIEW_NO, REVIEW_VIEW_DT, REVIEW_IMG_PATH, THEATER_NM, SHOW_TITLE
 	FROM(
 	SELECT  ROW_NUMBER() OVER(PARTITION BY  REVIEW_NO  ORDER BY SHOW_TITLE) AS RNUM,
@@ -380,7 +380,7 @@
 	WHERE REVIEW_STATUS = 'Y'
 	AND REVIEW_WRITER = #{memberNo})
 	WHERE RNUM = 1
-	</select>
+	</select> -->
 	
 	
 	
