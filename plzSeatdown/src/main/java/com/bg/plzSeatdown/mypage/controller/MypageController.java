@@ -198,8 +198,8 @@ public class MypageController {
 					else	 	  msg = "현재 비밀번호가 일치하지 않습니다";
 					 
 					
-					model.addAttribute("msg", msg);
-					//rdAttr.addFlashAttribute("msg",msg);
+					//model.addAttribute("msg", msg);
+					rdAttr.addFlashAttribute("msg",msg);
 					return "redirect:/";
 					
 				}catch(Exception e) {
