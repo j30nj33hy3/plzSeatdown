@@ -653,7 +653,7 @@
 									$.ajax({
 										url : "selectAllReview",
 										type : "POST",
-										data : {"seatValue" : seatValue, "loginMemberNo" : loginMemberNo},
+										data : {"seatValue" : seatValue, "loginMemberNo" : loginMemberNo, "thCd" : thCd},
 										success : function(seatReviewList){
 											
 											$("#review").html("");

@@ -287,7 +287,8 @@
 	<select id="selectAllReview" parameterType="SeatReview" resultMap="seatReviewResultSet">
 		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE RL WHERE V_REVIEW.REVIEW_NO = RL.REVIEW_NO AND RL.MEMBER_NO = #{likeStatus}) AS LIKE_STATUS, V_REVIEW.*
 		FROM V_REVIEW
-		WHERE SEAT_VALUE = #{seatValue}
+		WHERE THEATER_CODE = #{thCode}
+		AND SEAT_VALUE = #{seatValue}
 	</select>
 	
 	<!-- 중복 신고 확인 -->

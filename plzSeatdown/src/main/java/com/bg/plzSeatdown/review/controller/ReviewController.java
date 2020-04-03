@@ -412,11 +412,14 @@ public class ReviewController {
 	@ResponseBody
 	@RequestMapping(value="selectAllReview", produces="application/json; charset=utf-8")
 	public String selectAllReview(Model model, @RequestParam(value = "seatValue", required = false)Integer seatValue,
+												@RequestParam(value = "thCd", required = false)String thCd,
 												@RequestParam(value = "loginMemberNo", required = false)Integer loginMemberNo) {
+		
 		
 		if(loginMemberNo == null) loginMemberNo = 0;
 		
 		SeatReview review = new SeatReview(seatValue, loginMemberNo);
+		review.setThCode(thCd);
 		
 		List<SeatReview> seatReviewList = reviewService.selectAllReview(review);
 		
